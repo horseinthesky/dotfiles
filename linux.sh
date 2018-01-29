@@ -34,17 +34,17 @@ sudo apt-get -qqy install git-extras
 
 sudo pip3 install --upgrade pip
 sudo pip3 install --upgrade neovim
+sudo pip3 install --upgrade ipython
 printf "${GREEN}DONE!${NORMAL}\n"
 
 printf "${CYAN}Install Powerline...${NORMAL}\n"
 su -c 'pip install git+git://github.com/Lokaltog/powerline'
-wget https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/DroidSansMono/complete/Droid%20Sans%20Mono%20Nerd%20Font%20Complete%20Mono.otf
 
-if [ ! -d "/usr/share/fonts/" ]; then
-  sudo mkdir -p /usr/share/fonts/
+if [ ! -d "~/.local/share/fonts/" ]; then
+  sudo mkdir -p ~/.local/share/fonts/
 fi
+cd ~/.local/share/fonts && curl -fLo "DejaVu Sans Mono Nerd Font Complete.ttf" https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/DejaVuSansMono/Regular/complete/DejaVu%20Sans%20Mono%20Nerd%20Font%20Complete.ttf
+cd -
 
-sudo mv Droid\ Sans\ Mono\ Nerd\ Font\ Complete\ Mono.otf /usr/share/fonts/
-sudo fc-cache -vf
 printf "${GREEN}DONE!${NORMAL}\n"
 printf "${GREEN}COMPLETE!${NORMAL}\n"
