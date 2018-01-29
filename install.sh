@@ -6,10 +6,20 @@ YELLOW='\033[0;33m'
 SCRIPTPATH=`pwd -P`
 BACKUPPATH='~/backup/'
 
+printf "${GREEN}"
+echo "______      _    __ _ _           "
+echo "|  _  \    | |  / _(_) |          "
+echo "| | | |___ | |_| |_ _| | ___  ___ "
+echo "| | | / _ \| __|  _| | |/ _ \/ __|"
+echo "| |/ / (_) | |_| | | | |  __/\__ \\"
+echo "|___/ \___/ \__|_| |_|_|\___||___/"
+printf "${NORMAl}\n\n"
+
 mkdir ${BACKUPPATH}
 
+printf "${CYAN}Installation started...\n${NORMAL}"
 if [ "$(uname)" = 'Linux' ]; then
-  source install/linux.sh
+  source linux.sh
 
 if [ ! -d "~/.config" ]; then
   mkdir ~/.config
