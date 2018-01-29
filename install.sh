@@ -56,7 +56,7 @@ sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/i
 git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
 
 if [ -f "~/.zshrc" ]; then
-  mv ~/.zshrc ${BACKUPPATH}zshrc.back
+  mv ~/.zshrc ${BACKUPPATH}.zshrc.back
 fi
 
 ln -s ${SCRIPTPATH}/.zshrc ~/.zshrc
