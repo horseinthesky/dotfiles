@@ -47,18 +47,18 @@ if [ -f "~/.vimrc" ]; then
   mv ~/.vimrc ${BACKUPPATH}.vimrc.back
 fi
 
-if [ -f "~/.zshrc" ]; then
-  mv ~/.zshrc ${BACKUPPATH}.zshrc.back
-fi
-
 ln -s ${SCRIPTPATH}/.tmux.conf ~/.tmux.conf
-ln -s ${SCRIPTPATH}/.zshrc ~/.zshrc
 ln -s ${SCRIPTPATH}/init.vim ~/.config/nvim/init.vim
 printf "${GREEN}DONE!${NORMAL}\n"
 
 printf "${CYAN}Install oh-my-zsh and plugins...${NORMAL}\n"
 sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 sudo git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
+
+if [ -f "~/.zshrc" ]; then
+  mv ~/.zshrc ${BACKUPPATH}.zshrc.back
+fi
+ln -s ${SCRIPTPATH}/.zshrc ~/.zshrc
 
 if [ ! "$1" = '--classic-vim' ]; then
   echo "alias vim='nvim'" >> ~/.zshrc
