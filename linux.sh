@@ -10,6 +10,7 @@ git config --global user.name "horseinthesky"
 git config --global user.email pwnedbyspawn@gmail.com
 git config --global core.editor nvim
 git config --global merge.tool vimdiff
+git config --global credential.helper store
 printf "${GREEN}DONE!${NORMAL}\n"
 
 printf "${CYAN}Install apps from apt-get...${NORMAL}\n"
