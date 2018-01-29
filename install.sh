@@ -3,7 +3,7 @@ GREEN='\033[0;32m'
 CYAN='\033[0;36m'
 NORMAL='\033[0m'
 YELLOW='\033[0;33m'
-SCRIPTPATH='pwd -P'
+SCRIPTPATH=`pwd -P`
 BACKUPPATH="${HOME}/backup/"
 
 printf "${GREEN}"
