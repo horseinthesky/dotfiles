@@ -16,6 +16,7 @@ printf "${GREEN}DONE!${NORMAL}\n"
 printf "${CYAN}Install apps from apt-get and pip...${NORMAL}\n"
 sudo apt-get -qqy install tmux
 sudo apt-get -qqy install cmake
+sudo apt-get -qqy install ctags
 sudo apt-get -qqy install python
 sudo apt-get -qqy install vim
 sudo apt-get -qqy install software-properties-common
