@@ -40,8 +40,13 @@ if [ "$(uname)" = 'Linux' ]; then
   ln -s ${SCRIPTPATH}/.tmux.conf ~/.tmux.conf
 fi
 
-mv ~/.config/nvim/init.vim ${BACKUPPATH}init.vim.back
-mv ~/.vimrc ${BACKUPPATH}.vimrc.back
+if [ -f "~/.config/nvim/init.vim" ]; then
+  mv ~/.config/nvim/init.vim ${BACKUPPATH}init.vim.back
+fi
+
+if [ -f "~/.vimrc" ]; then
+  mv ~/.vimrc ${BACKUPPATH}.vimrc.back
+fi
 
 ln -s ${SCRIPTPATH}/init.vim ~/.config/nvim/init.vim
 printf "${GREEN}DONE!${NORMAL}\n"
@@ -49,7 +54,11 @@ printf "${GREEN}DONE!${NORMAL}\n"
 printf "${CYAN}Install oh-my-zsh and plugins...${NORMAL}\n"
 sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
-mv ~/.zshrc ${BACKUPPATH}zshrc.back
+
+if [ -f "~/.zshrc" ]; then
+  mv ~/.zshrc ${BACKUPPATH}zshrc.back
+fi
+
 ln -s ${SCRIPTPATH}/.zshrc ~/.zshrc
 
 if [ ! "$1" = '--classic-vim' ]; then
