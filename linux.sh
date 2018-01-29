@@ -32,8 +32,8 @@ sudo apt-get -qqy install curl
 sudo apt-get -qqy install zsh
 sudo apt-get -qqy install git-extras
 
-pip3 install --upgrade pip
-pip3 install --upgrade neovim
+sudo pip3 install --upgrade pip
+sudo pip3 install --upgrade neovim
 printf "${GREEN}DONE!${NORMAL}\n"
 
 printf "${CYAN}Install Powerline...${NORMAL}\n"
