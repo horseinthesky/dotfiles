@@ -53,6 +53,7 @@ printf "${GREEN}DONE!${NORMAL}\n"
 
 printf "${CYAN}Install oh-my-zsh and plugins...${NORMAL}\n"
 sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+exit
 sudo git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
 
 if [ -f "~/.zshrc" ]; then
