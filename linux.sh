@@ -37,7 +37,7 @@ printf "${CYAN}Install Powerline...${NORMAL}\n"
 su -c 'pip install git+git://github.com/Lokaltog/powerline'
 wget https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/DroidSansMono/complete/Droid%20Sans%20Mono%20Nerd%20Font%20Complete%20Mono.otf
 
-if [ ! -d '/usr/share/fonts/' ]; then
+if [ ! -d "/usr/share/fonts/" ]; then
   sudo mkdir -p /usr/share/fonts/
 fi
 
