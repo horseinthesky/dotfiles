@@ -30,9 +30,6 @@ fi
 
 printf "${CYAN}Install vim plug...${NORMAL}\n"
 mv --backup=numbered ~/.config/nvim ${BACKUPPATH}/nvim.back
-if [ "$1" = '--classic-vim' ]; then
-  curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-fi
 curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 printf "${GREEN}DONE!${NORMAL}\n"
 
@@ -47,9 +44,6 @@ mv ~/.config/nvim/init.vim ${BACKUPPATH}init.vim.back
 mv ~/.vimrc ${BACKUPPATH}.vimrc.back
 
 ln -s ${SCRIPTPATH}/init.vim ~/.config/nvim/init.vim
-if [ "$1" = '--classic-vim' ]; then
-  ln -s ${SCRIPTPATH}/init.vim ~/.vimrc
-fi
 printf "${GREEN}DONE!${NORMAL}\n"
 
 printf "${CYAN}Install oh-my-zsh and plugins...${NORMAL}\n"

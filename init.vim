@@ -1,6 +1,6 @@
 " ================ VIM-PLUG PLUGINS ================
 " ==== PLUGINS ====
-call plug#begin('~/.vim/plugged')
+call plug#begin('~/.config/nvim/plugged')
 Plug 'scrooloose/nerdtree'
 Plug 'Valloric/YouCompleteMe', { 'do': './install.sh'  }
 Plug 'jiangmiao/auto-pairs'
