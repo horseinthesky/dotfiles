@@ -36,6 +36,5 @@ su -c 'pip install git+git://github.com/Lokaltog/powerline'
 wget https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/DroidSansMono/complete/Droid%20Sans%20Mono%20Nerd%20Font%20Complete%20Mono.otf
 sudo mv Droid%20Sans%20Mono%20Nerd%20Font%20Complete%20Mono.otf /usr/share/fonts/
 sudo fc-cache -vf
-sudo mv 10-powerline-symbols.conf /etc/fonts/conf.d/
 printf "${GREEN}DONE!${NORMAL}\n"
 printf "${GREEN}COMPLETE!${NORMAL}\n"

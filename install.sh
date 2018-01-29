@@ -3,8 +3,8 @@ GREEN='\033[0;32m'
 CYAN='\033[0;36m'
 NORMAL='\033[0m'
 YELLOW='\033[0;33m'
-SCRIPTPATH=`pwd -P`
-BACKUPPATH='~/backup/'
+SCRIPTPATH='pwd -P'
+BACKUPPATH="${HOME}/backup/"
 
 printf "${GREEN}"
 echo "______      _    __ _ _           "
@@ -15,15 +15,17 @@ echo "| |/ / (_) | |_| | | | |  __/\__ \\"
 echo "|___/ \___/ \__|_| |_|_|\___||___/"
 printf "${NORMAl}\n\n"
 
-mkdir ${BACKUPPATH}
+if [ ! -d $BACKUPPATH ]; then
+  mkdir ${BACKUPPATH}
+fi
 
 printf "${CYAN}Installation started...\n${NORMAL}"
 if [ "$(uname)" = 'Linux' ]; then
   source linux.sh
+fi
 
 if [ ! -d "~/.config" ]; then
-  mkdir ~/.config
-  mkdir ~/.config/nvim
+  mkdir -p ~/.config/nvim
 fi
 
 printf "${CYAN}Install vim plug...${NORMAL}\n"
