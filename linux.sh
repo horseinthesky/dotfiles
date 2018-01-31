@@ -38,7 +38,7 @@ sudo pip3 install --upgrade ipython
 printf "${GREEN}DONE!${NORMAL}\n"
 
 printf "${CYAN}Install Powerline...${NORMAL}\n"
-su -c 'pip install git+git://github.com/Lokaltog/powerline'
+su -c 'pip3 install git+git://github.com/Lokaltog/powerline'
 
 if [ ! -d "~/.local/share/fonts/" ]; then
   sudo mkdir -p ~/.local/share/fonts/
