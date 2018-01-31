@@ -166,9 +166,8 @@ let g:gundo_preview_height = 25
 set undofile
 set undodir=$HOME/.vim/tmp/undo
 
-" ==== YoCompleteMe ====
-" disable preview window popping
-set completeopt-=preview
+" ==== deoplete ====                 
+let g:deoplete#enable_at_startup = 1 
 
 " ==== Conque-Term ====
 " запуск интерпретатора на F5
