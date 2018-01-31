@@ -164,7 +164,7 @@ let g:gundo_preview_height = 25
 "let g:gundo_right = 1
 
 set undofile
-set undodir=$HOME/.vim/tmp/undo
+set undodir=$HOME/.config/nvim/tmp/undo
 
 " ==== deoplete ====                 
 let g:deoplete#enable_at_startup = 1 
