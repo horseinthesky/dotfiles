@@ -36,6 +36,7 @@ set noswapfile       " Dont' use swapfile
 set mouse-=a         " Neovim mouse disable"
 set scrolloff=5      " start scrolling 5 lines before edge of viewpoint
 set pastetoggle=<F2> " Paste mode toggle to paste code properly
+set guicursor=       " Fix for mysterious 'q' letters 
 
 function! BufNewFile_PY()
     0put = '#!/usr/bin/env python3'
