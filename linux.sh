@@ -41,7 +41,7 @@ printf "${CYAN}Install Powerline...${NORMAL}\n"
 su -c 'pip3 install git+git://github.com/Lokaltog/powerline'
 
 if [ ! -d "~/.local/share/fonts/" ]; then
-  sudo mkdir -p ~/.local/share/fonts/
+  mkdir -p ~/.local/share/fonts/
 fi
 cd ~/.local/share/fonts && curl -fLo "DejaVu Sans Mono Nerd Font Complete.ttf" https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/DejaVuSansMono/Regular/complete/DejaVu%20Sans%20Mono%20Nerd%20Font%20Complete.ttf
 cd -
