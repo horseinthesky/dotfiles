@@ -14,27 +14,42 @@ git config --global credential.helper store
 printf "${GREEN}DONE!${NORMAL}\n"
 
 printf "${CYAN}Install apps from apt-get and pip...${NORMAL}\n"
-sudo apt-get -qqy install tmux
-sudo apt-get -qqy install cmake
-sudo apt-get -qqy install ctags
-sudo apt-get -qqy install python
-sudo apt-get -qqy install vim
-sudo apt-get -qqy install software-properties-common
-sudo apt-get -qqy install python-software-properties
-sudo apt-get -qqy install ansible
-sudo apt-get -qqy install neovim
-sudo apt-get -qqy install python-dev
-sudo apt-get -qqy install python-pip
-sudo apt-get -qqy install python3-dev
-sudo apt-get -qqy install python3-pip
-sudo apt-get -qqy install silversearcher-ag
-sudo apt-get -qqy install curl
-sudo apt-get -qqy install zsh
-sudo apt-get -qqy install git-extras
+apt=(
+  tmux
+  cmake
+	ctags                         
+	python                        
+	vim                           
+	software-properties-common    
+	python-software-properties    
+	ansible                       
+	neovim                        
+	python-dev                    
+	python-pip                    
+	python3-dev                   
+	python3-pip                   
+	silversearcher-ag             
+	curl                          
+	zsh                           
+	git-extras                    
+)
 
-sudo pip3 install --upgrade pip
-sudo pip3 install --upgrade neovim
-sudo pip3 install --upgrade ipython
+pip=(
+  pip
+  neovim
+  ipython
+)
+
+for program in $apt
+do
+  sudo apt-get -qqy install $program
+done
+
+for program in $pip
+do
+  sudo pip3 install --upgrade $program
+done
+
 printf "${GREEN}DONE!${NORMAL}\n"
 
 printf "${CYAN}Install Powerline...${NORMAL}\n"
