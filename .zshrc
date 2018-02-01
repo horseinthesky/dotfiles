@@ -93,4 +93,4 @@ if [ -f /usr/local/lib/python2.7/dist-packages/powerline/bindings/zsh/powerline.
     source /usr/local/lib/python2.7/dist-packages/powerline/bindings/zsh/powerline.zsh
 fi
 
-alias vi="/usr/bin/zsh"
+alias vi="/usr/bin/nvim"
