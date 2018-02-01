@@ -57,16 +57,17 @@ printf "${GREEN}DONE!${NORMAL}\n"
 
 printf "${CYAN}Install oh-my-zsh and plugins...${NORMAL}\n"
 sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
+exit
 
-echo $HOME
-echo $BACKUPPATH
-echo $SCRIPTPATH
 if [ -f "${HOME}/.zshrc" ]; then
   mv ~/.zshrc ${BACKUPPATH}/.zshrc.back
 fi
 ln -s ${SCRIPTPATH}/.zshrc ~/.zshrc
 
 chsh -s $(which zsh)
+
+env zsh
+git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
+
 printf "${GREEN}DONE!${NORMAL}\n"
 printf "${GREEN}COMPLETE!${NORMAL}\n"
