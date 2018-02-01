@@ -64,9 +64,7 @@ fi
 ln -s ${SCRIPTPATH}/.zshrc ~/.zshrc
 
 chsh -s $(which zsh)
-
 env zsh
-git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
 
 printf "${GREEN}DONE!${NORMAL}\n"
 printf "${GREEN}COMPLETE!${NORMAL}\n"
