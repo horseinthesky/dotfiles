@@ -58,6 +58,7 @@ printf "${GREEN}DONE!${NORMAL}\n"
 printf "${CYAN}Install oh-my-zsh and plugins...${NORMAL}\n"
 sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 git clone git://github.com/zsh-users/zsh-autosuggestions $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+git clone https://github.com/bhilburn/powerlevel9k.git $HOME/.oh-my-zsh/custom/themes/powerlevel9k
 
 if [ -f "${HOME}/.zshrc" ]; then
   mv ~/.zshrc ${BACKUPPATH}/.zshrc.back
