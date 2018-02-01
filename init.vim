@@ -17,7 +17,6 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'sjl/gundo.vim'
 Plug 'lepture/vim-jinja'
-Plug 'nathanalderson/yang.vim'
 
 " ==== PLUIGIN THEMES ====
 Plug 'morhetz/gruvbox'

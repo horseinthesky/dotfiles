@@ -34,6 +34,10 @@ pip=(
   pip
   neovim
   ipython
+  flake8
+  pep8
+  pylint
+  pycodestyle
 )
 
 for program in ${apt[@]}
