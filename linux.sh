@@ -17,21 +17,21 @@ printf "${CYAN}Install apps from apt-get and pip...${NORMAL}\n"
 apt=(
   tmux
   cmake
-  ctags                         
-  python                        
-  vim                           
-	software-properties-common    
-	python-software-properties    
-	ansible                       
-	neovim                        
-	python-dev                    
-	python-pip                    
-	python3-dev                   
-	python3-pip                   
-	silversearcher-ag             
-	curl                          
-	zsh                           
-	git-extras                    
+  ctags
+  silversearcher-ag
+  python
+  vim
+  software-properties-common
+  python-software-properties
+  ansible
+  neovim
+  python-dev
+  python-pip
+  python3-dev
+  python3-pip
+  curl
+  zsh
+  git-extras
 )
 
 pip=(
