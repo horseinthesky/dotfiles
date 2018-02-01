@@ -84,8 +84,8 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
 " ==== TAB ====
-set tabstop=4        " 4 whitespaces for tabs visual presentation
-set shiftwidth=4     " shift lines by 4 spaces
+set tabstop=2        " 4 whitespaces for tabs visual presentation
+set shiftwidth=2     " shift lines by 4 spaces
 set smarttab         " set tabs for a shifttabs logic
 set expandtab        " expand tabs into spaces
 set smartindent
@@ -96,7 +96,7 @@ if has('autocmd')
         autocmd!
         autocmd FileType yaml            set sw=2 ts=2
         autocmd FileType json            set sw=2 ts=2
-        autocmd FileType vim             set sw=4 ts=4
+        autocmd FileType vim             set sw=2 ts=2
         autocmd FileType python          set sw=4 ts=4
         autocmd FileType yang            set sw=2 ts=2
         autocmd BufRead, BufNewFile *.j2 set ft=jinja
