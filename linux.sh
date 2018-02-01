@@ -17,9 +17,9 @@ printf "${CYAN}Install apps from apt-get and pip...${NORMAL}\n"
 apt=(
   tmux
   cmake
-	ctags                         
-	python                        
-	vim                           
+  ctags                         
+  python                        
+  vim                           
 	software-properties-common    
 	python-software-properties    
 	ansible                       
