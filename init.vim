@@ -124,7 +124,7 @@ let g:tagbar_autofocus = 1
 " ==== NERDTREE ====
 map <C-t> :NERDTreeToggle<CR>
 let NERDTreeIgnore=['\~$', '\.pyc$', '\.pyo$', '\.class$', 'pip-log\.txt$', '\.o$']
-
+let NERDTreeShowHidden=1
 
 " ==== Easymotion ====
 let g:EasyMotion_do_mapping = 0
