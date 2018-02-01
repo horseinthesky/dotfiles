@@ -24,16 +24,20 @@ if [ "$(uname)" = 'Linux' ]; then
   source linux.sh
 fi
 
-if [ ! -d "~/.config" ]; then
-  mkdir -p ~/.config/nvim
+if [ -d "~/.config" ]; then
+  mv --backup=numbered ~/.config/nvim ${BACKUPPATH}/nvim.back
 fi
+mkdir -p ~/.config/nvim
 
 printf "${CYAN}Install vim plug...${NORMAL}\n"
-mv --backup=numbered ~/.config/nvim ${BACKUPPATH}/nvim.back
 curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 printf "${GREEN}DONE!${NORMAL}\n"
 
-printf "${CYAN}Create symlinks to .tmux.conf and init.vim...${NORMAL}\n"
+printf "${CYAN}Backup cfgs and create symlinks to .tmux.conf and init.vim...${NORMAL}\n"
+
+if [ -f "~/.bashrc" ]; then
+  mv ~/.bashrc ${BACKUPPATH}.bashrc.back
+fi
 
 if [ -f "~/.tmux.conf" ]; then
   mv ~/.tmux.conf ${BACKUPPATH}.tmux.conf.back
