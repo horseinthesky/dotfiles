@@ -41,13 +41,11 @@ pip=(
   pycodestyle
 )
 
-for program in ${apt[@]}
-do
+for program in ${apt[@]}; do
   sudo apt-get -qqy install $program
 done
 
-for program in ${pip[@]}
-do
+for program in ${pip[@]}; do
   sudo pip3 install --upgrade $program
 done
 
