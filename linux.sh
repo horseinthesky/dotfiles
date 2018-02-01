@@ -19,14 +19,10 @@ apt=(
   cmake
   ctags
   silversearcher-ag
-  python
-  vim
   software-properties-common
-  python-software-properties
+  python3-software-properties
   ansible
   neovim
-  python-dev
-  python-pip
   python3-dev
   python3-pip
   curl
