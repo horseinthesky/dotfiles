@@ -18,6 +18,7 @@ apt=(
   tmux
   cmake
   ctags
+  libyaml-perl
   silversearcher-ag
   software-properties-common
   python3-software-properties
