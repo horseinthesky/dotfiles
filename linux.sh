@@ -36,12 +36,12 @@ pip=(
   ipython
 )
 
-for program in $apt
+for program in ${apt[@]}
 do
   sudo apt-get -qqy install $program
 done
 
-for program in $pip
+for program in ${pip[@]}
 do
   sudo pip3 install --upgrade $program
 done
