@@ -88,9 +88,9 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-if [ -f /usr/local/lib/python2.7/dist-packages/powerline/bindings/zsh/powerline.zsh ]; then
+if [ -f /usr/local/lib/python3.5/dist-packages/powerline/bindings/zsh/powerline.zsh ]; then
     powerline-daemon -q
-    source /usr/local/lib/python2.7/dist-packages/powerline/bindings/zsh/powerline.zsh
+    source /usr/local/lib/python3.5/dist-packages/powerline/bindings/zsh/powerline.zsh
 fi
 
 alias vi="/usr/bin/nvim"
