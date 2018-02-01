@@ -59,6 +59,8 @@ printf "${CYAN}Install oh-my-zsh and plugins...${NORMAL}\n"
 sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
 
+echo $BACKUPPATH
+echo $SCRIPTPATH
 if [ -f "~/.zshrc" ]; then
   mv ~/.zshrc ${BACKUPPATH}.zshrc.back
 fi
