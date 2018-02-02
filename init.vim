@@ -183,9 +183,10 @@ set undodir=$HOME/.config/nvim/tmp/undo
 
 " ==== deoplete ====                 
 let g:deoplete#enable_at_startup = 1 
+let g:deoplete#disable_auto_complete = 1
 
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <TAB> completion
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : deoplete#manual_complete()
 
 " ==== Conque-Term ====
 " запуск интерпретатора на F5
