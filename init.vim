@@ -2,7 +2,7 @@
 " ==== PLUGINS ====
 call plug#begin('~/.config/nvim/plugged')
 Plug 'scrooloose/nerdtree'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'Valloric/YouCompleteMe' , { 'do': './install.py' }
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
