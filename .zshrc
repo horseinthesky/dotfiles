@@ -1,6 +1,7 @@
 #" gruvbox colors fix
 source "$HOME/.config/nvim/plugged/gruvbox/gruvbox_256palette.sh"
 
+alias vi="/usr/bin/nvim"
 export TERM="xterm-256color"
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
@@ -11,7 +12,8 @@ export ZSH=/home/horseinthesky/.oh-my-zsh
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="agnoster"
+POWERLEVEL9K_MODE='nerdfont-complete'
+ZSH_THEME="powerlevel9k/powerlevel9k"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -88,9 +90,27 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-if [ -f /usr/local/lib/python3.5/dist-packages/powerline/bindings/zsh/powerline.zsh ]; then
-    powerline-daemon -q
-    source /usr/local/lib/python3.5/dist-packages/powerline/bindings/zsh/powerline.zsh
-fi
+# ==== Powerleve9k Settings ====
+# Environment
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(host user dir)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(vcs)
+POWERLEVEL9K_DIR_PATH_SEPARATOR="%F{red} $(print_icon 'LEFT_SUBSEGMENT_SEPARATOR') %F{black}"
 
-alias vi="/usr/bin/nvim"
+# Host block settings
+POWERLEVEL9K_HOST_ICON="\uF109"
+POWERLEVEL9K_SSH_ICON="\uF489"
+POWERLEVEL9K_HOST_LOCAL_BACKGROUND='166'
+POWERLEVEL9K_HOST_REMOTE_BACKGROUND='166'
+POWERLEVEL9K_HOST_LOCAL_FOREGROUND='179'
+POWERLEVEL9K_HOST_REMOTE_FOREGROUND='179'
+
+# User block settings
+POWERLEVEL9K_USER_DEFAULT_BACKGROUND='096'
+POWERLEVEL9K_USER_DEFAULT_FOREGROUND='007'
+POWERLEVEL9K_USER_ROOT_BACKGROUND='052'
+POWERLEVEL9K_USER_ROOT_FOREGROUND='white'
+
+# Home block settings
+POWERLEVEL9K_HOME_ICON=''
+POWERLEVEL9K_HOME_SUB_ICON=''
+POWERLEVEL9K_FOLDER_ICON=''
