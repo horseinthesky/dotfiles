@@ -184,6 +184,9 @@ set undodir=$HOME/.config/nvim/tmp/undo
 " ==== deoplete ====                 
 let g:deoplete#enable_at_startup = 1 
 
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+
 " ==== Conque-Term ====
 " запуск интерпретатора на F5
 nnoremap <F5> :ConqueTermSplit ipython<CR>
