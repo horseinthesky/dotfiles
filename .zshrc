@@ -1,7 +1,6 @@
 #" gruvbox colors fix
 source "$HOME/.config/nvim/plugged/gruvbox/gruvbox_256palette.sh"
 
-alias vi="/usr/bin/nvim"
 export TERM="xterm-256color"
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
@@ -90,11 +89,27 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+alias vi="/usr/bin/nvim"
+alias suroot='sudo -E -s'
+
 # ==== Powerleve9k Settings ====
+# Detect SSH connection
+zsh_detect_ssh(){
+    local color='%F{yellow}'
+    if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
+        echo -n "%{$color%}\uF489 $HOST"
+    fi
+}
+
+POWERLEVEL9K_CUSTOM_DETECT_SSH="zsh_detect_ssh"
+POWERLEVEL9K_CUSTOM_DETECT_SSH_BACKGROUND="166"
+POWERLEVEL9K_CUSTOM_DETECT_SSH_FOREGROUND="179"
+
 # Environment
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(host user dir)
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(custom_detect_ssh user dir dir_writable)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(vcs)
 POWERLEVEL9K_DIR_PATH_SEPARATOR="%F{red} $(print_icon 'LEFT_SUBSEGMENT_SEPARATOR') %F{black}"
+OWERLEVEL9K_DIR_SHOW_WRITABLE="true"
 
 # Host block settings
 POWERLEVEL9K_HOST_ICON="\uF109"
@@ -105,6 +120,8 @@ POWERLEVEL9K_HOST_LOCAL_FOREGROUND='179'
 POWERLEVEL9K_HOST_REMOTE_FOREGROUND='179'
 
 # User block settings
+POWERLEVEL9K_USER_ICON="\uF415" # 
+POWERLEVEL9K_ROOT_ICON="#"
 POWERLEVEL9K_USER_DEFAULT_BACKGROUND='096'
 POWERLEVEL9K_USER_DEFAULT_FOREGROUND='007'
 POWERLEVEL9K_USER_ROOT_BACKGROUND='052'
