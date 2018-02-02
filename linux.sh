@@ -21,9 +21,11 @@ apt=(
   libyaml-perl
   silversearcher-ag
   software-properties-common
-  python3-software-properties
+  python-software-properties
   ansible
   neovim
+  python-pip
+  python-dev
   python3-dev
   python3-pip
   curl
