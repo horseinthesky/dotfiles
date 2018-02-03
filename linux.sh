@@ -63,4 +63,3 @@ curl -fLo "DejaVu Sans Mono Nerd Font Complete.ttf" https://github.com/ryanoasis
 mv DejaVu\ Sans\ Mono\ Nerd\ Font\ Complete.ttf $HOME/.local/share/fonts/
 
 printf "${GREEN}DONE!${NORMAL}\n"
-printf "${GREEN}COMPLETE!${NORMAL}\n"
