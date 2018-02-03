@@ -66,7 +66,6 @@ fi
 ln -s ${SCRIPTPATH}/.zshrc ~/.zshrc
 
 chsh -s $(which zsh)
-env zsh
 
 printf "${GREEN}DONE!${NORMAL}\n"
 printf "${GREEN}COMPLETE!${NORMAL}\n"
