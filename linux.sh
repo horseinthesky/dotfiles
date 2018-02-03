@@ -33,6 +33,7 @@ apt=(
 
 pip=(
   pip
+  ansible
   neovim
   ipython
   flake8
