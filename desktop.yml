@@ -1,0 +1,42 @@
+---
+- hosts: localhost
+  become: true
+  pre_tasks:
+    - name: "Add repos"
+      apt_repository:
+        repo: "{{ item }}"
+      with_items:
+        - "ppa:ansible/ansible"
+        - "ppa:neovim-ppa/unstable"
+  
+  tasks:
+    - name: "Install apt packages"
+      apt:
+        name: "{{ item }}"
+        state: latest
+      with_items:
+        - tmux
+        - cmake
+        - ctags
+        - libyaml-perl
+        - silversearcher-ag
+        - software-properties-common
+        - python3-software-properties
+        - ansible
+        - neovim
+        - curl
+        - zsh
+        - git-extras
+    - name: "Install pip packages"
+      pip:
+        name: "{{ item }}"
+        state: latest
+      with_items:
+        - pip
+        - ansible
+        - neovim
+        - ipython
+        - flake8
+        - pep8
+        - pylint
+        - pycodestyle
