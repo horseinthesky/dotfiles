@@ -47,7 +47,7 @@ for program in ${apt[@]}; do
 done
 
 for program in ${pip[@]}; do
-  sudo pip3 install --upgrade $program
+  sudo pip install --upgrade $program
 done
 
 printf "${GREEN}DONE!${NORMAL}\n"
