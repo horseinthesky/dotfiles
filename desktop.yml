@@ -6,8 +6,8 @@
       apt_repository:
         repo: "{{ item }}"
       with_items:
-        - "ppa:ansible/ansible"
-        - "ppa:neovim-ppa/unstable"
+        - ppa:ansible/ansible
+        - ppa:neovim-ppa/unstable
   
   tasks:
     - name: "Install apt packages"
