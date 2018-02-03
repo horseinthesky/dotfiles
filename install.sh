@@ -3,7 +3,7 @@ GREEN='\033[0;32m'
 CYAN='\033[0;36m'
 NORMAL='\033[0m'
 YELLOW='\033[0;33m'
-SCRIPTPATH=`pwd -P`
+FILESPATH=`pwd -P`/files
 BACKUPPATH="${HOME}/backup"
 
 printf "${GREEN}"
@@ -51,8 +51,8 @@ if [ -f "${HOME}/.vimrc" ]; then
   mv ~/.vimrc ${BACKUPPATH}/.vimrc.back
 fi
 
-ln -s ${SCRIPTPATH}/.tmux.conf ~/.tmux.conf
-ln -s ${SCRIPTPATH}/init.vim ~/.config/nvim/init.vim
+ln -s ${FILESPATH}/.tmux.conf ~/.tmux.conf
+ln -s ${FILESPATH}/init.vim ~/.config/nvim/init.vim
 printf "${GREEN}DONE!${NORMAL}\n"
 
 printf "${CYAN}Install oh-my-zsh and plugins...${NORMAL}\n"
@@ -63,7 +63,7 @@ git clone https://github.com/bhilburn/powerlevel9k.git $HOME/.oh-my-zsh/custom/t
 if [ -f "${HOME}/.zshrc" ]; then
   mv ~/.zshrc ${BACKUPPATH}/.zshrc.back
 fi
-ln -s ${SCRIPTPATH}/.zshrc ~/.zshrc
+ln -s ${FILESPATH}/.zshrc ~/.zshrc
 
 chsh -s $(which zsh)
 
