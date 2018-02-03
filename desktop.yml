@@ -27,6 +27,7 @@
         - curl
         - zsh
         - git-extras
+
     - name: "Install pip packages"
       pip:
         name: "{{ item }}"
