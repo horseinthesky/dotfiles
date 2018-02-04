@@ -15,6 +15,22 @@ echo "| |/ / (_) | |_| | | | |  __/\__ \\"
 echo "|___/ \___/ \__|_| |_|_|\___||___/"
 printf "${NORMAl}\n\n"
 
+printf "${CYAN}Installing packages...\n${NORMAL}"
+if [ "$(uname)" = 'Linux' ]; then
+  source linux.sh
+fi
+printf "${GREEN}DONE!${NORMAL}\n"
+
+printf "${CYAN}Install vim plug...${NORMAL}\n"
+curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+printf "${GREEN}DONE!${NORMAL}\n"
+
+printf "${CYAN}Install oh-my-zsh and plugins...${NORMAL}\n"
+sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+git clone git://github.com/zsh-users/zsh-autosuggestions $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+git clone https://github.com/bhilburn/powerlevel9k.git $HOME/.oh-my-zsh/custom/themes/powerlevel9k
+printf "${GREEN}DONE!${NORMAL}\n"
+
 printf "${CYAN}Making backup folder...\n${NORMAL}"
 if [ ! -d $BACKUPPATH ]; then
   mkdir ${BACKUPPATH}
@@ -46,22 +62,6 @@ fi
 if [ -f "${HOME}/.zshrc" ]; then
   mv ~/.zshrc ${BACKUPPATH}/.zshrc.back
 fi
-printf "${GREEN}DONE!${NORMAL}\n"
-
-printf "${CYAN}Installing packages...\n${NORMAL}"
-if [ "$(uname)" = 'Linux' ]; then
-  source linux.sh
-fi
-printf "${GREEN}DONE!${NORMAL}\n"
-
-printf "${CYAN}Install vim plug...${NORMAL}\n"
-curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-printf "${GREEN}DONE!${NORMAL}\n"
-
-printf "${CYAN}Install oh-my-zsh and plugins...${NORMAL}\n"
-sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-git clone git://github.com/zsh-users/zsh-autosuggestions $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions
-git clone https://github.com/bhilburn/powerlevel9k.git $HOME/.oh-my-zsh/custom/themes/powerlevel9k
 printf "${GREEN}DONE!${NORMAL}\n"
 
 printf "${CYAN}Creating symlinks...${NORMAL}\n"
