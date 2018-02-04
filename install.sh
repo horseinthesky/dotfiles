@@ -35,28 +35,28 @@ printf "${GREEN}DONE!${NORMAL}\n"
 
 printf "${CYAN}Backing things up...\n${NORMAL}"
 if [ -d "${HOME}/.config" ]; then
-  mv --backup=numbered ~/.config/nvim ${BACKUPPATH}/nvim.back
+  mv --backup=numbered ~/.config/nvim ${BACKUPPATH}/nvim.backup
 fi
 mkdir -p ~/.config/nvim
 
 if [ -f "${HOME}/.bashrc" ]; then
-  mv --backup=numbered ~/.bashrc ${BACKUPPATH}/.bashrc.back
+  mv --backup=numbered ~/.bashrc ${BACKUPPATH}/.bashrc.backup
 fi
 
 if [ -f "${HOME}/.tmux.conf" ]; then
-  mv --backup=numbered ~/.tmux.conf ${BACKUPPATH}/.tmux.conf.back
+  mv --backup=numbered ~/.tmux.conf ${BACKUPPATH}/.tmux.conf.backup
 fi
 
 if [ -f "${HOME}/.config/nvim/init.vim" ]; then
-  mv --backup=numbered ~/.config/nvim/init.vim ${BACKUPPATH}/init.vim.back
+  mv --backup=numbered ~/.config/nvim/init.vim ${BACKUPPATH}/init.vim.backup
 fi
 
 if [ -f "${HOME}/.vimrc" ]; then
-  mv --backup=numbered ~/.vimrc ${BACKUPPATH}/.vimrc.back
+  mv --backup=numbered ~/.vimrc ${BACKUPPATH}/.vimrc.backup
 fi
 
 if [ -f "${HOME}/.zshrc" ]; then
-  mv --backup=numbered ~/.zshrc ${BACKUPPATH}/.zshrc.back
+  mv --backup=numbered ~/.zshrc ${BACKUPPATH}/.zshrc.backup
 fi
 printf "${GREEN}DONE!${NORMAL}\n"
 
