@@ -66,6 +66,18 @@ ln -s ${FILESPATH}/init.vim ~/.config/nvim/init.vim
 ln -s ${FILESPATH}/.zshrc ~/.zshrc
 printf "${GREEN}DONE!${NORMAL}\n"
 
+printf "${CYAN}Install Powerline and font...${NORMAL}\n"
+sudo pip3 install git+git://github.com/Lokaltog/powerline
+
+if [ ! -d "~/.local/share/fonts/" ]; then
+  mkdir -p ~/.local/share/fonts/
+fi
+
+curl -fLo "DejaVu Sans Mono Nerd Font Complete.ttf" https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/DejaVuSansMono/Regular/complete/DejaVu%20Sans%20Mono%20Nerd%20Font%20Complete.ttf
+mv DejaVu\ Sans\ Mono\ Nerd\ Font\ Complete.ttf $HOME/.local/share/fonts/
+
+printf "${GREEN}DONE!${NORMAL}\n"
+
 printf "${CYAN}Install vim plug...${NORMAL}\n"
 curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 printf "${GREEN}DONE!${NORMAL}\n"
