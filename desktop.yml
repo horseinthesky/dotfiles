@@ -1,44 +1,55 @@
 ---
 - hosts: localhost
+  connection: local
   become: true
+  vars_files:
+    - vars.yml
   pre_tasks:
-    - name: "Add repos"
+    - name: Add repos
       apt_repository:
         repo: "{{ item }}"
       with_items:
-        - ppa:ansible/ansible
-        - ppa:neovim-ppa/unstable
-  
+        - "{{ repos }}"
+
   tasks:
-    - name: "Install apt packages"
+    - name: Install apt packages"
       apt:
         name: "{{ item }}"
         state: latest
       with_items:
-        - tmux
-        - cmake
-        - ctags
-        - libyaml-perl
-        - silversearcher-ag
-        - software-properties-common
-        - python3-software-properties
-        - ansible
-        - neovim
-        - curl
-        - zsh
-        - git-extras
+        - "{{ apt }}"
 
-    - name: "Install pip packages"
+    - name: Install pip packages
       pip:
         name: "{{ item }}"
         state: latest
         executable: pip3
       with_items:
-        - pip
-        - ansible
-        - neovim
-        - ipython
-        - flake8
-        - pep8
-        - pylint
-        - pycodestyle
+        - "{{ pip }}"
+
+    - name: Install oh-my-zsh and plugins
+      raw: "{{ item }}"
+      with_items:
+        - sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+        - git clone git://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+        - git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
+
+    - name: Create backup folder
+      file: path={{ backup_dest }} state=directory
+
+    - name: Backup all dirs first
+      become: false
+      command: mv "{{ item.src }}" "{{ backup_dest }}{{ item.src }}.backup"
+      ignore_errors: yes
+      with_items:
+        - "{{ dirs }}"
+
+    - name: Backup all configs
+      become: false
+      ignore_errors: yes
+      command: mv "{{ item.dest }}" "{{ backup_dest }}{{ item.dest }}.backup"
+      with_items:
+
+
+
+

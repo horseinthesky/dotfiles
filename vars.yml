@@ -1,0 +1,46 @@
+---
+repos:
+  - ppa:ansible/ansible
+  - ppa:neovim-ppa/unstable
+
+apt:
+  - tmux
+  - cmake
+  - ctags
+  - libyaml-perl
+  - silversearcher-ag
+  - software-properties-common
+  - python3-software-properties
+  - ansible
+  - neovim
+  - curl
+  - zsh
+  - git-extras
+
+pip:
+  - pip
+  - ansible
+  - neovim
+  - ipython
+  - flake8
+  - pep8
+  - pylint
+  - pycodestyle
+
+repo_dest: ~/dotfiles
+
+backup_dest: ~/backup
+
+prefix: "{{ repo_dest }}/files"
+
+files:
+  # neovim
+  - { "src": "{{ prefix }}/init.vim", "dest": ".config/nvim/init.vim"}
+  # zshrc
+  - { "src": "{{ prefix }}/.zshrc", "dest": "~/.zshrc" }
+  # tmux
+  - { "src": "{{ prefix }}/.tmux.conf", "dest": "~/.tmux.conf" }
+
+dirs:
+  # neovim
+  - { "src": "~/.config/nvim" }
