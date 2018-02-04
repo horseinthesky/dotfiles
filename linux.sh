@@ -28,7 +28,6 @@ apt=(
   python3-pip
   curl
   zsh
-  git-extras
 )
 
 pip=(
@@ -36,6 +35,7 @@ pip=(
   ansible
   neovim
   ipython
+  netmiko
   flake8
   pep8
   pylint
