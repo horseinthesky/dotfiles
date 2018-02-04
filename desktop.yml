@@ -28,12 +28,21 @@
       with_items:
         - "{{ pip }}"
 
-    - name: Install oh-my-zsh and plugins
+    - name: Install oh-my-zsh
       raw: "{{ item }}"
+      become: true
       with_items:
         - sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-        - git clone git://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
-        - git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
+    
+    - name: Install zsh-autosuggestions
+      git:
+        repo: git://github.com/zsh-users/zsh-autosuggestions
+        dest: ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+
+    - name: Install powerlevel9k zsh theme
+      git:
+       repo: https://github.com/bhilburn/powerlevel9k.git
+       dest: ~/.oh-my-zsh/custom/themes/powerlevel9k
 
     - name: Create backup folder
       file: path={{ backup_dest }} state=directory
