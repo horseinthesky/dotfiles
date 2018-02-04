@@ -35,11 +35,11 @@ prefix: "{{ repo_dest }}/files"
 
 files:
   # neovim
-  - { "src": "{{ prefix }}/init.vim", "dest": ".config/nvim/init.vim"}
+  - { "name": "init.vim", "src": "{{ prefix }}/init.vim", "dest": ".config/nvim/init.vim"}
   # zshrc
-  - { "src": "{{ prefix }}/.zshrc", "dest": "~/.zshrc" }
+  - { "name": ".zshrc", "src": "{{ prefix }}/.zshrc", "dest": "~/.zshrc" }
   # tmux
-  - { "src": "{{ prefix }}/.tmux.conf", "dest": "~/.tmux.conf" }
+  - { "name": ".tmux.conf", "src": "{{ prefix }}/.tmux.conf", "dest": "~/.tmux.conf" }
 
 dirs:
   # neovim

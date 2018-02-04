@@ -48,14 +48,14 @@
       file: path={{ backup_dest }} state=directory
 
     - name: Backup all dirs first
-      command: mv "{{ item.src }}" "{{ backup_dest }}{{ item.src }}.backup"
+      command: mv "{{ item.src }}" "{{ backup_dest }}{{ item.name }}.backup"
       ignore_errors: yes
       with_items:
         - "{{ dirs }}"
 
     - name: Backup all configs
       ignore_errors: yes
-      command: mv "{{ item.dest }}" "{{ backup_dest }}{{ item.dest }}.backup"
+      command: mv "{{ item.dest }}" "{{ backup_dest }}{{ item.name }}.backup"
       with_items:
         - "{{ files }}"
 
