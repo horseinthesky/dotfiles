@@ -40,23 +40,23 @@ fi
 mkdir -p ~/.config/nvim
 
 if [ -f "${HOME}/.bashrc" ]; then
-  mv ~/.bashrc ${BACKUPPATH}/.bashrc.back
+  mv --backup=numbered ~/.bashrc ${BACKUPPATH}/.bashrc.back
 fi
 
 if [ -f "${HOME}/.tmux.conf" ]; then
-  mv ~/.tmux.conf ${BACKUPPATH}/.tmux.conf.back
+  mv --backup=numbered ~/.tmux.conf ${BACKUPPATH}/.tmux.conf.back
 fi
 
 if [ -f "${HOME}/.config/nvim/init.vim" ]; then
-  mv ~/.config/nvim/init.vim ${BACKUPPATH}/init.vim.back
+  mv --backup=numbered ~/.config/nvim/init.vim ${BACKUPPATH}/init.vim.back
 fi
 
 if [ -f "${HOME}/.vimrc" ]; then
-  mv ~/.vimrc ${BACKUPPATH}/.vimrc.back
+  mv --backup=numbered ~/.vimrc ${BACKUPPATH}/.vimrc.back
 fi
 
 if [ -f "${HOME}/.zshrc" ]; then
-  mv ~/.zshrc ${BACKUPPATH}/.zshrc.back
+  mv --backup=numbered ~/.zshrc ${BACKUPPATH}/.zshrc.back
 fi
 printf "${GREEN}DONE!${NORMAL}\n"
 
