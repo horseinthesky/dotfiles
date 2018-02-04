@@ -59,8 +59,10 @@
       with_items:
         - "{{ files }}"
 
-    - name: Create neovim directory
-      file: path={{ dirs[0].src }} state=directory
+    - name: Create dirs
+      file: path={{ item.src }} state=directory
+      with_items:
+        - "{{ dirs }}"
 
     - name: Create symlinks for all dotfiles
       file: src={{ item.src }} dest={{ item.dest }} state=link

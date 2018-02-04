@@ -27,9 +27,9 @@ pip:
   - pylint
   - pycodestyle
 
-repo_dir: ~/dotfiles
-
 backup_dir: ~/backup
+
+repo_dir: ~/dotfiles
 
 prefix: "{{ repo_dir }}/files"
 
@@ -40,6 +40,8 @@ files:
   - { "name": ".zshrc", "src": "{{ prefix }}/.zshrc", "dest": "~/.zshrc" }
   # tmux
   - { "name": ".tmux.conf", "src": "{{ prefix }}/.tmux.conf", "dest": "~/.tmux.conf" }
+  # bashrc
+  - { "name": ".bashrc", "src": "{{ prefix }}/.bashrc", "dest": "~/.bashrc" }
 
 dirs:
   # neovim
