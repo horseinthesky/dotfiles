@@ -21,10 +21,6 @@ if [ "$(uname)" = 'Linux' ]; then
 fi
 printf "${GREEN}DONE!${NORMAL}\n"
 
-printf "${CYAN}Install vim plug...${NORMAL}\n"
-curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-printf "${GREEN}DONE!${NORMAL}\n"
-
 printf "${CYAN}Install oh-my-zsh and plugins...${NORMAL}\n"
 sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 git clone git://github.com/zsh-users/zsh-autosuggestions $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions
@@ -68,6 +64,10 @@ printf "${CYAN}Creating symlinks...${NORMAL}\n"
 ln -s ${FILESPATH}/.tmux.conf ~/.tmux.conf
 ln -s ${FILESPATH}/init.vim ~/.config/nvim/init.vim
 ln -s ${FILESPATH}/.zshrc ~/.zshrc
+printf "${GREEN}DONE!${NORMAL}\n"
+
+printf "${CYAN}Install vim plug...${NORMAL}\n"
+curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 printf "${GREEN}DONE!${NORMAL}\n"
 
 printf "${CYAN}Changing user shell...${NORMAL}\n"
