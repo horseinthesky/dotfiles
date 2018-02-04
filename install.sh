@@ -34,7 +34,7 @@ fi
 printf "${GREEN}DONE!${NORMAL}\n"
 
 printf "${CYAN}Backing things up...\n${NORMAL}"
-if [ -d "${HOME}/.config" ]; then
+if [ -d "${HOME}/.config/nvim" ]; then
   mv --backup=numbered ~/.config/nvim ${BACKUPPATH}/nvim.backup
 fi
 mkdir -p ~/.config/nvim
