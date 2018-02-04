@@ -1,7 +1,6 @@
 ---
 - hosts: localhost
   connection: local
-  become: true
   vars_files:
     - vars.yml
   pre_tasks:
@@ -13,6 +12,7 @@
 
   tasks:
     - name: Install apt packages"
+      become: true
       apt:
         name: "{{ item }}"
         state: latest
@@ -20,6 +20,7 @@
         - "{{ apt }}"
 
     - name: Install pip packages
+      become: true
       pip:
         name: "{{ item }}"
         state: latest
@@ -38,23 +39,23 @@
       file: path={{ backup_dest }} state=directory
 
     - name: Backup all dirs first
-      become: false
       command: mv "{{ item.src }}" "{{ backup_dest }}{{ item.src }}.backup"
       ignore_errors: yes
       with_items:
         - "{{ dirs }}"
 
     - name: Backup all configs
-      become: false
       ignore_errors: yes
       command: mv "{{ item.dest }}" "{{ backup_dest }}{{ item.dest }}.backup"
       with_items:
         - "{{ files }}"
 
+    - name: Create neovim directory
+      file: path={{ dirs.src }} state=directory
+
     - name: Create symlinks for all dotfiles
-      become: false
       file: path={{ item.src }} dest={{ item.dest }} state=link
-      withitems:
+      with_items:
         - "{{ files }}"
 
 
