@@ -35,7 +35,9 @@ pip=(
   ansible
   neovim
   ipython
+  paramiko
   netmiko
+  pyyaml
   flake8
   pep8
   pylint
