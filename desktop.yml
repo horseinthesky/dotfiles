@@ -45,25 +45,25 @@
        dest: ~/.oh-my-zsh/custom/themes/powerlevel9k
 
     - name: Create backup folder
-      file: path={{ backup_dest }} state=directory
+      file: path={{ backup_dir }} state=directory
 
     - name: Backup all dirs first
-      command: mv "{{ item.src }}" "{{ backup_dest }}{{ item.name }}.backup"
+      command: mv "{{ item.src }}" "{{ backup_dir }}/{{ item.name }}.backup"
       ignore_errors: yes
       with_items:
         - "{{ dirs }}"
 
     - name: Backup all configs
       ignore_errors: yes
-      command: mv "{{ item.dest }}" "{{ backup_dest }}{{ item.name }}.backup"
+      command: mv "{{ item.dest }}" "{{ backup_dir }}/{{ item.name }}.backup"
       with_items:
         - "{{ files }}"
 
     - name: Create neovim directory
-      file: path={{ dirs.src }} state=directory
+      file: path={{ dirs[0].src }} state=directory
 
     - name: Create symlinks for all dotfiles
-      file: path={{ item.src }} dest={{ item.dest }} state=link
+      file: src={{ item.src }} dest={{ item.dest }} state=link
       with_items:
         - "{{ files }}"
 

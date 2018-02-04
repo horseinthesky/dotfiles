@@ -27,15 +27,15 @@ pip:
   - pylint
   - pycodestyle
 
-repo_dest: ~/dotfiles
+repo_dir: ~/dotfiles
 
-backup_dest: ~/backup
+backup_dir: ~/backup
 
-prefix: "{{ repo_dest }}/files"
+prefix: "{{ repo_dir }}/files"
 
 files:
   # neovim
-  - { "name": "init.vim", "src": "{{ prefix }}/init.vim", "dest": ".config/nvim/init.vim"}
+  - { "name": "init.vim", "src": "{{ prefix }}/init.vim", "dest": "~/.config/nvim/init.vim"}
   # zshrc
   - { "name": ".zshrc", "src": "{{ prefix }}/.zshrc", "dest": "~/.zshrc" }
   # tmux
@@ -43,4 +43,4 @@ files:
 
 dirs:
   # neovim
-  - { "src": "~/.config/nvim" }
+  - { "name": "nvim", "src": "~/.config/nvim" }
