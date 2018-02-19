@@ -1,7 +1,7 @@
 #!/bin/bash
 printf "${CYAN}Add apt repos and update...${NORMAL}\n"
 sudo apt-add-repository ppa:ansible/ansible
-sudo add-apt-repository ppa:neovim-ppa/unstable
+sudo add-apt-repository ppa:neovim-ppa/stable
 sudo apt-get -qq update
 printf "${GREEN}DONE!${NORMAL}\n"
 
