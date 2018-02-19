@@ -71,5 +71,21 @@
       with_items:
         - "{{ files }}"
 
+    - name: Install vim-plug
+      command: curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+      
+    - name: Download Dejavu Sans Mono Nerd Font
+      command: curl -fLo "DejaVu Sans Mono Nerd Font Complete.ttf" https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/DejaVuSansMono/Regular/complete/DejaVu%20Sans%20Mono%20Nerd%20Font%20Complete.ttf
+      
+    - name: Create fonts folder
+      file: path=~/.local/share/fonts/ state=directory
+      
+    - name: Move fonts to fonts folder
+      command: mv DejaVu\ Sans\ Mono\ Nerd\ Font\ Complete.ttf ~/.local/share/fonts/
 
+    - name: Setup user shell
+      user: {{ lookup('env', 'HOME') }}
+      shell: {{ lookup('env', '(which zsh') }}
+        
+      
 
