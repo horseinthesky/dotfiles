@@ -197,9 +197,9 @@ let g:ConqueTerm_CloseOnEnd = 0
 
 " ================ VISUAL SETTINGS ================
 " ==== Theme ====
-colorscheme gruvbox
 set background=dark
-let g:gruvbox_contrast_dark='hard'
+let g:gruvbox_contrast_dark='soft'
+colorscheme gruvbox
 
 " ==== NERDTree Syntax Highlight ====
 " NERDTree highlight full file name (not oly icons)
