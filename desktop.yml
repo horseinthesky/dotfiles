@@ -5,6 +5,7 @@
     - vars.yml
   pre_tasks:
     - name: Add repos
+      become: true
       apt_repository:
         repo: "{{ item }}"
       with_items:
