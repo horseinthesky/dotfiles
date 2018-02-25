@@ -84,9 +84,10 @@
       command: mv DejaVu\ Sans\ Mono\ Nerd\ Font\ Complete.ttf ~/.local/share/fonts/
 
     - name: Setup user shell
+      become: true
       user: 
-        name: {{ lookup('env', 'USER') }}
-        shell: {{ lookup('env', '(which zsh') }}
+        name: "{{ lookup('env', 'USER') }}"
+        shell: "{{ lookup('env', '(which zsh') }}"
         
       
 
