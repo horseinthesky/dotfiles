@@ -45,49 +45,49 @@
        repo: https://github.com/bhilburn/powerlevel9k.git
        dest: ~/.oh-my-zsh/custom/themes/powerlevel9k
 
-    - name: Create backup folder
-      file: path={{ backup_dir }} state=directory
-
-    - name: Backup all dirs first
-      ignore_errors: yes
-      command: mv "{{ item.src }}" "{{ backup_dir }}/{{ item.name }}.backup"
-      with_items:
-        - "{{ dirs }}"
+    - name: Create dirs
+      file: 
+        path: "{{ item.dest }}"
+        state: directory
+      with_items: "{{ dirs }}"
 
     - name: Backup all configs
       ignore_errors: yes
       command: mv "{{ item.dest }}" "{{ backup_dir }}/{{ item.name }}.backup"
       with_items:
-        - "{{ files }}"
-
-    - name: Create dirs
-      file: path={{ item.src }} state=directory
-      with_items:
-        - "{{ dirs }}"
+        - "{{ configs }}"
 
     - name: Create symlinks for all dotfiles
       ignore_errors: yes
-      file: src={{ item.src }} dest={{ item.dest }} state=link
+      file:
+        src: "{{ item.src }}"
+        dest: "{{ item.dest }}"
+        state: link
       with_items:
-        - "{{ files }}"
+        - "{{ configs }}"
 
     - name: Install vim-plug
-      command: curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+      get_url:
+        url: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+        dest: ~/.config/nvim/autoload/plug.vim
+        force: yes
       
+    - name: Check if font exists
+      stat:
+        path: ~/.local/share/fonts/
+      register: check
+
     - name: Download Dejavu Sans Mono Nerd Font
       command: curl -fLo "DejaVu Sans Mono Nerd Font Complete.ttf" https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/DejaVuSansMono/Regular/complete/DejaVu%20Sans%20Mono%20Nerd%20Font%20Complete.ttf
-      
-    - name: Create fonts folder
-      file: path=~/.local/share/fonts/ state=directory
-      
+      when: not check.stat.exists
+    
     - name: Move fonts to fonts folder
       command: mv DejaVu\ Sans\ Mono\ Nerd\ Font\ Complete.ttf ~/.local/share/fonts/
+      when: not check.stat.exists
 
     - name: Setup user shell
+      ignore_errors: yes
       become: true
       user: 
-        name: "{{ lookup('env', 'USER') }}"
-        shell: "{{ lookup('env', '(which zsh') }}"
-        
-      
-
+        name: "{{ lookup('env','USER') }}"
+        shell: /usr/bin/zsh

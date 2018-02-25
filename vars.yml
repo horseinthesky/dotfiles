@@ -32,7 +32,7 @@ repo_dir: ~/dotfiles
 
 prefix: "{{ repo_dir }}/files"
 
-files:
+configs:
   # neovim
   - { "name": "init.vim", "src": "{{ prefix }}/init.vim", "dest": "~/.config/nvim/init.vim"}
   # zshrc
@@ -41,5 +41,9 @@ files:
   - { "name": ".tmux.conf", "src": "{{ prefix }}/.tmux.conf", "dest": "~/.tmux.conf" }
 
 dirs:
+  # backup
+  - { "dest": "~/backup" }
+  # fonts
+  - { "dest": "~/.local/share/fonts" }
   # neovim
-  - { "name": "nvim", "src": "~/.config/nvim" }
+  - { "dest": "~/.config/nvim/autoload" }
