@@ -8,8 +8,7 @@
       become: true
       apt_repository:
         repo: "{{ item }}"
-      with_items:
-        - "{{ repos }}"
+      with_items: "{{ repos }}"
 
   tasks:
     - name: Install apt packages"
@@ -17,8 +16,7 @@
       apt:
         name: "{{ item }}"
         state: latest
-      with_items:
-        - "{{ apt }}"
+      with_items: "{{ apt }}"
 
     - name: Install pip packages
       become: true
@@ -26,24 +24,7 @@
         name: "{{ item }}"
         state: latest
         executable: pip3
-      with_items:
-        - "{{ pip }}"
-
-    - name: Install oh-my-zsh
-      raw: "{{ item }}"
-      become: true
-      with_items:
-        - sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-    
-    - name: Install zsh-autosuggestions
-      git:
-        repo: git://github.com/zsh-users/zsh-autosuggestions
-        dest: ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
-
-    - name: Install powerlevel9k zsh theme
-      git:
-       repo: https://github.com/bhilburn/powerlevel9k.git
-       dest: ~/.oh-my-zsh/custom/themes/powerlevel9k
+      with_items: "{{ pip }}"
 
     - name: Create dirs
       file: 
@@ -54,8 +35,8 @@
     - name: Backup all configs
       ignore_errors: yes
       command: mv "{{ item.dest }}" "{{ backup_dir }}/{{ item.name }}.backup"
-      with_items:
-        - "{{ configs }}"
+      with_items: "{{ configs }}"
+      when: not "{{ item.dest }}.islnk"
 
     - name: Create symlinks for all dotfiles
       ignore_errors: yes
@@ -63,31 +44,36 @@
         src: "{{ item.src }}"
         dest: "{{ item.dest }}"
         state: link
-      with_items:
-        - "{{ configs }}"
+      with_items: "{{ configs }}"
+
+    - name: Install oh-my-zsh
+      raw: sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+    
+    - name: Install zsh plugins and themes
+      git:
+        repo: "{{ item.repo }}"
+        dest: "{{ item.dest }}"
+      with_items: "{{ git }}"
 
     - name: Install vim-plug
       get_url:
         url: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
         dest: ~/.config/nvim/autoload/plug.vim
-        force: yes
       
     - name: Check if font exists
       stat:
         path: ~/.local/share/fonts/
-      register: check
+      register: fontcheck
 
     - name: Download Dejavu Sans Mono Nerd Font
       command: curl -fLo "DejaVu Sans Mono Nerd Font Complete.ttf" https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/DejaVuSansMono/Regular/complete/DejaVu%20Sans%20Mono%20Nerd%20Font%20Complete.ttf
-      when: not check.stat.exists
+      when: not fontcheck.stat.exists
     
     - name: Move fonts to fonts folder
       command: mv DejaVu\ Sans\ Mono\ Nerd\ Font\ Complete.ttf ~/.local/share/fonts/
-      when: not check.stat.exists
+      when: not fontcheck.stat.exists
 
     - name: Setup user shell
-      ignore_errors: yes
-      become: true
       user: 
         name: "{{ lookup('env','USER') }}"
         shell: /usr/bin/zsh
