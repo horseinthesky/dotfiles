@@ -42,6 +42,13 @@ pip=(
   pep8
   pylint
   pycodestyle
+  pyyaml
+  paramiko
+  netmiko
+  netdev
+  asyncio
+  jinja2
+  scp
 )
 
 for program in ${apt[@]}; do

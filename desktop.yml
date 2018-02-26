@@ -62,7 +62,7 @@
       
     - name: Check if font exists
       stat:
-        path: ~/.local/share/fonts/
+        path: ~/.local/share/fonts/DejaVu Sans Mono Nerd Font Complete.ttf
       register: fontcheck
 
     - name: Download Dejavu Sans Mono Nerd Font
