@@ -11,6 +11,7 @@ git config --global user.email pwnedbyspawn@gmail.com
 git config --global core.editor nvim
 git config --global merge.tool vimdiff
 git config --global credential.helper store
+git config --global push.default simple
 printf "${GREEN}DONE!${NORMAL}\n"
 
 printf "${CYAN}Install apps from apt-get and pip...${NORMAL}\n"
