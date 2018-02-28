@@ -34,15 +34,6 @@ fi
 printf "${GREEN}DONE!${NORMAL}\n"
 
 printf "${CYAN}Backing things up...\n${NORMAL}"
-if [ -d "${HOME}/.config/nvim" ]; then
-  mv --backup=numbered ~/.config/nvim ${BACKUPPATH}/nvim.backup
-fi
-mkdir -p ~/.config/nvim
-
-if [ -f "${HOME}/.bashrc" ]; then
-  mv --backup=numbered ~/.bashrc ${BACKUPPATH}/.bashrc.backup
-fi
-
 if [ -f "${HOME}/.tmux.conf" ]; then
   mv --backup=numbered ~/.tmux.conf ${BACKUPPATH}/.tmux.conf.backup
 fi
@@ -61,9 +52,10 @@ fi
 printf "${GREEN}DONE!${NORMAL}\n"
 
 printf "${CYAN}Creating symlinks...${NORMAL}\n"
-ln -s ${FILESPATH}/.tmux.conf ~/.tmux.conf
-ln -s ${FILESPATH}/init.vim ~/.config/nvim/init.vim
-ln -s ${FILESPATH}/.zshrc ~/.zshrc
+mkdir -p ~/.config/nvim
+ln -fs ${FILESPATH}/.tmux.conf ~/.tmux.conf
+ln -fs ${FILESPATH}/init.vim ~/.config/nvim/init.vim
+ln -fs ${FILESPATH}/.zshrc ~/.zshrc
 printf "${GREEN}DONE!${NORMAL}\n"
 
 printf "${CYAN}Install Powerline and font...${NORMAL}\n"
