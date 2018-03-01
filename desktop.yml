@@ -32,6 +32,21 @@
         state: directory
       with_items: "{{ dirs }}"
 
+    - name: Install oh-my-zsh
+      become: true
+      raw: sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+    
+    - name: Install zsh plugins and themes
+      git:
+        repo: "{{ item.repo }}"
+        dest: "{{ item.dest }}"
+      with_items: "{{ git }}"
+
+    - name: Install vim-plug
+      get_url:
+        url: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+        dest: ~/.config/nvim/autoload/plug.vim
+      
     - name: Backup all configs
       ignore_errors: yes
       command: mv "{{ item.dest }}" "{{ backup_dir }}/{{ item.name }}.backup"
@@ -46,20 +61,6 @@
         state: link
       with_items: "{{ configs }}"
 
-    - name: Install oh-my-zsh
-      raw: sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-    
-    - name: Install zsh plugins and themes
-      git:
-        repo: "{{ item.repo }}"
-        dest: "{{ item.dest }}"
-      with_items: "{{ git }}"
-
-    - name: Install vim-plug
-      get_url:
-        url: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-        dest: ~/.config/nvim/autoload/plug.vim
-      
     - name: Check if font exists
       stat:
         path: ~/.local/share/fonts/DejaVu Sans Mono Nerd Font Complete.ttf
@@ -74,6 +75,7 @@
       when: not fontcheck.stat.exists
 
     - name: Setup user shell
+      become: true
       user: 
         name: "{{ lookup('env','USER') }}"
         shell: /usr/bin/zsh

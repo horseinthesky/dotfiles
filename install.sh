@@ -21,12 +21,6 @@ if [ "$(uname)" = 'Linux' ]; then
 fi
 printf "${GREEN}DONE!${NORMAL}\n"
 
-printf "${CYAN}Install oh-my-zsh and plugins...${NORMAL}\n"
-sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-git clone git://github.com/zsh-users/zsh-autosuggestions $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions
-git clone https://github.com/bhilburn/powerlevel9k.git $HOME/.oh-my-zsh/custom/themes/powerlevel9k
-printf "${GREEN}DONE!${NORMAL}\n"
-
 printf "${CYAN}Making backup folder...\n${NORMAL}"
 if [ ! -d $BACKUPPATH ]; then
   mkdir ${BACKUPPATH}
@@ -51,6 +45,16 @@ if [ -f "${HOME}/.zshrc" ]; then
 fi
 printf "${GREEN}DONE!${NORMAL}\n"
 
+printf "${CYAN}Install oh-my-zsh and plugins...${NORMAL}\n"
+sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+git clone git://github.com/zsh-users/zsh-autosuggestions $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+git clone https://github.com/bhilburn/powerlevel9k.git $HOME/.oh-my-zsh/custom/themes/powerlevel9k
+printf "${GREEN}DONE!${NORMAL}\n"
+
+printf "${CYAN}Install vim plug...${NORMAL}\n"
+curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+printf "${GREEN}DONE!${NORMAL}\n"
+
 printf "${CYAN}Creating symlinks...${NORMAL}\n"
 mkdir -p ~/.config/nvim
 ln -fs ${FILESPATH}/.tmux.conf ~/.tmux.conf
@@ -68,10 +72,6 @@ fi
 curl -fLo "DejaVu Sans Mono Nerd Font Complete.ttf" https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/DejaVuSansMono/Regular/complete/DejaVu%20Sans%20Mono%20Nerd%20Font%20Complete.ttf
 mv DejaVu\ Sans\ Mono\ Nerd\ Font\ Complete.ttf $HOME/.local/share/fonts/
 
-printf "${GREEN}DONE!${NORMAL}\n"
-
-printf "${CYAN}Install vim plug...${NORMAL}\n"
-curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 printf "${GREEN}DONE!${NORMAL}\n"
 
 printf "${CYAN}Changing user shell...${NORMAL}\n"
