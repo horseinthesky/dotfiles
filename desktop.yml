@@ -59,6 +59,7 @@
         src: "{{ item.src }}"
         dest: "{{ item.dest }}"
         state: link
+        force: yes
       with_items: "{{ configs }}"
 
     - name: Check if font exists
@@ -74,8 +75,8 @@
       command: mv DejaVu\ Sans\ Mono\ Nerd\ Font\ Complete.ttf ~/.local/share/fonts/
       when: not fontcheck.stat.exists
 
-    - name: Setup user shell
-      become: true
-      user: 
-        name: "{{ lookup('env','USER') }}"
-        shell: /usr/bin/zsh
+#     - name: Setup user shell
+      # become: true
+      # user:
+      #   name: "{{ lookup('env','USER') }}"
+#         shell: /usr/bin/zsh
