@@ -41,6 +41,7 @@ pip=(
   asyncio
   jinja2
   scp
+  powerline-status
 )
 
 for program in ${apt[@]}; do
