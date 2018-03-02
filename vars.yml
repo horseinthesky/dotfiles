@@ -44,9 +44,9 @@ configs:
   # neovim
   - { "name": "init.vim", "src": "{{ prefix }}/init.vim", "dest": "~/.config/nvim/init.vim"}
   # zshrc
-  - { "name": ".zshrc", "src": "{{ prefix }}/.zshrc", "dest": "~/.zshrc" }
+  - { "name": "zshrc", "src": "{{ prefix }}/.zshrc", "dest": "~/.zshrc" }
   # tmux
-  - { "name": ".tmux.conf", "src": "{{ prefix }}/.tmux.conf", "dest": "~/.tmux.conf" }
+  - { "name": "tmux", "src": "{{ prefix }}/.tmux.conf", "dest": "~/.tmux.conf" }
 
 dirs:
   # backup

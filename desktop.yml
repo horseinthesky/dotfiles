@@ -47,20 +47,12 @@
         url: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
         dest: ~/.config/nvim/autoload/plug.vim
       
-    - name: Check if configs is not symlinks
-      stat:
-        path: "{{ item.dest }}"
-      with_items: "{{ configs }}"
-      register: "{{ item.name }}.check"
-
     - name: Backup all configs
       ignore_errors: yes
       copy:
         src: "{{ item.dest }}"
         dest: "{{ backup_dir }}/{{ item.name }}.backup"
-      # command: mv "{{ item.dest }}" "{{ backup_dir }}/{{ item.name }}.backup"
       with_items: "{{ configs }}"
-      when: not "item.name.check.stat.islnk"
 
     - name: Create symlinks for all dotfiles
       ignore_errors: yes
