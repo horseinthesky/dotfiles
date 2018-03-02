@@ -60,7 +60,7 @@
         dest: "{{ backup_dir }}/{{ item.name }}.backup"
       # command: mv "{{ item.dest }}" "{{ backup_dir }}/{{ item.name }}.backup"
       with_items: "{{ configs }}"
-      when: not "item.name.stat.islnk"
+      when: not "item.name.check.stat.islnk"
 
     - name: Create symlinks for all dotfiles
       ignore_errors: yes

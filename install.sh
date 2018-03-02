@@ -28,19 +28,15 @@ fi
 printf "${GREEN}DONE!${NORMAL}\n"
 
 printf "${CYAN}Backing things up...\n${NORMAL}"
-if [ -f "${HOME}/.tmux.conf" ]; then
+if [ ! -L "${HOME}/.tmux.conf" ]; then
   mv --backup=numbered ~/.tmux.conf ${BACKUPPATH}/.tmux.conf.backup
 fi
 
-if [ -f "${HOME}/.config/nvim/init.vim" ]; then
+if [ ! -L "${HOME}/.config/nvim/init.vim" ]; then
   mv --backup=numbered ~/.config/nvim/init.vim ${BACKUPPATH}/init.vim.backup
 fi
 
-if [ -f "${HOME}/.vimrc" ]; then
-  mv --backup=numbered ~/.vimrc ${BACKUPPATH}/.vimrc.backup
-fi
-
-if [ -f "${HOME}/.zshrc" ]; then
+if [ ! -L "${HOME}/.zshrc" ]; then
   mv --backup=numbered ~/.zshrc ${BACKUPPATH}/.zshrc.backup
 fi
 printf "${GREEN}DONE!${NORMAL}\n"
@@ -56,7 +52,6 @@ curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubuserc
 printf "${GREEN}DONE!${NORMAL}\n"
 
 printf "${CYAN}Creating symlinks...${NORMAL}\n"
-mkdir -p ~/.config/nvim
 ln -fs ${FILESPATH}/.tmux.conf ~/.tmux.conf
 ln -fs ${FILESPATH}/init.vim ~/.config/nvim/init.vim
 ln -fs ${FILESPATH}/.zshrc ~/.zshrc
@@ -67,8 +62,8 @@ if [ ! -d "~/.local/share/fonts/" ]; then
   mkdir -p ~/.local/share/fonts/
 fi
 
-if [ ! -f "~/.local/share/fonts/DejaVu Sans Mono Nerd Font Complete.ttf" ]; then
-  curl -fLo $HOME/.local/shre.fonts/"DejaVu Sans Mono Nerd Font Complete.ttf" https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/DejaVuSansMono/Regular/complete/DejaVu%20Sans%20Mono%20Nerd%20Font%20Complete.ttf
+if [ ! -f "$HOME/.local/share/fonts/DejaVu Sans Mono Nerd Font Complete.ttf" ]; then
+  curl -fLo ~/.local/share/fonts/"DejaVu Sans Mono Nerd Font Complete.ttf" https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/DejaVuSansMono/Regular/complete/DejaVu%20Sans%20Mono%20Nerd%20Font%20Complete.ttf
 fi
 
 printf "${GREEN}DONE!${NORMAL}\n"
