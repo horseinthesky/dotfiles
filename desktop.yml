@@ -33,7 +33,6 @@
       with_items: "{{ dirs }}"
 
     - name: Install oh-my-zsh
-      become: true
       raw: sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
     
     - name: Install zsh plugins and themes
