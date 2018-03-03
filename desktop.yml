@@ -34,9 +34,7 @@
 
     - name: Backup all configs
       ignore_errors: yes
-      copy:
-        src: "{{ item.dest }}"
-        dest: "{{ backup_dir }}/{{ item.name }}.backup"
+      command: mv "{{ item.dest }}" "{{ backup_dir }}/{{ item.name }}.backup"
       with_items: "{{ configs }}"
 
     - name: Install oh-my-zsh

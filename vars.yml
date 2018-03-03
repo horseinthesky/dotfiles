@@ -40,13 +40,11 @@ repo_dir: ~/dotfiles
 
 prefix: "{{ repo_dir }}/files"
 
-configs:
-  # neovim
-  - { "name": "init.vim", "src": "{{ prefix }}/init.vim", "dest": "~/.config/nvim/init.vim"}
-  # zshrc
-  - { "name": "zshrc", "src": "{{ prefix }}/.zshrc", "dest": "~/.zshrc" }
-  # tmux
-  - { "name": "tmux", "src": "{{ prefix }}/.tmux.conf", "dest": "~/.tmux.conf" }
+git:
+  # powerlevel9K oh-my-zsh theme
+  - { "repo": "https://github.com/bhilburn/powerlevel9k.git", "dest": "~/.oh-my-zsh/custom/themes/powerlevel9k" }
+  # zsh-autosuggestions
+  - { "repo": "git://github.com/zsh-users/zsh-autosuggestions", "dest": "~/.oh-my-zsh/custom/plugins/zsh-autosuggestions" }
 
 dirs:
   # backup
@@ -56,8 +54,10 @@ dirs:
   # neovim
   - { "dest": "~/.config/nvim/autoload" }
 
-git:
-  # powerlevel9K oh-my-zsh theme
-  - { "repo": "https://github.com/bhilburn/powerlevel9k.git", "dest": "~/.oh-my-zsh/custom/themes/powerlevel9k" }
-  # zsh-autosuggestions
-  - { "repo": "git://github.com/zsh-users/zsh-autosuggestions", "dest": "~/.oh-my-zsh/custom/plugins/zsh-autosuggestions" }
+configs:
+  # neovim
+  - { "name": "init.vim", "src": "{{ prefix }}/init.vim", "dest": "~/.config/nvim/init.vim"}
+  # zshrc
+  - { "name": ".zshrc", "src": "{{ prefix }}/.zshrc", "dest": "~/.zshrc" }
+  # tmux
+  - { "name": ".tmux.conf", "src": "{{ prefix }}/.tmux.conf", "dest": "~/.tmux.conf" }
