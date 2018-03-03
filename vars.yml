@@ -58,6 +58,6 @@ dirs:
 
 git:
   # powerlevel9K oh-my-zsh theme
-  - { "repo": "https://github.com/bhilburn/powerlevel9k", "dest": "~/.oh-my-zsh/custom/themes/powerlevel9k" }
+  - { "repo": "https://github.com/bhilburn/powerlevel9k.git", "dest": "~/.oh-my-zsh/custom/themes/powerlevel9k" }
   # zsh-autosuggestions
   - { "repo": "git://github.com/zsh-users/zsh-autosuggestions", "dest": "~/.oh-my-zsh/custom/plugins/zsh-autosuggestions" }
