@@ -95,14 +95,14 @@ alias suroot='sudo -E -s'
 # ==== Powerleve9k Settings ====
 # Detect SSH connection
 zsh_detect_ssh(){
-    local color='%F{yellow}'
+    local color='%F{yellow_bold}'
     if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
         echo -n "%{$color%}\uF489 $HOST"
     fi
 }
 
 POWERLEVEL9K_CUSTOM_DETECT_SSH="zsh_detect_ssh"
-POWERLEVEL9K_CUSTOM_DETECT_SSH_BACKGROUND="166"
+POWERLEVEL9K_CUSTOM_DETECT_SSH_BACKGROUND="066"
 POWERLEVEL9K_CUSTOM_DETECT_SSH_FOREGROUND="179"
 
 # Environment

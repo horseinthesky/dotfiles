@@ -62,16 +62,10 @@
         force: yes
       with_items: "{{ configs }}"
 
-    - name: Check if font exists
-      stat:
-        path: ~/.local/share/fonts/DejaVu Sans Mono Nerd Font Complete.ttf
-      register: fontcheck
-
     - name: Download Dejavu Sans Mono Nerd Font
       get_url:
         url: https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/DejaVuSansMono/Regular/complete/DejaVu%20Sans%20Mono%20Nerd%20Font%20Complete.ttf
         dest: ~/.local/share/fonts/DejaVu Sans Mono Nerd Font Complete.ttf
-      when: not fontcheck.stat.exists
     
     - name: Setup user shell
       become: true
