@@ -15,12 +15,6 @@ echo "| |/ / (_) | |_| | | | |  __/\__ \\"
 echo "|___/ \___/ \__|_| |_|_|\___||___/"
 printf "${NORMAl}\n\n"
 
-printf "${CYAN}Installing packages...\n${NORMAL}"
-if [ "$(uname)" = 'Linux' ]; then
-  source linux.sh
-fi
-printf "${GREEN}DONE!${NORMAL}\n"
-
 printf "${CYAN}Making backup folder...\n${NORMAL}"
 if [ ! -d "$BACKUPPATH" ]; then
   mkdir ${BACKUPPATH}
@@ -38,6 +32,12 @@ fi
 
 if [ ! -L "$HOME/.zshrc" ] && [ -f "$HOME/.zshrc" ]; then
   mv --backup=numbered ~/.zshrc ${BACKUPPATH}/.zshrc.backup
+fi
+printf "${GREEN}DONE!${NORMAL}\n"
+
+printf "${CYAN}Installing packages...\n${NORMAL}"
+if [ "$(uname)" = 'Linux' ]; then
+  source linux.sh
 fi
 printf "${GREEN}DONE!${NORMAL}\n"
 
@@ -59,12 +59,6 @@ if [ ! -f "$HOME/.config/nvim/autoload/plug.vim" ]; then
 fi
 printf "${GREEN}DONE!${NORMAL}\n"
 
-printf "${CYAN}Creating symlinks...${NORMAL}\n"
-ln -fs ${FILESPATH}/.tmux.conf ~/.tmux.conf
-ln -fs ${FILESPATH}/init.vim ~/.config/nvim/init.vim
-ln -fs ${FILESPATH}/.zshrc ~/.zshrc
-printf "${GREEN}DONE!${NORMAL}\n"
-
 printf "${CYAN}Install fonts...${NORMAL}\n"
 if [ ! -d "$HOME/.local/share/fonts/" ]; then
   mkdir -p ~/.local/share/fonts/
@@ -78,4 +72,11 @@ printf "${GREEN}DONE!${NORMAL}\n"
 printf "${CYAN}Changing user shell...${NORMAL}\n"
 chsh -s $(which zsh)
 printf "${GREEN}DONE!${NORMAL}\n"
+
+printf "${CYAN}Creating symlinks...${NORMAL}\n"
+ln -fs ${FILESPATH}/.tmux.conf ~/.tmux.conf
+ln -fs ${FILESPATH}/init.vim ~/.config/nvim/init.vim
+ln -fs ${FILESPATH}/.zshrc ~/.zshrc
+printf "${GREEN}DONE!${NORMAL}\n"
+
 printf "${GREEN}COMPLETE!${NORMAL}\n"
