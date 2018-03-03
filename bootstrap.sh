@@ -6,5 +6,5 @@ NORMAL='\033[0m'
 printf "${CYAN}Install base packages...${NORMAL}\n"
 sudo apt-add-repository ppa:ansible/ansible
 sudo apt-get update -y
-sudo apt-get install python3-pip python3-dev ansible git -y
+sudo apt-get install ansible -y
 printf "${GREEN}DONE!${NORMAL}\n"

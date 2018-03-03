@@ -11,6 +11,8 @@ apt:
   - silversearcher-ag
   - software-properties-common
   - python3-software-properties
+  - python3-pip
+  - python3-dev
   - ansible
   - neovim
   - curl
