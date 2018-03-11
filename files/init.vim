@@ -36,10 +36,10 @@ set pastetoggle=<F2> " Paste mode toggle to paste code properly
 set guicursor=       " Fix for mysterious 'q' letters 
 
 function! BufNewFile_PY()
-    0put = '#!/usr/bin/env python3'
-    1put = '# -*- coding: utf-8 -*-'
-    2put = ''
-    normal G
+  0put = '#!/usr/bin/env python3'
+  1put = '# -*- coding: utf-8 -*-'
+  2put = ''
+  normal G
 endfunction
 autocmd BufNewFile *.py call BufNewFile_PY()
 autocmd BufNewFile *.pyw call BufNewFile_PY()
@@ -88,16 +88,16 @@ set expandtab        " expand tabs into spaces
 set smartindent
         
 if has('autocmd')
-    filetype on
-    augroup VimrcTabSettings
-        autocmd!
-        autocmd FileType yaml            set sw=2 ts=2
-        autocmd FileType json            set sw=2 ts=2
-        autocmd FileType vim             set sw=2 ts=2
-        autocmd FileType python          set sw=4 ts=4
-        autocmd FileType yang            set sw=2 ts=2
-        autocmd BufRead, BufNewFile *.j2 set ft=jinja
-        autocmd FileType jinja           set sw=2 ts=2
+  filetype on
+  augroup VimrcTabSettings
+    autocmd!
+    autocmd FileType yaml            set sw=2 ts=2
+    autocmd FileType json            set sw=2 ts=2
+    autocmd FileType vim             set sw=2 ts=2
+    autocmd FileType python          set sw=4 ts=4
+    autocmd FileType yang            set sw=2 ts=2
+    autocmd BufRead, BufNewFile *.j2 set ft=jinja
+    autocmd FileType jinja           set sw=2 ts=2
     augroup END
 endif
 
@@ -184,7 +184,14 @@ let g:deoplete#enable_at_startup = 1
 let g:deoplete#disable_auto_complete = 1
 
 " <TAB> completion
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : deoplete#manual_complete()
+inoremap <silent><expr> <TAB>
+  \ pumvisible() ? "\<C-n>" :
+  \ <SID>check_back_space() ? "\<TAB>" :
+  \ deoplete#mappings#manual_complete()
+function! s:check_back_space() abort "{{{
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+endfunction"}}}
 
 " ==== Conque-Term ====
 " запуск интерпретатора на F5
