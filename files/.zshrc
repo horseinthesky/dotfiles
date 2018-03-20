@@ -89,7 +89,7 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-alias vi="/usr/bin/nvim"
+alias vi=$(which nvim)
 alias suroot='sudo -E -s'
 
 # ==== Powerleve9k Settings ====
