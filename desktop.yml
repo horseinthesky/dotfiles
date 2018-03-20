@@ -63,7 +63,7 @@
       become: true
       user:
         name: "{{ lookup('env','USER') }}"
-        shell: /usr/bin/zsh
+        shell: "{{ lookup('pipe', 'which zsh') }}"
 
     - name: Create symlinks for all dotfiles
       ignore_errors: yes
