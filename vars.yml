@@ -22,12 +22,10 @@ pip:
   - pylint
   - cryptography
   - pycodestyle<2.4.0
-  - paramiko
   - netmiko
   - netdev
   - asyncio
   - jinja2
-  - scp
   - powerline-status
   - xmltodict
 
