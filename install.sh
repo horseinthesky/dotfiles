@@ -41,6 +41,10 @@ if [ "$(uname)" = 'Linux' ]; then
 fi
 printf "${GREEN}DONE!${NORMAL}\n"
 
+printf "${CYAN}Installing python3 modules...\n${NORMAL}"
+pip install -r requirements.txt
+printf "${GREEN}DONE!${NORMAL}\n"
+
 printf "${CYAN}Install oh-my-zsh and plugins...${NORMAL}\n"
 if [ ! -f "$HOME/.oh-my-zsh/tools/install.sh" ]; then
   sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"

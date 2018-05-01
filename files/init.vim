@@ -3,9 +3,9 @@
 call plug#begin('~/.config/nvim/plugged')
 Plug 'scrooloose/nerdtree'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'jiangmiao/auto-pairs'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'easymotion/vim-easymotion'
+Plug 'tpope/vim-surround'
 Plug 'rking/ag.vim'
 Plug 'rosenfeld/conque-term'
 Plug 'godlygeek/tabular'
