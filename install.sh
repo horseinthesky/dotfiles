@@ -43,6 +43,7 @@ printf "${GREEN}DONE!${NORMAL}\n"
 
 printf "${CYAN}Installing python3 modules...\n${NORMAL}"
 sudo pip3 install -U pip
+sudo pip install --ignore-installed -U pyyaml
 sudo pip install -U -r requirements.txt
 printf "${GREEN}DONE!${NORMAL}\n"
 
