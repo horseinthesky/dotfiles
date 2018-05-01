@@ -10,14 +10,11 @@ apt:
   - silversearcher-ag
   - software-properties-common
   - python3-software-properties
-  - python3-pip
-  - python3-dev
   - neovim
   - curl
   - zsh
 
 pip:
-  - ansible
   - neovim
   - ipython
   - flake8
@@ -25,7 +22,6 @@ pip:
   - pylint
   - cryptography
   - pycodestyle<2.4.0
-  - pyyaml
   - paramiko
   - netmiko
   - netdev
