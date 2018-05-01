@@ -42,7 +42,7 @@ fi
 printf "${GREEN}DONE!${NORMAL}\n"
 
 printf "${CYAN}Installing python3 modules...\n${NORMAL}"
-sudo pip3 install -r requirements.txt
+sudo pip3 install -U -r requirements.txt
 printf "${GREEN}DONE!${NORMAL}\n"
 
 printf "${CYAN}Install oh-my-zsh and plugins...${NORMAL}\n"

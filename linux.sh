@@ -1,6 +1,13 @@
 #!/bin/bash
 printf "${CYAN}Add apt repos and update...${NORMAL}\n"
-sudo add-apt-repository ppa:neovim-ppa/stable
+ppas=(
+  neovim-ppa/stable
+)
+for ppa in ${ppas[@]}; do
+  if ! grep -q "deb .*$ppa" /etc/apt/sources.list /etc/apt/sources.list.d/*; then
+    sudo add-apt-repository $ppa
+  fi
+done
 sudo apt-get -qq update
 printf "${GREEN}DONE!${NORMAL}\n"
 
