@@ -1,6 +1,5 @@
 ---
 repos:
-  - ppa:ansible/ansible
   - ppa:neovim-ppa/stable
 
 apt:
@@ -13,7 +12,6 @@ apt:
   - python3-software-properties
   - python3-pip
   - python3-dev
-  - ansible
   - neovim
   - curl
   - zsh
@@ -35,6 +33,7 @@ pip:
   - jinja2
   - scp
   - powerline-status
+  - xmltodict
 
 backup_dir: ~/backup
 
