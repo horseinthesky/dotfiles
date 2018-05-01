@@ -17,7 +17,6 @@ apt:
   - zsh
 
 pip:
-  - pip
   - ansible
   - neovim
   - ipython

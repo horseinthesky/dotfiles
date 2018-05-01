@@ -24,19 +24,24 @@
         repo: "{{ item }}"
       with_items: "{{ repos }}"
 
-    - name: Install apt packages"
+    - name: Install apt packages
       become: true
       apt:
         name: "{{ item }}"
         state: latest
       with_items: "{{ apt }}"
 
+    - name: Upgrade pip
+      become: true
+      pip:
+        name: pip
+        state: latest
+
     - name: Install pip packages
       become: true
       pip:
         name: "{{ item }}"
         state: latest
-        executable: pip3
       with_items: "{{ pip }}"
 
     - name: Install oh-my-zsh
