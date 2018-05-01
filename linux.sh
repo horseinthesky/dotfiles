@@ -4,8 +4,8 @@ ppas=(
   neovim-ppa/stable
 )
 for ppa in ${ppas[@]}; do
-  if ! grep -q "deb .*$ppa" /etc/apt/sources.list /etc/apt/sources.list.d/*; then
-    sudo add-apt-repository $ppa
+  if [ ! -f /etc/apt/sources.list.d/* ] || ! grep -q "deb .*$ppa" /etc/apt/sources.list /etc/apt/sources.list.d/*; then
+    sudo add-apt-repository ppa:$ppa
   fi
 done
 sudo apt-get -qq update
