@@ -74,7 +74,9 @@ fi
 printf "${GREEN}DONE!${NORMAL}\n"
 
 printf "${CYAN}Changing user shell...${NORMAL}\n"
-chsh -s $(which zsh)
+if [ "$(getent passwd $USER | cut -d: -f7)" != "$(which zsh)" ]; then
+  chsh -s $(which zsh)
+fi
 printf "${GREEN}DONE!${NORMAL}\n"
 
 printf "${CYAN}Creating symlinks...${NORMAL}\n"

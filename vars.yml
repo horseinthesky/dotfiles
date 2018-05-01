@@ -24,7 +24,8 @@ pip:
   - flake8
   - pep8
   - pylint
-  - pycodestyle
+  - cryptography
+  - pycodestyle<2.4.0
   - pyyaml
   - paramiko
   - netmiko
