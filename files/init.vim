@@ -6,7 +6,7 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-surround'
-Plug 'rking/ag.vim'
+Plug 'mileszs/ack.vim'
 Plug 'rosenfeld/conque-term'
 Plug 'godlygeek/tabular'
 Plug 'majutsushi/tagbar'
@@ -15,6 +15,8 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'sjl/gundo.vim'
 Plug 'lepture/vim-jinja'
+Plug 'tpope/vim-fugitive'
+Plug 'junegunn/gv.vim'
 
 " ==== VISUAL PLUGINS ====
 Plug 'morhetz/gruvbox'
