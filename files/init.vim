@@ -22,6 +22,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'ryanoasis/vim-devicons' 
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plug 'yggdroot/indentline'
 
 call plug#end()
 
