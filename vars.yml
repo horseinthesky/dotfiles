@@ -17,6 +17,7 @@ apt:
 pip:
   - neovim
   - ipython
+  - black
   - flake8
   - pep8
   - pylint

@@ -2,6 +2,7 @@ neovim
 ipython
 pyyaml
 cryptography
+black
 ansible
 pycodestyle<2.4.0
 flake8

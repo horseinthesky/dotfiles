@@ -17,7 +17,7 @@ apt=(
   cmake
   ctags
   libyaml-perl
-  silversearcher-ag
+  ack
   software-properties-common
   python3-software-properties
   neovim
