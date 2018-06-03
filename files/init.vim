@@ -224,6 +224,9 @@ let g:airline_powerline_fonts = 1
 
 " theme support for tab separators
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#show_buffers = 0
+let g:airline#extensions#tabline#show_tab_type = 0
+let g:airline#extensions#tabline#tab_min_count = 2
 let g:airline#extensions#tabline#left_sep = ''
 let g:airline#extensions#tabline#left_alt_sep = '|'
 let airline#extensions#tabline#tabs_label = '' " don't show tab label on top left
