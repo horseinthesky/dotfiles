@@ -23,6 +23,7 @@ pip:
   - autopep8
   - yapf
   - pylint
+  - yamllint
   - cryptography
   - pycodestyle<2.4.0
   - netmiko

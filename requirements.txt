@@ -10,6 +10,7 @@ pep8
 autopep8
 yapf
 pylint
+yamllint
 netmiko
 netdev
 asyncio
