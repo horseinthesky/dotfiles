@@ -20,6 +20,8 @@ pip:
   - black
   - flake8
   - pep8
+  - autopep8
+  - yapf
   - pylint
   - cryptography
   - pycodestyle<2.4.0
