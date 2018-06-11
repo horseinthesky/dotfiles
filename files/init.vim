@@ -22,7 +22,7 @@ Plug 'junegunn/gv.vim'
 Plug 'morhetz/gruvbox'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'ryanoasis/vim-devicons' 
+Plug 'ryanoasis/vim-devicons'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'yggdroot/indentline'
 Plug 'sheerun/vim-polyglot'
@@ -37,7 +37,7 @@ set noswapfile       " Dont' use swapfile
 set mouse-=a         " Neovim mouse disable"
 set scrolloff=5      " start scrolling 5 lines before edge of viewpoint
 set pastetoggle=<F2> " Paste mode toggle to paste code properly
-set guicursor=       " Fix for mysterious 'q' letters 
+set guicursor=       " Fix for mysterious 'q' letters
 
 function! BufNewFile_PY()
   0put = '#!/usr/bin/env python3'
@@ -64,7 +64,7 @@ set shiftwidth=2     " shift lines by 4 spaces
 set smarttab         " set tabs for a shifttabs logic
 set expandtab        " expand tabs into spaces
 set smartindent
-        
+
 if has('autocmd')
   filetype on
   augroup VimrcTabSettings
@@ -99,10 +99,11 @@ let g:ale_linters = {
       \ 'python': ['flake8'],
       \ 'yaml': ['yamllint']
       \ }
-let g:ale_python_flake8_options = '--ignore="E501"'
 let g:ale_fixers = {
       \ 'python': ['autopep8']
       \ }
+let g:ale_python_flake8_options = '--ignore="E501"'
+let g:ale_yaml_yamllint_options='-d "{extends: relaxed, rules: {line-length: disable}}"'
 let g:ale_sign_error = '✘'
 let g:ale_sign_warning = '⚠'
 let g:ale_fix_on_save = 1
@@ -112,7 +113,7 @@ let g:ale_echo_msg_format = '[%linter%] %code%: %s'
 
 " ==== TagBar ====
 nmap <F8> :TagbarToggle<CR>
-let g:tagbar_autofocus = 1 
+let g:tagbar_autofocus = 1
 
 " ==== NERDTREE ====
 map <C-t> :NERDTreeToggle<CR>
@@ -139,8 +140,8 @@ let g:gundo_preview_height = 25
 set undofile
 set undodir=$HOME/.config/nvim/tmp/undo
 
-" ==== deoplete ====                 
-let g:deoplete#enable_at_startup = 1 
+" ==== deoplete ====
+let g:deoplete#enable_at_startup = 1
 let g:deoplete#disable_auto_complete = 1
 
 " <TAB> completion
