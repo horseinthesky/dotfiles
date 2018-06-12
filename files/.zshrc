@@ -2,6 +2,7 @@
 source "$HOME/.config/nvim/plugged/gruvbox/gruvbox_256palette_osx.sh"
 
 export TERM="xterm-256color"
+export EDITOR="nvim"
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
