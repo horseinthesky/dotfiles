@@ -102,7 +102,7 @@ let g:ale_linters = {
 let g:ale_fixers = {
       \ 'python': ['autopep8']
       \ }
-let g:ale_python_flake8_options = '--ignore="E501"'
+let g:ale_python_flake8_options = '--ignore="E501, F401"' " ignore long-lines and unused variables
 let g:ale_yaml_yamllint_options='-d "{extends: relaxed, rules: {line-length: disable}}"'
 let g:ale_sign_error = '✘'
 let g:ale_sign_warning = '⚠'
