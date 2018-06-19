@@ -103,6 +103,7 @@ let g:ale_fixers = {
       \ 'python': ['autopep8']
       \ }
 let g:ale_python_flake8_options = '--ignore=E501,E402,F401' " ignore long-lines, import on top of the file and unused modules
+let g:ale_python_autopep8_options = '--ignore=E501' " ignore long-lines for autopep8 fixer
 let g:ale_yaml_yamllint_options='-d "{extends: relaxed, rules: {line-length: disable}}"'
 let g:ale_sign_error = '✘'
 let g:ale_sign_warning = '⚠'
