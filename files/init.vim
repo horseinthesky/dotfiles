@@ -115,6 +115,7 @@ let g:ale_echo_msg_format = '[%linter%] %code%: %s'
 " ==== TagBar ====
 nmap <F8> :TagbarToggle<CR>
 let g:tagbar_autofocus = 1
+let g:tagbar_autoclose = 1
 
 " ==== NERDTREE ====
 map <C-t> :NERDTreeToggle<CR>
