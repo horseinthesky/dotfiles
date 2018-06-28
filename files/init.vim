@@ -116,7 +116,8 @@ let g:ale_echo_msg_format = '[%linter%] %code%: %s'
 nmap <F8> :TagbarToggle<CR>
 let g:tagbar_autofocus = 1
 let g:tagbar_autoclose = 1
-
+let g:tagbar_sort = 1
+"
 " ==== NERDTREE ====
 map <C-t> :NERDTreeToggle<CR>
 let NERDTreeIgnore=['\~$', '\.pyc$', '\.pyo$', '\.class$', 'pip-log\.txt$', '\.o$']
