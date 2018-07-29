@@ -3,6 +3,11 @@ source "$HOME/.config/nvim/plugged/gruvbox/gruvbox_256palette_osx.sh"
 
 export TERM="xterm-256color"
 export EDITOR="nvim"
+
+export WORKON_HOME=~/venv
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+source /usr/local/bin/virtualenvwrapper.sh
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -12,7 +17,6 @@ export ZSH=/home/horseinthesky/.oh-my-zsh
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-POWERLEVEL9K_MODE='nerdfont-complete'
 ZSH_THEME="powerlevel9k/powerlevel9k"
 
 # Uncomment the following line to use case-sensitive completion.
@@ -102,12 +106,16 @@ zsh_detect_ssh(){
     fi
 }
 
+# Fonts
+POWERLEVEL9K_MODE='nerdfont-complete'
+
+# Custom ssh settings
 POWERLEVEL9K_CUSTOM_DETECT_SSH="zsh_detect_ssh"
 POWERLEVEL9K_CUSTOM_DETECT_SSH_BACKGROUND="066"
 POWERLEVEL9K_CUSTOM_DETECT_SSH_FOREGROUND="179"
 
-# Environment
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(custom_detect_ssh user dir)
+# Environment settings
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(custom_detect_ssh virtualenv user dir)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(vcs)
 
 # Host block settings
@@ -134,3 +142,8 @@ POWERLEVEL9K_DIR_DEFAULT_BACKGROUND='033'
 POWERLEVEL9K_DIR_DEFAULT_FOREGROUND='000'
 POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
 POWERLEVEL9K_SHORTEN_DELIMITER=".."
+
+# Virtualenv block settings
+POWERLEVEL9K_VIRTUALENV_BACKGROUND='012'
+POWERLEVEL9K_VIRTUALENV_FOREGROUND='027'
+POWERLEVEL9K_PYTHON_ICON="\uE606"

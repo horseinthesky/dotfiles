@@ -25,6 +25,9 @@ pip:
   - pylint
   - yamllint
   - cryptography
+  - ncclient
+  - virtualenvwrapper
+  - pipenv
   - pycodestyle<2.4.0
   - netmiko
   - netdev
