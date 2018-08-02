@@ -6,7 +6,7 @@
 
   tasks:
     - name: Create dirs
-      file: 
+      file:
         path: "{{ item.dest }}"
         state: directory
       with_items: "{{ dirs }}"
@@ -47,7 +47,7 @@
     - name: Install oh-my-zsh
       ignore_errors: yes
       raw: sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-    
+
     - name: Install zsh plugins and themes
       git:
         repo: "{{ item.repo }}"
@@ -63,7 +63,7 @@
       get_url:
         url: https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/DejaVuSansMono/Regular/complete/DejaVu%20Sans%20Mono%20Nerd%20Font%20Complete.ttf
         dest: ~/.local/share/fonts/DejaVu Sans Mono Nerd Font Complete.ttf
-    
+
     - name: Setup user shell
       become: true
       user:
