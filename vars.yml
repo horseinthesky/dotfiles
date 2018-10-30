@@ -35,6 +35,7 @@ pip:
   - jinja2
   - powerline-status
   - xmltodict
+  - pygments
 
 backup_dir: ~/backup
 

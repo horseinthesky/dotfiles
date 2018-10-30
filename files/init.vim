@@ -73,6 +73,7 @@ if has('autocmd')
     autocmd FileType json            set sw=2 ts=2
     autocmd FileType vim             set sw=2 ts=2
     autocmd FileType python          set sw=4 ts=4
+    autocmd FileType go              set sw=4 ts=4
     autocmd FileType yang            set sw=2 ts=2
     autocmd BufRead, BufNewFile *.j2 set ft=jinja
     autocmd FileType jinja           set sw=2 ts=2
@@ -97,10 +98,12 @@ set smartcase
 let g:airline#extensions#ale#enabled = 1
 let g:ale_linters = {
       \ 'python': ['flake8'],
+      \ 'go': ['gofmt'],
       \ 'yaml': ['yamllint']
       \ }
 let g:ale_fixers = {
-      \ 'python': ['autopep8']
+      \ 'python': ['autopep8'],
+      \ 'go': ['gofmt']
       \ }
 let g:ale_python_flake8_options = '--ignore=E501,E402,F401' " ignore long-lines, import on top of the file and unused modules
 let g:ale_python_autopep8_options = '--ignore=E501' " ignore long-lines for autopep8 fixer

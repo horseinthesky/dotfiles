@@ -20,3 +20,4 @@ asyncio
 jinja2
 xmltodict
 powerline-status
+pygments
