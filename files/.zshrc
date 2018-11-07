@@ -97,6 +97,12 @@ source $ZSH/oh-my-zsh.sh
 alias vi=$(which nvim)
 alias suroot='sudo -E -s'
 
+# fzf
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_DEFAULT_COMMAND='fd --type file --follow --hidden --exclude .git'
+export FZF_DEFAULT_OPTS="--extended"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
 # ==== Powerleve9k Settings ====
 # Detect SSH connection
 zsh_detect_ssh(){

@@ -30,3 +30,6 @@ apt=(
 for program in ${apt[@]}; do
   sudo apt-get -qqy install $program
 done
+
+wget https://github.com/sharkdp/fd/releases/download/v7.2.0/fd_7.2.0_amd64.deb
+sudo dpkg -i fd_7.2.0_amd64.deb

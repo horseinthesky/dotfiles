@@ -5,6 +5,8 @@ Plug 'scrooloose/nerdtree'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'w0rp/ale'
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
@@ -145,6 +147,14 @@ let g:gundo_preview_height = 25
 
 set undofile
 set undodir=$HOME/.config/nvim/tmp/undo
+
+" ==== fzf ====
+map ; :Files<CR>
+
+" no vim statusline when fzf is opened
+autocmd! FileType fzf
+autocmd  FileType fzf set laststatus=0 noshowmode noruler
+  \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 
 " ==== deoplete ====
 let g:deoplete#enable_at_startup = 1
