@@ -3,6 +3,7 @@ source "$HOME/.config/nvim/plugged/gruvbox/gruvbox_256palette_osx.sh"
 
 export TERM="xterm-256color"
 export EDITOR="nvim"
+export ZSH_DISABLE_COMPFIX="true"
 
 export WORKON_HOME=~/venv
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3

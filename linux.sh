@@ -25,6 +25,9 @@ apt=(
   python3-pip
   curl
   zsh
+  htop
+  tree
+  speedtest-cli
   golang
   golang-go.tools
 )

@@ -13,6 +13,10 @@ apt:
   - neovim
   - curl
   - zsh
+  - htop
+  - tree
+  - golang
+  - golang-go.tools
 
 pip:
   - neovim
