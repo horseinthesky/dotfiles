@@ -12,7 +12,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'mileszs/ack.vim'
-Plug 'rosenfeld/conque-term'
+Plug 'wkentaro/conque.vim'
 Plug 'godlygeek/tabular'
 Plug 'majutsushi/tagbar'
 Plug 'terryma/vim-multiple-cursors'
@@ -171,10 +171,10 @@ function! s:check_back_space() abort "{{{
 endfunction"}}}
 
 " ==== Conque-Term ====
-" запуск интерпретатора на F5
+" run ipython at F5
 nnoremap <F5> :ConqueTermSplit ipython<CR>
 
-" а debug-mode на <F6>
+" аnd debug-mode for <F6>
 nnoremap <F6> :exe "ConqueTermSplit ipython " . expand("%")<CR>
 let g:ConqueTerm_StartMessages = 0
 let g:ConqueTerm_CloseOnEnd = 0
