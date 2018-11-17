@@ -32,14 +32,17 @@ pip:
   - ncclient
   - virtualenvwrapper
   - pipenv
-  - pycodestyle<2.4.0
+  - pycodestyle
   - netmiko
   - netdev
   - asyncio
+  - uvloop
   - jinja2
   - powerline-status
   - xmltodict
   - pygments
+  - colorama
+  - glances
 
 backup_dir: ~/backup
 
