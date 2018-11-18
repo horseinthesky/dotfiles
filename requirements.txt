@@ -18,6 +18,9 @@ netmiko
 netdev
 asyncio
 uvloop
+aiohttp
+unsync
+trio
 jinja2
 xmltodict
 powerline-status
