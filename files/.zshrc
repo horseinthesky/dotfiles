@@ -5,15 +5,21 @@ export TERM="xterm-256color"
 export EDITOR="nvim"
 export ZSH_DISABLE_COMPFIX="true"
 
+# virtualenv settings
 export WORKON_HOME=~/venv
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 source /usr/local/bin/virtualenvwrapper.sh
+
+# pyenv settings
+export PATH="/home/$USER/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
 
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH=/home/horseinthesky/.oh-my-zsh
+export ZSH=/home/$USER/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -151,6 +157,11 @@ POWERLEVEL9K_VIRTUALENV_BACKGROUND='226'
 POWERLEVEL9K_VIRTUALENV_FOREGROUND='027'
 POWERLEVEL9K_PYTHON_ICON="\uE606"
 
+# Pyenv block settings
+POWERLEVEL9K_PYENV_FOREGROUND="blue"
+POWERLEVEL9K_PYENV_BACKGROUND="226"
+# POWERLEVEL9K_PYENV_PROMPT_ALWAYS_SHOW=true
+
 # Environment settings
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(custom_detect_ssh user dir)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(virtualenv vcs)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(virtualenv pyenv vcs)

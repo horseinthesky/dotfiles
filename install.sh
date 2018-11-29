@@ -47,6 +47,12 @@ sudo pip install --ignore-installed -U pyyaml
 sudo pip install -U -r requirements.txt
 printf "${GREEN}DONE!${NORMAL}\n"
 
+printf "${CYAN}Installing pyenv...\n${NORMAL}"
+if [ ! -d "$HOME/.pyenv/" ]; then
+  curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
+fi
+printf "${GREEN}DONE!${NORMAL}\n"
+
 printf "${CYAN}Install oh-my-zsh and plugins...${NORMAL}\n"
 if [ ! -f "$HOME/.oh-my-zsh/tools/install.sh" ]; then
   sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
