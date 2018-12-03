@@ -53,6 +53,12 @@ if [ ! -d "$HOME/.pyenv/" ]; then
 fi
 printf "${GREEN}DONE!${NORMAL}\n"
 
+printf "${CYAN}Installing poetry...\n${NORMAL}"
+if [ ! -d "$HOME/.poetry/" ]; then
+  curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
+fi
+printf "${GREEN}DONE!${NORMAL}\n"
+
 printf "${CYAN}Install oh-my-zsh and plugins...${NORMAL}\n"
 if [ ! -f "$HOME/.oh-my-zsh/tools/install.sh" ]; then
   sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"

@@ -23,6 +23,7 @@ apt=(
   neovim
   python3-dev
   python3-pip
+  python3-venv
   zsh
   htop
   tree

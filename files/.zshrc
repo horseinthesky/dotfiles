@@ -15,6 +15,9 @@ export PATH="/home/$USER/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
+# poetry settings
+source $HOME/.poetry/env
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -153,13 +156,13 @@ POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
 POWERLEVEL9K_SHORTEN_DELIMITER=".."
 
 # Virtualenv block settings
-POWERLEVEL9K_VIRTUALENV_BACKGROUND='226'
-POWERLEVEL9K_VIRTUALENV_FOREGROUND='027'
+POWERLEVEL9K_VIRTUALENV_FOREGROUND='blue'
+POWERLEVEL9K_VIRTUALENV_BACKGROUND='220'
 POWERLEVEL9K_PYTHON_ICON="\uE606"
 
 # Pyenv block settings
 POWERLEVEL9K_PYENV_FOREGROUND="blue"
-POWERLEVEL9K_PYENV_BACKGROUND="226"
+POWERLEVEL9K_PYENV_BACKGROUND="220"
 # POWERLEVEL9K_PYENV_PROMPT_ALWAYS_SHOW=true
 
 # Environment settings
