@@ -22,7 +22,7 @@ source $HOME/.poetry/env
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH=/home/$USER/.oh-my-zsh
+export ZSH=/home/horseinthesky/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -149,7 +149,10 @@ POWERLEVEL9K_FOLDER_ICON=''
 
 # Dir block settings
 POWERLEVEL9K_DIR_PATH_SEPARATOR="%F{black} $(print_icon 'LEFT_SUBSEGMENT_SEPARATOR') %F{black}"
-POWERLEVEL9K_DIR_SHOW_WRITABLE="true"
+POWERLEVEL9K_DIR_SHOW_WRITABLE=true
+POWERLEVEL9K_DIR_WRITABLE_FORBIDDEN_FOREGROUND='yellow'
+POWERLEVEL9K_DIR_WRITABLE_FORBIDDEN_BACKGROUND='196'
+# POWERLEVEL9K_DIR_NOT_WRITABLE_ICON_COLOR='196'
 POWERLEVEL9K_DIR_DEFAULT_BACKGROUND='033'
 POWERLEVEL9K_DIR_DEFAULT_FOREGROUND='000'
 POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
@@ -166,5 +169,5 @@ POWERLEVEL9K_PYENV_BACKGROUND="220"
 # POWERLEVEL9K_PYENV_PROMPT_ALWAYS_SHOW=true
 
 # Environment settings
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(custom_detect_ssh user dir)
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(custom_detect_ssh user dir_writable dir)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(virtualenv pyenv vcs)
