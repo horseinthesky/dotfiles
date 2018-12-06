@@ -5,11 +5,6 @@ export TERM="xterm-256color"
 export EDITOR="nvim"
 export ZSH_DISABLE_COMPFIX="true"
 
-# virtualenv settings
-export WORKON_HOME=~/venv
-export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-source /usr/local/bin/virtualenvwrapper.sh
-
 # pyenv settings
 export PATH="/home/$USER/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"

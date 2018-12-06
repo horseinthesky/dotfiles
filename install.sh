@@ -56,6 +56,7 @@ printf "${GREEN}DONE!${NORMAL}\n"
 printf "${CYAN}Installing poetry...\n${NORMAL}"
 if [ ! -d "$HOME/.poetry/" ]; then
   curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
+  sed -i 's/virtualenvs]/virtualenvs]\nin-project = true/' ~/.config/pypoetry/config.toml
 fi
 printf "${GREEN}DONE!${NORMAL}\n"
 

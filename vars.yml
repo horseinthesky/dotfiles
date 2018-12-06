@@ -5,8 +5,7 @@ repos:
 apt:
   - tmux
   - cmake
-  - ctags
-  - libyaml-perl
+  - exuberant-ctags
   - silversearcher-ag
   - software-properties-common
   - python3-software-properties
@@ -14,6 +13,7 @@ apt:
   - python3-pip
   - python3-venv
   - neovim
+  - sqlite3
   - zsh
   - htop
   - tree
@@ -36,32 +36,11 @@ apt:
   - libffi-dev
 
 pip:
-  - neovim
   - ipython
-  - black
   - flake8
-  - pep8
   - autopep8
-  - yapf
-  - pylint
   - yamllint
-  - cryptography
-  - ncclient
-  - virtualenvwrapper
-  - pipenv
-  - pycodestyle
-  - netmiko
-  - netdev
-  - asyncio
-  - uvloop
-  - aiohttp
-  - unsync
-  - trio
-  - jinja2
-  - powerline-status
-  - xmltodict
   - pygments
-  - colorama
   - glances
 
 backup_dir: ~/backup

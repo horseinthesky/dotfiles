@@ -15,15 +15,16 @@ printf "${CYAN}Install apps from apt...${NORMAL}\n"
 apt=(
   tmux
   cmake
-  ctags
+  exuberant-ctags
   libyaml-perl
   ack
   software-properties-common
   python3-software-properties
-  neovim
   python3-dev
   python3-pip
   python3-venv
+  neovim
+  sqlite3
   zsh
   htop
   tree
