@@ -55,7 +55,7 @@ printf "${GREEN}DONE!${NORMAL}\n"
 printf "${CYAN}Installing poetry...\n${NORMAL}"
 if [ ! -d "$HOME/.poetry/" ]; then
   curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
-  sed -i 's/virtualenvs]/virtualenvs]\nin-project = true/' ~/.config/pypoetry/config.toml
+  mkdir ~/.config/pypoetry/
 fi
 printf "${GREEN}DONE!${NORMAL}\n"
 
@@ -97,6 +97,7 @@ printf "${CYAN}Creating symlinks...${NORMAL}\n"
 ln -fs ${FILESPATH}/.tmux.conf ~/.tmux.conf
 ln -fs ${FILESPATH}/init.vim ~/.config/nvim/init.vim
 ln -fs ${FILESPATH}/.zshrc ~/.zshrc
+ln -fs ${FILESPATH}/config.toml ~/.config/pypoetry/config.toml
 printf "${GREEN}DONE!${NORMAL}\n"
 
 printf "${GREEN}COMPLETE!${NORMAL}\n"

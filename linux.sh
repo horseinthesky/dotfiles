@@ -20,7 +20,6 @@ apt=(
   tmux
   cmake
   exuberant-ctags
-  libyaml-perl
   ack
   python3-software-properties
   python3-dev

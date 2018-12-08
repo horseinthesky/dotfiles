@@ -2,5 +2,4 @@ ipython
 flake8
 autopep8
 yamllint
-pygments
 glances
