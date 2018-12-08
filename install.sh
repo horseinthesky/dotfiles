@@ -55,7 +55,7 @@ printf "${GREEN}DONE!${NORMAL}\n"
 printf "${CYAN}Installing poetry...\n${NORMAL}"
 if [ ! -d "$HOME/.poetry/" ]; then
   curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
-  mkdir ~/.config/pypoetry/
+  mkdir -p ~/.config/pypoetry/
 fi
 printf "${GREEN}DONE!${NORMAL}\n"
 
