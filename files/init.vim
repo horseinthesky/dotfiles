@@ -1,21 +1,21 @@
 " ================ VIM-PLUG PLUGINS ================
 " ==== PLUGINS ====
 call plug#begin('~/.config/nvim/plugged')
-Plug 'scrooloose/nerdtree'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'w0rp/ale'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'scrooloose/nerdtree'
 Plug 'easymotion/vim-easymotion'
+Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'mileszs/ack.vim'
 Plug 'godlygeek/tabular'
 Plug 'majutsushi/tagbar'
-Plug 'terryma/vim-multiple-cursors'
-Plug 'sjl/gundo.vim'
+Plug 'simnalamburt/vim-mundo'
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/gv.vim'
 
@@ -42,6 +42,12 @@ set guicursor=       " Fix for mysterious 'q' letters
 " ==== Numbers ====
 set number
 set relativenumber
+
+" ==== History ====
+set history=100
+set undolevels=100
+set undofile
+set undodir=$HOME/.config/nvim/tmp/undo
 
 " ==== Add shebang to new python files ====
 function! BufNewFile_PY()
@@ -126,18 +132,14 @@ let g:EasyMotion_smartcase = 1
 nmap f <Plug>(easymotion-s)
 nmap t <Plug>(easymotion-t)
 
-" ==== (G)UNDO ====
-set history=100
-set undolevels=100
-
-nnoremap <F7> :GundoToggle<CR>
-let g:gundo_prefer_python3 = 1
-let g:gundo_width = 60
-let g:gundo_preview_height = 25
-"let g:gundo_right = 1
-
-set undofile
-set undodir=$HOME/.config/nvim/tmp/undo
+" ==== mundo ====
+nnoremap <F7> :MundoToggle<CR>
+let g:mundo_prefer_python3 = 1
+let g:mundo_width = 25
+let g:mundo_preview_bottom = 1
+let g:mundo_close_on_revert = 1
+" let g:mundo_preview_height = 25
+" let g:mundo_right = 1
 
 " ==== fzf ====
 map ; :Files<CR>
