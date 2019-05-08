@@ -3,7 +3,7 @@ source "$HOME/.config/nvim/plugged/gruvbox/gruvbox_256palette_osx.sh"
 
 export TERM="xterm-256color"
 export EDITOR="nvim"
-export ZSH_DISABLE_COMPFIX="true"
+export ZSH_DISABLE_COMPFIX=true
 
 # pyenv settings
 export PATH="/home/$USER/.pyenv/bin:$PATH"
@@ -17,12 +17,13 @@ source $HOME/.poetry/env
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH=/home/horseinthesky/.oh-my-zsh
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="powerlevel9k/powerlevel9k"
+ZSH_THEME=powerlevel10k/powerlevel10k
+# ZSH_THEME="powerlevel9k/powerlevel9k"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -109,7 +110,7 @@ export FZF_DEFAULT_OPTS="--extended"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 # ==== Powerlevel9k Settings ====
-# Fonts
+# Mode
 POWERLEVEL9K_MODE='nerdfont-complete'
 
 # Host block settings
@@ -128,17 +129,25 @@ zsh_detect_ssh(){
 # Custom ssh settings
 POWERLEVEL9K_CUSTOM_DETECT_SSH="zsh_detect_ssh"
 POWERLEVEL9K_CUSTOM_DETECT_SSH_BACKGROUND="paleturquoise4" # 066
-POWERLEVEL9K_CUSTOM_DETECT_SSH_FOREGROUND="olive" # 011
+POWERLEVEL9K_CUSTOM_DETECT_SSH_FOREGROUND="yellow" # 003
 
 # OS block settings
-OS_ICON='\uF30C' # 
-POWERLEVEL9K_OS_ICON_BACKGROUND='darkorange' # 208
-POWERLEVEL9K_OS_ICON_FOREGROUND='white' # 007
 POWERLEVEL9K_LINUX_UBUNTU_ICON='\UF30C' # 
+if [ -f /etc/os-release ]; then
+    # freedesktop.org and systemd
+    . /etc/os-release
+    if [[ $ID == 'ubuntu' ]]; then
+        OS_ICON=$'\uF30C' # 
+        POWERLEVEL9K_OS_ICON_BACKGROUND='208' # darkorange
+        POWERLEVEL9K_OS_ICON_FOREGROUND='white' # 007
+    elif [[ $ID == 'centos' || $ID == 'redhat' ]]; then
+        OS_ICON=$'\uF309' # 
+        POWERLEVEL9K_OS_ICON_BACKGROUND='000' # black
+        POWERLEVEL9K_OS_ICON_FOREGROUND='red' # 001
+    fi
+fi
 
 # User block settings
-# RED_HAT_ICON='\uF309' # 
-# LINUX_ICON='\uE712' # 
 POWERLEVEL9K_USER_ICON='\uF415' # 
 # POWERLEVEL9K_ROOT_ICON="\uF198" # 
 POWERLEVEL9K_ROOT_ICON='\uF09C' # 
@@ -146,23 +155,37 @@ POWERLEVEL9K_USER_DEFAULT_BACKGROUND='plum4' # 096
 POWERLEVEL9K_USER_DEFAULT_FOREGROUND='white' # 007
 POWERLEVEL9K_USER_ROOT_BACKGROUND='darkred' # 088
 POWERLEVEL9K_USER_ROOT_FOREGROUND='white' # 007
+# RED_HAT_ICON='\uF309' # 
+# LINUX_ICON='\uE712' # 
 
 # Home block settings
-# POWERLEVEL9K_HOME_ICON='\uF015' # 
-# POWERLEVEL9K_HOME_SUB_ICON='\UE18D '
-# POWERLEVEL9K_FOLDER_ICON='\uF07C ' # 
+POWERLEVEL9K_HOME_ICON=''
+POWERLEVEL9K_HOME_SUB_ICON=''
+POWERLEVEL9K_FOLDER_ICON=''
 
 # Dir block settings
 POWERLEVEL9K_DIR_PATH_SEPARATOR="%F{black} $(print_icon 'LEFT_SUBSEGMENT_SEPARATOR') %F{black}"
+# POWERLEVEL9K_DIR_PATH_SEPARATOR=$' \uE0B1 '
+# POWERLEVEL9K_SHORTEN_STRATEGY="truncate_middle"
 # POWERLEVEL9K_LEFT_SEGMENT_SEPARATOR='\UE0BC'
 # POWERLEVEL9K_RIGHT_SEGMENT_SEPARATOR='\UE0BA'
 # POWERLEVEL9K_LEFT_SEGMENT_SEPARATOR='\uE0B4'
 # POWERLEVEL9K_RIGHT_SEGMENT_SEPARATOR='\uE0B6'
-POWERLEVEL9K_DIR_SHOW_WRITABLE=true
 POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
-POWERLEVEL9K_SHORTEN_DELIMITER=".."
-POWERLEVEL9K_DIR_DEFAULT_BACKGROUND='dodgerblue1' # 033
-POWERLEVEL9K_DIR_DEFAULT_FOREGROUND='black' # 000
+POWERLEVEL9K_SHORTEN_DELIMITER='..'
+POWERLEVEL9K_DIR_DEFAULT_BACKGROUND='dodgerblue1'
+POWERLEVEL9K_DIR_DEFAULT_FOREGROUND='black'
+POWERLEVEL9K_DIR_HOME_BACKGROUND='dodgerblue1'
+POWERLEVEL9K_DIR_HOME_FOREGROUND='black'
+POWERLEVEL9K_DIR_HOME_SUBFOLDER_BACKGROUND='dodgerblue1'
+POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND='black'
+POWERLEVEL9K_DIR_ETC_BACKGROUND='lightseagreen'
+POWERLEVEL9K_DIR_ETC_FOREGROUND='black'
+
+# Dir Writable settings
+# POWERLEVEL9K_LEFT_SEGMENT_SEPARATOR=''
+POWERLEVEL9K_DIR_WRITABLE_FORBIDDEN_BACKGROUND='red3' # 160
+POWERLEVEL9K_DIR_WRITABLE_FORBIDDEN_FOREGROUND='yellow1' # 226
 
 # VCS settings
 POWERLEVEL9K_VCS_BRANCH_ICON='\uF126 '
@@ -187,13 +210,13 @@ POWERLEVEL9K_PYENV_BACKGROUND='gold1' # 220
 # Time block settings
 POWERLEVEL9K_TIME_FORMAT="%D{\uf017 %H:%M \uf073 %d.%m.%y}"
 
-# Environment settings
-POWERLEVEL9K_DISABLE_RPROMPT=true
+# Prompt settings
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon custom_detect_ssh user dir_writable dir virtualenv pyenv)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(vcs)
 POWERLEVEL9K_PROMPT_ON_NEWLINE=true
 # POWERLEVEL9K_RPROMPT_ON_NEWLINE=true
-POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX="%F{208}\u256D\u2500"
-POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="%F{208}\u2570\uf460%F{default} "
+# POWERLEVEL9K_DISABLE_RPROMPT=true
+POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX="%F{$POWERLEVEL9K_OS_ICON_BACKGROUND}\u256D\u2500"
+POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="%F{$POWERLEVEL9K_OS_ICON_BACKGROUND}\u2570\uf460%F{default} "
 # POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX="%F{249}\u250f"
 # POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="%F{249}\u2517%F{default} "

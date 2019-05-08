@@ -1,4 +1,4 @@
-#!/bin/bash
+#t!/bin/bash
 GREEN='\033[0;32m'
 CYAN='\033[0;36m'
 NORMAL='\033[0m'
@@ -66,8 +66,8 @@ fi
 if [ ! -d "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions" ]; then
   git clone git://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
 fi
-if [ ! -d "$HOME/.oh-my-zsh/custom/themes/powerlevel9k/" ]; then
-  git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
+if [ ! -d "$HOME/.oh-my-zsh/custom/themes/powerlevel10k/" ]; then
+  git clone https://github.com/romkatv/powerlevel10k.git ~/.oh-my-zsh/custom/themes/powerlevel10k
 fi
 printf "${GREEN}DONE!${NORMAL}\n"
 
