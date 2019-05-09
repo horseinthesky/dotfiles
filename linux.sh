@@ -1,17 +1,17 @@
 #!/bin/bash
 printf "${CYAN}Add apt repos and update...${NORMAL}\n"
-sudo apt-get install -qqy software-properties-common
+sudo apt-get install -y software-properties-common
 
 ppas=(
   neovim-ppa/stable
 )
 for ppa in ${ppas[@]}; do
-  if [ ! -f /etc/apt/sources.list.d/* ] || ! grep -q "deb .*$ppa" /etc/apt/sources.list /etc/apt/sources.list.d/*; then
+  if [[ ! -f /etc/apt/sources.list.d/* ]] || ! grep -q "deb .*$ppa" /etc/apt/sources.list /etc/apt/sources.list.d/*; then
     sudo add-apt-repository ppa:$ppa -y
   fi
 done
 
-sudo apt-get -qq update
+sudo apt-get -y update
 
 printf "${GREEN}DONE!${NORMAL}\n"
 
@@ -56,4 +56,3 @@ done
 wget https://github.com/sharkdp/fd/releases/download/v7.2.0/fd_7.2.0_amd64.deb -P ~/
 sudo dpkg -i ~/fd_7.2.0_amd64.deb
 rm ~/fd_7.2.0_amd64.deb
-
