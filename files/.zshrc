@@ -1,5 +1,5 @@
 # gruvbox colors fix
-source "$HOME/.config/nvim/plugged/gruvbox/gruvbox_256palette_osx.sh"
+source "$HOME/.local/share/nvim/plugged/gruvbox/gruvbox_256palette_osx.sh"
 
 export TERM="xterm-256color"
 export EDITOR="nvim"

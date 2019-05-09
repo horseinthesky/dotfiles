@@ -1,6 +1,6 @@
 " ================ VIM-PLUG PLUGINS ================
 " ==== PLUGINS ====
-call plug#begin('~/.config/nvim/plugged')
+call plug#begin('~/.local/share/nvim/plugged')
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'w0rp/ale'
 Plug 'ctrlpvim/ctrlp.vim'
