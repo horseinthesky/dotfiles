@@ -53,6 +53,12 @@ for program in ${apt[@]}; do
   sudo apt-get -qqy install $program
 done
 
+# Install fd
 wget https://github.com/sharkdp/fd/releases/download/v7.2.0/fd_7.2.0_amd64.deb -P ~/
 sudo dpkg -i ~/fd_7.2.0_amd64.deb
 rm ~/fd_7.2.0_amd64.deb
+
+# Install ripgrep
+curl -LO https://github.com/BurntSushi/ripgrep/releases/download/11.0.1/ripgrep_11.0.1_amd64.deb -P ~/
+sudo dpkg -i ripgrep_11.0.1_amd64.deb
+rm ~/ripgrep_11.0.1_amd64.deb
