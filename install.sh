@@ -72,7 +72,7 @@ fi
 printf "${GREEN}DONE!${NORMAL}\n"
 
 printf "${CYAN}Install vim plug...${NORMAL}\n"
-if [[ ! -f "$HOME/.config/nvim/autoload/plug.vim" ]]; then
+if [[ ! -f "$HOME/.local/share/nvim/site/autoload/plug.vim" ]]; then
   curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 fi
 printf "${GREEN}DONE!${NORMAL}\n"
