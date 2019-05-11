@@ -22,15 +22,15 @@ fi
 printf "${GREEN}DONE!${NORMAL}\n"
 
 printf "${CYAN}Backing things up...\n${NORMAL}"
-if [[ ! -L "$HOME/.tmux.conf" ]] && [[ -f "$HOME/.tmux.conf" ]]; then
+if [[ -f "$HOME/.tmux.conf" ]] && [[ ! -L "$HOME/.tmux.conf" ]]; then
   mv --backup=numbered ~/.tmux.conf ${BACKUPPATH}/.tmux.conf.backup
 fi
 
-if [[ ! -L "$HOME/.config/nvim/init.vim" ]] && [[ -f "$HOME/.config/nvim/init.vim" ]]; then
+if [[ -f "$HOME/.config/nvim/init.vim" ]] && [[ ! -L "$HOME/.config/nvim/init.vim" ]]; then
   mv --backup=numbered ~/.config/nvim/init.vim ${BACKUPPATH}/init.vim.backup
 fi
 
-if [[ ! -L "$HOME/.zshrc" ]] && [[ -f "$HOME/.zshrc" ]]; then
+if [[ -f "$HOME/.zshrc" ]] && [[ ! -L "$HOME/.zshrc" ]]; then
   mv --backup=numbered ~/.zshrc ${BACKUPPATH}/.zshrc.backup
 fi
 printf "${GREEN}DONE!${NORMAL}\n"
@@ -95,6 +95,7 @@ printf "${GREEN}DONE!${NORMAL}\n"
 
 printf "${CYAN}Creating symlinks...${NORMAL}\n"
 ln -fs ${FILESPATH}/.tmux.conf ~/.tmux.conf
+mkdir ~/.config/nvim
 ln -fs ${FILESPATH}/init.vim ~/.config/nvim/init.vim
 ln -fs ${FILESPATH}/.zshrc ~/.zshrc
 ln -fs ${FILESPATH}/config.toml ~/.config/pypoetry/config.toml
