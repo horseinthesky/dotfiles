@@ -7,8 +7,8 @@ export ZSH_DISABLE_COMPFIX=true
 
 # pyenv settings
 export PATH="/home/$USER/.pyenv/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
+# eval "$(pyenv init -)"
+# eval "$(pyenv virtualenv-init -)"
 
 # poetry settings
 source $HOME/.poetry/env
@@ -106,6 +106,10 @@ source $ZSH/oh-my-zsh.sh
 
 alias vi=$(which nvim)
 alias suroot='sudo -E -s'
+
+# colorls aliases
+alias ll='colorls -lA --sd --group-directories-first'
+alias ls='colorls --group-directories-first'
 
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

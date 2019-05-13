@@ -1,0 +1,7 @@
+- name: Install golang
+  apt:
+    name:
+      - golang
+      - golang-go.tools
+    state: latest
+  become: yes

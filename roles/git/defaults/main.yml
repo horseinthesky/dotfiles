@@ -1,0 +1,8 @@
+# Git
+# Name used in commit messages
+full_name: Kirill 'horseinthesky' Pletnev
+# Github username
+git_user: horseinthesky
+# If you use github, this should be the same as the email
+#  used on Github
+git_email: pwnedbyspawn@gmail.com

@@ -1,0 +1,14 @@
+- name: Install poetry
+  raw: curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
+
+- name: Check if poetry config directory exist
+  file:
+    path: "{{ user_home }}/.config/pypoetry"
+    state: directory
+
+- name: Create symlink to config.toml
+  file:
+    src: "{{ dotfiles_home }}/config.toml"
+    dest: "{{ user_home }}/.config/pypoetry/config.toml"
+    state: link
+    force: yes

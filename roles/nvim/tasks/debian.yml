@@ -1,0 +1,28 @@
+- name: Add neovim repo
+  apt_repository:
+    repo: ppa:neovim-ppa/stable
+  become: yes
+
+- name: Update sources
+  apt:
+    update_cache: yes
+  become: yes
+
+- name: Install neovim
+  apt:
+    name:
+      - python-dev
+      - python-pip
+      - python3-dev
+      - python3-pip
+      - neovim
+    state: latest
+  become: yes
+
+- name: Install packages for plugins
+  apt:
+    name:
+      - ack
+      - exuberant-ctags
+    state: latest
+  become: yes

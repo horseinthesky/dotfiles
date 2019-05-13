@@ -18,21 +18,25 @@ printf "${GREEN}DONE!${NORMAL}\n"
 printf "${CYAN}Install apps from apt...${NORMAL}\n"
 apt=(
   tmux
-  cmake
-  exuberant-ctags
-  ack
+  zsh
+  neovim
   python3-software-properties
   python3-dev
   python3-pip
   python3-venv
-  neovim
+  # usefull tools
   sqlite3
-  zsh
   htop
   tree
   speedtest-cli
+  # nvim plugins prerequisites
+  exuberant-ctags
+  ack
+  # golang
   golang
   golang-go.tools
+  # pyenv prerequisites
+  make
   build-essential
   libssl-dev
   zlib1g-dev
@@ -43,7 +47,8 @@ apt=(
   curl
   llvm
   libncurses5-dev
-  xz-utils tk-dev
+  xz-utils
+  tk-dev
   libxml2-dev
   libxmlsec1-dev
   libffi-dev

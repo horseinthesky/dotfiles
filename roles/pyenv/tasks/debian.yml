@@ -1,0 +1,26 @@
+- name: Install peynv prerequisites
+  apt:
+    name:
+      - make
+      - build-essential
+      - libssl-dev
+      - zlib1g-dev
+      - libbz2-dev
+      - libreadline-dev
+      - libsqlite3-dev
+      - wget
+      - curl
+      - llvm
+      - libncurses5-dev
+      - xz-utils
+      - tk-dev
+      - libxml2-dev
+      - libxmlsec1-dev
+      - libffi-dev
+      - liblzma-dev
+  become: yes
+
+- name: Install pyenv
+  git:
+    repo: https://github.com/pyenv/pyenv
+    dest: ~/.pyenv

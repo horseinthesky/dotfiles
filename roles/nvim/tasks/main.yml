@@ -1,0 +1,49 @@
+# Installation
+- import_tasks: debian.yml
+  when: ansible_os_family == "Debian"
+
+- name: Install ipython and linters
+  pip:
+    name:
+      - ipython
+      - flake8
+      - autopep8
+      - yamllint
+  become: yes
+
+# Plugin manager
+- name: Makes sure autoload directory exists
+  file:
+    path: "{{ user_home }}/.local/share/nvim/site/autoload"
+    state: directory
+
+- name: Install vim-plug
+  get_url:
+    url: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    dest: "{{ user_home }}/.local/share/nvim/site/autoload/plug.vim"
+
+# Configuration
+- name: Check if vimrc exists
+  stat: path="{{ user_home }}/.config/nvim/init.vim"
+  register: vimrc_stat
+  failed_when: False
+
+- name: Backup vimrc
+  command: mv ~/.config/nvim/init.vim ~/init.vim.bak
+  args:
+    creates: "{{ user_home }}/init.vim.bak"
+  when: vimrc_stat.stat.exists
+
+- name: Creates .config/nvim dir
+  file:
+    path: "{{ user_home }}/.config/nvim"
+    state: directory
+
+- name: Symlink vimrc
+  file:
+    src: "{{ dotfiles_home }}/init.vim"
+    dest: "{{ user_home }}/.config/nvim/init.vim"
+    state: link
+
+- name: Install plugins
+  command: nvim +PlugInstall +qall
