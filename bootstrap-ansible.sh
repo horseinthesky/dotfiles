@@ -7,7 +7,6 @@ printf "${CYAN}Install base packages...${NORMAL}\n"
 sudo apt update -y
 sudo apt install python3-pip -y
 sudo pip3 install -U pip
-sudo pip install -U cryptography
 sudo pip install --ignore-installed pyyaml
 sudo pip install ansible
 printf "${GREEN}DONE!${NORMAL}\n"
