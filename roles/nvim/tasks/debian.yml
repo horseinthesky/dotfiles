@@ -2,11 +2,13 @@
   apt_repository:
     repo: ppa:neovim-ppa/stable
   become: yes
+  register: new_repo
 
 - name: Update sources
   apt:
     update_cache: yes
   become: yes
+  when: new_repo.changed
 
 - name: Install neovim
   apt:

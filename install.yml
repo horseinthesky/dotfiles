@@ -1,10 +1,10 @@
 - hosts: localhost
-  gather_facts: true
 
   vars:
     ansible_connection: local
     ansible_python_interpreter: /usr/bin/python3
     ansible_retry_files_enabled: false
+    ansible_validate_certs: false
     user_home: "{{ '~' | expanduser }}"
     dotfiles_home: "{{ user_home }}/dotfiles/files"
 
