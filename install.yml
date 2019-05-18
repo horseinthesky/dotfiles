@@ -10,8 +10,8 @@
 
   roles:
   # Tag each role so that we can select individual roles to run with ansible-playbook --tags
-    - {role: git, tags: ['git']}
     - {role: packages, tags: ['packages']}
+    - {role: git, tags: ['git']}
     - {role: zsh, tags: ['zsh']}
     - {role: nvim, tags: ['nvim']}
     - {role: tmux, tags: ['tmux']}
