@@ -145,10 +145,10 @@ if [ -f /etc/os-release ]; then
     # freedesktop.org and systemd
     . /etc/os-release
     if [[ $ID == 'ubuntu' ]]; then
-        POWERLEVEL9K_OS_ICON_BACKGROUND='208' # darkorange
+        POWERLEVEL9K_OS_ICON_BACKGROUND='166' # darkorange3
         POWERLEVEL9K_OS_ICON_FOREGROUND='grey93' # 255
     elif [[ $ID == 'centos' || $ID == 'redhat' ]]; then
-        POWERLEVEL9K_OS_ICON_BACKGROUND='001' # red
+        POWERLEVEL9K_OS_ICON_BACKGROUND='160' # red3
         POWERLEVEL9K_OS_ICON_FOREGROUND='000' # black
     fi
 fi
