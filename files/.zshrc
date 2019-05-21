@@ -7,7 +7,7 @@ export ZSH_DISABLE_COMPFIX=true
 
 # pyenv settings
 export PATH="/home/$USER/.pyenv/bin:$PATH"
-# eval "$(pyenv init -)"
+eval "$(pyenv init -)"
 # eval "$(pyenv virtualenv-init -)"
 
 # poetry settings
