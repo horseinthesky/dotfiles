@@ -140,7 +140,7 @@ POWERLEVEL9K_CUSTOM_DETECT_SSH_BACKGROUND="paleturquoise4" # 066
 POWERLEVEL9K_CUSTOM_DETECT_SSH_FOREGROUND="gold1" # 220
 
 # OS block settings
-POWERLEVEL9K_LINUX_UBUNTU_ICON=' \uF30C' # 
+POWERLEVEL9K_LINUX_UBUNTU_ICON='\uF30C' # 
 if [ -f /etc/os-release ]; then
     # freedesktop.org and systemd
     . /etc/os-release
