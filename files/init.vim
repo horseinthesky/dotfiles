@@ -9,6 +9,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'easymotion/vim-easymotion'
 Plug 'terryma/vim-multiple-cursors'
+Plug 'matze/vim-move'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
@@ -131,6 +132,9 @@ let g:EasyMotion_smartcase = 1
 
 nmap f <Plug>(easymotion-s)
 nmap t <Plug>(easymotion-t)
+
+" ==== vim-move ====
+let g:move_key_modifier = 'S'
 
 " ==== mundo ====
 nnoremap <F7> :MundoToggle<CR>
