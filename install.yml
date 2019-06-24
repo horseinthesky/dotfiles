@@ -19,5 +19,6 @@
     - {role: colorls, tags: ['colorls']}
     - {role: rg, tags: ['rg']}
     - {role: fd, tags: ['fd']}
+    - {role: bat, tags: ['bat']}
     - {role: pyenv, tags: ['pyenv']}
     - {role: poetry, tags: ['poetry']}

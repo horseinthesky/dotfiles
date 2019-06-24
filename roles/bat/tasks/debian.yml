@@ -1,0 +1,12 @@
+---
+- name: Check if bat is installed
+  command: dpkg-query -W bat
+  register: bat_check_deb
+  failed_when: bat_check_deb.rc > 1
+  changed_when: bat_check_deb.rc == 1
+
+- name: Install bat with a .deb file
+  apt:
+    deb: "{{ rg_release_url }}/{{ rg_version }}/{{ rg_dpkg_file }}"
+  become: yes
+  when: bat_check_deb.rc == 1
