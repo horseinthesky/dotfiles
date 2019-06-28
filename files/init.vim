@@ -164,7 +164,6 @@ autocmd  FileType fzf set laststatus=0 noshowmode noruler
 " ==== YouCompeteMe settings ====
 set completeopt-=preview
 let g:ycm_add_preview_to_completeopt = 0
-let g:ycm_server_python_interpreter = '/usr/bin/python3'
 
 " ==== deoplete ====
 let g:deoplete#enable_at_startup = 1
