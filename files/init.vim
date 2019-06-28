@@ -1,7 +1,7 @@
 " ================ VIM-PLUG PLUGINS ================
 " ==== PLUGINS ====
 call plug#begin('~/.local/share/nvim/plugged')
-Plug 'Valloric/YouCompleteMe' , { 'do': './install.py' }
+Plug 'Valloric/YouCompleteMe' , { 'do': 'python3 install.py --clang-completer' }
 Plug 'w0rp/ale'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -163,6 +163,8 @@ autocmd  FileType fzf set laststatus=0 noshowmode noruler
 
 " ==== YouCompeteMe settings ====
 set completeopt-=preview
+let g:ycm_add_preview_to_completeopt = 0
+let g:ycm_server_python_interpreter = '/usr/bin/python3'
 
 " ==== deoplete ====
 let g:deoplete#enable_at_startup = 1
