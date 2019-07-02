@@ -1,0 +1,12 @@
+---
+- name: Check if lsd is installed
+  command: dpkg-query -W lsd
+  register: lsd_check_deb
+  failed_when: lsd_check_deb.rc > 1
+  changed_when: lsd_check_deb.rc == 1
+
+- name: Install lsd with a .deb file
+  apt:
+    deb: "{{ lsd_release_url }}/{{ lsd_version }}/{{ lsd_dpkg_file }}"
+  become: yes
+  when: lsd_check_deb.rc == 1

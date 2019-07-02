@@ -1,0 +1,3 @@
+lsd_release_url: https://github.com/Peltoche/lsd/releases/download
+lsd_version: 0.15.1
+lsd_dpkg_file: lsd_0.15.1_amd64.deb

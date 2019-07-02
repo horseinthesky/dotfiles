@@ -16,9 +16,8 @@
     - {role: nvim, tags: ['nvim']}
     - {role: tmux, tags: ['tmux']}
     - {role: go, tags: ['go']}
-    - {role: colorls, tags: ['colorls']}
     - {role: rg, tags: ['rg']}
     - {role: fd, tags: ['fd']}
-    - {role: bat, tags: ['bat']}
+    - {role: lsd, tags: ['lsd']}
     - {role: pyenv, tags: ['pyenv']}
     - {role: poetry, tags: ['poetry']}
