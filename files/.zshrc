@@ -107,10 +107,6 @@ source $ZSH/oh-my-zsh.sh
 alias vi=$(which nvim)
 alias suroot='sudo -E -s'
 
-# colorls aliases
-# alias ll='colorls -lA --sd'
-# alias ls='colorls --sd'
-
 # lsd aliases
 alias ll='lsd -lA --group-dirs first'
 alias ls='lsd --group-dirs first'
