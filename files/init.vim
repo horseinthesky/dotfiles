@@ -176,20 +176,6 @@ set completeopt-=preview
 let g:ycm_autoclose_preview_window_after_completion = 1
 " let g:ycm_auto_trigger = 0
 
-" ==== deoplete ====
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#disable_auto_complete = 1
-
-" <TAB> completion for deoplete
-inoremap <silent><expr> <TAB>
-  \ pumvisible() ? "\<C-n>" :
-  \ <SID>check_back_space() ? "\<TAB>" :
-  \ deoplete#mappings#manual_complete()
-function! s:check_back_space() abort "{{{
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~ '\s'
-endfunction"}}}
-
 " ================ VISUAL SETTINGS ================
 " ==== Theme ====
 set background=dark
