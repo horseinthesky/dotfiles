@@ -6,7 +6,9 @@
   pip:
     name:
       - ipython
+      - mypy
       - flake8
+      - flake8-mypy
       - autopep8
       - yamllint
   become: yes
