@@ -1,7 +1,18 @@
+- name: Add neovim repo
+  apt_repository:
+    repo: ppa:longsleep/golang-backports
+  become: yes
+  register: new_repo
+
+- name: Update sources
+  apt:
+    update_cache: yes
+  become: yes
+  when: new_repo.changed
+
 - name: Install golang
   apt:
     name:
-      - golang
-      - golang-go.tools
+      - golang-go
     state: latest
   become: yes
