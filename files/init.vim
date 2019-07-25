@@ -3,6 +3,8 @@
 call plug#begin('~/.local/share/nvim/plugged')
 Plug 'Valloric/YouCompleteMe' , { 'do': 'python3 install.py --clang-completer' }
 Plug 'w0rp/ale'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'zxqfl/tabnine-vim' 
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
