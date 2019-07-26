@@ -13,9 +13,9 @@
     - {role: packages, tags: ['packages']}
     - {role: git, tags: ['git']}
     - {role: zsh, tags: ['zsh']}
+    - {role: go, tags: ['go']}
     - {role: nvim, tags: ['nvim']}
     - {role: tmux, tags: ['tmux']}
-    - {role: go, tags: ['go']}
     - {role: rg, tags: ['rg']}
     - {role: fd, tags: ['fd']}
     - {role: lsd, tags: ['lsd']}
