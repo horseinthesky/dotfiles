@@ -178,6 +178,9 @@ set completeopt-=preview
 let g:ycm_autoclose_preview_window_after_completion = 1
 " let g:ycm_auto_trigger = 0
 
+" ==== vim-go settings ====
+let g:go_template_autocreate = 0
+
 " ================ VISUAL SETTINGS ================
 " ==== Theme ====
 set background=dark
