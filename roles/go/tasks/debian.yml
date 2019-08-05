@@ -1,4 +1,4 @@
-- name: Add neovim repo
+- name: Add golang repo
   apt_repository:
     repo: ppa:longsleep/golang-backports
   become: yes
