@@ -48,4 +48,4 @@
     state: link
 
 - name: Install plugins
-  command: nvim +PlugInstall +qall
+  command: nvim +':silent PlugInstall' +qa
