@@ -180,6 +180,7 @@ let g:ycm_autoclose_preview_window_after_completion = 1
 
 " ==== vim-go settings ====
 let g:go_template_autocreate = 0
+let g:go_fmt_fail_silently = 1
 
 " ================ VISUAL SETTINGS ================
 " ==== Theme ====
