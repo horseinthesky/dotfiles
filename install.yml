@@ -19,5 +19,6 @@
     - {role: rg, tags: ['rg']}
     - {role: fd, tags: ['fd']}
     - {role: lsd, tags: ['lsd']}
-    - {role: pyenv, tags: ['pyenv']}
     - {role: poetry, tags: ['poetry']}
+    - {role: pipenv, tags: ['pipenv']}
+    - {role: pyenv, tags: ['pyenv']}

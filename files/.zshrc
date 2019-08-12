@@ -10,6 +10,9 @@ export PATH="/home/$USER/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"
 # eval "$(pyenv virtualenv-init -)"
 
+# pipenv settings
+eval "$(pipenv --completion)"
+
 # poetry settings
 source $HOME/.poetry/env
 
