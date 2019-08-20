@@ -9,4 +9,5 @@
       - htop
       - tree
       - speedtest-cli
+      - jq
   become: yes
