@@ -4,7 +4,6 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'Valloric/YouCompleteMe' , { 'do': 'python3 install.py --clang-completer' }
 Plug 'w0rp/ale'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-Plug 'zxqfl/tabnine-vim'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -41,6 +40,12 @@ set mouse=v          " Neovim mouse disable
 set scrolloff=5      " start scrolling 5 lines before edge of viewpoint
 set pastetoggle=<F2> " Paste mode toggle to paste code properly
 set guicursor=       " Fix for mysterious 'q' letters
+
+" ==== Folding ====
+set foldmethod=indent   "fold based on indent
+set foldnestmax=10      "deepest fold is 10 levels
+set nofoldenable        "dont fold by default
+set foldlevel=2         "this is just what i use
 
 " ==== Numbers ====
 set number
