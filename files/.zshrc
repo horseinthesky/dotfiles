@@ -5,6 +5,9 @@ export TERM="xterm-256color"
 export EDITOR="nvim"
 export ZSH_DISABLE_COMPFIX=true
 
+# ssh-agent
+eval `ssh-agent`  && ssh-add
+
 # pyenv settings
 export PATH="/home/$USER/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"
