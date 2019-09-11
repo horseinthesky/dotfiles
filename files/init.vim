@@ -23,6 +23,8 @@ Plug 'junegunn/gv.vim'
 
 " ==== VISUAL PLUGINS ====
 Plug 'morhetz/gruvbox'
+Plug 'arcticicestudio/nord-vim'
+Plug 'lifepillar/vim-solarized8'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'ryanoasis/vim-devicons'
@@ -191,7 +193,7 @@ let g:go_fmt_fail_silently = 1
 " ==== Theme ====
 set background=dark
 let g:gruvbox_contrast_dark='soft'
-colorscheme gruvbox
+colorscheme $NVIM_COLORSCHEME
 
 " ==== NERDTree Syntax Highlight ====
 " NERDTree highlight full file name (not oly icons)
