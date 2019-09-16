@@ -2,3 +2,4 @@
   pip:
     name: pipenv
     state: latest
+  become: yes
