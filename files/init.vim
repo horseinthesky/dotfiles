@@ -70,16 +70,6 @@ set undolevels=100
 set undofile
 set undodir=$HOME/.config/nvim/tmp/undo
 
-" ==== Add shebang to new python files ====
-function! BufNewFile_PY()
-  0put = '#!/usr/bin/env python3'
-  1put = '# -*- coding: utf-8 -*-'
-  2put = ''
-  normal G
-endfunction
-autocmd BufNewFile *.py call BufNewFile_PY()
-autocmd BufNewFile *.pyw call BufNewFile_PY()
-
 " ==== SPLIT NAVIGATIONS ====
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
