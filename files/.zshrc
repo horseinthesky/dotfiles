@@ -10,8 +10,9 @@ else
 fi
 
 # Add ~/go/bin to PATH
-if [[ -d "$HOME/go" ]]; then
-  export PATH="/home/$USER/go/bin:$PATH"
+export GOPATH="/home/$USER/go"
+if [[ -d "$GOPATH" ]]; then
+  export PATH="$GOPATH/bin:$PATH"
 fi
 
 # Set system locales
