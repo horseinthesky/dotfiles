@@ -10,7 +10,9 @@ else
 fi
 
 # Add ~/go/bin to PATH
-export PATH="/home/$USER/go/bin:$PATH"
+if [[ -d "$HOME/go" ]]; then
+  export PATH="/home/$USER/go/bin:$PATH"
+fi
 
 # Set system locales
 export LC_ALL=C.UTF-8
