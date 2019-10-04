@@ -9,6 +9,9 @@ else
     source "$HOME/.local/share/nvim/plugged/gruvbox/gruvbox_256palette_osx.sh"
 fi
 
+# Add ~/go/bin to PATH
+export PATH="/home/$USER/go/bin:$PATH"
+
 # Set system locales
 export LC_ALL=C.UTF-8
 export LANG=C.UTF-8
