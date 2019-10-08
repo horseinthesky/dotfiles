@@ -9,6 +9,9 @@ else
     source "$HOME/.local/share/nvim/plugged/gruvbox/gruvbox_256palette_osx.sh"
 fi
 
+# Disable tmupx autotitle
+export DISABLE_AUTO_TITLE="true"
+
 # Add ~/go/bin to PATH
 export GOPATH="/home/$USER/go"
 if [[ -d "$GOPATH" ]]; then
