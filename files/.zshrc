@@ -30,15 +30,19 @@ export ZSH_DISABLE_COMPFIX=true
 eval `ssh-agent` && ssh-add
 
 # pyenv settings
-export PATH="/home/$USER/.pyenv/bin:$PATH"
-eval "$(pyenv init -)"
-# eval "$(pyenv virtualenv-init -)"
+if [[ -d "$HOME/.pyenv" ]]; then
+  export PATH="/home/$USER/.pyenv/bin:$PATH"
+  eval "$(pyenv init -)"
+  # eval "$(pyenv virtualenv-init -)"
+fi
 
 # pipenv settings
 eval "$(pipenv --completion)"
 
 # poetry settings
-source $HOME/.poetry/env
+if [[ -d "$HOME/.poetry" ]]; then
+  source $HOME/.poetry/env
+fi
 
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
@@ -140,13 +144,15 @@ alias ll='lsd -lA --group-dirs first'
 alias ls='lsd --group-dirs first'
 
 # fzf
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-export FZF_DEFAULT_COMMAND='fd --type file --follow --hidden --exclude .git'
-export FZF_DEFAULT_OPTS="--extended"
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+if [[ -d "$HOME/.fzf" ]]; then
+  [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+  export FZF_DEFAULT_COMMAND='fd --type file --follow --hidden --exclude .git'
+  export FZF_DEFAULT_OPTS="--extended"
+  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+fi
 
 if [[ "$ZSH_THEME" == "powerlevel10k/powerlevel10k" ]]; then
-  # ==== Powerlevel9k Settings ====
+  # ==== Powerlevel10k Settings ====
   # Mode
   POWERLEVEL9K_MODE='nerdfont-complete'
 
