@@ -27,3 +27,13 @@
   git:
     repo: https://github.com/denysdovhan/spaceship-prompt.git
     dest: ~/.oh-my-zsh/custom/themes/spaceship
+
+- name: Create forgit plugin dir
+  file:
+    path: "{{ user_home }}/.oh-my-zsh/plugins/forgit"
+    state: directory
+
+- name: Install forgit plugin
+  get_url:
+    url: https://raw.githubusercontent.com/wfxr/forgit/master/forgit.plugin.zsh
+    dest: ~/.oh-my-zsh/plugins/forgit/forgit.plugin.zsh
