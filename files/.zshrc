@@ -26,8 +26,13 @@ export TERM="xterm-256color"
 export EDITOR="nvim"
 export ZSH_DISABLE_COMPFIX=true
 
+# enable zsh forgit plugin
+if [[ -f "$HOME/.oh-my-zsh/plugins/forgit/forgit.plugin.zsh" ]]; then
+  source "$HOME/.oh-my-zsh/plugins/forgit/forgit.plugin.zsh"
+fi
+
 # ssh-agent
-eval `ssh-agent`  && ssh-add
+eval `ssh-agent` && ssh-add
 
 # pyenv settings
 export PATH="/home/$USER/.pyenv/bin:$PATH"
@@ -95,7 +100,7 @@ ZSH_THEME=powerlevel10k/powerlevel10k
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  git
+  # git
   zsh-autosuggestions
   sudo
 )
