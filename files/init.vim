@@ -31,6 +31,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'ryanoasis/vim-devicons'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'yggdroot/indentline'
+Plug 'luochen1990/rainbow'
 Plug 'sheerun/vim-polyglot'
 call plug#end()
 
@@ -181,6 +182,9 @@ let g:go_template_autocreate = 0
 let g:go_fmt_fail_silently = 1
 
 " ================ VISUAL SETTINGS ================
+" ==== rainbow ====
+let g:rainbow_active = 1 "set to 0 if you want to enable it later via :RainbowToggle
+
 " ==== Theme ====
 set background=dark
 let g:gruvbox_contrast_dark='soft'
