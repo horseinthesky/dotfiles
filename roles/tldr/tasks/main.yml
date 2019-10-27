@@ -1,0 +1,10 @@
+- name: Download tldr
+  get_url:
+    url: "{{tldr_release_url}}{{tldr_version}}/{{tldr_bin_file}}"
+    dest: /usr/local/bin/tldr
+  become: yes
+- name: Add tldr binary execute permissions
+  file:
+    path: /usr/local/bin/tldr
+    mode: '0755'
+  become: yes
