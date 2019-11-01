@@ -153,7 +153,7 @@ nmap t <Plug>(easymotion-t)
 let g:move_key_modifier = 'S'
 
 " ==== vim-multiple-cursors ====
-let g:multi_cursor_select_all_word_key = '<S-n>'
+let g:multi_cursor_select_all_word_key = '<C-m>'
 
 " ==== mundo ====
 nnoremap <F7> :MundoToggle<CR>
