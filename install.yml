@@ -20,6 +20,7 @@
     - {role: fd, tags: ['fd']}
     - {role: lsd, tags: ['lsd']}
     - {role: tldr, tags: ['tldr']}
+    - {role: docker, tags: ['docker']}
     - {role: poetry, tags: ['poetry']}
     - {role: pipenv, tags: ['pipenv']}
     - {role: pyenv, tags: ['pyenv']}
