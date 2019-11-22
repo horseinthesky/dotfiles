@@ -44,6 +44,21 @@ if [[ -d "$HOME/.poetry" ]]; then
   source $HOME/.poetry/env
 fi
 
+alias vi=$(which nvim)
+alias suroot='sudo -E -s'
+
+# lsd aliases
+alias ll='lsd -lA --group-dirs first'
+alias ls='lsd --group-dirs first'
+
+# fzf
+if [[ -f "$HOME/.fzf.zsh" ]]; then
+  [[ -f "$HOME/.fzf.zsh" ]] && source $HOME/.fzf.zsh
+  export FZF_DEFAULT_COMMAND='fd --type file --follow --hidden --exclude .git'
+  export FZF_DEFAULT_OPTS="--extended"
+  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+fi
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -135,21 +150,6 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-
-alias vi=$(which nvim)
-alias suroot='sudo -E -s'
-
-# lsd aliases
-alias ll='lsd -lA --group-dirs first'
-alias ls='lsd --group-dirs first'
-
-# fzf
-if [[ -d "$HOME/.fzf" ]]; then
-  [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-  export FZF_DEFAULT_COMMAND='fd --type file --follow --hidden --exclude .git'
-  export FZF_DEFAULT_OPTS="--extended"
-  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-fi
 
 if [[ "$ZSH_THEME" == "powerlevel10k/powerlevel10k" ]]; then
   # ==== Powerlevel10k Settings ====
