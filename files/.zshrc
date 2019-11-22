@@ -31,7 +31,7 @@ eval `ssh-agent` && ssh-add
 
 # pyenv settings
 if [[ -d "$HOME/.pyenv" ]]; then
-  export PATH="/home/$USER/.pyenv/bin:$PATH"
+  export PATH="$HOME/.pyenv/bin:$PATH"
   eval "$(pyenv init -)"
   # eval "$(pyenv virtualenv-init -)"
 fi
