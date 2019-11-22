@@ -1,2 +1,8 @@
 - import_tasks: debian.yml
   when: ansible_os_family == "Debian"
+
+- name: Install docker-compose
+  pip:
+    name: docker-compose
+    state: latest
+  become: yes
