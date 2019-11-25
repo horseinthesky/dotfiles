@@ -133,7 +133,7 @@ let g:tagbar_autoclose = 1
 let g:tagbar_sort = 1
 
 " ==== Fugitive Conflict Resolution ====
-nnoremap <leader>gd :Gvdiff<CR>
+nnoremap <leader>gd :Gvdiffsplit!<CR>
 nnoremap gdh :diffget //2<CR>
 nnoremap gdl :diffget //3<CR>
 
