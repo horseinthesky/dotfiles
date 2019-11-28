@@ -2,13 +2,6 @@
   apt_repository:
     repo: ppa:neovim-ppa/stable
   become: yes
-  register: new_repo
-
-- name: Update sources
-  apt:
-    update_cache: yes
-  become: yes
-  when: new_repo.changed
 
 - name: Install neovim
   apt:
@@ -28,5 +21,32 @@
       - ack
       - cmake
       - exuberant-ctags
+    state: latest
+  become: yes
+
+- name: Add Nodejs repo key
+  apt_key:
+    url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
+  become: yes
+
+- name: Add Nodejs repo
+  apt_repository:
+    repo: '{{ item }}'
+    update_cache: no
+  loop:
+    - 'deb https://deb.nodesource.com/node_13.x {{ ansible_distribution_release }} main'
+    - 'deb-src https://deb.nodesource.com/node_13.x {{ ansible_distribution_release }} main'
+  become: yes
+  register: nodejs_repo
+
+- name: Update cache
+  apt:
+    update_cache: yes
+  become: yes
+  when: nodejs_repo.changed
+
+- name: Install Nodejs
+  apt:
+    name: nodejs
     state: latest
   become: yes

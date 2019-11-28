@@ -6,6 +6,8 @@
   pip:
     name:
       - ipython
+      - jedi
+      - black
       - mypy
       - flake8
       - flake8-mypy
@@ -40,6 +42,12 @@
   file:
     path: "{{ user_home }}/.config/nvim"
     state: directory
+
+- name: Symlink coc-settings
+  file:
+    src: "{{ dotfiles_home }}/coc-settings.json"
+    dest: "{{ user_home }}/.config/nvim/coc-settings.json"
+    state: link
 
 - name: Symlink vimrc
   file:

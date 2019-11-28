@@ -1,0 +1,21 @@
+{
+  "coc.preferences.formatOnSaveFiletypes": [
+    "*"
+  ],
+  "python.pythonPath": "/usr/bin/python3",
+  "python.linting.enabled": false,
+  "python.linting.pylintEnabled": false,
+  "python.linting.flake8Enabled": true,
+  "python.linting.flake8Args": [
+    "--ignore=E501,E402,F401,E701"
+  ],
+  "python.formatting.provider": "autopep8",
+  "python.formatting.autopep8Args": [
+    "--ignore=E501"
+  ],
+  "yaml.validate": false,
+  "yaml.format.enable": true,
+  "yaml.completion": true,
+  "prettier.formatterPriority": -1,
+  "prettier.printWidth": 0
+}

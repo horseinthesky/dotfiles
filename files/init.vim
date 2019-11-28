@@ -1,10 +1,8 @@
 " ================ VIM-PLUG PLUGINS ================
 " ==== PLUGINS ====
 call plug#begin('~/.local/share/nvim/plugged')
-Plug 'Valloric/YouCompleteMe' , { 'do': 'python3 install.py --clang-completer' }
 Plug 'w0rp/ale'
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-Plug 'ctrlpvim/ctrlp.vim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'scrooloose/nerdtree'
@@ -41,15 +39,19 @@ set t_Co=256         " Use 256 colours (Use this setting only if your terminal s
 set nobackup         " Don't create annoying backup files
 set noswapfile       " Dont' use swapfile
 set mouse=v          " Neovim mouse disable
-set scrolloff=5      " start scrolling 5 lines before edge of viewpoint
+set scrolloff=5      " Start scrolling 5 lines before edge of viewpoint
 set pastetoggle=<F2> " Paste mode toggle to paste code properly
 set guicursor=       " Fix for mysterious 'q' letters
+set shortmess+=c     " don't give |ins-completion-menu| messages
+" set cmdheight=2      " More space for messages
+" set signcolumn=yes   " Always show signcolumns (left row)
+set updatetime=300   " You will have bad experience for diagnostic messages when it's default 4000.
 
 " ==== Folding ====
-set foldmethod=indent   "fold based on indent
-set foldnestmax=10      "deepest fold is 10 levels
-set nofoldenable        "dont fold by default
-set foldlevel=2         "this is just what i use
+set foldmethod=indent   " Fold based on indent
+set foldnestmax=10      " Deepest fold is 10 levels
+set nofoldenable        " Dont fold by default
+set foldlevel=2         " This is just what i use
 
 " ==== Numbers ====
 set number
@@ -121,10 +123,14 @@ let g:ale_python_autopep8_options = '--ignore=E501'              " ignore long-l
 let g:ale_yaml_yamllint_options='-d "{extends: relaxed, rules: {line-length: disable}}"'
 let g:ale_sign_error = '✘'
 let g:ale_sign_warning = '⚠'
-let g:ale_fix_on_save = 1
+let g:ale_fix_on_save = 0
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %code%: %s'
+
+" Navigate between errors
+nmap <silent> [a <Plug>(ale_previous_wrap)
+nmap <silent> ]a <Plug>(ale_next_wrap)
 
 " ==== TagBar ====
 nmap <F8> :TagbarToggle<CR>
@@ -153,7 +159,7 @@ nmap t <Plug>(easymotion-t)
 let g:move_key_modifier = 'S'
 
 " ==== vim-multiple-cursors ====
-let g:multi_cursor_select_all_word_key = '<C-m>'
+let g:multi_cursor_select_all_word_key = '<C-M>'
 
 " ==== mundo ====
 nnoremap <F7> :MundoToggle<CR>
@@ -172,14 +178,62 @@ autocmd! FileType fzf
 autocmd  FileType fzf set laststatus=0 noshowmode noruler
   \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 
-" ==== YouCompeteMe settings ====
-set completeopt-=preview
-let g:ycm_autoclose_preview_window_after_completion = 1
-" let g:ycm_auto_trigger = 0
+" ==== coc ====
+" Install CoC plugins
+let g:coc_global_extensions = [
+  \ 'coc-python',
+  \ 'coc-snippets',
+  \ 'coc-prettier',
+  \ 'coc-json',
+  \ 'coc-yaml',
+  \ 'coc-css',
+  \ 'coc-html',
+  \ 'coc-xml',
+  \ 'coc-tabnine',
+  \ 'coc-go',
+  \ ]
 
-" ==== vim-go settings ====
-let g:go_template_autocreate = 0
-let g:go_fmt_fail_silently = 1
+" use <tab> for trigger completion and navigate to the next complete item
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
+inoremap <silent><expr> <Tab>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<Tab>" :
+      \ coc#refresh()
+
+" Use <Tab> and <S-Tab> to navigate the completion list:
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" Use <cr> to confirm completion
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" To make <cr> select the first completion item and confirm the completion when no item has been selected:
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
+
+" Navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+" Use <c-space>for trigger completion
+inoremap <silent><expr> <c-space> coc#refresh()
+" Show CoC extensions
+nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+" Show commands
+nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+
+" Go to definition (Ctrl+6 for return)
+nmap <silent> gd <Plug>(coc-definition)
+" Format using linters
+command! -nargs=0 Format :call CocAction('format')
+
+" Add missing go imports on save
+autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
+" Add tags in Golang files
+autocmd FileType go nmap ctj :CocCommand go.tags.add json<cr>
+autocmd FileType go nmap cty :CocCommand go.tags.add yaml<cr>
+autocmd FileType go nmap ctx :CocCommand go.tags.add xml<cr>
+autocmd FileType go nmap ctc :CocCommand go.tags.clear<cr>
 
 " ================ VISUAL SETTINGS ================
 " ==== rainbow ====
