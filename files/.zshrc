@@ -175,7 +175,9 @@ if [[ "$ZSH_THEME" == "powerlevel10k/powerlevel10k" ]]; then
   POWERLEVEL9K_CUSTOM_DETECT_SSH_FOREGROUND="gold1" # 220
 
   # OS block settings
-  POWERLEVEL9K_LINUX_UBUNTU_ICON='\uF30C' # 
+  # POWERLEVEL9K_LINUX_ICON='\uE712' # 
+  # POWERLEVEL9K_LINUX_REDHAT_ICON='\uF309' # 
+  # POWERLEVEL9K_LINUX_UBUNTU_ICON='\uF30C' # 
   if [ -f /etc/os-release ]; then
       # freedesktop.org and systemd
       . /etc/os-release
@@ -190,14 +192,12 @@ if [[ "$ZSH_THEME" == "powerlevel10k/powerlevel10k" ]]; then
 
   # User block settings
   POWERLEVEL9K_USER_ICON='\uF415' # 
-  # POWERLEVEL9K_ROOT_ICON="\uF198" # 
-  POWERLEVEL9K_ROOT_ICON='\uF09C' # 
+  POWERLEVEL9K_ROOT_ICON='\uF198' # 
+  # POWERLEVEL9K_ROOT_ICON='\uF09C' # 
   POWERLEVEL9K_USER_DEFAULT_BACKGROUND='plum4' # 096
   POWERLEVEL9K_USER_DEFAULT_FOREGROUND='grey93' # 255
   POWERLEVEL9K_USER_ROOT_BACKGROUND='darkred' # 088
   POWERLEVEL9K_USER_ROOT_FOREGROUND='grey93' # 255
-  # RED_HAT_ICON='\uF309' # 
-  # LINUX_ICON='\uE712' # 
 
   # Home block settings
   POWERLEVEL9K_HOME_ICON='\uF015' # 
