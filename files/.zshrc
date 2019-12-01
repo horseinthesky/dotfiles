@@ -177,7 +177,7 @@ if [[ "$ZSH_THEME" == "powerlevel10k/powerlevel10k" ]]; then
   # OS block settings
   # POWERLEVEL9K_LINUX_ICON='\uE712' # 
   # POWERLEVEL9K_LINUX_REDHAT_ICON='\uF309' # 
-  # POWERLEVEL9K_LINUX_UBUNTU_ICON='\uF30C' # 
+  # POWERLEVEL9K_LINUX_UBUNTU_ICON='\uF31B' # 
   if [ -f /etc/os-release ]; then
       # freedesktop.org and systemd
       . /etc/os-release
