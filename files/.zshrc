@@ -27,7 +27,7 @@ export EDITOR="nvim"
 export ZSH_DISABLE_COMPFIX=true
 
 # ssh-agent
-eval `ssh-agent` && ssh-add
+[[ $(cat /etc/hostname) == 'horseinthesky-w' ]] && eval `ssh-agent` && ssh-add
 
 # pyenv settings
 if [[ -d "$HOME/.pyenv" ]]; then
