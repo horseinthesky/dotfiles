@@ -1,5 +1,0 @@
-ipython
-flake8
-autopep8
-yamllint
-glances
