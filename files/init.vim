@@ -13,7 +13,6 @@ Plug 'matze/vim-move'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
-Plug 'mileszs/ack.vim'
 Plug 'godlygeek/tabular'
 Plug 'majutsushi/tagbar'
 Plug 'simnalamburt/vim-mundo'
@@ -172,6 +171,8 @@ let g:mundo_close_on_revert = 1
 
 " ==== fzf ====
 map ; :Files<CR>
+map <C-p> :Rg<CR>
+map <C-a> :Ag<CR>
 
 " no vim statusline when fzf is opened
 autocmd! FileType fzf

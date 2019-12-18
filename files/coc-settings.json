@@ -2,6 +2,7 @@
   "coc.preferences.formatOnSaveFiletypes": [
     "*"
   ],
+  "coc.preferences.extensionUpdateCheck": "never",
   "python.pythonPath": "/usr/bin/python3",
   "python.linting.enabled": false,
   "python.linting.pylintEnabled": false,

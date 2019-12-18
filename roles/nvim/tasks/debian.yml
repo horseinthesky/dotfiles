@@ -18,7 +18,7 @@
 - name: Install packages for plugins
   apt:
     name:
-      - ack
+      - silversearcher-ag
       - cmake
       - exuberant-ctags
     state: latest
