@@ -9,18 +9,19 @@
     dotfiles_home: "{{ user_home }}/dotfiles/files"
 
   roles:
-  # Tag each role so that we can select individual roles to run with ansible-playbook --tags
-    - {role: packages, tags: ['packages']}
-    - {role: git, tags: ['git']}
-    - {role: zsh, tags: ['zsh']}
-    - {role: go, tags: ['go']}
-    - {role: nvim, tags: ['nvim']}
-    - {role: tmux, tags: ['tmux']}
-    - {role: rg, tags: ['rg']}
-    - {role: fd, tags: ['fd']}
-    - {role: lsd, tags: ['lsd']}
-    - {role: tldr, tags: ['tldr']}
-    - {role: docker, tags: ['docker']}
-    - {role: poetry, tags: ['poetry']}
-    - {role: pipenv, tags: ['pipenv']}
-    - {role: pyenv, tags: ['pyenv']}
+    # Tag each role so that we can select individual roles to run with ansible-playbook --tags
+    - { role: packages, tags: ["packages"] }
+    - { role: git, tags: ["git"] }
+    - { role: zsh, tags: ["zsh"] }
+    - { role: go, tags: ["go"] }
+    - { role: nvim, tags: ["nvim"] }
+    - { role: tmux, tags: ["tmux"] }
+    - { role: rg, tags: ["rg"] }
+    - { role: fd, tags: ["fd"] }
+    - { role: lsd, tags: ["lsd"] }
+    - { role: bat, tags: ["bat"] }
+    - { role: tldr, tags: ["tldr"] }
+    - { role: docker, tags: ["docker"] }
+    - { role: poetry, tags: ["poetry"] }
+    - { role: pipenv, tags: ["pipenv"] }
+    - { role: pyenv, tags: ["pyenv"] }

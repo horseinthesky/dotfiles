@@ -173,6 +173,7 @@ let g:mundo_close_on_revert = 1
 map ; :Files<CR>
 map <C-p> :Rg<CR>
 
+" Advanced Rg with preview window
 function! RipgrepFzf(query, fullscreen)
   let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case %s || true'
   let initial_command = printf(command_fmt, shellescape(a:query))
@@ -182,6 +183,10 @@ function! RipgrepFzf(query, fullscreen)
 endfunction
 
 command! -nargs=* -bang Rg call RipgrepFzf(<q-args>, <bang>0)
+
+" Advanced Files with preview window + bat
+command! -bang -nargs=? -complete=dir Files
+    \ call fzf#vim#files(<q-args>, {'options': ['--layout=reverse', '--info=inline', '--preview', '~/.local/share/nvim/plugged/fzf.vim/bin/preview.sh {}']}, <bang>0)
 
 " ==== coc ====
 " Install CoC plugins

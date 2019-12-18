@@ -1,3 +1,3 @@
 bat_release_url: https://github.com/sharkdp/bat/releases/download
-bat_version: v0.11.0
-bat_dpkg_file: bat_0.11.0_amd64.deb
+bat_version: v0.12.1
+bat_dpkg_file: bat_0.12.1_amd64.deb
