@@ -2,9 +2,37 @@
   "coc.preferences.formatOnSaveFiletypes": [
     "*"
   ],
-  "coc.preferences.extensionUpdateCheck": "never",
+  "suggest.snippetIndicator": " \ue796",
+  "suggest.completionItemKindLabels": {
+    "keyword": "\uf1de",
+    "variable": "\ue79b",
+    "value": "\uf89f",
+    "operator": "\u03a8",
+    "function": "\u0192",
+    "reference": "\ufa46",
+    "constant": "\uf8fe",
+    "method": "\uf09a",
+    "struct": "\ufb44",
+    "class": "\uf0e8",
+    "interface": "\uf417",
+    "text": "\ue612",
+    "enum": "\uf435",
+    "enumMember": "\uf02b",
+    "module": "\uf40d",
+    "color": "\ue22b",
+    "property": "\ue624",
+    "field": "\uf9be",
+    "unit": "\uf475",
+    "event": "\ufacd",
+    "file": "\uf723",
+    "folder": "\uf114",
+    "snippet": "\ue60b",
+    "typeParameter": "\uf728",
+    "default": "\uf29c"
+  },
+  "diagnostic.displayByAle": true,
   "python.pythonPath": "/usr/bin/python3",
-  "python.linting.enabled": false,
+  "python.linting.enabled": true,
   "python.linting.pylintEnabled": false,
   "python.linting.flake8Enabled": true,
   "python.linting.flake8Args": [
@@ -14,7 +42,7 @@
   "python.formatting.autopep8Args": [
     "--ignore=E501"
   ],
-  "yaml.validate": false,
+  "yaml.validate": true,
   "yaml.format.enable": true,
   "yaml.completion": true,
   "prettier.formatterPriority": -1,

@@ -109,19 +109,22 @@ set smartcase
 " let g:ale_linters_explicit = 1
 let g:airline#extensions#ale#enabled = 1
 let g:ale_linters = {
-      \ 'python': ['flake8'],
-      \ 'go': ['gofmt'],
-      \ 'yaml': ['yamllint']
-      \ }
+  \ 'python': ['flake8'],
+  \ 'go': ['gofmt'],
+  \ 'yaml': ['yamllint']
+  \ }
 let g:ale_fixers = {
-      \ 'python': ['autopep8'],
-      \ 'go': ['gofmt']
-      \ }
+  \ 'python': ['autopep8'],
+  \ 'go': ['gofmt'],
+  \ '*': ['remove_trailing_lines', 'trim_whitespace']
+  \ }
 let g:ale_python_flake8_options = '--ignore=E501,E402,F401,E701' " ignore long-lines, import on top of the file, unused modules and statement with colon
 let g:ale_python_autopep8_options = '--ignore=E501'              " ignore long-lines for autopep8 fixer
 let g:ale_yaml_yamllint_options='-d "{extends: relaxed, rules: {line-length: disable}}"'
-let g:ale_sign_error = '✘'
-let g:ale_sign_warning = '⚠'
+let g:ale_sign_warning = "\uf421" " 
+let g:ale_sign_error = "\uf65b" " 
+" let g:ale_sign_warning = "\u26A0" " ⚠
+" let g:ale_sign_error = "\u2718" " ✘
 let g:ale_fix_on_save = 0
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
@@ -186,7 +189,15 @@ command! -nargs=* -bang Rg call RipgrepFzf(<q-args>, <bang>0)
 
 " Advanced Files with preview window + bat
 command! -bang -nargs=? -complete=dir Files
-    \ call fzf#vim#files(<q-args>, {'options': ['--layout=reverse', '--info=inline', '--preview', '~/.local/share/nvim/plugged/fzf.vim/bin/preview.sh {}']}, <bang>0)
+  \ call fzf#vim#files(
+    \ <q-args>, {
+      \ 'options': [
+        \ '--layout=reverse',
+        \ '--info=inline',
+        \ '--preview',
+        \ '~/.local/share/nvim/plugged/fzf.vim/bin/preview.sh {}'
+      \ ]
+    \ }, <bang>0)
 
 " ==== coc ====
 " Install CoC plugins
@@ -210,9 +221,9 @@ function! s:check_back_space() abort
 endfunction
 
 inoremap <silent><expr> <Tab>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<Tab>" :
-      \ coc#refresh()
+  \ pumvisible() ? "\<C-n>" :
+  \ <SID>check_back_space() ? "\<Tab>" :
+  \ coc#refresh()
 
 " Use <Tab> and <S-Tab> to navigate the completion list:
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
@@ -220,7 +231,7 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 " Use <cr> to confirm completion
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 " To make <cr> select the first completion item and confirm the completion when no item has been selected:
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
+" inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
 
 " Navigate diagnostics
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
