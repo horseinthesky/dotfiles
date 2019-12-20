@@ -1,0 +1,12 @@
+# Set the theme to "TwoDark"
+--theme="Monokai Extended Origin"
+# --theme="1337"
+
+# Show line numbers, Git modifications, file header and grid
+--style="numbers,changes,header,grid"
+
+# Use C++ syntax (instead of C) for .h header files
+--map-syntax h:cpp
+
+# Use "gitignore" highlighting for ".ignore" files
+--map-syntax .ignore:.gitignore
