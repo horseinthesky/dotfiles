@@ -1,2 +1,13 @@
 - import_tasks: debian.yml
   when: ansible_os_family == "Debian"
+
+- name: Create config dir
+  file:
+    path: "{{ user_home }}/.config/bat/"
+    state: directory
+
+- name: Symlink bat config
+  file:
+    src: "{{ dotfiles_home }}/bat_config"
+    dest: "{{ user_home }}/.config/bat/config"
+    state: link
