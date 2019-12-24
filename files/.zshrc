@@ -157,6 +157,7 @@ alias tn='tmux new -s '
 alias ta='tmux a -t '
 alias tk='tmux kill-session -t '
 alias tl='tmux ls'
+alias tpl='tmuxp load '
 
 # ==== Powerlevel10k Settings ====
 if [[ "$ZSH_THEME" == "powerlevel10k/powerlevel10k" ]]; then
