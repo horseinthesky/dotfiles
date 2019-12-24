@@ -1,4 +1,4 @@
-" ================ VIM-PLUG PLUGINS ================
+" ============== VIM-PLUG PLUGINS ================
 " ==== PLUGINS ====
 call plug#begin('~/.local/share/nvim/plugged')
 Plug 'w0rp/ale'
@@ -20,6 +20,8 @@ Plug 'tpope/vim-fugitive'
 Plug 'junegunn/gv.vim'
 
 " ==== VISUAL PLUGINS ====
+" Plug 'edkolev/tmuxline.vim'
+Plug 'mhinz/vim-startify'
 Plug 'morhetz/gruvbox'
 Plug 'arcticicestudio/nord-vim'
 Plug 'lifepillar/vim-solarized8'
@@ -209,6 +211,7 @@ let g:coc_global_extensions = [
   \ 'coc-yaml',
   \ 'coc-css',
   \ 'coc-html',
+  \ 'coc-emmet',
   \ 'coc-xml',
   \ 'coc-tabnine',
   \ 'coc-go',
@@ -280,6 +283,7 @@ let g:NERDTreeLimitedSyntax = 1
 
 " ==== Airline ====
 let g:airline_theme='powerlineish'
+" let g:airline_theme='gruvbox'
 let g:airline_powerline_fonts = 1
 
 " theme support for tab separators
@@ -291,5 +295,5 @@ let g:airline#extensions#tabline#left_sep = ''
 let g:airline#extensions#tabline#left_alt_sep = '|'
 let airline#extensions#tabline#tabs_label = '' " don't show tab label on top left
 let airline#extensions#tabline#show_splits = 0 " don't show buffer label on top right
-" let g:airline_left_sep = ''
+" let g:airline_left_sep = ''
 " let g:airline_right_sep = ''

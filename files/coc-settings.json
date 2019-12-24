@@ -2,6 +2,7 @@
   "coc.preferences.formatOnSaveFiletypes": [
     "*"
   ],
+  "suggest.timeout": 500,
   "suggest.snippetIndicator": " \ue796",
   "suggest.completionItemKindLabels": {
     "keyword": "\uf1de",
@@ -45,6 +46,10 @@
   "yaml.validate": true,
   "yaml.format.enable": true,
   "yaml.completion": true,
+  "emmet.includeLanguages": {
+    "vue-html": "html",
+    "javascript": "javascriptreact"
+  },
   "prettier.formatterPriority": -1,
   "prettier.printWidth": 0
 }

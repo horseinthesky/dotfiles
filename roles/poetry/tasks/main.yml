@@ -8,7 +8,7 @@
 
 - name: Create symlink to config.toml
   file:
-    src: "{{ dotfiles_home }}/config.toml"
+    src: "{{ dotfiles_home }}/poetry.toml"
     dest: "{{ user_home }}/.config/pypoetry/config.toml"
     state: link
     force: yes

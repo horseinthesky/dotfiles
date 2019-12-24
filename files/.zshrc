@@ -44,9 +44,6 @@ if [[ -d "$HOME/.poetry" ]]; then
   source $HOME/.poetry/env
 fi
 
-alias vi=$(which nvim)
-alias suroot='sudo -E -s'
-
 # fzf
 if [[ -f "$HOME/.fzf.zsh" ]]; then
   [[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
@@ -147,12 +144,22 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+# ======== ALIASES ========
+alias vi=$(which nvim)
+alias suroot='sudo -E -s'
+
 # lsd aliases
 alias ll='lsd -lA --group-dirs first'
 alias ls='lsd --group-dirs first'
 
+# tmux aliases
+alias tn='tmux new -s '
+alias ta='tmux a -t '
+alias tk='tmux kill-session -t '
+alias tl='tmux ls'
+
+# ==== Powerlevel10k Settings ====
 if [[ "$ZSH_THEME" == "powerlevel10k/powerlevel10k" ]]; then
-  # ==== Powerlevel10k Settings ====
   # Mode
   POWERLEVEL9K_MODE='nerdfont-complete'
 
