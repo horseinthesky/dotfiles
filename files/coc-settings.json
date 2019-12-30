@@ -34,18 +34,61 @@
   },
   "diagnostic.displayByAle": true,
   // coc-explorer
+  "explorer.width": 40,
+  "explorer.file.column.filename.width": 20,
+  "explorer.file.showHiddenFiles": true,
   "explorer.icon.enableNerdfont": true,
-  "explorer.icon.enableVimDevions": false,
+  "explorer.sources": [
+    {
+      "name": "file",
+      "expand": true
+    }
+  ],
+  "explorer.icon.customIcons": {
+    "icons": {
+      "folderClosed": {
+        "code": " ",
+        "color": "#00afaf"
+      },
+      "folderOpened": {
+        "code": " ",
+        "color": "#00afaf"
+      },
+    }
+  },
   "explorer.file.columns": [
+    "indent",
+    "selection",
     "icon",
     "filename",
+    "readonly"
   ],
   "explorer.keyMappings": {
-    "h": "gotoParent",
-    "l": "expandRecursive"
+    "<tab>": "toggleSelection",
+    "<cr>": "expandOrCollapse",
+    "gl": "expandRecursive",
+    "gh": "collapseRecursive",
+    "i": "openInVsplit",
+    "Y": "copyFilepath",
+    "y": "copyFilename",
+    "c": "copyFile",
+    "x": "cutFile",
+    "p": "pasteFile",
+    "d": "delete",
+    "D": "deleteForever",
+    "a": "addFile",
+    "A": "addDirectory",
+    "r": "rename",
+    ".": "toggleHidden",
+    "R": "refresh",
+    "f": "search",
+    "F": "searchRecursive",
+    "gf": "gotoSource:file",
+    "gb": "gotoSource:buffer",
   },
   "explorer.icon.expanded": " ",
   "explorer.icon.collapsed": " ",
+  "explorer.icon.selected": "",
   "explorer.file.column.git.icon.unmodified": "  ",
   "explorer.file.column.git.icon.mixed": "* ",
   "explorer.file.column.git.icon.modified": " ",
