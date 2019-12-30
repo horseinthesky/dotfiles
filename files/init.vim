@@ -223,6 +223,7 @@ let g:coc_global_extensions = [
   \ 'coc-tabnine',
   \ 'coc-go',
   \ 'coc-explorer',
+  \ 'coc-snippets',
   \ ]
 
 " Open/close coc-explorer
@@ -359,7 +360,7 @@ function! LightlineMode()
     \ fname == '__Mundo__' ? 'Mundo' :
     \ fname == '__Mundo_Preview__' ? 'Mundo Preview' :
     \ fname =~ 'NERD_tree' ? 'NERDTree' :
-    \ fname =~ '[coc-explorer]-' ? 'Explorer' :
+    \ fname =~ '\[coc-explorer\]-' ? 'Explorer' :
     \ &ft == 'unite' ? 'Unite' :
     \ &ft == 'vimfiler' ? 'VimFiler' :
     \ &ft == 'vimshell' ? 'VimShell' :

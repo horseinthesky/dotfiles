@@ -2,6 +2,7 @@
   "coc.preferences.formatOnSaveFiletypes": [
     "*"
   ],
+  "suggest.languageSourcePriority": 99,
   "suggest.timeout": 500,
   "suggest.snippetIndicator": " \ue796",
   "suggest.completionItemKindLabels": {
@@ -51,6 +52,11 @@
   "explorer.file.column.git.icon.untracked": " ",
   "explorer.file.column.git.icon.deleted": " ",
   "explorer.file.column.git.icon.added": " ",
+  // coc-emmet
+  "emmet.includeLanguages": {
+    "vue-html": "html",
+    "javascript": "javascriptreact"
+  },
   // coc-python
   "python.pythonPath": "/usr/bin/python3",
   "python.linting.enabled": true,
@@ -67,10 +73,6 @@
   "yaml.validate": true,
   "yaml.format.enable": true,
   "yaml.completion": true,
-  "emmet.includeLanguages": {
-    "vue-html": "html",
-    "javascript": "javascriptreact"
-  },
   "prettier.formatterPriority": -1,
   "prettier.printWidth": 0
 }
