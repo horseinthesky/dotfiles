@@ -134,7 +134,8 @@ let g:ale_yaml_yamllint_options='-d "{extends: relaxed, rules: {line-length: dis
 
 " let g:airline#extensions#ale#enabled = 1
 let g:ale_sign_warning = "\uf421" " 
-let g:ale_sign_error = "\uf05e" " 
+let g:ale_sign_error = "\uf658" " 
+" let g:ale_sign_error = "\uf05e" " 
 " let g:ale_sign_error = "\uf65b" " 
 let g:ale_echo_msg_format = '[%linter%] %code%: %s'
 
