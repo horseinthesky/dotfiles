@@ -133,10 +133,10 @@ let g:ale_python_autopep8_options = '--ignore=E501'              " ignore long-l
 let g:ale_yaml_yamllint_options='-d "{extends: relaxed, rules: {line-length: disable}}"'
 
 " let g:airline#extensions#ale#enabled = 1
-let g:ale_sign_warning = "\uf421" " 
-let g:ale_sign_error = "\uf658" " 
-" let g:ale_sign_error = "\uf05e" " 
-" let g:ale_sign_error = "\uf65b" " 
+let g:ale_sign_warning = "\uf421" "  
+let g:ale_sign_error = "\uf658" "  
+" let g:ale_sign_error = "\uf05e" "  
+" let g:ale_sign_error = "\uf65b" "  
 let g:ale_echo_msg_format = '[%linter%] %code%: %s'
 
 " Navigate between errors
@@ -436,7 +436,7 @@ let g:lightline = {
   \ },
 \ }
 
-let g:lightline#ale#indicator_checking = "\uf110 "
-let g:lightline#ale#indicator_warnings = "\uf071 "
-let g:lightline#ale#indicator_errors = "\uf05e "
-let g:lightline#ale#indicator_ok = "\uf00c "
+let g:lightline#ale#indicator_checking = " "
+let g:lightline#ale#indicator_warnings = " "
+let g:lightline#ale#indicator_errors = " "
+let g:lightline#ale#indicator_ok = " "
