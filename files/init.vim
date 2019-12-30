@@ -383,7 +383,7 @@ let g:lightline = {
   \ },
   \ 'tabline': {
   \   'left': [['tabs']],
-  \   'right': [['absolutepath']],
+  \   'right': [],
   \ },
   \ 'tab': {
   \   'active': ['filename', 'fticon'],
