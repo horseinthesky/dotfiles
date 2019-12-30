@@ -32,6 +32,26 @@
     "default": "\uf29c"
   },
   "diagnostic.displayByAle": true,
+  // coc-explorer
+  "explorer.icon.enableNerdfont": true,
+  "explorer.icon.enableVimDevions": false,
+  "explorer.file.columns": [
+    "icon",
+    "filename",
+  ],
+  "explorer.keyMappings": {
+    "h": "gotoParent",
+    "l": "expandRecursive"
+  },
+  "explorer.icon.expanded": " ",
+  "explorer.icon.collapsed": " ",
+  "explorer.file.column.git.icon.unmodified": "  ",
+  "explorer.file.column.git.icon.mixed": "* ",
+  "explorer.file.column.git.icon.modified": " ",
+  "explorer.file.column.git.icon.untracked": " ",
+  "explorer.file.column.git.icon.deleted": " ",
+  "explorer.file.column.git.icon.added": " ",
+  // coc-python
   "python.pythonPath": "/usr/bin/python3",
   "python.linting.enabled": true,
   "python.linting.pylintEnabled": false,
@@ -43,6 +63,7 @@
   "python.formatting.autopep8Args": [
     "--ignore=E501"
   ],
+  // coc-yaml
   "yaml.validate": true,
   "yaml.format.enable": true,
   "yaml.completion": true,

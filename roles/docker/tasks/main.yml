@@ -1,6 +1,13 @@
 - import_tasks: debian.yml
   when: ansible_os_family == "Debian"
 
+- name: Add current user to docker group
+  user:
+    name: "{{ lookup('env', 'USER') }}"
+    groups: docker
+    append: yes
+  become: yes
+
 - name: Install docker-compose
   pip:
     name: docker-compose

@@ -1,5 +1,5 @@
-" ============== VIM-PLUG PLUGINS ================
-" ==== PLUGINS ====
+" ============= VIM-PLUG PLUGINS ================
+" ==== FEATURE PLUGINS ====
 call plug#begin('~/.local/share/nvim/plugged')
 Plug 'w0rp/ale'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -8,7 +8,6 @@ Plug 'junegunn/fzf.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'easymotion/vim-easymotion'
 Plug 'terryma/vim-multiple-cursors'
-Plug 'mattn/emmet-vim'
 Plug 'matze/vim-move'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
@@ -25,8 +24,8 @@ Plug 'mhinz/vim-startify'
 Plug 'morhetz/gruvbox'
 Plug 'arcticicestudio/nord-vim'
 Plug 'lifepillar/vim-solarized8'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+Plug 'itchyny/lightline.vim'
+Plug 'maximbaz/lightline-ale'
 Plug 'ryanoasis/vim-devicons'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'yggdroot/indentline'
@@ -52,7 +51,16 @@ set updatetime=300   " You will have bad experience for diagnostic messages when
 set foldmethod=indent   " Fold based on indent
 set foldnestmax=10      " Deepest fold is 10 levels
 set nofoldenable        " Dont fold by default
-set foldlevel=2         " This is just what i use
+set foldlevel=2         " This is just what I use
+
+" ==== File explorer ====
+map <F3> :!ls<CR>:e
+let g:netrw_banner=0 " diable annoying banner
+let g:netrw_browse_split=4 " open in proir window
+let g:netrw_altv=1 " open splits to the right
+let g:netrw_liststyle=3 " tree view
+let g:netrw_list_hide=netrw_gitignore#Hide()
+let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
 
 " ==== Numbers ====
 set number
@@ -109,7 +117,7 @@ set smartcase
 " ================ PLUGINS CONFIG ================
 " ==== ALE ====
 " let g:ale_linters_explicit = 1
-let g:airline#extensions#ale#enabled = 1
+let g:ale_fix_on_save = 0
 let g:ale_linters = {
   \ 'python': ['flake8'],
   \ 'go': ['gofmt'],
@@ -123,13 +131,11 @@ let g:ale_fixers = {
 let g:ale_python_flake8_options = '--ignore=E501,E402,F401,E701' " ignore long-lines, import on top of the file, unused modules and statement with colon
 let g:ale_python_autopep8_options = '--ignore=E501'              " ignore long-lines for autopep8 fixer
 let g:ale_yaml_yamllint_options='-d "{extends: relaxed, rules: {line-length: disable}}"'
+
+" let g:airline#extensions#ale#enabled = 1
 let g:ale_sign_warning = "\uf421" " 
-let g:ale_sign_error = "\uf65b" " 
-" let g:ale_sign_warning = "\u26A0" " ⚠
-" let g:ale_sign_error = "\u2718" " ✘
-let g:ale_fix_on_save = 0
-let g:ale_echo_msg_error_str = 'E'
-let g:ale_echo_msg_warning_str = 'W'
+let g:ale_sign_error = "\uf05e" " 
+" let g:ale_sign_error = "\uf65b" " 
 let g:ale_echo_msg_format = '[%linter%] %code%: %s'
 
 " Navigate between errors
@@ -142,7 +148,8 @@ let g:tagbar_autofocus = 1
 let g:tagbar_autoclose = 1
 let g:tagbar_sort = 1
 
-" ==== Fugitive Conflict Resolution ====
+" ==== Fugitive ====
+" conflict resolution ====
 nnoremap <leader>gd :Gvdiffsplit!<CR>
 nnoremap gdh :diffget //2<CR>
 nnoremap gdl :diffget //3<CR>
@@ -215,7 +222,11 @@ let g:coc_global_extensions = [
   \ 'coc-xml',
   \ 'coc-tabnine',
   \ 'coc-go',
+  \ 'coc-explorer',
   \ ]
+
+" Open/close coc-explorer
+nmap ge :CocCommand explorer<CR>
 
 " use <tab> for trigger completion and navigate to the next complete item
 function! s:check_back_space() abort
@@ -269,7 +280,7 @@ let g:gruvbox_contrast_dark='soft'
 colorscheme $NVIM_COLORSCHEME
 
 " ==== NERDTree Syntax Highlight ====
-" NERDTree highlight full file name (not oly icons)
+" NERDTree highlight full file name (not only icons)
 let g:NERDTreeFileExtensionHighlightFullName = 1
 let g:NERDTreeExactMatchHighlightFullName = 1
 let g:NERDTreePatternMatchHighlightFullName = 1
@@ -280,20 +291,150 @@ let g:DevIconsEnableFoldersOpenClose = 1
 
 " NERDTree lag mitigating
 let g:NERDTreeLimitedSyntax = 1
+"
+" ==== lightline ====
+let g:viewplugins = '__Tagbar__\|__Mundo__\|__Mundo_Preview__\|NERD_tree\|\[coc-explorer\]'
 
-" ==== Airline ====
-let g:airline_theme='powerlineish'
-" let g:airline_theme='gruvbox'
-let g:airline_powerline_fonts = 1
+function! LightlineReadonly()
+  return &readonly ? '' : ''
+endfunction
 
-" theme support for tab separators
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#show_buffers = 0
-let g:airline#extensions#tabline#show_tab_type = 0
-let g:airline#extensions#tabline#tab_min_count = 2
-let g:airline#extensions#tabline#left_sep = ''
-let g:airline#extensions#tabline#left_alt_sep = '|'
-let airline#extensions#tabline#tabs_label = '' " don't show tab label on top left
-let airline#extensions#tabline#show_splits = 0 " don't show buffer label on top right
-" let g:airline_left_sep = ''
-" let g:airline_right_sep = ''
+function! LightlineFugitive()       
+  if exists('*fugitive#head')
+    let branch = fugitive#head()
+    return expand('%:t') =~# g:viewplugins ? '' :
+      \ branch !=# '' ? ' '.branch : ''
+  endif                      
+  return ''                    
+endfunction
+
+function! LightlineModified()
+  return &ft =~ 'help' ? '' : &modified ? '' : &modifiable ? '' : ''
+endfunction
+
+function! LightlineLineInfo()
+  return expand('%:t') =~# g:viewplugins ? '' : printf(' %d:%-2d', line('.'), col('.'))
+endfunction
+
+function! LightlinePercent()
+  return expand('%:t') =~# g:viewplugins ? '' : ('☰ ' . 100 * line('.') / line('$')) . '%'
+endfunction
+
+function! LighlineFileformat()
+  return expand('%:t') =~# g:viewplugins ? '' :
+    \ &fileencoding . ' ' . FileFormatIcon()
+endfunction
+function! FileFormatIcon()
+  return strlen(&filetype) ? WebDevIconsGetFileFormatSymbol() : 'no ft'
+endfunction
+
+function! LightlineFilenameExtended() 
+  let fticon = (strlen(&filetype) ? ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') 
+  let filename = LightlineFilename()
+  let modified = ModifiedStatus()
+  if filename == ''
+      return ''
+  endif
+  return expand('%:t') =~# g:viewplugins ? '' :
+    \ join([filename, fticon, modified],'')
+endfunction
+function! LightlineFilename()
+  let readonly = LightlineReadonly()
+  return ('' != readonly ? readonly . ' ' : '') .
+    \ ('' != expand('%:t') ? expand('%:t') : '')
+endfunction
+function! ModifiedStatus()
+  let modified = LightlineModified()
+  return ('' != modified ? ' ' . modified : '')
+endfunction
+
+function! LightlineTabFiletypeIcon(n)
+  let fticon = WebDevIconsGetFileTypeSymbol()
+  return fticon !=# '' ? fticon : ''
+endfunction
+
+function! LightlineMode()
+  let fname = expand('%:t')
+  return fname =~# '^__Tagbar__' ? 'Tagbar' :
+    \ fname == '__Mundo__' ? 'Mundo' :
+    \ fname == '__Mundo_Preview__' ? 'Mundo Preview' :
+    \ fname =~ 'NERD_tree' ? 'NERDTree' :
+    \ fname =~ '[coc-explorer]-' ? 'Explorer' :
+    \ &ft == 'unite' ? 'Unite' :
+    \ &ft == 'vimfiler' ? 'VimFiler' :
+    \ &ft == 'vimshell' ? 'VimShell' :
+    \ winwidth(0) > 60 ? lightline#mode() : ''
+endfunction
+
+let g:lightline = {
+  \ 'colorscheme': 'gruvbox',
+  \ 'active': {
+  \   'left': [
+  \     [ 'mode', 'paste' ],
+  \     [ 'fugitive', 'filename' ]
+  \   ],
+  \   'right': [
+  \     [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ],
+  \     [ 'percent', 'lineinfo' ],
+  \     ['fileformat'],
+  \   ]
+  \ },
+  \ 'tabline': {
+  \   'left': [['tabs']],
+  \   'right': [['absolutepath']],
+  \ },
+  \ 'tab': {
+  \   'active': ['filename', 'fticon'],
+  \   'inactive': ['tabnum', 'filename'],
+  \ },
+  \ 'component': {
+  \   'lineinfo': ' %3l:%-2v%<',
+  \   'percent': '☰ %3p%%',
+  \ },
+  \ 'component_function': {
+  \   'fugitive': 'LightlineFugitive',
+  \   'mode': 'LightlineMode',
+  \   'fileformat': 'LighlineFileformat',
+  \   'filename': 'LightlineFilenameExtended',
+  \   'lineinfo': 'LightlineLineInfo',
+  \   'percent': 'LightlinePercent',
+  \ },
+  \ 'tab_component_function': {
+  \   'fticon': 'LightlineTabFiletypeIcon',
+  \ },
+  \ 'component_expand': {
+  \   'tabs': 'lightline#tabs',
+  \   'linter_checking': 'lightline#ale#checking',
+  \   'linter_warnings': 'lightline#ale#warnings',
+  \   'linter_errors': 'lightline#ale#errors',
+  \   'linter_ok': 'lightline#ale#ok',
+  \ },
+  \ 'component_type': {
+  \   'tabs': 'tabsel',
+  \   'linter_checking': 'left',
+  \   'linter_warnings': 'warning',
+  \   'linter_errors': 'error',
+  \   'linter_ok': 'raw'
+  \ },
+  \ 'separator': {
+  \   'left': '',
+  \   'right': ''
+  \ },
+  \ 'subseparator': {
+  \   'left': '',
+  \   'right': ''
+  \ },
+  \ 'tabline_separator': {
+  \   'left': '',
+  \   'right': ''
+  \ },
+  \ 'tabline_subseparator': {
+  \   'left': '|',
+  \   'right': ''
+  \ },
+\ }
+
+let g:lightline#ale#indicator_checking = "\uf110 "
+let g:lightline#ale#indicator_warnings = "\uf071 "
+let g:lightline#ale#indicator_errors = "\uf05e "
+let g:lightline#ale#indicator_ok = "\uf00c "
