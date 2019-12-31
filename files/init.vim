@@ -315,7 +315,7 @@ function! LightlineModified()
 endfunction
 
 function! LightlineLineInfo()
-  return expand('%:t') =~# g:viewplugins ? '' : printf(' %d:%-2d', line('.'), col('.'))
+  return expand('%:t') =~# g:viewplugins ? '' : printf(' %d/%d:%-2d', line('.'), line('$'), col('.'))
 endfunction
 
 function! LightlinePercent()
@@ -328,6 +328,19 @@ function! LighlineFileformat()
 endfunction
 function! FileFormatIcon()
   return strlen(&filetype) ? WebDevIconsGetFileFormatSymbol() : 'no ft'
+endfunction
+
+function! LightlineMode()
+  let fname = expand('%:t')
+  return fname =~# '^__Tagbar__' ? 'Tagbar' :
+    \ fname == '__Mundo__' ? 'Mundo' :
+    \ fname == '__Mundo_Preview__' ? 'Mundo Preview' :
+    \ fname =~ 'NERD_tree' ? 'NERDTree' :
+    \ fname =~ '\[coc-explorer\]-' ? 'Explorer' :
+    \ &ft == 'unite' ? 'Unite' :
+    \ &ft == 'vimfiler' ? 'VimFiler' :
+    \ &ft == 'vimshell' ? 'VimShell' :
+    \ winwidth(0) > 60 ? lightline#mode() : ''
 endfunction
 
 function! LightlineFilenameExtended() 
@@ -355,17 +368,15 @@ function! LightlineTabFiletypeIcon(n)
   return fticon !=# '' ? fticon : ''
 endfunction
 
-function! LightlineMode()
-  let fname = expand('%:t')
+function! LightlineTabname(n) abort
+  let bufnr = tabpagebuflist(a:n)[tabpagewinnr(a:n) - 1]
+  let fname = expand('#' . bufnr . ':t')
   return fname =~# '^__Tagbar__' ? 'Tagbar' :
     \ fname == '__Mundo__' ? 'Mundo' :
     \ fname == '__Mundo_Preview__' ? 'Mundo Preview' :
     \ fname =~ 'NERD_tree' ? 'NERDTree' :
     \ fname =~ '\[coc-explorer\]-' ? 'Explorer' :
-    \ &ft == 'unite' ? 'Unite' :
-    \ &ft == 'vimfiler' ? 'VimFiler' :
-    \ &ft == 'vimshell' ? 'VimShell' :
-    \ winwidth(0) > 60 ? lightline#mode() : ''
+    \ ('' != fname ? fname : '[No Name]')
 endfunction
 
 let g:lightline = {
@@ -376,9 +387,9 @@ let g:lightline = {
   \     [ 'fugitive', 'filename' ]
   \   ],
   \   'right': [
-  \     [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ],
   \     [ 'percent', 'lineinfo' ],
   \     ['fileformat'],
+  \     [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ],
   \   ]
   \ },
   \ 'tabline': {
@@ -390,7 +401,7 @@ let g:lightline = {
   \   'inactive': ['tabnum', 'filename'],
   \ },
   \ 'component': {
-  \   'lineinfo': ' %3l:%-2v%<',
+  \   'lineinfo': ' %3l/%L:%-2v%<',
   \   'percent': '☰ %3p%%',
   \ },
   \ 'component_function': {
@@ -403,6 +414,7 @@ let g:lightline = {
   \ },
   \ 'tab_component_function': {
   \   'fticon': 'LightlineTabFiletypeIcon',
+  \   'filename': 'LightlineTabname',
   \ },
   \ 'component_expand': {
   \   'tabs': 'lightline#tabs',

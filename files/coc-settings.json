@@ -2,6 +2,7 @@
   "coc.preferences.formatOnSaveFiletypes": [
     "*"
   ],
+  "coc.preferences.snippetStatusText": " ",
   "suggest.languageSourcePriority": 99,
   "suggest.timeout": 500,
   "suggest.snippetIndicator": " \ue796",
@@ -23,7 +24,7 @@
     "module": "\uf40d",
     "color": "\ue22b",
     "property": "\ue624",
-    "field": "\uf9be",
+    "field": "\uf6a6",
     "unit": "\uf475",
     "event": "\ufacd",
     "file": "\uf723",
@@ -101,6 +102,7 @@
     "javascript": "javascriptreact"
   },
   // coc-python
+  "python.jediEnabled": true,
   "python.pythonPath": "/usr/bin/python3",
   "python.linting.enabled": true,
   "python.linting.pylintEnabled": false,
@@ -112,6 +114,12 @@
   "python.formatting.autopep8Args": [
     "--ignore=E501"
   ],
+  //
+  "go.goplsOptions": {
+    "usePlaceholders": true,
+    "completeUnimported": true,
+    "deepCompletion": true
+  },
   // coc-yaml
   "yaml.validate": true,
   "yaml.format.enable": true,
