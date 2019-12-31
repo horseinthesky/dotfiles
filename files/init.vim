@@ -380,7 +380,7 @@ function! LightlineTabname(n) abort
 endfunction
 
 let g:lightline = {
-  \ 'colorscheme': 'gruvbox',
+  \ 'colorscheme': $NVIM_COLORSCHEME,
   \ 'active': {
   \   'left': [
   \     [ 'mode', 'paste' ],
