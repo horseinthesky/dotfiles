@@ -117,6 +117,7 @@ set smartcase
 " ================ PLUGINS CONFIG ================
 " ==== ALE ====
 " let g:ale_linters_explicit = 1
+let g:ale_lint_on_text_changed = 'always'
 let g:ale_fix_on_save = 0
 let g:ale_linters = {
   \ 'python': ['flake8'],
@@ -297,34 +298,34 @@ let g:NERDTreeLimitedSyntax = 1
 " ==== lightline ====
 let g:viewplugins = '__Tagbar__\|__Mundo__\|__Mundo_Preview__\|NERD_tree\|\[coc-explorer\]'
 
-function! LightlineReadonly()
-  return &readonly ? '' : ''
-endfunction
-
 function! LightlineFugitive()       
   if exists('*fugitive#head')
     let branch = fugitive#head()
-    return expand('%:t') =~# g:viewplugins ? '' :
-      \ branch !=# '' ? ' '.branch : ''
+    return winwidth(0) > 55 ?
+      \ (expand('%:t') =~# g:viewplugins ? '' :
+        \ branch !=# '' ? ' '.branch : '')
+      \ : ''
   endif                      
   return ''                    
 endfunction
 
-function! LightlineModified()
-  return &ft =~ 'help' ? '' : &modified ? '' : &modifiable ? '' : ''
-endfunction
-
 function! LightlineLineInfo()
-  return expand('%:t') =~# g:viewplugins ? '' : printf(' %d/%d:%-2d', line('.'), line('$'), col('.'))
+  return winwidth(0) > 60 ?
+    \ expand('%:t') =~# g:viewplugins ? '' : printf(' %d/%d:%-2d', line('.'), line('$'), col('.'))
+    \ : ''
 endfunction
 
 function! LightlinePercent()
-  return expand('%:t') =~# g:viewplugins ? '' : ('☰ ' . 100 * line('.') / line('$')) . '%'
+  return winwidth(0) > 65 ?
+    \ (expand('%:t') =~# g:viewplugins ? '' : ('☰ ' . 100 * line('.') / line('$')) . '%')
+    \ : ''
 endfunction
 
 function! LighlineFileformat()
-  return expand('%:t') =~# g:viewplugins ? '' :
-    \ &fileencoding . ' ' . FileFormatIcon()
+  return winwidth(0) > 70 ?
+    \ (expand('%:t') =~# g:viewplugins ? '' :
+      \ &fileencoding . ' ' . FileFormatIcon())
+    \ : ''
 endfunction
 function! FileFormatIcon()
   return strlen(&filetype) ? WebDevIconsGetFileFormatSymbol() : 'no ft'
@@ -340,27 +341,29 @@ function! LightlineMode()
     \ &ft == 'unite' ? 'Unite' :
     \ &ft == 'vimfiler' ? 'VimFiler' :
     \ &ft == 'vimshell' ? 'VimShell' :
-    \ winwidth(0) > 60 ? lightline#mode() : ''
+    \ winwidth(0) > 50 ? lightline#mode() : ''
 endfunction
 
 function! LightlineFilenameExtended() 
   let fticon = (strlen(&filetype) ? ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') 
   let filename = LightlineFilename()
-  let modified = ModifiedStatus()
+  let modified = LightlineModified()
   if filename == ''
       return ''
   endif
   return expand('%:t') =~# g:viewplugins ? '' :
     \ join([filename, fticon, modified],'')
 endfunction
+function! LightlineReadonly()
+  return &readonly ? '' : ''
+endfunction
 function! LightlineFilename()
   let readonly = LightlineReadonly()
   return ('' != readonly ? readonly . ' ' : '') .
     \ ('' != expand('%:t') ? expand('%:t') : '')
 endfunction
-function! ModifiedStatus()
-  let modified = LightlineModified()
-  return ('' != modified ? ' ' . modified : '')
+function! LightlineModified()
+  return &ft =~ 'help' ? '' : &modified ? ' ' : &modifiable ? '' : ' '
 endfunction
 
 function! LightlineTabFiletypeIcon(n)
