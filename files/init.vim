@@ -302,8 +302,9 @@ function! LightlineFugitive()
   if exists('*fugitive#head')
     let branch = fugitive#head()
     return winwidth(0) > 55 ?
-      \ (expand('%:t') =~# g:viewplugins ? '' :
-        \ branch !=# '' ? ' '.branch : '')
+      \ expand('%:t') =~# g:viewplugins ? ''
+        \ : branch !=# '' ? ' '.branch
+          \ : ''
       \ : ''
   endif                      
   return ''                    
@@ -311,37 +312,41 @@ endfunction
 
 function! LightlineLineInfo()
   return winwidth(0) > 60 ?
-    \ expand('%:t') =~# g:viewplugins ? '' : printf(' %d/%d:%-2d', line('.'), line('$'), col('.'))
+    \ expand('%:t') =~# g:viewplugins ? ''
+      \ : printf(' %d/%d:%-2d', line('.'), line('$'), col('.'))
     \ : ''
 endfunction
 
 function! LightlinePercent()
   return winwidth(0) > 65 ?
-    \ (expand('%:t') =~# g:viewplugins ? '' : ('☰ ' . 100 * line('.') / line('$')) . '%')
+    \ expand('%:t') =~# g:viewplugins ? ''
+      \ : '☰ ' . 100 * line('.') / line('$') . '%'
     \ : ''
 endfunction
 
 function! LighlineFileformat()
   return winwidth(0) > 70 ?
-    \ (expand('%:t') =~# g:viewplugins ? '' :
-      \ &fileencoding . ' ' . FileFormatIcon())
+    \ expand('%:t') =~# g:viewplugins ? ''
+      \ : &fileencoding . ' ' . FileFormatIcon()
     \ : ''
 endfunction
 function! FileFormatIcon()
-  return strlen(&filetype) ? WebDevIconsGetFileFormatSymbol() : 'no ft'
+  return strlen(&filetype) ? WebDevIconsGetFileFormatSymbol()
+    \ : 'no ft'
 endfunction
 
 function! LightlineMode()
   let fname = expand('%:t')
-  return fname =~# '^__Tagbar__' ? 'Tagbar' :
-    \ fname == '__Mundo__' ? 'Mundo' :
-    \ fname == '__Mundo_Preview__' ? 'Mundo Preview' :
-    \ fname =~ 'NERD_tree' ? 'NERDTree' :
-    \ fname =~ '\[coc-explorer\]-' ? 'Explorer' :
-    \ &ft == 'unite' ? 'Unite' :
-    \ &ft == 'vimfiler' ? 'VimFiler' :
-    \ &ft == 'vimshell' ? 'VimShell' :
-    \ winwidth(0) > 50 ? lightline#mode() : ''
+  return fname =~# '^__Tagbar__' ? 'Tagbar'
+    \ : fname == '__Mundo__' ? 'Mundo'
+    \ : fname == '__Mundo_Preview__' ? 'Mundo Preview'
+    \ : fname =~ 'NERD_tree' ? 'NERDTree'
+    \ : fname =~ '\[coc-explorer\]-' ? 'Explorer'
+    \ : &ft == 'unite' ? 'Unite'
+    \ : &ft == 'vimfiler' ? 'VimFiler'
+    \ : &ft == 'vimshell' ? 'VimShell'
+    \ : winwidth(0) > 50 ? lightline#mode()
+    \ : ''
 endfunction
 
 function! LightlineFilenameExtended() 
