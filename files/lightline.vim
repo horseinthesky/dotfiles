@@ -1,4 +1,4 @@
-let s:viewplugins = '__Tagbar__\|__vista__\|__Mundo__\|__Mundo_Preview__\|NERD_tree\|\[coc-explorer\]'
+let s:viewplugins = '__Tagbar__\|__vista__\|__Mundo__\|__Mundo_Preview__\|NERD_tree\|\[Plugins\]\|\[coc-explorer\]'
 
 function! LightlineFugitive()       
   if exists('*fugitive#head')
@@ -44,6 +44,7 @@ function! LightlineMode()
     \ : l:fname == '__Mundo__' ? 'Mundo'
     \ : l:fname == '__Mundo_Preview__' ? 'Mundo Preview'
     \ : l:fname =~ 'NERD_tree' ? 'NERDTree'
+    \ : l:fname =~ '\[Plugins\]' ? 'Plugins'
     \ : l:fname =~ '\[coc-explorer\]-' ? 'Explorer'
     \ : &ft == 'unite' ? 'Unite'
     \ : &ft == 'vimfiler' ? 'VimFiler'
