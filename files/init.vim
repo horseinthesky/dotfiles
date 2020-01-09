@@ -5,17 +5,17 @@ Plug 'w0rp/ale'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'scrooloose/nerdtree'
 Plug 'easymotion/vim-easymotion'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'matze/vim-move'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-fugitive'
 Plug 'godlygeek/tabular'
 Plug 'majutsushi/tagbar'
+Plug 'liuchengxu/vista.vim'
 Plug 'simnalamburt/vim-mundo'
-Plug 'tpope/vim-fugitive'
 Plug 'junegunn/gv.vim'
 
 " ==== VISUAL PLUGINS ====
@@ -25,9 +25,7 @@ Plug 'morhetz/gruvbox'
 Plug 'arcticicestudio/nord-vim'
 Plug 'lifepillar/vim-solarized8'
 Plug 'itchyny/lightline.vim'
-Plug 'maximbaz/lightline-ale'
 Plug 'ryanoasis/vim-devicons'
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'yggdroot/indentline'
 Plug 'luochen1990/rainbow'
 Plug 'sheerun/vim-polyglot'
@@ -137,7 +135,6 @@ let g:ale_yaml_yamllint_options='-d "{extends: relaxed, rules: {line-length: dis
 let g:ale_sign_warning = "\uf421" "  
 let g:ale_sign_error = "\uf658" "  
 " let g:ale_sign_error = "\uf05e" "  
-" let g:ale_sign_error = "\uf65b" "  
 let g:ale_echo_msg_format = '[%linter%] %code%: %s'
 
 " Navigate between errors
@@ -150,16 +147,22 @@ let g:tagbar_autofocus = 1
 let g:tagbar_autoclose = 1
 let g:tagbar_sort = 1
 
+" ==== Vista ====
+nnoremap <F7> :Vista!!<CR>
+let g:vista#renderer#enable_icon = 1
+let g:vista_default_executive = 'coc'
+let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
+let g:vista_fzf_preview = ['right:50%']
+let g:vista#renderer#icons = {
+  \   "function": "\uf794",
+  \   "variable": "\uf71b",
+  \  }
+
 " ==== Fugitive ====
 " conflict resolution ====
 nnoremap <leader>gd :Gvdiffsplit!<CR>
 nnoremap gdh :diffget //2<CR>
 nnoremap gdl :diffget //3<CR>
-
-" ==== NERDTREE ====
-map <C-t> :NERDTreeToggle<CR>
-let NERDTreeIgnore=['\~$', '\.pyc$', '\.pyo$', '\.class$', 'pip-log\.txt$', '\.o$']
-let NERDTreeShowHidden=1
 
 " ==== Easymotion ====
 let g:EasyMotion_do_mapping = 0
@@ -175,7 +178,7 @@ let g:move_key_modifier = 'S'
 let g:multi_cursor_select_all_word_key = '<C-M>'
 
 " ==== mundo ====
-nnoremap <F7> :MundoToggle<CR>
+nnoremap <F5> :MundoToggle<CR>
 let g:mundo_prefer_python3 = 1
 let g:mundo_width = 25
 let g:mundo_preview_bottom = 1
@@ -226,6 +229,7 @@ let g:coc_global_extensions = [
   \ 'coc-go',
   \ 'coc-explorer',
   \ 'coc-snippets',
+  \ 'coc-highlight',
   \ ]
 
 " Open/close coc-explorer
@@ -277,186 +281,16 @@ autocmd FileType go nmap ctc :CocCommand go.tags.clear<cr>
 " ==== rainbow ====
 let g:rainbow_active = 1 "set to 0 if you want to enable it later via :RainbowToggle
 
+" ==== indentline ====
+let g:indentLine_fileTypeExclude = ['tagbar']
+let g:indentLine_char_list = ['|', '¦', '┆', '┊']
+" let g:indentLine_setColors = 0
+let g:indentLine_color_term = 239
+
 " ==== Theme ====
 set background=dark
 let g:gruvbox_contrast_dark='soft'
 colorscheme $NVIM_COLORSCHEME
 
-" ==== NERDTree Syntax Highlight ====
-" NERDTree highlight full file name (not only icons)
-let g:NERDTreeFileExtensionHighlightFullName = 1
-let g:NERDTreeExactMatchHighlightFullName = 1
-let g:NERDTreePatternMatchHighlightFullName = 1
-
-" NERDTree folder open and close icons
-let g:WebDevIconsUnicodeDecorateFolderNodes = 1
-let g:DevIconsEnableFoldersOpenClose = 1
-
-" NERDTree lag mitigating
-let g:NERDTreeLimitedSyntax = 1
-"
 " ==== lightline ====
-let g:viewplugins = '__Tagbar__\|__Mundo__\|__Mundo_Preview__\|NERD_tree\|\[coc-explorer\]'
-
-function! LightlineFugitive()       
-  if exists('*fugitive#head')
-    let branch = fugitive#head()
-    return winwidth(0) > 55 ?
-      \ expand('%:t') =~# g:viewplugins ? ''
-        \ : branch !=# '' ? ' '.branch
-          \ : ''
-      \ : ''
-  endif                      
-  return ''                    
-endfunction
-
-function! LightlineLineInfo()
-  return winwidth(0) > 60 ?
-    \ expand('%:t') =~# g:viewplugins ? ''
-      \ : printf(' %d/%d:%-2d', line('.'), line('$'), col('.'))
-    \ : ''
-endfunction
-
-function! LightlinePercent()
-  return winwidth(0) > 65 ?
-    \ expand('%:t') =~# g:viewplugins ? ''
-      \ : '☰ ' . 100 * line('.') / line('$') . '%'
-    \ : ''
-endfunction
-
-function! LighlineFileformat()
-  return winwidth(0) > 70 ?
-    \ expand('%:t') =~# g:viewplugins ? ''
-      \ : &fileencoding . ' ' . FileFormatIcon()
-    \ : ''
-endfunction
-function! FileFormatIcon()
-  return strlen(&filetype) ? WebDevIconsGetFileFormatSymbol()
-    \ : 'no ft'
-endfunction
-
-function! LightlineMode()
-  let fname = expand('%:t')
-  return fname =~# '^__Tagbar__' ? 'Tagbar'
-    \ : fname == '__Mundo__' ? 'Mundo'
-    \ : fname == '__Mundo_Preview__' ? 'Mundo Preview'
-    \ : fname =~ 'NERD_tree' ? 'NERDTree'
-    \ : fname =~ '\[coc-explorer\]-' ? 'Explorer'
-    \ : &ft == 'unite' ? 'Unite'
-    \ : &ft == 'vimfiler' ? 'VimFiler'
-    \ : &ft == 'vimshell' ? 'VimShell'
-    \ : winwidth(0) > 50 ? lightline#mode()
-    \ : ''
-endfunction
-
-function! LightlineFilenameExtended() 
-  let fticon = (strlen(&filetype) ? ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') 
-  let filename = LightlineFilename()
-  let modified = LightlineModified()
-  if filename == ''
-      return ''
-  endif
-  return expand('%:t') =~# g:viewplugins ? '' :
-    \ join([filename, fticon, modified],'')
-endfunction
-function! LightlineReadonly()
-  return &readonly ? '' : ''
-endfunction
-function! LightlineFilename()
-  let readonly = LightlineReadonly()
-  return ('' != readonly ? readonly . ' ' : '') .
-    \ ('' != expand('%:t') ? expand('%:t') : '')
-endfunction
-function! LightlineModified()
-  return &ft =~ 'help' ? '' : &modified ? ' ' : &modifiable ? '' : ' '
-endfunction
-
-function! LightlineTabFiletypeIcon(n)
-  let fticon = WebDevIconsGetFileTypeSymbol()
-  return fticon !=# '' ? fticon : ''
-endfunction
-
-function! LightlineTabname(n) abort
-  let bufnr = tabpagebuflist(a:n)[tabpagewinnr(a:n) - 1]
-  let fname = expand('#' . bufnr . ':t')
-  return fname =~# '^__Tagbar__' ? 'Tagbar' :
-    \ fname == '__Mundo__' ? 'Mundo' :
-    \ fname == '__Mundo_Preview__' ? 'Mundo Preview' :
-    \ fname =~ 'NERD_tree' ? 'NERDTree' :
-    \ fname =~ '\[coc-explorer\]-' ? 'Explorer' :
-    \ ('' != fname ? fname : '[No Name]')
-endfunction
-
-let g:lightline = {
-  \ 'colorscheme': $NVIM_COLORSCHEME,
-  \ 'active': {
-  \   'left': [
-  \     [ 'mode', 'paste' ],
-  \     [ 'fugitive', 'filename' ]
-  \   ],
-  \   'right': [
-  \     [ 'percent', 'lineinfo' ],
-  \     ['fileformat'],
-  \     [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ],
-  \   ]
-  \ },
-  \ 'tabline': {
-  \   'left': [['tabs']],
-  \   'right': [],
-  \ },
-  \ 'tab': {
-  \   'active': ['filename', 'fticon'],
-  \   'inactive': ['tabnum', 'filename'],
-  \ },
-  \ 'component': {
-  \   'lineinfo': ' %3l/%L:%-2v%<',
-  \   'percent': '☰ %3p%%',
-  \ },
-  \ 'component_function': {
-  \   'fugitive': 'LightlineFugitive',
-  \   'mode': 'LightlineMode',
-  \   'fileformat': 'LighlineFileformat',
-  \   'filename': 'LightlineFilenameExtended',
-  \   'lineinfo': 'LightlineLineInfo',
-  \   'percent': 'LightlinePercent',
-  \ },
-  \ 'tab_component_function': {
-  \   'fticon': 'LightlineTabFiletypeIcon',
-  \   'filename': 'LightlineTabname',
-  \ },
-  \ 'component_expand': {
-  \   'tabs': 'lightline#tabs',
-  \   'linter_checking': 'lightline#ale#checking',
-  \   'linter_warnings': 'lightline#ale#warnings',
-  \   'linter_errors': 'lightline#ale#errors',
-  \   'linter_ok': 'lightline#ale#ok',
-  \ },
-  \ 'component_type': {
-  \   'tabs': 'tabsel',
-  \   'linter_checking': 'left',
-  \   'linter_warnings': 'warning',
-  \   'linter_errors': 'error',
-  \   'linter_ok': 'raw'
-  \ },
-  \ 'separator': {
-  \   'left': '',
-  \   'right': ''
-  \ },
-  \ 'subseparator': {
-  \   'left': '',
-  \   'right': ''
-  \ },
-  \ 'tabline_separator': {
-  \   'left': '',
-  \   'right': ''
-  \ },
-  \ 'tabline_subseparator': {
-  \   'left': '|',
-  \   'right': ''
-  \ },
-\ }
-
-let g:lightline#ale#indicator_checking = " "
-let g:lightline#ale#indicator_warnings = " "
-let g:lightline#ale#indicator_errors = " "
-let g:lightline#ale#indicator_ok = " "
+source ~/dotfiles/files/lightline.vim
