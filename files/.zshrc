@@ -2,11 +2,11 @@ export NVIM_COLORSCHEME=gruvbox
 
 # Shell colorscheme fix
 if [[ "$NVIM_COLORSCHEME" == "solarized8" ]]; then
-    # solarized8 color fix
-    source "$HOME/.local/share/nvim/plugged/vim-solarized8/scripts/solarized8.sh"
+  # solarized8 color fix
+  source "$HOME/.local/share/nvim/plugged/vim-solarized8/scripts/solarized8.sh"
 else
-    # gruvbox colors fix
-    source "$HOME/.local/share/nvim/plugged/gruvbox/gruvbox_256palette_osx.sh"
+  # gruvbox colors fix
+  source "$HOME/.local/share/nvim/plugged/gruvbox/gruvbox_256palette_osx.sh"
 fi
 
 # Disable tmupx autotitle
@@ -170,11 +170,11 @@ if [[ "$ZSH_THEME" == "powerlevel10k/powerlevel10k" ]]; then
 
   # Detect SSH connection
   zsh_detect_ssh(){
-      if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
-          echo -n "\uF489 $HOST"
-      else
-          echo -n "$(print_icon 'HOST_ICON') $HOST"
-      fi
+    if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
+        echo -n "\uF489 $HOST"
+    else
+        echo -n "$(print_icon 'HOST_ICON') $HOST"
+    fi
   }
 
   # Custom ssh settings
@@ -187,15 +187,15 @@ if [[ "$ZSH_THEME" == "powerlevel10k/powerlevel10k" ]]; then
   # POWERLEVEL9K_LINUX_REDHAT_ICON='\uF309' #  
   # POWERLEVEL9K_LINUX_UBUNTU_ICON='\uF31B' #  
   if [ -f /etc/os-release ]; then
-      # freedesktop.org and systemd
-      . /etc/os-release
-      if [[ $ID == 'ubuntu' ]]; then
-          POWERLEVEL9K_OS_ICON_BACKGROUND='166' # darkorange3
-          POWERLEVEL9K_OS_ICON_FOREGROUND='grey93' # 255
-      elif [[ $ID == 'centos' || $ID == 'redhat' ]]; then
-          POWERLEVEL9K_OS_ICON_BACKGROUND='160' # red3
-          POWERLEVEL9K_OS_ICON_FOREGROUND='000' # black
-      fi
+    # freedesktop.org and systemd
+    . /etc/os-release
+    if [[ $ID == 'ubuntu' ]]; then
+        POWERLEVEL9K_OS_ICON_BACKGROUND='166' # darkorange3
+        POWERLEVEL9K_OS_ICON_FOREGROUND='grey93' # 255
+    elif [[ $ID == 'centos' || $ID == 'redhat' ]]; then
+        POWERLEVEL9K_OS_ICON_BACKGROUND='160' # red3
+        POWERLEVEL9K_OS_ICON_FOREGROUND='000' # black
+    fi
   fi
 
   # User block settings
