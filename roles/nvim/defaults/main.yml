@@ -1,0 +1,3 @@
+nvim_release_url: https://github.com/neovim/neovim/releases/download/v
+nvim_version: 0.4.3
+nvim_binary_file: nvim.appimage

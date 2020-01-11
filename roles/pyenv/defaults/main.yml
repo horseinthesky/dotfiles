@@ -1,6 +1,5 @@
 # Python versions to install with pyenv and set as global
 pyenv_global_versions:
-  - 2.7.17
   - 3.6.9
   - 3.7.5
   - 3.8.0

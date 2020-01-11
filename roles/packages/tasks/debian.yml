@@ -6,8 +6,8 @@
 - name: Install usefull packages
   apt:
     name:
-      - htop
+      # - htop
       - tree
-      - speedtest-cli
+      # - speedtest-cli
       - jq
   become: yes

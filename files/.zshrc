@@ -15,7 +15,13 @@ export DISABLE_AUTO_TITLE="true"
 # Add ~/go/bin to PATH
 export GOPATH="/home/$USER/go"
 if [[ -d "$GOPATH" ]]; then
-  export PATH="$GOPATH/bin:$PATH"
+  export PATH="$PATH:$GOPATH/bin"
+fi
+
+# Add /snap/bin to path
+export SNAPPATH="/snap/bin"
+if [[ -d "$SNAPPATH" ]]; then
+  export PATH="$PATH:$SNAPPATH"
 fi
 
 # Set system locales

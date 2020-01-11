@@ -2,7 +2,33 @@
 - import_tasks: debian.yml
   when: ansible_os_family == "Debian"
 
-- name: Install ipython and linters
+- name: Check if NVIM installed
+  command: which nvim
+  register: nvim_check
+  failed_when: nvim_check.rc > 1
+  changed_when: nvim_check.rc == 1
+
+- name: Download NVIM
+  get_url:
+    url: "{{ nvim_release_url }}{{ nvim_version }}/{{ nvim_binary_file }}"
+    dest: "{{ user_home }}/{{ nvim_binary_file }}"
+  when: nvim_check.rc == 1
+
+- name: Move NVIM binary to /usr/local/bin
+  copy:
+    src: "{{ user_home }}/{{ nvim_binary_file }}"
+    dest: /usr/local/bin/nvim
+    mode: "0755"
+    remote_src: yes
+  become: yes
+  when: nvim_check.rc == 1
+
+- name: Remove NVIM binary from HOME
+  file:
+    path: "{{ user_home }}/nvim.appimage"
+    state: absent
+
+- name: Install required pipy packages
   pip:
     name:
       - ipython
@@ -13,6 +39,7 @@
       - flake8-mypy
       - autopep8
       - yamllint
+      - pynvim
   become: yes
 
 # Plugin manager
