@@ -51,7 +51,6 @@
     path: "{{ user_home }}/.config/nvim/init.vim"
   register: vimrc_stat
   failed_when: False
-  when: nvim_check.rc == 1
 
 - name: Backup vimrc
   command: mv ~/.config/nvim/init.vim ~/init.vim.bak
