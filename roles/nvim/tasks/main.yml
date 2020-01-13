@@ -1,32 +1,21 @@
 # Installation
-- import_tasks: debian.yml
-  when: ansible_os_family == "Debian"
-
 - name: Check if NVIM installed
   command: which nvim
   register: nvim_check
   failed_when: nvim_check.rc > 1
   changed_when: nvim_check.rc == 1
 
+- name: Install required debian packages
+  import_tasks: debian.yml
+  when: ansible_os_family == "Debian" and nvim_check.rc == 1
+
 - name: Download NVIM
   get_url:
     url: "{{ nvim_release_url }}{{ nvim_version }}/{{ nvim_binary_file }}"
-    dest: "{{ user_home }}/{{ nvim_binary_file }}"
-  when: nvim_check.rc == 1
-
-- name: Move NVIM binary to /usr/local/bin
-  copy:
-    src: "{{ user_home }}/{{ nvim_binary_file }}"
     dest: /usr/local/bin/nvim
     mode: "0755"
-    remote_src: yes
   become: yes
   when: nvim_check.rc == 1
-
-- name: Remove NVIM binary from HOME
-  file:
-    path: "{{ user_home }}/nvim.appimage"
-    state: absent
 
 - name: Install required pipy packages
   pip:
@@ -41,23 +30,28 @@
       - yamllint
       - pynvim
   become: yes
+  when: nvim_check.rc == 1
 
 # Plugin manager
 - name: Makes sure autoload directory exists
   file:
     path: "{{ user_home }}/.local/share/nvim/site/autoload"
     state: directory
+  when: nvim_check.rc == 1
 
 - name: Install vim-plug
   get_url:
     url: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     dest: "{{ user_home }}/.local/share/nvim/site/autoload/plug.vim"
+  when: nvim_check.rc == 1
 
 # Configuration
 - name: Check if vimrc exists
-  stat: path="{{ user_home }}/.config/nvim/init.vim"
+  stat:
+    path: "{{ user_home }}/.config/nvim/init.vim"
   register: vimrc_stat
   failed_when: False
+  when: nvim_check.rc == 1
 
 - name: Backup vimrc
   command: mv ~/.config/nvim/init.vim ~/init.vim.bak
@@ -69,18 +63,22 @@
   file:
     path: "{{ user_home }}/.config/nvim"
     state: directory
+  when: nvim_check.rc == 1
 
 - name: Symlink coc-settings
   file:
     src: "{{ dotfiles_home }}/coc-settings.json"
     dest: "{{ user_home }}/.config/nvim/coc-settings.json"
     state: link
+  when: nvim_check.rc == 1
 
 - name: Symlink vimrc
   file:
     src: "{{ dotfiles_home }}/init.vim"
     dest: "{{ user_home }}/.config/nvim/init.vim"
     state: link
+  when: nvim_check.rc == 1
 
 - name: Install plugins
   command: nvim +':silent PlugInstall' +qa
+  when: nvim_check.rc == 1

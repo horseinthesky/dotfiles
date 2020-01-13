@@ -18,6 +18,7 @@
       - libxmlsec1-dev
       - libffi-dev
       - liblzma-dev
+      - python3-venv
   become: yes
 
 - name: Install pyenv
