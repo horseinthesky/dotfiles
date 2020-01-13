@@ -1,3 +1,17 @@
+- name: Add NVIM repo for WSL
+  apt_repository:
+    repo: ppa:neovim-ppa/stable
+  become: yes
+  when: ansible_env["WSLENV"] is defined
+
+- name: Install NVIM for WSL
+  apt:
+    name:
+      - neovim
+    state: latest
+  become: yes
+  when: ansible_env["WSLENV"] is defined
+
 - name: Install packages for plugins
   apt:
     name:

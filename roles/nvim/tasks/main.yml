@@ -9,13 +9,13 @@
   import_tasks: debian.yml
   when: ansible_os_family == "Debian" and nvim_check.rc == 1
 
-- name: Download NVIM
+- name: Install NVIM
   get_url:
     url: "{{ nvim_release_url }}{{ nvim_version }}/{{ nvim_binary_file }}"
     dest: /usr/local/bin/nvim
     mode: "0755"
   become: yes
-  when: nvim_check.rc == 1
+  when: nvim_check.rc == 1 and ansible_env["WSLENV"] is not defined
 
 - name: Install required pipy packages
   pip:
