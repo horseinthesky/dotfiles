@@ -151,7 +151,7 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # Vi Mode
-bindkey -v
+# bindkey -v
 export KEYTIMEOUT=1
 
 # ======== ALIASES ========
