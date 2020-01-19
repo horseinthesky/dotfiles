@@ -150,6 +150,10 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+# Vi Mode
+bindkey -v
+export KEYTIMEOUT=1
+
 # ======== ALIASES ========
 alias vi=$(which nvim)
 alias suroot='sudo -E -s'
@@ -170,48 +174,110 @@ if [[ "$ZSH_THEME" == "powerlevel10k/powerlevel10k" ]]; then
   # Mode
   POWERLEVEL9K_MODE='nerdfont-complete'
 
+  # Prompt settings
+  POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
+    custom_host
+    custom_user
+    dir_writable
+    dir
+    virtualenv
+    pyenv
+    newline
+    prompt_char
+  )
+  POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(vcs battery)
+  # POWERLEVEL9K_PROMPT_ON_NEWLINE=true
+  # POWERLEVEL9K_DISABLE_RPROMPT=true
+  POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX="%F{249}\u250f"
+  POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="%F{249}\u2517%F{default}"
+
+  # Hot reload allows you to change POWERLEVEL9K options after Powerlevel10k has been initialized.
+  # For example, you can type POWERLEVEL9K_BACKGROUND=red and see your prompt turn red. Hot reload
+  # can slow down prompt by 1-2 milliseconds, so it's better to keep it turned off unless you
+  # really need it.
+  typeset -g POWERLEVEL9K_DISABLE_HOT_RELOAD=false
+
   # Host block settings
-  POWERLEVEL9K_HOST_ICON='\uF109' #  
-  POWERLEVEL9K_SSH_ICON='\uF489' #  
-
-  # Detect SSH connection
-  zsh_detect_ssh(){
-    if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
-        echo -n "\uF489 $HOST"
-    else
-        echo -n "$(print_icon 'HOST_ICON') $HOST"
-    fi
-  }
-
-  # Custom ssh settings
-  POWERLEVEL9K_CUSTOM_DETECT_SSH="zsh_detect_ssh"
-  POWERLEVEL9K_CUSTOM_DETECT_SSH_BACKGROUND="paleturquoise4" # 066
-  POWERLEVEL9K_CUSTOM_DETECT_SSH_FOREGROUND="gold1" # 220
-
-  # OS block settings
   # POWERLEVEL9K_LINUX_ICON='\uE712' #  
   # POWERLEVEL9K_LINUX_REDHAT_ICON='\uF309' #  
   # POWERLEVEL9K_LINUX_UBUNTU_ICON='\uF31B' #  
-  if [ -f /etc/os-release ]; then
-    # freedesktop.org and systemd
-    . /etc/os-release
-    if [[ $ID == 'ubuntu' ]]; then
-        POWERLEVEL9K_OS_ICON_BACKGROUND='166' # darkorange3
-        POWERLEVEL9K_OS_ICON_FOREGROUND='grey93' # 255
-    elif [[ $ID == 'centos' || $ID == 'redhat' ]]; then
-        POWERLEVEL9K_OS_ICON_BACKGROUND='160' # red3
-        POWERLEVEL9K_OS_ICON_FOREGROUND='000' # black
+  custom_host(){
+    if [[ -n "$WSL_DISTRO_NAME" ]]; then
+      OS_ICON="\uF17A"
+    else
+      source /etc/os-release
+      case $ID in
+        "ubuntu")
+          OS_ICON="\uF31B"
+          ;;
+        "centos")
+          OS_ICON="\uF309"
+          ;;
+      esac
     fi
+    echo -n "$OS_ICON $HOST"
+  }
+
+  POWERLEVEL9K_CUSTOM_HOST="custom_host"
+  if [[ -n "$WSL_DISTRO_NAME" ]]; then
+    POWERLEVEL9K_CUSTOM_HOST_BACKGROUND=230
+    POWERLEVEL9K_CUSTOM_HOST_FOREGROUND=039
+  else
+    source /etc/os-release
+    case $ID in
+      "ubuntu")
+        POWERLEVEL9K_CUSTOM_HOST_BACKGROUND=166
+        POWERLEVEL9K_CUSTOM_HOST_FOREGROUND=229
+        ;;
+      "centos")
+        POWERLEVEL9K_CUSTOM_HOST_BACKGROUND=160
+        POWERLEVEL9K_CUSTOM_HOST_FOREGROUND=000
+        ;;
+    esac
   fi
 
   # User block settings
   POWERLEVEL9K_USER_ICON='\uF415' #  
   POWERLEVEL9K_ROOT_ICON='\uF198' #  
   # POWERLEVEL9K_ROOT_ICON='\uF09C' #  
-  POWERLEVEL9K_USER_DEFAULT_BACKGROUND='plum4' # 096
-  POWERLEVEL9K_USER_DEFAULT_FOREGROUND='wheat1' # 229
-  POWERLEVEL9K_USER_ROOT_BACKGROUND='darkred' # 088
-  POWERLEVEL9K_USER_ROOT_FOREGROUND='wheat1' # 229
+  # POWERLEVEL9K_USER_DEFAULT_BACKGROUND=096 # plum4
+  # POWERLEVEL9K_USER_DEFAULT_FOREGROUND=229 # wheat1
+  # POWERLEVEL9K_USER_ROOT_BACKGROUND=88 # darkred
+  # POWERLEVEL9K_USER_ROOT_FOREGROUND=229 #wheat1
+
+  POWERLEVEL9K_HOST_ICON='\uF109' #  
+  POWERLEVEL9K_SSH_ICON='\uF489' #  
+  DEFAULT_GREY=237 # grey23
+
+  zsh_detect_ssh(){
+    if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
+      echo -n "$(print_icon 'SSH_ICON') "
+    else
+      echo -n "$(print_icon 'HOST_ICON') "
+    fi
+  }
+  custom_user(){
+    case $(whoami) in
+      "root")
+        USER_ICON=$POWERLEVEL9K_ROOT_ICON
+        ;;
+      *)
+        USER_ICON=$POWERLEVEL9K_USER_ICON
+        ;;
+    esac
+    echo -n "$USER_ICON $(whoami) $(zsh_detect_ssh)"
+  }
+
+  POWERLEVEL9K_CUSTOM_USER="custom_user"
+  if [[ $(whoami) == "root" ]]; then
+    POWERLEVEL9K_CUSTOM_USER_BACKGROUND=88
+    POWERLEVEL9K_CUSTOM_USER_FOREGROUND=229
+  else
+    # POWERLEVEL9K_CUSTOM_USER_BACKGROUND=096
+    # POWERLEVEL9K_CUSTOM_USER_FOREGROUND=229
+    POWERLEVEL9K_CUSTOM_USER_BACKGROUND=214
+    POWERLEVEL9K_CUSTOM_USER_FOREGROUND=094
+  fi
 
   # Home block settings
   POWERLEVEL9K_HOME_ICON='\uF015' #  
@@ -220,49 +286,57 @@ if [[ "$ZSH_THEME" == "powerlevel10k/powerlevel10k" ]]; then
 
   # Dir block settings
   POWERLEVEL9K_DIR_PATH_SEPARATOR="%F{237} $(print_icon 'LEFT_SUBSEGMENT_SEPARATOR') %F{237}"
-  # POWERLEVEL9K_LEFT_SEGMENT_SEPARATOR='\UE0BC'
-  # POWERLEVEL9K_RIGHT_SEGMENT_SEPARATOR='\UE0BA'
-  # POWERLEVEL9K_LEFT_SEGMENT_SEPARATOR='\uE0B4'
-  # POWERLEVEL9K_RIGHT_SEGMENT_SEPARATOR='\uE0B6'
+  # POWERLEVEL9K_LEFT_SEGMENT_SEPARATOR='\UE0BC ' #   
+  # POWERLEVEL9K_RIGHT_SEGMENT_SEPARATOR='\UE0BA ' # 
+  # POWERLEVEL9K_LEFT_SEGMENT_SEPARATOR='\uE0B4' # 
+  # POWERLEVEL9K_RIGHT_SEGMENT_SEPARATOR='\uE0B6' # 
   # POWERLEVEL9K_SHORTEN_STRATEGY="truncate_beginning"
   # POWERLEVEL9K_SHORTEN_DELIMITER='..'
   POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
-  POWERLEVEL9K_DIR_DEFAULT_BACKGROUND='dodgerblue1'
-  POWERLEVEL9K_DIR_DEFAULT_FOREGROUND='grey23' # 237
-  POWERLEVEL9K_DIR_HOME_BACKGROUND='dodgerblue1'
-  POWERLEVEL9K_DIR_HOME_FOREGROUND='grey23' # 237
-  POWERLEVEL9K_DIR_HOME_SUBFOLDER_BACKGROUND='dodgerblue1'
-  POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND='grey23' # 237
-  POWERLEVEL9K_DIR_ETC_BACKGROUND='indianred' # 167
-  POWERLEVEL9K_DIR_ETC_FOREGROUND='grey23' # 237
+
+  POWERLEVEL9K_DIR_DEFAULT_BACKGROUND='dodgerblue1' # 033
+  POWERLEVEL9K_DIR_DEFAULT_FOREGROUND=$DEFAULT_GREY
+  POWERLEVEL9K_DIR_HOME_BACKGROUND='dodgerblue1' # 033
+  POWERLEVEL9K_DIR_HOME_FOREGROUND=$DEFAULT_GREY
+  POWERLEVEL9K_DIR_HOME_SUBFOLDER_BACKGROUND='dodgerblue1' # 033
+  POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND=$DEFAULT_GREY
+
+  # POWERLEVEL9K_DIR_ETC_BACKGROUND=167
+  POWERLEVEL9K_DIR_ETC_BACKGROUND=142
+  POWERLEVEL9K_DIR_ETC_FOREGROUND=$DEFAULT_GREY
   # POWERLEVEL9K_ETC_ICON=''
   POWERLEVEL9K_ETC_ICON=''
 
   # Dir Writable settings
-  # POWERLEVEL9K_LEFT_SEGMENT_SEPARATOR=''
-  POWERLEVEL9K_DIR_WRITABLE_FORBIDDEN_BACKGROUND='grey30' # 239
-  POWERLEVEL9K_DIR_WRITABLE_FORBIDDEN_FOREGROUND='red3' # 160
+  POWERLEVEL9K_DIR_WRITABLE_FORBIDDEN_BACKGROUND=167
+  POWERLEVEL9K_DIR_WRITABLE_FORBIDDEN_FOREGROUND=214
 
   # VCS settings
+  POWERLEVEL9K_ICON_BEFORE_CONTENT=true
+  # Custom prefix.
+  # typeset -g POWERLEVEL9K_VCS_PREFIX='%fon '
+  # Enable counters for staged, unstaged, etc.
+  typeset -g POWERLEVEL9K_VCS_{STAGED,UNSTAGED,UNTRACKED,CONFLICTED,COMMITS_AHEAD,COMMITS_BEHIND}_MAX_NUM=-1
+
   POWERLEVEL9K_VCS_BRANCH_ICON='\uF126 ' # 
-  POWERLEVEL9K_VCS_GIT_GITHUB_ICON='\uF408' #  
-  # POWERLEVEL9K_VCS_GIT_GITHUB_ICON='\uF113' #  
-  POWERLEVEL9K_VCS_GIT_GITLAB_ICON='\uF296' #  
-  POWERLEVEL9K_VCS_GIT_BITBUCKET_ICON='\uF171' #  
-  POWERLEVEL9K_VCS_GIT_ICON='\uF7A1' #  
-  POWERLEVEL9K_VCS_STAGED_ICON='\uF055' #  
-  POWERLEVEL9K_VCS_UNTRACKED_ICON='\uF00D' #  
-  POWERLEVEL9K_VCS_UNSTAGED_ICON='\uF421' #  
+  # POWERLEVEL9K_VCS_GIT_GITHUB_ICON='\uF408' #  
+  POWERLEVEL9K_VCS_GIT_GITHUB_ICON='\uF113 ' #  
+  POWERLEVEL9K_VCS_GIT_GITLAB_ICON='\uF296 ' #  
+  POWERLEVEL9K_VCS_GIT_BITBUCKET_ICON='\uF171 ' #  
+  POWERLEVEL9K_VCS_GIT_ICON='\uF7A1 ' #  
+  POWERLEVEL9K_VCS_STAGED_ICON='\uF055 ' #  
+  POWERLEVEL9K_VCS_UNTRACKED_ICON='\uF00D ' #  
+  POWERLEVEL9K_VCS_UNSTAGED_ICON='\uF421 ' #  
   POWERLEVEL9K_VCS_INCOMING_CHANGES_ICON='\uF0AB ' #  
   POWERLEVEL9K_VCS_OUTGOING_CHANGES_ICON='\uF0AA ' #  
   POWERLEVEL9K_VCS_COMMIT_ICON='\uf417 ' # 
-  # Gruvbox
-  POWERLEVEL9K_VCS_CLEAN_FOREGROUND='237' #grey23
-  POWERLEVEL9K_VCS_CLEAN_BACKGROUND='142'
-  POWERLEVEL9K_VCS_UNTRACKED_FOREGROUND='237' #grey23
-  POWERLEVEL9K_VCS_UNTRACKED_BACKGROUND='167' #indianred
-  POWERLEVEL9K_VCS_MODIFIED_FOREGROUND='237' #grey23
-  POWERLEVEL9K_VCS_MODIFIED_BACKGROUND='214' # orange1
+  # Gruvbox for VCS
+  POWERLEVEL9K_VCS_CLEAN_FOREGROUND=$DEFAULT_GREY
+  POWERLEVEL9K_VCS_CLEAN_BACKGROUND=142
+  POWERLEVEL9K_VCS_UNTRACKED_FOREGROUND=$DEFAULT_GREY
+  POWERLEVEL9K_VCS_UNTRACKED_BACKGROUND=167 #indianred
+  POWERLEVEL9K_VCS_MODIFIED_FOREGROUND=$DEFAULT_GREY
+  POWERLEVEL9K_VCS_MODIFIED_BACKGROUND=214 # orange1
 
   # Virtualenv block settings
   POWERLEVEL9K_VIRTUALENV_FOREGROUND='dodgerblue3' # 004
@@ -277,14 +351,52 @@ if [[ "$ZSH_THEME" == "powerlevel10k/powerlevel10k" ]]; then
   # Time block settings
   POWERLEVEL9K_TIME_FORMAT="%D{\uf017 %H:%M \uf073 %d.%m.%y}"
 
-  # Prompt settings
-  POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon custom_detect_ssh user dir_writable dir virtualenv pyenv)
-  POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(vcs)
-  POWERLEVEL9K_PROMPT_ON_NEWLINE=true
-  # POWERLEVEL9K_RPROMPT_ON_NEWLINE=true
-  # POWERLEVEL9K_DISABLE_RPROMPT=true
-  POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX="%F{$POWERLEVEL9K_OS_ICON_BACKGROUND}\u256D\u2500"
-  POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="%F{$POWERLEVEL9K_OS_ICON_BACKGROUND}\u2570\uf460%F{default} "
-  # POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX="%F{249}\u250f"
-  # POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="%F{249}\u2517%F{default} "
+  # Public IP block settings
+  # Public IP color.
+  typeset -g POWERLEVEL9K_PUBLIC_IP_FOREGROUND=94
+  # Custom icon.
+  typeset -g POWERLEVEL9K_PUBLIC_IP_VISUAL_IDENTIFIER_EXPANSION=''
+
+  # Battery block settings
+  # Show battery in red when it's below this level and not connected to power supply.
+  typeset -g POWERLEVEL9K_BATTERY_LOW_THRESHOLD=20
+  typeset -g POWERLEVEL9K_BATTERY_LOW_FOREGROUND=160
+  # Show battery in green when it's charging or fully charged.
+  typeset -g POWERLEVEL9K_BATTERY_{CHARGING,CHARGED}_FOREGROUND=70
+  # Show battery in yellow when it's discharging.
+  typeset -g POWERLEVEL9K_BATTERY_DISCONNECTED_FOREGROUND=178
+  # Battery pictograms going from low to high level of charge.
+  typeset -g POWERLEVEL9K_BATTERY_STAGES=$'\uf58d\uf579\uf57a\uf57b\uf57c\uf57d\uf57e\uf57f\uf580\uf581\uf578'
+  # Don't show the remaining time to charge/discharge.
+  typeset -g POWERLEVEL9K_BATTERY_VERBOSE=false
+
+  # Transient prompt works similarly to the builtin transient_rprompt option. It trims down prompt
+  # when accepting a command line. Supported values:
+  #
+  #   - off:      Don't change prompt when accepting a command line.
+  #   - always:   Trim down prompt when accepting a command line.
+  #   - same-dir: Trim down prompt when accepting a command line unless this is the first command
+  typeset -g POWERLEVEL9K_TRANSIENT_PROMPT=always
+
+  # Transparent background. 
+  typeset -g POWERLEVEL9K_PROMPT_CHAR_BACKGROUND= 
+  # Green prompt symbol if the last command succeeded. 
+  typeset -g POWERLEVEL9K_PROMPT_CHAR_OK_{VIINS,VICMD,VIVIS,VIOWR}_FOREGROUND=142
+  # Red prompt symbol if the last command failed.
+  typeset -g POWERLEVEL9K_PROMPT_CHAR_ERROR_{VIINS,VICMD,VIVIS,VIOWR}_FOREGROUND=167
+  # Default prompt symbol.
+  typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VIINS_CONTENT_EXPANSION='❯'
+  # Prompt symbol in command vi mode.
+  typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VICMD_CONTENT_EXPANSION='❮'
+  # Prompt symbol in visual vi mode.
+  typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VIVIS_CONTENT_EXPANSION='Ⅴ'
+  # Prompt symbol in overwrite vi mode.
+  typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VIOWR_CONTENT_EXPANSION='▶'
+  typeset -g POWERLEVEL9K_PROMPT_CHAR_OVERWRITE_STATE=true
+  # No line terminator if prompt_char is the last segment. 
+  typeset -g POWERLEVEL9K_PROMPT_CHAR_LEFT_PROMPT_LAST_SEGMENT_END_SYMBOL=''
+  # No line introducer if prompt_char is the first segment. 
+  typeset -g POWERLEVEL9K_PROMPT_CHAR_LEFT_PROMPT_FIRST_SEGMENT_START_SYMBOL= 
+  # No surrounding whitespace. 
+  typeset -g POWERLEVEL9K_PROMPT_CHAR_LEFT_{LEFT,RIGHT}_WHITESPACE= 
 fi
