@@ -88,6 +88,7 @@ function! LightlineTabname(n) abort
     \ l:fname == '__Mundo_Preview__' ? 'Mundo Preview' :
     \ l:fname =~ 'NERD_tree' ? 'NERDTree' :
     \ l:fname =~ '\[coc-explorer\]-' ? 'Explorer' :
+    \ l:fname =~ '\[Plugins\]' ? 'Plugins' :
     \ ('' != l:fname ? l:fname : '[No Name]')
 endfunction
 
