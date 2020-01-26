@@ -19,7 +19,6 @@ Plug 'simnalamburt/vim-mundo'
 Plug 'junegunn/gv.vim'
 
 " ==== VISUAL PLUGINS ====
-" Plug 'edkolev/tmuxline.vim'
 Plug 'mhinz/vim-startify'
 Plug 'morhetz/gruvbox'
 Plug 'arcticicestudio/nord-vim'
