@@ -4,16 +4,38 @@ else
   source $HOME/dotfiles/files/rainbow.zsh
 fi
 
+# Elements settings
+typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
+  custom_user
+  # dir_writable
+  dir
+  vcs
+  virtualenv
+  pyenv
+  newline
+  prompt_char
+)
+typeset -g POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(
+  custom_host
+  # load
+  # ram
+  battery
+)
+
 # User
 typeset -g POWERLEVEL9K_USER_ICON='\uF415' #  
 typeset -g POWERLEVEL9K_ROOT_ICON='\uF198' #  
-typeset -g POWERLEVEL9K_HOST_ICON='\uF109' #  
+# typeset -g POWERLEVEL9K_ROOT_ICON='\uF09C' #  
 typeset -g POWERLEVEL9K_SSH_ICON='\uF489' #  
+if [[ -d /sys/class/power_supply/(BAT*|battery) ]]; then
+  typeset -g POWERLEVEL9K_HOST_ICON='' # \uF109
+else
+  typeset -g POWERLEVEL9K_HOST_ICON='' # \uF108
+fi
 
 # OS
-# typeset -g POWERLEVEL9K_ROOT_ICON='\uF09C' #  
 # typeset -g POWERLEVEL9K_LINUX_ICON='\uE712' #  
-# typeset -g POWERLEVEL9K_LINUX_REDHAT_ICON='\uF309' #  
+# typeset -g POWERLEVEL9K_LINUX_REDHAT_ICON='\uF316' #  
 # typeset -g POWERLEVEL9K_LINUX_UBUNTU_ICON='\uF31B' #  
 
 # Python
@@ -45,18 +67,19 @@ typeset -g POWERLEVEL9K_ICON_BEFORE_CONTENT=true
 # Enable counters for staged, unstaged, etc.
 typeset -g POWERLEVEL9K_VCS_{STAGED,UNSTAGED,UNTRACKED,CONFLICTED,COMMITS_AHEAD,COMMITS_BEHIND}_MAX_NUM=-1
 
-typeset -g POWERLEVEL9K_VCS_BRANCH_ICON='\uF126 ' # 
-# typeset -g POWERLEVEL9K_VCS_GIT_GITHUB_ICON='\uF408' #  
-typeset -g POWERLEVEL9K_VCS_GIT_GITHUB_ICON='\uF113 ' #  
-typeset -g POWERLEVEL9K_VCS_GIT_GITLAB_ICON='\uF296 ' #  
-typeset -g POWERLEVEL9K_VCS_GIT_BITBUCKET_ICON='\uF171 ' #  
-typeset -g POWERLEVEL9K_VCS_GIT_ICON='\uF7A1 ' #  
-typeset -g POWERLEVEL9K_VCS_STAGED_ICON='\uF055 ' #  
-typeset -g POWERLEVEL9K_VCS_UNTRACKED_ICON='\uF00D ' #  
-typeset -g POWERLEVEL9K_VCS_UNSTAGED_ICON='\uF421 ' #  
-typeset -g POWERLEVEL9K_VCS_INCOMING_CHANGES_ICON='\uF0AB ' #  
-typeset -g POWERLEVEL9K_VCS_OUTGOING_CHANGES_ICON='\uF0AA ' #  
-typeset -g POWERLEVEL9K_VCS_COMMIT_ICON='\uf417 ' # 
+typeset -g POWERLEVEL9K_VCS_BRANCH_ICON=' ' # \uF126
+# typeset -g POWERLEVEL9K_VCS_GIT_GITHUB_ICON=' ' # \uF408
+typeset -g POWERLEVEL9K_VCS_GIT_GITHUB_ICON=' ' # \uF113
+typeset -g POWERLEVEL9K_VCS_GIT_GITLAB_ICON=' ' # \uF296
+typeset -g POWERLEVEL9K_VCS_GIT_BITBUCKET_ICON=' ' # \uF171
+typeset -g POWERLEVEL9K_VCS_GIT_ICON=' ' # \uF7A1
+typeset -g POWERLEVEL9K_VCS_STASH_ICON=' ' # \uF01C
+typeset -g POWERLEVEL9K_VCS_STAGED_ICON=' ' # \uF055
+typeset -g POWERLEVEL9K_VCS_UNTRACKED_ICON=' ' # \uF00D
+typeset -g POWERLEVEL9K_VCS_UNSTAGED_ICON=' ' # \uF421
+typeset -g POWERLEVEL9K_VCS_INCOMING_CHANGES_ICON=' ' # \uF0AB
+typeset -g POWERLEVEL9K_VCS_OUTGOING_CHANGES_ICON=' ' # \uF0AA
+typeset -g POWERLEVEL9K_VCS_COMMIT_ICON=' ' # \uf417
 
 # Hot reload allows you to change POWERLEVEL9K options after Powerlevel10k has been initialized.
 # For example, you can type POWERLEVEL9K_BACKGROUND=red and see your prompt turn red. Hot reload
@@ -64,6 +87,7 @@ typeset -g POWERLEVEL9K_VCS_COMMIT_ICON='\uf417 ' # 
 # really need it.
 typeset -g POWERLEVEL9K_DISABLE_HOT_RELOAD=false
 
+# Custom functions
 custom_host(){
   if [[ -n "$WSL_DISTRO_NAME" ]]; then
     OS_ICON="\uF17A"
@@ -107,25 +131,55 @@ POWERLEVEL9K_TIME_FORMAT="%D{\uf017 %H:%M \uf073 %d.%m.%y}"
 # Dir block settings
 # POWERLEVEL9K_SHORTEN_STRATEGY="truncate_beginning"
 # POWERLEVEL9K_SHORTEN_DELIMITER='..'
-typeset -g POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
+typeset -g POWERLEVEL9K_SHORTEN_DIR_LENGTH=3
 typeset -g POWERLEVEL9K_DIR_SHOW_WRITABLE=true
 typeset -g POWERLEVEL9K_DIR_NOT_WRITABLE_VISUAL_IDENTIFIER_EXPANSION=''
 # POWERLEVEL9K_DIR_NOT_WRITABLE_ICON_BEFORE_CONTENT=true
+
+# DIR_CLASSES allows you to specify custom icons for different directories.
+# It must be an array with 3 * N elements. Each triplet consists of:
+#
+#   1. A pattern against which the current directory is matched. Matching is done with
+#      extended_glob option enabled.
+#   2. Directory class for the purpose of styling.
+#   3. Icon.
+#
+# Triplets are tried in order. The first triplet whose pattern matches $PWD wins. If there
+# are no matches, the directory will have no icon.
+typeset -g POWERLEVEL9K_DIR_CLASSES=(
+  '~/dotfiles(|/*)'  DOTFILES     ''
+  '~(|/*)'       HOME     ''
+  '/etc(|/*)'       ETC     ''
+  '/usr(|/*)'       USR     ''
+  '/tmp(|/*)'       TMP     '﯊'
+  '/bin(|/*)'       BIN     ''
+  '/home(|/*)'       HOME     ''
+  '/proc(|/*)'       PROC     ''
+  # '/usr(|/*)'       CODE     '   '
+  '*'            DEFAULT  '')
+
+# You can also set different colors for directories of different classes. Remember to override
+# FOREGROUND, SHORTENED_FOREGROUND and ANCHOR_FOREGROUND for every directory class that you wish
+# to have its own color.
+#
+#   typeset -g POWERLEVEL9K_DIR_WORK_FOREGROUND=31
+#   typeset -g POWERLEVEL9K_DIR_WORK_SHORTENED_FOREGROUND=103
+#   typeset -g POWERLEVEL9K_DIR_WORK_ANCHOR_FOREGROUND=39
 
 # Public IP block settings
 # Public IP color.
 typeset -g POWERLEVEL9K_PUBLIC_IP_FOREGROUND=94
 # Custom icon.
-typeset -g POWERLEVEL9K_PUBLIC_IP_VISUAL_IDENTIFIER_EXPANSION=''
+typeset -g POWERLEVEL9K_PUBLIC_IP_VISUAL_IDENTIFIER_EXPANSION='' # \uF484
 
 # Battery block settings
 # Show battery in red when it's below this level and not connected to power supply.
-typeset -g POWERLEVEL9K_BATTERY_LOW_THRESHOLD=20
+typeset -g POWERLEVEL9K_BATTERY_LOW_THRESHOLD=30
 typeset -g POWERLEVEL9K_BATTERY_LOW_FOREGROUND=167
 # Show battery in green when it's charging or fully charged.
 typeset -g POWERLEVEL9K_BATTERY_{CHARGING,CHARGED}_FOREGROUND=142
-# Show battery in yellow when it's discharging.
-typeset -g POWERLEVEL9K_BATTERY_DISCONNECTED_FOREGROUND=214
+# Show battery in green when it's discharging until low.
+typeset -g POWERLEVEL9K_BATTERY_DISCONNECTED_FOREGROUND=142
 # Battery pictograms going from low to high level of charge.
 typeset -g POWERLEVEL9K_BATTERY_STAGES=$'\uf58d\uf579\uf57a\uf57b\uf57c\uf57d\uf57e\uf57f\uf580\uf581\uf578'
 # Don't show the remaining time to charge/discharge.
@@ -137,7 +191,7 @@ typeset -g POWERLEVEL9K_BATTERY_VERBOSE=false
 #   - off:      Don't change prompt when accepting a command line.
 #   - always:   Trim down prompt when accepting a command line.
 #   - same-dir: Trim down prompt when accepting a command line unless this is the first command
-typeset -g POWERLEVEL9K_TRANSIENT_PROMPT=always
+typeset -g POWERLEVEL9K_TRANSIENT_PROMPT=off
 
 # Transparent background. 
 typeset -g POWERLEVEL9K_PROMPT_CHAR_BACKGROUND= 
@@ -146,13 +200,16 @@ typeset -g POWERLEVEL9K_PROMPT_CHAR_OK_{VIINS,VICMD,VIVIS,VIOWR}_FOREGROUND=142
 # Red prompt symbol if the last command failed.
 typeset -g POWERLEVEL9K_PROMPT_CHAR_ERROR_{VIINS,VICMD,VIVIS,VIOWR}_FOREGROUND=167
 # Default prompt symbol.
-typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VIINS_CONTENT_EXPANSION='❯'
+# typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VIINS_CONTENT_EXPANSION='❯'
+typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VIINS_CONTENT_EXPANSION=''
 # Prompt symbol in command vi mode.
-typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VICMD_CONTENT_EXPANSION='❮'
+# typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VICMD_CONTENT_EXPANSION='❮'
+typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VICMD_CONTENT_EXPANSION=''
 # Prompt symbol in visual vi mode.
 typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VIVIS_CONTENT_EXPANSION='Ⅴ'
 # Prompt symbol in overwrite vi mode.
-typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VIOWR_CONTENT_EXPANSION='▶'
+# typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VIOWR_CONTENT_EXPANSION='▶'
+typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VIOWR_CONTENT_EXPANSION=''
 typeset -g POWERLEVEL9K_PROMPT_CHAR_OVERWRITE_STATE=true
 # No line terminator if prompt_char is the last segment. 
 typeset -g POWERLEVEL9K_PROMPT_CHAR_LEFT_PROMPT_LAST_SEGMENT_END_SYMBOL=''

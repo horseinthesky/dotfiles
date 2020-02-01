@@ -1,4 +1,3 @@
-alias python='python3'
 export NVIM_COLORSCHEME=gruvbox
 
 # Shell colorscheme fix
@@ -157,7 +156,11 @@ export KEYTIMEOUT=1
 
 # ======== ALIASES ========
 alias vi=$(which nvim)
-alias suroot='sudo -E -s'
+alias sr='sudo -E -s'
+
+# ranger aliases
+alias ra='ranger'
+export RANGER_LOAD_DEFAULT_RC=false
 
 # lsd aliases
 alias ll='lsd -lA --group-dirs first'
@@ -176,8 +179,8 @@ if [[ "$ZSH_THEME" == "powerlevel10k/powerlevel10k" ]]; then
   POWERLEVEL9K_MODE='nerdfont-complete'
 
   # P10K theme
-  # P10K_THEME="lean"
-  P10K_THEME="rainbow"
+  P10K_THEME="lean"
+  # P10K_THEME="rainbow"
 
   # Theme
   source $HOME/dotfiles/files/p10k.zsh
