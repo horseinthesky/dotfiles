@@ -179,10 +179,13 @@ typeset -g POWERLEVEL9K_BATTERY_{CHARGING,CHARGED}_FOREGROUND=109
 # Battery colors for different levels of charge when disconnected.
 typeset -g POWERLEVEL9K_BATTERY_LEVEL_FOREGROUND=(
   167 167 167 214 214 214 214 142 142 142)
+# Battery colors for different levels of charge when charging.
+# typeset -g POWERLEVEL9K_BATTERY_CHARGING_LEVEL_FOREGROUND=(
+#   167 167 167 214 214 214 214 142 142 142)
 # Battery pictograms going from low to high level of charge (when disconnected).
 typeset -g POWERLEVEL9K_BATTERY_STAGES=$'\uf582\uf579\uf57a\uf57b\uf57c\uf57d\uf57e\uf57f\uf580\uf581\uf578'
 # Battery pictograms going from low to high level of charge when charging.
-typeset -g POWERLEVEL9K_BATTERY_CHARGING_STAGES=$'\uf585\uf586\uf587\uf588\uf589\uf58a\uf584'
+# typeset -g POWERLEVEL9K_BATTERY_CHARGING_STAGES=$'\uf585\uf586\uf587\uf588\uf589\uf58a\uf584'
 # Pictogram to show when the battery is charging and fully charged and connected to power supply.
 typeset -g POWERLEVEL9K_BATTERY_CHARGED_VISUAL_IDENTIFIER_EXPANSION=$'\uf584' #  
 typeset -g POWERLEVEL9K_BATTERY_CHARGING_VISUAL_IDENTIFIER_EXPANSION=$'\uf583' # 
