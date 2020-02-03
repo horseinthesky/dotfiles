@@ -173,15 +173,16 @@ typeset -g POWERLEVEL9K_PUBLIC_IP_FOREGROUND=94
 typeset -g POWERLEVEL9K_PUBLIC_IP_VISUAL_IDENTIFIER_EXPANSION='' # \uF484
 
 # Battery block settings
-# Show battery in red when it's below this level and not connected to power supply.
-typeset -g POWERLEVEL9K_BATTERY_LOW_THRESHOLD=30
-typeset -g POWERLEVEL9K_BATTERY_LOW_FOREGROUND=167
-# Show battery in green when it's charging or fully charged.
-typeset -g POWERLEVEL9K_BATTERY_{CHARGING,CHARGED}_FOREGROUND=142
-# Show battery in green when it's discharging until low.
-typeset -g POWERLEVEL9K_BATTERY_DISCONNECTED_FOREGROUND=142
+# Show battery in blue when it's charging or fully charged.
+typeset -g POWERLEVEL9K_BATTERY_{CHARGING,CHARGED}_FOREGROUND=109
+# Battery colors for different levels of charge when disconnected.
+typeset -g POWERLEVEL9K_BATTERY_LEVEL_FOREGROUND=(
+  167 167 167 214 214 214 214 142 142 142)
 # Battery pictograms going from low to high level of charge.
-typeset -g POWERLEVEL9K_BATTERY_STAGES=$'\uf58d\uf579\uf57a\uf57b\uf57c\uf57d\uf57e\uf57f\uf580\uf581\uf578'
+typeset -g POWERLEVEL9K_BATTERY_STAGES=$'\uf579\uf579\uf57a\uf57b\uf57c\uf57d\uf57e\uf57f\uf580\uf581\uf578'
+# Pictogram to show when the battery is charging and fully charged and connected to power supply.
+typeset -g POWERLEVEL9K_BATTERY_CHARGED_VISUAL_IDENTIFIER_EXPANSION=$'\uf584' #  
+typeset -g POWERLEVEL9K_BATTERY_CHARGING_VISUAL_IDENTIFIER_EXPANSION=$'\uf583' # 
 # Don't show the remaining time to charge/discharge.
 typeset -g POWERLEVEL9K_BATTERY_VERBOSE=false
 

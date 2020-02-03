@@ -21,6 +21,7 @@
     - { role: lsd, tags: ["lsd"] }
     - { role: bat, tags: ["bat"] }
     - { role: tldr, tags: ["tldr"] }
+    - { role: ranger, tags: ["ranger"] }
     - { role: docker, tags: ["docker"] }
     - { role: poetry, tags: ["poetry"] }
     - { role: pipenv, tags: ["pipenv"] }

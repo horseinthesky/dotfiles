@@ -1,0 +1,15 @@
+- import_tasks: debian.yml
+  when: ansible_os_family == "Debian"
+
+- name: Install ranger
+  pip:
+    name: ranger-fm
+    state: latest
+  become: yes
+
+- name: Symlink ranger config
+  file:
+    src: "{{ dotfiles_home }}/ranger"
+    dest: "{{ user_home }}/.config/ranger"
+    # force: yes
+    state: link

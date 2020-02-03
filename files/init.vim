@@ -31,31 +31,42 @@ Plug 'sheerun/vim-polyglot'
 call plug#end()
 
 " ================ SETTINGS ================
-set laststatus=2     " Always show statusline
-set t_Co=256         " Use 256 colours (Use this setting only if your terminal supports 256 colours)
-set nobackup         " Don't create annoying backup files
-set noswapfile       " Dont' use swapfile
-set mouse=v          " Neovim mouse disable
-set scrolloff=5      " Start scrolling 5 lines before edge of viewpoint
-set pastetoggle=<F2> " Paste mode toggle to paste code properly
-set guicursor=       " Fix for mysterious 'q' letters
-set shortmess+=c     " don't give |ins-completion-menu| messages
+set laststatus=2       " Always show statusline
+set t_Co=256           " Use 256 colours (Use this setting only if your terminal supports 256 colours)
+set nobackup           " Don't create annoying backup files
+set noswapfile         " Dont' use swapfile
+set mouse=v            " Neovim mouse disable
+set scrolloff=5        " Start scrolling 5 lines before edge of viewpoint
+set pastetoggle=<F2>   " Paste mode toggle to paste code properly
+set guicursor=         " Fix for mysterious 'q' letters
+set shortmess+=c       " don't give |ins-completion-menu| messages
 " set cmdheight=2      " More space for messages
 " set signcolumn=yes   " Always show signcolumns (left row)
-set updatetime=300   " You will have bad experience for diagnostic messages when it's default 4000.
+set updatetime=300     " You will have bad experience for diagnostic messages when it's default 4000.
+set colorcolumn=80,120 " add vertical lines on columns
+
+" Return to last edit position when opening files (You want this!)
+autocmd BufReadPost *
+  \ if line("'\"") > 0 && line("'\"") <= line("$") |
+  \   exe "normal! g`\"" |
+  \ endif
+
+" visual shifting (does not exit Visual mode)
+vnoremap < <gv
+vnoremap > >gv
 
 " ==== Folding ====
-set foldmethod=indent   " Fold based on indent
-set foldnestmax=10      " Deepest fold is 10 levels
-set nofoldenable        " Dont fold by default
-set foldlevel=2         " This is just what I use
+set foldmethod=indent  " Fold based on indent
+set foldnestmax=10     " Deepest fold is 10 levels
+set nofoldenable       " Dont fold by default
+set foldlevel=2        " This is just what I use
 
 " ==== File explorer ====
 map <F3> :!ls<CR>:e
-let g:netrw_banner=0 " diable annoying banner
-let g:netrw_browse_split=4 " open in proir window
-let g:netrw_altv=1 " open splits to the right
-let g:netrw_liststyle=3 " tree view
+let g:netrw_banner=0                           " diable annoying banner
+let g:netrw_browse_split=4                     " open in proir window
+let g:netrw_altv=1                             " open splits to the right
+let g:netrw_liststyle=3                        " tree view
 let g:netrw_list_hide=netrw_gitignore#Hide()
 let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
 
@@ -86,6 +97,15 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
 " ==== TAB ====
+" Useful mappings for managing tabs
+map <leader>tn :tabnew<cr>
+map <leader>to :tabonly<cr>
+map <leader>tc :tabclose<cr>
+map <leader>tm0 :tabmove 0<cr>
+map <leader>tm :tabmove $<cr>
+map <leader>tj :tabnext<cr>
+map <leader>tk :tabprevious<cr>
+
 set tabstop=2        " 2 whitespaces for tabs visual presentation
 set shiftwidth=2     " shift lines by 2 spaces
 set smarttab         " set tabs for a shifttabs logic

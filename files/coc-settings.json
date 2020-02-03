@@ -114,7 +114,7 @@
   "python.formatting.autopep8Args": [
     "--ignore=E501"
   ],
-  //
+  // coc-go
   "go.goplsOptions": {
     "usePlaceholders": true,
     "completeUnimported": true,
