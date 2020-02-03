@@ -29,12 +29,12 @@ endfunction
 function! LighlineFileformat()
   return winwidth(0) > 70 ?
     \ expand('%:t') =~# s:viewplugins ? ''
-      \ : &fileencoding . ' ' . FileFormatIcon()
+      \ : &fileencoding . FileFormatIcon()
     \ : ''
 endfunction
 function! FileFormatIcon()
-  return strlen(&filetype) ? WebDevIconsGetFileFormatSymbol()
-    \ : 'no ft'
+  return strlen(&filetype) ? ' ' . WebDevIconsGetFileFormatSymbol()
+    \ : ' no ft'
 endfunction
 
 function! LightlineMode()
@@ -54,14 +54,14 @@ function! LightlineMode()
 endfunction
 
 function! LightlineFilenameExtended() 
-  let l:fticon = (strlen(&filetype) ? ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') 
+  let l:fticon = (strlen(&filetype) ? WebDevIconsGetFileTypeSymbol() . ' ' : '') 
   let l:filename = LightlineFilename()
   let l:modified = LightlineModified()
   if l:filename == ''
       return ''
   endif
   return expand('%:t') =~# s:viewplugins ? '' :
-    \ join([l:filename, l:fticon, l:modified],'')
+    \ join([l:fticon, l:filename, l:modified],'')
 endfunction
 function! LightlineReadonly()
   return &readonly ? '' : ''

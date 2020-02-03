@@ -82,7 +82,7 @@ function my_git_formatter() {
     local      clean='%142F'  # green foreground
     local   modified='%214F'  # yellow foreground
     local  untracked='%167F'  # blue foreground
-    local conflicted='%196F'  # red foreground
+    local conflicted='%167F'  # red foreground
   else
     # Styling for incomplete and stale Git status.
     local       meta='%244F'  # grey foreground
@@ -126,9 +126,9 @@ function my_git_formatter() {
   # 'merge' if the repo is in an unusual state.
   [[ -n $VCS_STATUS_ACTION     ]] && res+=" ${conflicted}${VCS_STATUS_ACTION}"
   # ~42 if have merge conflicts.
-  (( VCS_STATUS_NUM_CONFLICTED )) && res+=" ${conflicted}~${VCS_STATUS_NUM_CONFLICTED}"
+  (( VCS_STATUS_NUM_CONFLICTED )) && res+=" ${conflicted}${POWERLEVEL9K_VCS_CONFLICTED_ICON}${VCS_STATUS_NUM_CONFLICTED}"
   # +42 if have staged changes.
-  (( VCS_STATUS_NUM_STAGED     )) && res+=" ${modified}+${VCS_STATUS_NUM_STAGED}"
+  (( VCS_STATUS_NUM_STAGED     )) && res+=" ${modified}${POWERLEVEL9K_VCS_STAGED_ICON}${VCS_STATUS_NUM_STAGED}"
   # !42 if have unstaged changes.
   (( VCS_STATUS_NUM_UNSTAGED   )) && res+=" ${modified}${POWERLEVEL9K_VCS_UNSTAGED_ICON}${VCS_STATUS_NUM_UNSTAGED}"
   # ?42 if have untracked files. It's really a question mark, your font isn't broken.

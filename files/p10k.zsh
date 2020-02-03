@@ -77,6 +77,7 @@ typeset -g POWERLEVEL9K_VCS_STASH_ICON=' ' # \uF01C
 typeset -g POWERLEVEL9K_VCS_STAGED_ICON=' ' # \uF055
 typeset -g POWERLEVEL9K_VCS_UNTRACKED_ICON=' ' # \uF00D
 typeset -g POWERLEVEL9K_VCS_UNSTAGED_ICON=' ' # \uF421
+typeset -g POWERLEVEL9K_VCS_CONFLICTED_ICON=' ' # \uF059
 typeset -g POWERLEVEL9K_VCS_INCOMING_CHANGES_ICON=' ' # \uF0AB
 typeset -g POWERLEVEL9K_VCS_OUTGOING_CHANGES_ICON=' ' # \uF0AA
 typeset -g POWERLEVEL9K_VCS_COMMIT_ICON=' ' # \uf417
@@ -148,15 +149,15 @@ typeset -g POWERLEVEL9K_DIR_NOT_WRITABLE_VISUAL_IDENTIFIER_EXPANSION=''
 # are no matches, the directory will have no icon.
 typeset -g POWERLEVEL9K_DIR_CLASSES=(
   '~/dotfiles(|/*)'  DOTFILES     ''
-  '~(|/*)'       HOME     ''
-  '/etc(|/*)'       ETC     ''
-  '/usr(|/*)'       USR     ''
-  '/tmp(|/*)'       TMP     '﯊'
-  '/bin(|/*)'       BIN     ''
-  '/home(|/*)'       HOME     ''
-  '/proc(|/*)'       PROC     ''
-  # '/usr(|/*)'       CODE     '   '
-  '*'            DEFAULT  '')
+  '~(|/*)'           HOME         ''
+  '/etc(|/*)'        ETC          ''
+  '/usr(|/*)'        USR          ''
+  '/tmp(|/*)'        TMP          '﯊'
+  '/bin(|/*)'        BIN          ''
+  '/home(|/*)'       HOME         ''
+  '/proc(|/*)'       PROC         ''
+  # '/usr(|/*)'       CODE         '   '
+  '*'                DEFAULT      '')
 
 # You can also set different colors for directories of different classes. Remember to override
 # FOREGROUND, SHORTENED_FOREGROUND and ANCHOR_FOREGROUND for every directory class that you wish
@@ -178,8 +179,10 @@ typeset -g POWERLEVEL9K_BATTERY_{CHARGING,CHARGED}_FOREGROUND=109
 # Battery colors for different levels of charge when disconnected.
 typeset -g POWERLEVEL9K_BATTERY_LEVEL_FOREGROUND=(
   167 167 167 214 214 214 214 142 142 142)
-# Battery pictograms going from low to high level of charge.
-typeset -g POWERLEVEL9K_BATTERY_STAGES=$'\uf579\uf579\uf57a\uf57b\uf57c\uf57d\uf57e\uf57f\uf580\uf581\uf578'
+# Battery pictograms going from low to high level of charge (when disconnected).
+typeset -g POWERLEVEL9K_BATTERY_STAGES=$'\uf582\uf579\uf57a\uf57b\uf57c\uf57d\uf57e\uf57f\uf580\uf581\uf578'
+# Battery pictograms going from low to high level of charge when charging.
+typeset -g POWERLEVEL9K_BATTERY_CHARGING_STAGES=$'\uf585\uf586\uf587\uf588\uf589\uf58a\uf584'
 # Pictogram to show when the battery is charging and fully charged and connected to power supply.
 typeset -g POWERLEVEL9K_BATTERY_CHARGED_VISUAL_IDENTIFIER_EXPANSION=$'\uf584' #  
 typeset -g POWERLEVEL9K_BATTERY_CHARGING_VISUAL_IDENTIFIER_EXPANSION=$'\uf583' # 
