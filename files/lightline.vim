@@ -155,7 +155,7 @@ let g:lightline = {
   \   'right': [],
   \ },
   \ 'tab': {
-  \   'active': ['filename', 'fticon'],
+  \   'active': ['fticon', 'filename',],
   \   'inactive': ['tabnum', 'filename'],
   \ },
   \ 'component': {
