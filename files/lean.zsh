@@ -81,8 +81,9 @@ function my_git_formatter() {
     local       meta='%f'     # default foreground
     local      clean='%142F'  # green foreground
     local   modified='%214F'  # yellow foreground
-    local  untracked='%167F'  # blue foreground
+    local  untracked='%167F'  # red foreground
     local conflicted='%167F'  # red foreground
+    local    stashed='%109F'  # blue foreground
   else
     # Styling for incomplete and stale Git status.
     local       meta='%244F'  # grey foreground
@@ -90,6 +91,7 @@ function my_git_formatter() {
     local   modified='%244F'  # grey foreground
     local  untracked='%244F'  # grey foreground
     local conflicted='%244F'  # grey foreground
+    local    stashed='%244F'  # blue foreground
   fi
 
   local res
@@ -122,7 +124,7 @@ function my_git_formatter() {
   (( VCS_STATUS_COMMITS_AHEAD && !VCS_STATUS_COMMITS_BEHIND )) && res+=" "
   (( VCS_STATUS_COMMITS_AHEAD  )) && res+="${clean}${POWERLEVEL9K_VCS_OUTGOING_CHANGES_ICON}${VCS_STATUS_COMMITS_AHEAD}"
   # *42 if have stashes.
-  (( VCS_STATUS_STASHES        )) && res+=" ${clean}${POWERLEVEL9K_VCS_STASH_ICON}${VCS_STATUS_STASHES}"
+  (( VCS_STATUS_STASHES        )) && res+=" ${stashed}${POWERLEVEL9K_VCS_STASH_ICON}${VCS_STATUS_STASHES}"
   # 'merge' if the repo is in an unusual state.
   [[ -n $VCS_STATUS_ACTION     ]] && res+=" ${conflicted}${VCS_STATUS_ACTION}"
   # ~42 if have merge conflicts.

@@ -160,7 +160,6 @@ alias sr='sudo -E -s'
 
 # ranger aliases
 alias ra='ranger'
-export RANGER_LOAD_DEFAULT_RC=false
 
 # lsd aliases
 alias ll='lsd -lA --group-dirs first'
