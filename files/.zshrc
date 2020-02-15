@@ -156,6 +156,7 @@ export KEYTIMEOUT=1
 
 # ======== ALIASES ========
 alias vi=$(which nvim)
+alias nv=$(which nvim)
 alias sr='sudo -E -s'
 
 # ranger aliases
