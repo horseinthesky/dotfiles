@@ -27,10 +27,9 @@ typeset -g POWERLEVEL9K_USER_ICON='\uF415' # 
 typeset -g POWERLEVEL9K_ROOT_ICON='\uF198' #  
 # typeset -g POWERLEVEL9K_ROOT_ICON='\uF09C' #  
 typeset -g POWERLEVEL9K_SSH_ICON='\uF489' #  
-if [[ -s /sys/class/power_supply/battery/present ]]; then
+typeset -g POWERLEVEL9K_HOST_ICON='' # \uF108
+if [[ -e /sys/class/power_supply/battery/present ]] && grep -Fxq "1" /sys/class/power_supply/battery/present; then
   typeset -g POWERLEVEL9K_HOST_ICON='' # \uF109
-else
-  typeset -g POWERLEVEL9K_HOST_ICON='' # \uF108
 fi
 
 # OS
