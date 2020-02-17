@@ -33,6 +33,7 @@ if ()(($# > 0)) /sys/class/power_supply/(BAT*|battery); then
 else
   typeset -g POWERLEVEL9K_HOST_ICON='' # \uF108
 fi
+unsetopt NULL_GLOB
 
 # OS
 # typeset -g POWERLEVEL9K_LINUX_ICON='\uE712' #  
