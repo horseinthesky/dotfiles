@@ -34,6 +34,8 @@ export ZSH_DISABLE_COMPFIX=true
 
 # ssh-agent
 [[ $(cat /etc/hostname) == 'horseinthesky-w' ]] && eval `ssh-agent` && ssh-add
+# The next line updates PATH for Yandex Cloud CLI.
+if [ -f '/home/horseinthesky/yandex-cloud/path.bash.inc' ]; then source '/home/horseinthesky/yandex-cloud/path.bash.inc'; fi
 
 # pyenv settings
 if [[ -d "$HOME/.pyenv" ]]; then
