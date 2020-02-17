@@ -2,7 +2,7 @@
 DEFAULT_PREFIX_COLOR=249
 typeset -g POWERLEVEL9K_{CUSTOM_HOST,VCS}_PREFIX='%F{$DEFAULT_PREFIX_COLOR}on '
 typeset -g POWERLEVEL9K_{DIR,VIRTUALENV}_PREFIX='%F{$DEFAULT_PREFIX_COLOR}in '
-typeset -g POWERLEVEL9K_PYENV_PREFIX='%F{$DEFAULT_PREFIX_COLOR}with '
+typeset -g POWERLEVEL9K_PYENV_PREFIX='%F{$DEFAULT_PREFIX_COLOR}via '
 
 # Host block settings
 typeset -g POWERLEVEL9K_CUSTOM_HOST="custom_host"
@@ -25,7 +25,7 @@ typeset -g POWERLEVEL9K_CUSTOM_USER="custom_user"
 if [[ $(whoami) == "root" ]]; then
   typeset -g POWERLEVEL9K_CUSTOM_USER_FOREGROUND=167
 else
-  typeset -g POWERLEVEL9K_CUSTOM_USER_FOREGROUND=214
+  typeset -g POWERLEVEL9K_CUSTOM_USER_FOREGROUND=174
 fi
 
 # VCS block settings
@@ -60,8 +60,6 @@ typeset -g POWERLEVEL9K_{CPU,RAM}_BACKGROUND=
 #####################################[ vcs: git status ]######################################
 # Formatter for Git status.
 #
-# Example output: master ⇣42⇡42 *42 merge ~42 +42 !42 ?42.
-#
 # You can edit the function to customize how Git status looks.
 #
 # VCS_STATUS_* parameters are set by gitstatus plugin. See reference:
@@ -81,8 +79,9 @@ function my_git_formatter() {
     local       meta='%f'     # default foreground
     local      clean='%142F'  # green foreground
     local   modified='%214F'  # yellow foreground
-    local  untracked='%167F'  # blue foreground
+    local  untracked='%208F'  # orange foreground
     local conflicted='%167F'  # red foreground
+    local    stashed='%109F'  # blue foreground
   else
     # Styling for incomplete and stale Git status.
     local       meta='%244F'  # grey foreground
@@ -90,6 +89,7 @@ function my_git_formatter() {
     local   modified='%244F'  # grey foreground
     local  untracked='%244F'  # grey foreground
     local conflicted='%244F'  # grey foreground
+    local    stashed='%244F'  # blue foreground
   fi
 
   local res
@@ -116,23 +116,22 @@ function my_git_formatter() {
     res+="${meta}:${clean}${(V)VCS_STATUS_REMOTE_BRANCH//\%/%%}"  # escape %
   fi
 
-  # ⇣42 if behind the remote.
+  #  42 if behind the remote.
   (( VCS_STATUS_COMMITS_BEHIND )) && res+=" ${clean}${POWERLEVEL9K_VCS_INCOMING_CHANGES_ICON}${VCS_STATUS_COMMITS_BEHIND}"
-  # ⇡42 if ahead of the remote; no leading space if also behind the remote: ⇣42⇡42.
+  #  42 if ahead of the remote; no leading space if also behind the remote: ⇣42⇡42.
   (( VCS_STATUS_COMMITS_AHEAD && !VCS_STATUS_COMMITS_BEHIND )) && res+=" "
   (( VCS_STATUS_COMMITS_AHEAD  )) && res+="${clean}${POWERLEVEL9K_VCS_OUTGOING_CHANGES_ICON}${VCS_STATUS_COMMITS_AHEAD}"
-  # *42 if have stashes.
-  (( VCS_STATUS_STASHES        )) && res+=" ${clean}${POWERLEVEL9K_VCS_STASH_ICON}${VCS_STATUS_STASHES}"
+  #  42 if have stashes.
+  (( VCS_STATUS_STASHES        )) && res+=" ${stashed}${POWERLEVEL9K_VCS_STASH_ICON}${VCS_STATUS_STASHES}"
   # 'merge' if the repo is in an unusual state.
   [[ -n $VCS_STATUS_ACTION     ]] && res+=" ${conflicted}${VCS_STATUS_ACTION}"
-  # ~42 if have merge conflicts.
+  #  42 if have merge conflicts.
   (( VCS_STATUS_NUM_CONFLICTED )) && res+=" ${conflicted}${POWERLEVEL9K_VCS_CONFLICTED_ICON}${VCS_STATUS_NUM_CONFLICTED}"
-  # +42 if have staged changes.
+  #  42 if have staged changes.
   (( VCS_STATUS_NUM_STAGED     )) && res+=" ${modified}${POWERLEVEL9K_VCS_STAGED_ICON}${VCS_STATUS_NUM_STAGED}"
-  # !42 if have unstaged changes.
+  #  42 if have unstaged changes.
   (( VCS_STATUS_NUM_UNSTAGED   )) && res+=" ${modified}${POWERLEVEL9K_VCS_UNSTAGED_ICON}${VCS_STATUS_NUM_UNSTAGED}"
-  # ?42 if have untracked files. It's really a question mark, your font isn't broken.
-  # See POWERLEVEL9K_VCS_UNTRACKED_ICON above if you want to use a different icon.
+  #  42 if have untracked files.
   # Remove the next line if you don't want to see untracked files at all.
   (( VCS_STATUS_NUM_UNTRACKED  )) && res+=" ${untracked}${POWERLEVEL9K_VCS_UNTRACKED_ICON}${VCS_STATUS_NUM_UNTRACKED}"
 

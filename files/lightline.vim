@@ -15,7 +15,7 @@ endfunction
 function! LightlineLineInfo()
   return winwidth(0) > 60 ?
     \ expand('%:t') =~# s:viewplugins ? ''
-      \ : printf(' %d/%d:%-2d', line('.'), line('$'), col('.'))
+      \ : printf(' %d:%-d', line('.'), col('.'))
     \ : ''
 endfunction
 

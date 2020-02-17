@@ -134,7 +134,12 @@ set smartcase
 " ================ PLUGINS CONFIG ================
 " ==== ALE ====
 " let g:ale_linters_explicit = 1
-let g:ale_lint_on_text_changed = 'always'
+let g:ale_lint_on_text_changed = 'normal'
+" `'always'`, `'1'`, or `1` - Check buffers on |TextChanged| or |TextChangedI|.
+" `'normal'`            - Check buffers only on |TextChanged|.
+" `'insert'`            - Check buffers only on |TextChangedI|.
+" `'never'`, `'0'`, or `0`  - Never check buffers on changes.
+"
 let g:ale_fix_on_save = 0
 let g:ale_linters = {
   \ 'python': ['flake8'],
