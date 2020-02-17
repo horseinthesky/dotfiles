@@ -27,7 +27,8 @@ typeset -g POWERLEVEL9K_USER_ICON='\uF415' # 
 typeset -g POWERLEVEL9K_ROOT_ICON='\uF198' #  
 # typeset -g POWERLEVEL9K_ROOT_ICON='\uF09C' #  
 typeset -g POWERLEVEL9K_SSH_ICON='\uF489' #  
-if [[ -d /sys/class/power_supply/(BAT*|battery) ]]; then
+setopt NULL_GLOB
+if ()(($# > 0)) /sys/class/power_supply/(BAT*|battery); then
   typeset -g POWERLEVEL9K_HOST_ICON='' # \uF109
 else
   typeset -g POWERLEVEL9K_HOST_ICON='' # \uF108
