@@ -186,8 +186,8 @@ typeset -g POWERLEVEL9K_BATTERY_STAGES=$'\uf582\uf579\uf57a\uf57b\uf57c\uf57d\uf
 # Battery pictograms going from low to high level of charge when charging.
 # typeset -g POWERLEVEL9K_BATTERY_CHARGING_STAGES=$'\uf585\uf586\uf587\uf588\uf589\uf58a\uf584'
 # Pictogram to show when the battery is charging and fully charged and connected to power supply.
-typeset -g POWERLEVEL9K_BATTERY_CHARGED_VISUAL_IDENTIFIER_EXPANSION=$'\uf584' #  
-typeset -g POWERLEVEL9K_BATTERY_CHARGING_VISUAL_IDENTIFIER_EXPANSION=$'\uf583' # 
+# typeset -g POWERLEVEL9K_BATTERY_CHARGED_VISUAL_IDENTIFIER_EXPANSION=$'\uf584' #  
+typeset -g POWERLEVEL9K_BATTERY_{CHARGING,CHARGED}_VISUAL_IDENTIFIER_EXPANSION=$'\uf583' # 
 # Don't show the remaining time to charge/discharge.
 typeset -g POWERLEVEL9K_BATTERY_VERBOSE=false
 
