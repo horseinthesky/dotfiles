@@ -143,7 +143,7 @@ let g:lightline = {
   \ 'active': {
   \   'left': [
   \     [ 'mode', 'paste' ],
-  \     [ 'fugitive', 'filename' ]
+  \     [ 'fugitive', 'filename' ],
   \   ],
   \   'right': [
   \     [ 'linter_checking', 'linter_errors', 'linter_warnings', 'percent', 'lineinfo', 'linter_ok' ],

@@ -25,7 +25,6 @@
       - black
       - mypy
       - flake8
-      - flake8-mypy
       - autopep8
       - yamllint
       - pynvim
