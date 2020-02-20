@@ -32,3 +32,8 @@
   git:
     repo: https://github.com/wfxr/forgit
     dest: ~/.oh-my-zsh/custom/plugins/forgit
+
+- name: Install alias-tips plugin
+  git:
+    repo: https://github.com/djui/alias-tips.git
+    dest: ~/.oh-my-zsh/custom/plugins/alias-tips

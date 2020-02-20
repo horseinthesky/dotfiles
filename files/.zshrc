@@ -119,6 +119,7 @@ plugins=(
   forgit
   zsh-autosuggestions
   sudo
+  alias-tips
 )
 
 source $ZSH/oh-my-zsh.sh
