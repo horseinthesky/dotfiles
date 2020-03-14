@@ -291,7 +291,7 @@ nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
 " Show commands
 nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
 
-" Go to definition (Ctrl+6 for return)
+" Go to definition (Ctrl+^ for return)
 nmap <silent> gd <Plug>(coc-definition)
 " Format using linters
 command! -nargs=0 Format :call CocAction('format')
