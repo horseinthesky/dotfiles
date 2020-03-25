@@ -36,7 +36,9 @@ export ZSH_DISABLE_COMPFIX=true
 if [[ $(cat /etc/hostname) == 'horseinthesky-w' ]]; then
   export PSSH_AUTH_SOCK="/mnt/c/Users/$USER/AppData/Local/Temp/pssh-agent.sock"
   export SSH_AUTH_SOCK="${PSSH_AUTH_SOCK}"
-  ssh-add
+  if ! [[ $(ssh-add -l) =~ "/home/$USER/.ssh/id_rsa" ]]; then
+    ssh-add
+  fi
 fi
 # The next line updates PATH for Yandex Cloud CLI.
 if [ -f '/home/horseinthesky/yandex-cloud/path.bash.inc' ]; then source '/home/horseinthesky/yandex-cloud/path.bash.inc'; fi
