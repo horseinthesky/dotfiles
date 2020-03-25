@@ -1,6 +1,9 @@
 - import_tasks: debian.yml
   when: ansible_os_family == "Debian"
 
+- import_tasks: arch.yml
+  when: ansible_os_family == "Archlinux"
+
 - name: Add current user to docker group
   user:
     name: "{{ lookup('env', 'USER') }}"

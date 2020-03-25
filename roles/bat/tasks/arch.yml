@@ -1,0 +1,5 @@
+- name: Install bat
+  pacman:
+    name: bat
+    state: latest
+  become: yes

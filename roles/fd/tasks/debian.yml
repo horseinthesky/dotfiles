@@ -1,4 +1,3 @@
----
 - name: Check if fd is installed
   command: dpkg-query -W fd
   register: fd_check_deb

@@ -9,6 +9,10 @@
   import_tasks: debian.yml
   when: ansible_os_family == "Debian" and nvim_check.rc == 1
 
+- name: Install required arch packages
+  import_tasks: arch.yml
+  when: ansible_os_family == "Archlinux" and nvim_check.rc == 1
+
 - name: Install NVIM
   get_url:
     url: "{{ nvim_release_url }}{{ nvim_version }}/{{ nvim_binary_file }}"

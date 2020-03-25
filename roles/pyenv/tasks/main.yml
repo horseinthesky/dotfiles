@@ -1,9 +1,19 @@
-# Installation and setup
 - import_tasks: debian.yml
   when: ansible_os_family == "Debian"
+
+- import_tasks: arch.yml
+  when: ansible_os_family == "Archlinux"
 
 - name: Install Python versions with pyenv
   shell: "{{ user_home }}/.pyenv/bin/pyenv install {{ item }} --skip-existing"
   args:
     creates: "{{ '~/.pyenv/versions/' + item | expanduser }}"
   loop: "{{ pyenv_global_versions }}"
+  when: ansible_os_family == "Debian"
+
+- name: Install Python versions with pyenv
+  shell: "pyenv install {{ item }} --skip-existing"
+  args:
+    creates: "{{ '~/.pyenv/versions/' + item | expanduser }}"
+  loop: "{{ pyenv_global_versions }}"
+  when: ansible_os_family == "Archlinux"

@@ -96,11 +96,17 @@ custom_host(){
   else
     source /etc/os-release
     case $ID in
-      "ubuntu")
+      ubuntu)
         OS_ICON="\uF31B"
         ;;
-      "centos")
+      centos)
         OS_ICON="\uF309"
+        ;;
+      manjaro)
+        OS_ICON="\uF312"
+        ;;
+      *)
+        OS_ICON="\uF17C"
         ;;
     esac
   fi

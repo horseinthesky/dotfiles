@@ -1,0 +1,12 @@
+- name: Update apt cache
+  pacman:
+    update_cache: yes
+  become: yes
+
+- name: Install usefull packages
+  pacman:
+    name:
+      - htop
+      - tree
+      - jq
+  become: yes
