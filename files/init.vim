@@ -103,8 +103,8 @@ map <leader>to :tabonly<cr>
 map <leader>tc :tabclose<cr>
 map <leader>tm0 :tabmove 0<cr>
 map <leader>tm :tabmove $<cr>
-map <leader>tj :tabnext<cr>
-map <leader>tk :tabprevious<cr>
+map <leader>tl :tabnext<cr>
+map <leader>th :tabprevious<cr>
 
 set tabstop=2        " 2 whitespaces for tabs visual presentation
 set shiftwidth=2     " shift lines by 2 spaces
