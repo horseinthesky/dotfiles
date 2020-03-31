@@ -1,0 +1,9 @@
+- name: Install NVIM requered packages
+  pacman:
+    name:
+      - cmake
+      - ctags
+      - nodejs
+      - npm
+    state: latest
+  become: yes

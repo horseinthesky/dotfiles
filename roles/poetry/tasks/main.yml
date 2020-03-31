@@ -1,5 +1,8 @@
 - name: Install poetry
-  raw: curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python3
+  pip:
+    name: poetry
+    state: latest
+  become: yes
 
 - name: Check if poetry config directory exist
   file:

@@ -1,0 +1,6 @@
+- name: Install golang
+  pacman:
+    name:
+      - go
+    state: latest
+  become: yes

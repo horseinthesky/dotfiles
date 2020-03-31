@@ -10,12 +10,20 @@ if [[ -n "$WSL_DISTRO_NAME" ]]; then
 else
   source /etc/os-release
   case $ID in
-    "ubuntu")
+    ubuntu)
       typeset -g POWERLEVEL9K_CUSTOM_HOST_BACKGROUND=166
       typeset -g POWERLEVEL9K_CUSTOM_HOST_FOREGROUND=229
       ;;
-    "centos")
+    centos)
       typeset -g POWERLEVEL9K_CUSTOM_HOST_BACKGROUND=160
+      typeset -g POWERLEVEL9K_CUSTOM_HOST_FOREGROUND=000
+      ;;
+    manjaro)
+      typeset -g POWERLEVEL9K_CUSTOM_HOST_BACKGROUND=041
+      typeset -g POWERLEVEL9K_CUSTOM_HOST_FOREGROUND=000
+      ;;
+    *)
+      typeset -g POWERLEVEL9K_CUSTOM_HOST_BACKGROUND=032
       typeset -g POWERLEVEL9K_CUSTOM_HOST_FOREGROUND=000
       ;;
   esac

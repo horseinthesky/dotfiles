@@ -1,0 +1,5 @@
+- name: Make sure zsh is installed
+  pacman:
+    name: zsh
+    state: latest
+  become: yes

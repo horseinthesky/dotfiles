@@ -12,11 +12,17 @@ if [[ -n "$WSL_DISTRO_NAME" ]]; then
 else
   source /etc/os-release
   case $ID in
-    "ubuntu")
+    ubuntu)
       typeset -g POWERLEVEL9K_CUSTOM_HOST_FOREGROUND=166
       ;;
-    "centos")
+    centos)
       typeset -g POWERLEVEL9K_CUSTOM_HOST_FOREGROUND=160
+      ;;
+    manjaro)
+      typeset -g POWERLEVEL9K_CUSTOM_HOST_FOREGROUND=041
+      ;;
+    *)
+      typeset -g POWERLEVEL9K_CUSTOM_HOST_FOREGROUND=032
       ;;
   esac
 fi
