@@ -295,6 +295,7 @@ nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
 nmap <silent> gd <Plug>(coc-definition)
 " Format using linters
 command! -nargs=0 Format :call CocAction('format')
+nnoremap <leader>f :call CocAction('format')<cr>
 
 " Add missing go imports on save
 autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
