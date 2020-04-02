@@ -19,6 +19,7 @@ Plug 'simnalamburt/vim-mundo'
 Plug 'junegunn/gv.vim'
 
 " ==== VISUAL PLUGINS ====
+Plug 'chrisbra/Colorizer'
 Plug 'mhinz/vim-startify'
 Plug 'morhetz/gruvbox'
 Plug 'arcticicestudio/nord-vim'
@@ -256,7 +257,6 @@ let g:coc_global_extensions = [
   \ 'coc-go',
   \ 'coc-explorer',
   \ 'coc-snippets',
-  \ 'coc-highlight',
   \ ]
 
 " Open/close coc-explorer
@@ -306,6 +306,10 @@ autocmd FileType go nmap ctx :CocCommand go.tags.add xml<cr>
 autocmd FileType go nmap ctc :CocCommand go.tags.clear<cr>
 
 " ================ VISUAL SETTINGS ================
+" ==== Colorizer
+map <leader>ct :ColorToggle<cr>
+map <leader>cs :ColorSwapFgBg<cr>
+
 " ==== rainbow ====
 let g:rainbow_active = 1 "set to 0 if you want to enable it later via :RainbowToggle
 

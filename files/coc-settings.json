@@ -36,7 +36,6 @@
   "diagnostic.displayByAle": true,
   // coc-explorer
   "explorer.width": 40,
-  "explorer.file.column.filename.width": 20,
   "explorer.file.showHiddenFiles": true,
   "explorer.icon.enableNerdfont": true,
   "explorer.sources": [
@@ -57,19 +56,16 @@
       },
     }
   },
-  "explorer.file.columns": [
-    "indent",
-    "selection",
-    "icon",
-    "filename",
-    "readonly"
-  ],
+  "explorer.file.child.template": "[git | 2] [selection | clip | 1] [indent][icon | 1] [diagnosticError & 1][filename omitCenter 1][readonly] [linkIcon & 1][link growRight 1 omitCenter 5][size]",
   "explorer.keyMappings": {
     "<tab>": "toggleSelection",
     "<cr>": "expandOrCollapse",
     "gl": "expandRecursive",
     "gh": "collapseRecursive",
-    "i": "openInVsplit",
+    "e": "open",
+    "s": "open:split",
+    "E": "open:vsplit",
+    "t": "open:tab",
     "Y": "copyFilepath",
     "y": "copyFilename",
     "c": "copyFile",
@@ -90,7 +86,7 @@
   "explorer.icon.expanded": " ",
   "explorer.icon.collapsed": " ",
   "explorer.icon.selected": "",
-  "explorer.file.column.git.icon.unmodified": "  ",
+  "explorer.file.column.git.icon.unmodified": "",
   "explorer.file.column.git.icon.mixed": "* ",
   "explorer.file.column.git.icon.modified": " ",
   "explorer.file.column.git.icon.untracked": " ",
