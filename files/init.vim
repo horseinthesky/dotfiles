@@ -52,7 +52,16 @@ autocmd BufReadPost *
   \   exe "normal! g`\"" |
   \ endif
 
-" visual shifting (does not exit Visual mode)
+" Replace all tabs with 4 whitespaces
+nnoremap <leader>T :%s/\t/    /g<CR>
+
+" Strip all trailing whitespace in the current file
+nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
+
+" Reselect the text that was just pasted
+nnoremap <leader>v V`]
+
+" Visual shifting (does not exit Visual mode)
 vnoremap < <gv
 vnoremap > >gv
 
