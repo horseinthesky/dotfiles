@@ -4,6 +4,11 @@
 - import_tasks: arch.yml
   when: ansible_os_family == "Archlinux"
 
+- name: Install pyenv-update
+  git:
+    repo: https://github.com/pyenv/pyenv-update
+    dest: ~/.pyenv/plugins/pyenv-update
+
 - name: Install Python versions with pyenv
   shell: "{{ user_home }}/.pyenv/bin/pyenv install {{ item }} --skip-existing"
   args:
