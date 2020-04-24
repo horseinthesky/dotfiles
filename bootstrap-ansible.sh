@@ -10,6 +10,10 @@ case $ID_LIKE in
     sudo apt update -y
     sudo apt install python3-pip -y
     ;;
+  "rhel fedora")
+    sudo yum update -y
+    sudo yum install python3-pip -y
+    ;;
   arch)
     sudo pacman -Sy -y
     sudo pacman -Ss python3-pip -y

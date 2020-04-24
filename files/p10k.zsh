@@ -99,11 +99,17 @@ custom_host(){
       ubuntu)
         OS_ICON="\uF31B"
         ;;
+      debian)
+        OS_ICON="\uF306"
+        ;;
       centos)
         OS_ICON="\uF309"
         ;;
       manjaro)
         OS_ICON="\uF312"
+        ;;
+      arch)
+        OS_ICON="\uF303"
         ;;
       *)
         OS_ICON="\uF17C"

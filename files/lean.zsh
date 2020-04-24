@@ -15,11 +15,17 @@ else
     ubuntu)
       typeset -g POWERLEVEL9K_CUSTOM_HOST_FOREGROUND=166
       ;;
+    debian)
+      typeset -g POWERLEVEL9K_CUSTOM_HOST_FOREGROUND=197
+      ;;
     centos)
       typeset -g POWERLEVEL9K_CUSTOM_HOST_FOREGROUND=160
       ;;
     manjaro)
       typeset -g POWERLEVEL9K_CUSTOM_HOST_FOREGROUND=041
+      ;;
+    arch)
+      typeset -g POWERLEVEL9K_CUSTOM_HOST_FOREGROUND=039
       ;;
     *)
       typeset -g POWERLEVEL9K_CUSTOM_HOST_FOREGROUND=032
