@@ -28,6 +28,7 @@ Plug 'itchyny/lightline.vim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'yggdroot/indentline'
 Plug 'luochen1990/rainbow'
+Plug 'blueyed/vim-diminactive'
 Plug 'sheerun/vim-polyglot'
 call plug#end()
 
@@ -100,11 +101,20 @@ set undolevels=100
 set undofile
 set undodir=$HOME/.config/nvim/tmp/undo
 
-" ==== SPLIT NAVIGATIONS ====
+" ==== SPLITS ====
+set splitbelow splitright " new horizontal split to appear below and vertical split to appear on the right
+
+" Split navigation
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+
+" Split resizing
+nnoremap <silent> <C-Left> :vertical resize +3<CR>
+nnoremap <silent> <C-Right> :vertical resize -3<CR>
+nnoremap <silent> <C-Up> :resize +3<CR>
+nnoremap <silent> <C-Down> :resize -3<CR>
 
 " ==== TAB ====
 " Useful mappings for managing tabs
@@ -332,6 +342,9 @@ let g:indentLine_color_term = 239
 set background=dark
 let g:gruvbox_contrast_dark='soft'
 colorscheme $NVIM_COLORSCHEME
+
+" ==== diminactive ===
+let g:diminactive_use_syntax = 1
 
 " ==== lightline ====
 source ~/dotfiles/files/lightline.vim

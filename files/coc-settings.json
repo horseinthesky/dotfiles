@@ -121,5 +121,8 @@
   "yaml.format.enable": true,
   "yaml.completion": true,
   "prettier.formatterPriority": -1,
-  "prettier.printWidth": 0
+  "prettier.printWidth": 0,
+  "yaml.schemas": {
+    "kubernetes": "/*.yaml"
+  }
 }
