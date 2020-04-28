@@ -29,11 +29,11 @@ endfunction
 function! LighlineFileformat()
   return winwidth(0) > 70 ?
     \ expand('%:t') =~# s:viewplugins ? ''
-      \ : &fileencoding . FileFormatIcon()
+      \ : FileFormatIcon() . ' ' . &fileencoding
     \ : ''
 endfunction
 function! FileFormatIcon()
-  return strlen(&filetype) ? ' ' . WebDevIconsGetFileFormatSymbol()
+  return strlen(&filetype) ? WebDevIconsGetFileFormatSymbol()
     \ : ' no ft'
 endfunction
 
@@ -144,6 +144,7 @@ let g:lightline = {
   \   'left': [
   \     [ 'mode', 'paste' ],
   \     [ 'fugitive', 'filename' ],
+  \     [ 'cocstatus' ],
   \   ],
   \   'right': [
   \     [ 'linter_checking', 'linter_errors', 'linter_warnings', 'percent', 'lineinfo', 'linter_ok' ],
@@ -169,6 +170,7 @@ let g:lightline = {
   \   'filename': 'LightlineFilenameExtended',
   \   'lineinfo': 'LightlineLineInfo',
   \   'percent': 'LightlinePercent',
+  \   'cocstatus': 'coc#status',
   \ },
   \ 'tab_component_function': {
   \   'fticon': 'LightlineTabFiletypeIcon',

@@ -21,10 +21,11 @@
   become: yes
   when: nvim_check.rc == 1 and ansible_env["WSLENV"] is not defined
 
-- name: Install required pipy packages
+- name: Install required PyPI packages
   pip:
     name:
       - ipython
+      - isort
       - jedi
       - black
       - mypy

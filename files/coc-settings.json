@@ -81,7 +81,7 @@
     "f": "search",
     "F": "searchRecursive",
     "gf": "gotoSource:file",
-    "gb": "gotoSource:buffer",
+    "gb": "gotoSource:buffer"
   },
   "explorer.icon.expanded": " ",
   "explorer.icon.collapsed": " ",
@@ -110,6 +110,13 @@
   "python.formatting.autopep8Args": [
     "--ignore=E501"
   ],
+  // coc-translator
+  "translator": {
+    "toLang": "ru",
+    "engines": [
+      "google"
+    ]
+  },
   // coc-go
   "go.goplsOptions": {
     "usePlaceholders": true,

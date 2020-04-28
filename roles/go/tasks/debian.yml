@@ -2,13 +2,7 @@
   apt_repository:
     repo: ppa:longsleep/golang-backports
   become: yes
-  register: new_repo
-
-- name: Update sources
-  apt:
-    update_cache: yes
-  become: yes
-  when: new_repo.changed
+  when: ansible_distribution == "Ubuntu" and ansible_distribution_version != "20.04"
 
 - name: Install golang
   apt:

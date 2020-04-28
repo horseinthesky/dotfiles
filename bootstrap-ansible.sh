@@ -15,8 +15,8 @@ case $ID_LIKE in
     sudo yum install python3-pip -y
     ;;
   arch)
-    sudo pacman -Sy -y
-    sudo pacman -Ss python3-pip -y
+    sudo pacman -Sy --noconfirm
+    sudo pacman -S python-pip --noconfirm
     ;;
   *)
     case $ID in
@@ -25,12 +25,12 @@ case $ID_LIKE in
         sudo apt install python3-pip -y
         ;;
       arch)
-        sudo pacman -Sy -y
-        sudo pacman -Ss python3-pip -y
+        sudo pacman -Sy --noconfirm
+        sudo pacman -S python-pip --noconfirm
         ;;
     esac
 esac
 sudo pip3 install -U pip
-sudo pip install --ignore-installed pyyaml
-sudo pip install ansible
+sudo pip3 install --ignore-installed pyyaml
+sudo pip3 install ansible
 printf "${GREEN}DONE!${NORMAL}\n"

@@ -27,7 +27,6 @@ Plug 'lifepillar/vim-solarized8'
 Plug 'itchyny/lightline.vim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'yggdroot/indentline'
-Plug 'luochen1990/rainbow'
 Plug 'blueyed/vim-diminactive'
 Plug 'sheerun/vim-polyglot'
 call plug#end()
@@ -206,7 +205,7 @@ let g:vista#renderer#icons = {
   \  }
 
 " ==== Fugitive ====
-" conflict resolution ====
+" conflict resolution
 nnoremap <leader>gd :Gvdiffsplit!<CR>
 nnoremap gdh :diffget //2<CR>
 nnoremap gdl :diffget //3<CR>
@@ -276,45 +275,98 @@ let g:coc_global_extensions = [
   \ 'coc-go',
   \ 'coc-explorer',
   \ 'coc-snippets',
+  \ 'coc-translator',
+  \ 'coc-marketplace',
   \ ]
+
+" coc-translator settings
+" popup
+nmap <Leader>t <Plug>(coc-translator-p)
+" echo
+nmap <Leader>e <Plug>(coc-translator-e)
+" replace
+nmap <Leader>r <Plug>(coc-translator-r)
 
 " Open/close coc-explorer
 nmap ge :CocCommand explorer<CR>
 
-" use <tab> for trigger completion and navigate to the next complete item
+" Mappings using CoCList:
+" Show all diagnostics.
+nnoremap <silent> <space>d  :<C-u>CocList diagnostics<cr>
+" Manage extensions.
+nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+" Show commands.
+nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+" Find symbol of current document.
+nnoremap <silent> <space>s  :<C-u>CocList outline<cr>
+" Open CoC marketplace
+nnoremap <silent> <space>m  :<C-u>CocList marketplace<cr>
+
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
 function! s:check_back_space() abort
   let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~ '\s'
+  return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-inoremap <silent><expr> <Tab>
-  \ pumvisible() ? "\<C-n>" :
-  \ <SID>check_back_space() ? "\<Tab>" :
-  \ coc#refresh()
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
 
-" Use <Tab> and <S-Tab> to navigate the completion list:
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-" Use <cr> to confirm completion
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-" To make <cr> select the first completion item and confirm the completion when no item has been selected:
-" inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
+" position. Coc only does snippet and additional edit on confirm.
+if exists('*complete_info')
+  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+else
+  imap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+endif
 
 " Navigate diagnostics
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
-" Use <c-space>for trigger completion
-inoremap <silent><expr> <c-space> coc#refresh()
-" Show CoC extensions
-nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
-" Show commands
-nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
 
 " Go to definition (Ctrl+^ for return)
 nmap <silent> gd <Plug>(coc-definition)
+" Open a list of references of an object in a split
+nmap <silent> gr <Plug>(coc-references)
+
+" Use gh - get hint - to show documentation in preview window.
+nnoremap <silent> gh :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
 " Format using linters
 command! -nargs=0 Format :call CocAction('format')
 nnoremap <leader>f :call CocAction('format')<cr>
+" Formatting selected code.
+xmap <leader>fs <Plug>(coc-format-selected)
+nmap <leader>fs <Plug>(coc-format-selected)
+
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Applying codeAction to the selected region.
+" Example: `<leader>aap` for current paragraph
+xmap <leader>a <Plug>(coc-codeaction-selected)
+nmap <leader>a <Plug>(coc-codeaction-selected)
+" Remap keys for applying codeAction to the current line.
+nmap <leader>ac <Plug>(coc-codeaction)
+
+" `:SI` command for organize imports of the current buffer.
+command! -nargs=0 SI :call CocAction('runCommand', 'editor.action.organizeImport')
+nnoremap <leader>s :call CocAction('runCommand', 'editor.action.organizeImport')<CR>
 
 " Add missing go imports on save
 autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
@@ -328,9 +380,6 @@ autocmd FileType go nmap ctc :CocCommand go.tags.clear<cr>
 " ==== Colorizer
 map <leader>ct :ColorToggle<cr>
 map <leader>cs :ColorSwapFgBg<cr>
-
-" ==== rainbow ====
-let g:rainbow_active = 1 "set to 0 if you want to enable it later via :RainbowToggle
 
 " ==== indentline ====
 let g:indentLine_fileTypeExclude = ['tagbar']

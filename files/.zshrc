@@ -45,7 +45,8 @@ if [ -f '/home/horseinthesky/yandex-cloud/path.bash.inc' ]; then source '/home/h
 
 # pyenv settings
 if [[ -d "$HOME/.pyenv" ]]; then
-  export PATH="$HOME/.pyenv/bin:$PATH"
+  export PYENV_ROOT="$HOME/.pyenv"
+  export PATH="$PYENV_ROOT/bin:$PATH"
   eval "$(pyenv init -)"
   # eval "$(pyenv virtualenv-init -)"
 fi
@@ -174,6 +175,7 @@ alias ra='ranger'
 # lsd aliases
 alias ll='lsd -lA --group-dirs first'
 alias ls='lsd --group-dirs first'
+alias lr='lsd -lAR --group-dirs first'
 
 # tmux aliases
 alias tn='tmux new -s '
