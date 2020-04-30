@@ -1,4 +1,4 @@
-- name: Install golang
+- name: Install golang for Arch based systems
   pacman:
     name:
       - go

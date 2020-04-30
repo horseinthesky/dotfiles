@@ -20,8 +20,3 @@
       - liblzma-dev
       - python3-venv
   become: yes
-
-- name: Install pyenv
-  git:
-    repo: https://github.com/pyenv/pyenv
-    dest: ~/.pyenv

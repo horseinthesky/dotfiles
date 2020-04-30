@@ -17,7 +17,7 @@
     ansible_os_family == "Archlinux" and
     nvim_check.rc == 1
 
-- name: Install NVIM
+- name: Install NVIM from Github
   get_url:
     url: "{{ nvim_release_url }}{{ nvim_version }}/{{ nvim_binary_file }}"
     dest: /usr/local/bin/nvim
@@ -25,7 +25,8 @@
   become: yes
   when: >
     nvim_check.rc == 1 and
-    ansible_env["WSLENV"] is not defined
+    ansible_env["WSLENV"] is not defined and
+    ansible_os_family != "Archlinux"
 
 - name: Install required PyPI packages
   pip:

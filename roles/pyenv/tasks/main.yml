@@ -4,6 +4,11 @@
 - import_tasks: arch.yml
   when: ansible_os_family == "Archlinux"
 
+- name: Install pyenv
+  git:
+    repo: https://github.com/pyenv/pyenv
+    dest: ~/.pyenv
+
 - name: Install pyenv-update
   git:
     repo: https://github.com/pyenv/pyenv-update
@@ -14,14 +19,6 @@
   args:
     creates: "{{ '~/.pyenv/versions/' + item | expanduser }}"
   loop: "{{ pyenv_global_versions }}"
-  when: ansible_os_family == "Debian"
-
-- name: Install Python versions with pyenv
-  shell: "pyenv install {{ item }} --skip-existing"
-  args:
-    creates: "{{ '~/.pyenv/versions/' + item | expanduser }}"
-  loop: "{{ pyenv_global_versions }}"
-  when: ansible_os_family == "Archlinux"
 
 - name: Check if python exists
   command: which python

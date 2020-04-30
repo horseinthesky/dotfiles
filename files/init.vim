@@ -166,7 +166,7 @@ let g:ale_linters = {
   \ 'yaml': ['yamllint']
   \ }
 let g:ale_fixers = {
-  \ 'python': ['autopep8'],
+  \ 'python': ['autopep8', 'isort'],
   \ 'go': ['gofmt'],
   \ '*': ['remove_trailing_lines', 'trim_whitespace']
   \ }
@@ -356,13 +356,6 @@ nmap <leader>fs <Plug>(coc-format-selected)
 
 " Highlight the symbol and its references when holding the cursor.
 autocmd CursorHold * silent call CocActionAsync('highlight')
-
-" Applying codeAction to the selected region.
-" Example: `<leader>aap` for current paragraph
-xmap <leader>a <Plug>(coc-codeaction-selected)
-nmap <leader>a <Plug>(coc-codeaction-selected)
-" Remap keys for applying codeAction to the current line.
-nmap <leader>ac <Plug>(coc-codeaction)
 
 " `:SI` command for organize imports of the current buffer.
 command! -nargs=0 SI :call CocAction('runCommand', 'editor.action.organizeImport')

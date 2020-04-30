@@ -1,8 +1,7 @@
-- name: Install pyenv
+- name: Install pyenv prerequisites
   pacman:
     name:
       - base-devel
       - multilib-devel
-      - pyenv
     state: latest
   become: yes

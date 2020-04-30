@@ -4,6 +4,19 @@
 - import_tasks: arch.yml
   when: ansible_os_family == "Archlinux"
 
+- name: Start docker service
+  systemd:
+    name: docker
+    state: started
+  become: yes
+  ignore_errors: yes
+
+- name: Create docker group
+  group:
+    name: docker
+    state: present
+  become: yes
+
 - name: Add current user to docker group
   user:
     name: "{{ lookup('env', 'USER') }}"
