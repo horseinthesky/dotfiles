@@ -166,7 +166,7 @@ let g:ale_linters = {
   \ 'yaml': ['yamllint']
   \ }
 let g:ale_fixers = {
-  \ 'python': ['autopep8', 'isort'],
+  \ 'python': ['autopep8'],
   \ 'go': ['gofmt'],
   \ '*': ['remove_trailing_lines', 'trim_whitespace']
   \ }

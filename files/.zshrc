@@ -13,7 +13,7 @@ fi
 export DISABLE_AUTO_TITLE="true"
 
 # Add ~/go/bin to PATH
-export GOPATH="/home/$USER/go"
+export GOPATH="$HOME/go"
 if [[ -d "$GOPATH" ]]; then
   export PATH="$PATH:$GOPATH/bin"
 fi
@@ -22,6 +22,12 @@ fi
 export SNAPPATH="/snap/bin"
 if [[ -d "$SNAPPATH" ]]; then
   export PATH="$PATH:$SNAPPATH"
+fi
+
+# Add pipx to path
+export PIPXPATH="$HOME/.local/bin"
+if [[ -d "$PIPXPATH" ]]; then
+  export PATH="$PATH:$PIPXPATH"
 fi
 
 # Set system locales
@@ -48,7 +54,7 @@ if [[ -d "$HOME/.pyenv" ]]; then
   export PYENV_ROOT="$HOME/.pyenv"
   export PATH="$PYENV_ROOT/bin:$PATH"
   eval "$(pyenv init -)"
-  # eval "$(pyenv virtualenv-init -)"
+  eval "$(pyenv virtualenv-init -)"
 fi
 
 # pipenv settings

@@ -14,6 +14,11 @@
     repo: https://github.com/pyenv/pyenv-update
     dest: ~/.pyenv/plugins/pyenv-update
 
+- name: Install pyenv-virtualenv
+  git:
+    repo: https://github.com/pyenv/pyenv-virtualenv
+    dest: ~/.pyenv/plugins/pyenv-virtualenv
+
 - name: Install Python versions with pyenv
   shell: "{{ user_home }}/.pyenv/bin/pyenv install {{ item }} --skip-existing"
   args:

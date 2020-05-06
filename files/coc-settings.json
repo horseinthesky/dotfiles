@@ -53,7 +53,7 @@
       "folderOpened": {
         "code": " ",
         "color": "#00afaf"
-      },
+      }
     }
   },
   "explorer.file.child.template": "[selection | clip | 1] [indent][icon | 1] [diagnosticError & 1][filename omitCenter 1][readonly] [linkIcon & 1][link growRight 1 omitCenter 5][size]",
