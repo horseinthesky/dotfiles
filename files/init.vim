@@ -12,13 +12,16 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-fugitive'
+Plug 'junegunn/gv.vim'
 Plug 'godlygeek/tabular'
 Plug 'majutsushi/tagbar'
 Plug 'liuchengxu/vista.vim'
 Plug 'simnalamburt/vim-mundo'
-Plug 'junegunn/gv.vim'
+Plug 'kkoomen/vim-doge'
 
 " ==== VISUAL PLUGINS ====
+Plug 'camspiers/animate.vim'
+Plug 'camspiers/lens.vim'
 Plug 'chrisbra/Colorizer'
 Plug 'mhinz/vim-startify'
 Plug 'morhetz/gruvbox'
@@ -231,6 +234,9 @@ let g:mundo_preview_bottom = 1
 let g:mundo_close_on_revert = 1
 " let g:mundo_preview_height = 25
 " let g:mundo_right = 1
+
+" ==== doge ====
+let g:doge_doc_standard_python = 'google'
 
 " ==== fzf ====
 map ; :Files<CR>
