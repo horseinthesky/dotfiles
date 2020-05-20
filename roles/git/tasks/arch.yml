@@ -1,4 +1,4 @@
-- name: Install git with apt
+- name: Install git with pacman
   pacman:
     name: git
     state: latest

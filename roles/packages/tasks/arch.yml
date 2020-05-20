@@ -1,4 +1,4 @@
-- name: Update apt cache
+- name: Update pacman cache
   pacman:
     update_cache: yes
   become: yes
@@ -9,4 +9,5 @@
       - htop
       - tree
       - jq
+      - which
   become: yes

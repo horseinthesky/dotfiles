@@ -1,9 +1,10 @@
-- name: Install NVIM requered packages
+- name: Install NVIM for Arch
   pacman:
     name:
       - cmake
       - ctags
       - nodejs
       - npm
+      - neovim
     state: latest
   become: yes
