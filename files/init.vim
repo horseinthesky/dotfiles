@@ -20,12 +20,9 @@ Plug 'simnalamburt/vim-mundo'
 Plug 'kkoomen/vim-doge'
 
 " ==== VISUAL PLUGINS ====
-Plug 'camspiers/animate.vim'
-Plug 'camspiers/lens.vim'
 Plug 'chrisbra/Colorizer'
 Plug 'mhinz/vim-startify'
 Plug 'morhetz/gruvbox'
-Plug 'arcticicestudio/nord-vim'
 Plug 'lifepillar/vim-solarized8'
 Plug 'itchyny/lightline.vim'
 Plug 'ryanoasis/vim-devicons'
@@ -236,6 +233,7 @@ let g:mundo_close_on_revert = 1
 " let g:mundo_right = 1
 
 " ==== doge ====
+" Runs on <leader>d and TAB/S-TAB for jumping TODOs
 let g:doge_doc_standard_python = 'google'
 
 " ==== fzf ====
