@@ -163,11 +163,13 @@ let g:ale_fix_on_save = 0
 let g:ale_linters = {
   \ 'python': ['flake8'],
   \ 'go': ['gofmt'],
-  \ 'yaml': ['yamllint']
+  \ 'yaml': ['yamllint'],
+  \ 'javascript': ['eslint']
   \ }
 let g:ale_fixers = {
   \ 'python': ['autopep8'],
   \ 'go': ['gofmt'],
+  \ 'javascript': ['prettier', 'eslint'],
   \ '*': ['remove_trailing_lines', 'trim_whitespace']
   \ }
 let g:ale_python_flake8_options = '--ignore=E501,E402,F401,E701' " ignore long-lines, import on top of the file, unused modules and statement with colon
@@ -276,6 +278,7 @@ let g:coc_global_extensions = [
   \ 'coc-emmet',
   \ 'coc-xml',
   \ 'coc-tabnine',
+  \ 'coc-tsserver',
   \ 'coc-go',
   \ 'coc-explorer',
   \ 'coc-snippets',

@@ -34,6 +34,15 @@
     "default": "\uf29c"
   },
   "diagnostic.displayByAle": true,
+  // coc-snippets
+  "snippets.extends": {
+    "javascriptreact": [
+      "javascript"
+    ],
+    "typescript": [
+      "javascript"
+    ]
+  },
   // coc-explorer
   "explorer.width": 40,
   "explorer.file.showHiddenFiles": true,
