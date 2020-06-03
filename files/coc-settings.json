@@ -113,7 +113,7 @@
   // coc-python
   "python.jediEnabled": true,
   "python.pythonPath": "/usr/bin/python3",
-  "python.linting.enabled": true,
+  "python.linting.enabled": false,
   "python.linting.pylintEnabled": false,
   "python.linting.flake8Enabled": true,
   "python.linting.flake8Args": [
@@ -137,7 +137,7 @@
     "deepCompletion": true
   },
   // coc-yaml
-  "yaml.validate": true,
+  "yaml.validate": false,
   "yaml.format.enable": true,
   "yaml.completion": true,
   "prettier.formatterPriority": -1,
