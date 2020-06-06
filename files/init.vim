@@ -266,6 +266,7 @@ command! -bang -nargs=? -complete=dir Files
     \ }, <bang>0)
 
 " ==== coc ====
+let g:coc_disable_startup_warning = 1
 " Install CoC plugins
 let g:coc_global_extensions = [
   \ 'coc-python',
