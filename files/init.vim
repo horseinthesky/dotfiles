@@ -364,7 +364,7 @@ xmap <leader>fs <Plug>(coc-format-selected)
 nmap <leader>fs <Plug>(coc-format-selected)
 
 " Highlight the symbol and its references when holding the cursor.
-autocmd CursorHold * silent call CocActionAsync('highlight')
+" autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " `:SI` command for organize imports of the current buffer.
 command! -nargs=0 SI :call CocAction('runCommand', 'editor.action.organizeImport')

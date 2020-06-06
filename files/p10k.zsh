@@ -7,7 +7,6 @@ fi
 # Elements settings
 typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
   custom_user
-  # dir_writable
   dir
   vcs
   virtualenv

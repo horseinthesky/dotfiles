@@ -53,12 +53,9 @@ if [ -f '/home/horseinthesky/yandex-cloud/path.bash.inc' ]; then source '/home/h
 if [[ -d "$HOME/.pyenv" ]]; then
   export PYENV_ROOT="$HOME/.pyenv"
   export PATH="$PYENV_ROOT/bin:$PATH"
-  eval "$(pyenv init -)"
-  eval "$(pyenv virtualenv-init -)"
+  # eval "$(pyenv init - --no-rehash)"
+  # eval "$(pyenv virtualenv-init -)"
 fi
-
-# pipenv settings
-eval "$(pipenv --completion)"
 
 # poetry settings
 if [[ -d "$HOME/.poetry" ]]; then
