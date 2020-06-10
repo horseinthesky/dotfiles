@@ -1,4 +1,4 @@
 - name: Copy autohotkey script
   copy:
     src: autohotkey.ahk
-    dest: /mnt/c/Users/"{{ lookup('env', 'USER') }}"/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Startup
+    dest: /mnt/c/Users/{{ lookup('env', 'USER') }}/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Startup
