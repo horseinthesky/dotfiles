@@ -1,7 +1,7 @@
 " ============= VIM-PLUG PLUGINS ================
 " ==== FEATURE PLUGINS ====
 call plug#begin('~/.local/share/nvim/plugged')
-Plug 'w0rp/ale'
+Plug 'dense-analysis/ale'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -27,6 +27,7 @@ Plug 'lifepillar/vim-solarized8'
 Plug 'itchyny/lightline.vim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'yggdroot/indentline'
+Plug 'machakann/vim-highlightedyank'
 Plug 'blueyed/vim-diminactive'
 Plug 'sheerun/vim-polyglot'
 call plug#end()
@@ -161,6 +162,7 @@ let g:ale_lint_on_text_changed = 'normal'
 "
 let g:ale_fix_on_save = 0
 let g:ale_linters = {
+  \ 'sh': ['shellcheck'],
   \ 'python': ['flake8'],
   \ 'go': ['gofmt'],
   \ 'yaml': ['yamllint'],
@@ -379,7 +381,10 @@ autocmd FileType go nmap ctx :CocCommand go.tags.add xml<cr>
 autocmd FileType go nmap ctc :CocCommand go.tags.clear<cr>
 
 " ================ VISUAL SETTINGS ================
-" ==== Colorizer
+" ==== highlightedyank ====
+let g:highlightedyank_highlight_duration = 100
+
+" ==== Colorizer ====
 map <leader>ct :ColorToggle<cr>
 map <leader>cs :ColorSwapFgBg<cr>
 

@@ -5,6 +5,7 @@
       - ctags
       - nodejs
       - npm
+      - shellcheck
       - neovim
     state: latest
   become: yes
