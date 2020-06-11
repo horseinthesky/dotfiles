@@ -171,6 +171,26 @@ export KEYTIMEOUT=1
 alias vi=$(which nvim)
 alias nv=$(which nvim)
 alias sr='sudo -E -s'
+alias diff='diff --color -u'
+alias vid='vdiff'
+
+vdiff () {
+    if [ "${#}" -ne 2 ] ; then
+        echo "vdiff requires two arguments"
+        echo "  comparing dirs:  vdiff dir_a dir_b"
+        echo "  comparing files: vdiff file_a file_b"
+        return 1
+    fi
+
+    local left="${1}"
+    local right="${2}"
+
+    if [ -d "${left}" ] && [ -d "${right}" ]; then
+        nvim +"DirDiff ${left} ${right}"
+    else
+        nvim -d "${left}" "${right}"
+    fi
+}
 
 # ranger aliases
 alias ra='ranger'

@@ -18,6 +18,8 @@ Plug 'majutsushi/tagbar'
 Plug 'liuchengxu/vista.vim'
 Plug 'simnalamburt/vim-mundo'
 Plug 'kkoomen/vim-doge'
+Plug 'will133/vim-dirdiff'
+Plug 'AndrewRadev/linediff.vim'
 
 " ==== VISUAL PLUGINS ====
 Plug 'chrisbra/Colorizer'
@@ -244,6 +246,13 @@ let g:doge_doc_standard_python = 'google'
 map ; :Files<CR>
 map <C-p> :Rg<CR>
 
+" Hide statusline
+autocmd! FileType fzf set laststatus=0 noshowmode noruler
+  \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+
+" [[B]Commits] Customize the options used by 'git log':
+let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
+
 " Advanced Rg with preview window
 function! RipgrepFzf(query, fullscreen)
   let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case %s || true'
@@ -257,15 +266,7 @@ command! -nargs=* -bang Rg call RipgrepFzf(<q-args>, <bang>0)
 
 " Advanced Files with preview window + bat
 command! -bang -nargs=? -complete=dir Files
-  \ call fzf#vim#files(
-    \ <q-args>, {
-      \ 'options': [
-        \ '--layout=reverse',
-        \ '--info=inline',
-        \ '--preview',
-        \ '~/.local/share/nvim/plugged/fzf.vim/bin/preview.sh {}'
-      \ ]
-    \ }, <bang>0)
+    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 
 " ==== coc ====
 let g:coc_disable_startup_warning = 1
