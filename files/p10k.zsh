@@ -70,30 +70,29 @@ fi
 
   # ==== Custom functions ====
   custom_host(){
+    source /etc/os-release
+    case $ID in
+      ubuntu)
+        OS_ICON="\uF31B"
+        ;;
+      debian)
+        OS_ICON="\uF306"
+        ;;
+      centos)
+        OS_ICON="\uF309"
+        ;;
+      manjaro)
+        OS_ICON="\uF312"
+        ;;
+      arch)
+        OS_ICON="\uF303"
+        ;;
+      *)
+        OS_ICON="\uF17C"
+        ;;
+    esac
     if [[ -n "$WSL_DISTRO_NAME" ]]; then
-      OS_ICON="\uF17A"
-    else
-      source /etc/os-release
-      case $ID in
-        ubuntu)
-          OS_ICON="\uF31B"
-          ;;
-        debian)
-          OS_ICON="\uF306"
-          ;;
-        centos)
-          OS_ICON="\uF309"
-          ;;
-        manjaro)
-          OS_ICON="\uF312"
-          ;;
-        arch)
-          OS_ICON="\uF303"
-          ;;
-        *)
-          OS_ICON="\uF17C"
-          ;;
-      esac
+      OS_ICON="\uF17A ${OS_ICON}"
     fi
     echo -n "$OS_ICON $HOST"
   }

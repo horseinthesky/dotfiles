@@ -10,38 +10,33 @@ typeset -g POWERLEVEL9K_{LEFT,RIGHT}_{LEFT,RIGHT}_WHITESPACE=' '
 
 # Host block settings
 typeset -g POWERLEVEL9K_CUSTOM_HOST="custom_host"
-if [[ -n "$WSL_DISTRO_NAME" ]]; then
-  typeset -g POWERLEVEL9K_CUSTOM_HOST_FOREGROUND=039
-  typeset -g POWERLEVEL9K_CUSTOM_HOST_BACKGROUND=230
-else
-  source /etc/os-release
-  case $ID in
-    ubuntu)
-      typeset -g POWERLEVEL9K_CUSTOM_HOST_BACKGROUND=166
-      typeset -g POWERLEVEL9K_CUSTOM_HOST_FOREGROUND=229
-      ;;
-    debian)
-      typeset -g POWERLEVEL9K_CUSTOM_HOST_BACKGROUND=229
-      typeset -g POWERLEVEL9K_CUSTOM_HOST_FOREGROUND=197
-      ;;
-    centos)
-      typeset -g POWERLEVEL9K_CUSTOM_HOST_BACKGROUND=160
-      typeset -g POWERLEVEL9K_CUSTOM_HOST_FOREGROUND=000
-      ;;
-    manjaro)
-      typeset -g POWERLEVEL9K_CUSTOM_HOST_BACKGROUND=041
-      typeset -g POWERLEVEL9K_CUSTOM_HOST_FOREGROUND=000
-      ;;
-    arch)
-      typeset -g POWERLEVEL9K_CUSTOM_HOST_BACKGROUND=229
-      typeset -g POWERLEVEL9K_CUSTOM_HOST_FOREGROUND=039
-      ;;
-    *)
-      typeset -g POWERLEVEL9K_CUSTOM_HOST_BACKGROUND=032
-      typeset -g POWERLEVEL9K_CUSTOM_HOST_FOREGROUND=000
-      ;;
-  esac
-fi
+source /etc/os-release
+case $ID in
+  ubuntu)
+    typeset -g POWERLEVEL9K_CUSTOM_HOST_BACKGROUND=166
+    typeset -g POWERLEVEL9K_CUSTOM_HOST_FOREGROUND=229
+    ;;
+  debian)
+    typeset -g POWERLEVEL9K_CUSTOM_HOST_BACKGROUND=229
+    typeset -g POWERLEVEL9K_CUSTOM_HOST_FOREGROUND=197
+    ;;
+  centos)
+    typeset -g POWERLEVEL9K_CUSTOM_HOST_BACKGROUND=160
+    typeset -g POWERLEVEL9K_CUSTOM_HOST_FOREGROUND=000
+    ;;
+  manjaro)
+    typeset -g POWERLEVEL9K_CUSTOM_HOST_BACKGROUND=041
+    typeset -g POWERLEVEL9K_CUSTOM_HOST_FOREGROUND=000
+    ;;
+  arch)
+    typeset -g POWERLEVEL9K_CUSTOM_HOST_BACKGROUND=229
+    typeset -g POWERLEVEL9K_CUSTOM_HOST_FOREGROUND=039
+    ;;
+  *)
+    typeset -g POWERLEVEL9K_CUSTOM_HOST_BACKGROUND=032
+    typeset -g POWERLEVEL9K_CUSTOM_HOST_FOREGROUND=000
+    ;;
+esac
 
 DEFAULT_GREY=237 # grey23
 
