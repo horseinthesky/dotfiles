@@ -209,13 +209,8 @@ alias tpl='tmuxp load '
 
 # ==== Powerlevel10k Settings ====
 if [[ "$ZSH_THEME" == "powerlevel10k/powerlevel10k" ]]; then
-  # Mode
-  POWERLEVEL9K_MODE='nerdfont-complete'
-
-  # P10K theme
   P10K_THEME="lean"
   # P10K_THEME="rainbow"
 
-  # Theme
   source $HOME/dotfiles/files/p10k.zsh
 fi

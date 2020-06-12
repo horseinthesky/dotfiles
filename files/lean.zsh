@@ -1,3 +1,10 @@
+# Basic style options that define the overall look of your prompt. You probably don't want to
+# change them.
+typeset -g POWERLEVEL9K_BACKGROUND=
+typeset -g POWERLEVEL9K_{LEFT,RIGHT}_{LEFT,RIGHT}_WHITESPACE=  # no surrounding whitespace
+typeset -g POWERLEVEL9K_{LEFT,RIGHT}_SUBSEGMENT_SEPARATOR=' '  # separate segments with a space
+typeset -g POWERLEVEL9K_{LEFT,RIGHT}_SEGMENT_SEPARATOR=        # no end-of-line symbol
+
 # Prefixes
 DEFAULT_PREFIX_COLOR=249
 typeset -g POWERLEVEL9K_{CUSTOM_HOST,VCS}_PREFIX='%F{$DEFAULT_PREFIX_COLOR}on '
@@ -41,17 +48,7 @@ else
   typeset -g POWERLEVEL9K_CUSTOM_USER_FOREGROUND=174
 fi
 
-# VCS block settings
-typeset -g POWERLEVEL9K_VCS_CLEAN_FOREGROUND=142
-typeset -g POWERLEVEL9K_VCS_UNTRACKED_FOREGROUND=167 #indianred
-typeset -g POWERLEVEL9K_VCS_MODIFIED_FOREGROUND=214 # orange1
-
 # Dir block settings
-typeset -g POWERLEVEL9K_BACKGROUND=                            # transparent background
-typeset -g POWERLEVEL9K_{LEFT,RIGHT}_{LEFT,RIGHT}_WHITESPACE=  # no surrounding whitespace
-typeset -g POWERLEVEL9K_{LEFT,RIGHT}_SUBSEGMENT_SEPARATOR=' '  # separate segments with a space
-typeset -g POWERLEVEL9K_{LEFT,RIGHT}_SEGMENT_SEPARATOR=        # no end-of-line symbol
-
 typeset -g POWERLEVEL9K_DIR_FOREGROUND=033 # dodgerblue1
 typeset -g POWERLEVEL9K_DIR_{DEFAULT,HOME,HOME_SUBFOLDER}_FOREGROUND=033 # dodgerblue1
 typeset -g POWERLEVEL9K_DIR_NOT_WRITABLE_FOREGROUND=167
@@ -70,7 +67,11 @@ typeset -g POWERLEVEL9K_BATTERY_{LOW,CHARGING,CHARGED,DISCONNECTED}_BACKGROUND=
 # CPU and RAM
 typeset -g POWERLEVEL9K_{CPU,RAM}_BACKGROUND=
 
-#####################################[ vcs: git status ]######################################
+# VCS block settings
+typeset -g POWERLEVEL9K_VCS_CLEAN_FOREGROUND=142
+typeset -g POWERLEVEL9K_VCS_UNTRACKED_FOREGROUND=167 #indianred
+typeset -g POWERLEVEL9K_VCS_MODIFIED_FOREGROUND=214 # orange1
+
 # Formatter for Git status.
 #
 # You can edit the function to customize how Git status looks.
@@ -108,7 +109,7 @@ function my_git_formatter() {
   local res
   local where  # branch or tag
   if [[ -n $VCS_STATUS_LOCAL_BRANCH ]]; then
-    res+="${clean}${POWERLEVEL9K_VCS_BRANCH_ICON}"
+    res+="${clean}${(g::)POWERLEVEL9K_VCS_BRANCH_ICON}"
     where=${(V)VCS_STATUS_LOCAL_BRANCH}
   elif [[ -n $VCS_STATUS_TAG ]]; then
     res+="${meta}#"
@@ -117,6 +118,7 @@ function my_git_formatter() {
 
   # If local branch name or tag is at most 32 characters long, show it in full.
   # Otherwise show the first 12 … the last 12.
+  # Tip: To always show local branch name in full without truncation, delete the next line.
   (( $#where > 32 )) && where[13,-13]="…"
   res+="${clean}${where//\%/%%}"  # escape %
 
@@ -130,27 +132,46 @@ function my_git_formatter() {
   fi
 
   #  42 if behind the remote.
-  (( VCS_STATUS_COMMITS_BEHIND )) && res+=" ${clean}${POWERLEVEL9K_VCS_INCOMING_CHANGES_ICON}${VCS_STATUS_COMMITS_BEHIND}"
+  (( VCS_STATUS_COMMITS_BEHIND )) && res+=" ${clean}${(g::)POWERLEVEL9K_VCS_COMMITS_BEHIND_ICON}${VCS_STATUS_COMMITS_BEHIND}"
   #  42 if ahead of the remote; no leading space if also behind the remote: ⇣42⇡42.
   (( VCS_STATUS_COMMITS_AHEAD && !VCS_STATUS_COMMITS_BEHIND )) && res+=" "
-  (( VCS_STATUS_COMMITS_AHEAD  )) && res+="${clean}${POWERLEVEL9K_VCS_OUTGOING_CHANGES_ICON}${VCS_STATUS_COMMITS_AHEAD}"
+  (( VCS_STATUS_COMMITS_AHEAD  )) && res+="${clean}${(g::)POWERLEVEL9K_VCS_COMMITS_AHEAD_ICON}${VCS_STATUS_COMMITS_AHEAD}"
+  #  42 if behind the push remote.
+  (( VCS_STATUS_PUSH_COMMITS_BEHIND )) && res+=" ${clean}${(g::)POWERLEVEL9K_VCS_PUSH_COMMITS_BEHIND_ICON}${VCS_STATUS_PUSH_COMMITS_BEHIND}"
+  (( VCS_STATUS_PUSH_COMMITS_AHEAD && !VCS_STATUS_PUSH_COMMITS_BEHIND )) && res+=" "
+  #  42 if ahead of the push remote; no leading space if also behind:  42  42.
+  (( VCS_STATUS_PUSH_COMMITS_AHEAD  )) && res+="${clean}${(g::)POWERLEVEL9K_VCS_PUSH_COMMITS_AHEAD_ICON}${VCS_STATUS_PUSH_COMMITS_AHEAD}"
   #  42 if have stashes.
-  (( VCS_STATUS_STASHES        )) && res+=" ${stashed}${POWERLEVEL9K_VCS_STASH_ICON}${VCS_STATUS_STASHES}"
+  (( VCS_STATUS_STASHES        )) && res+=" ${stashed}${(g::)POWERLEVEL9K_VCS_STASH_ICON}${VCS_STATUS_STASHES}"
   # 'merge' if the repo is in an unusual state.
   [[ -n $VCS_STATUS_ACTION     ]] && res+=" ${conflicted}${VCS_STATUS_ACTION}"
   #  42 if have merge conflicts.
-  (( VCS_STATUS_NUM_CONFLICTED )) && res+=" ${conflicted}${POWERLEVEL9K_VCS_CONFLICTED_ICON}${VCS_STATUS_NUM_CONFLICTED}"
+  (( VCS_STATUS_NUM_CONFLICTED )) && res+=" ${conflicted}${(g::)POWERLEVEL9K_VCS_CONFLICTED_ICON}${VCS_STATUS_NUM_CONFLICTED}"
   #  42 if have staged changes.
-  (( VCS_STATUS_NUM_STAGED     )) && res+=" ${modified}${POWERLEVEL9K_VCS_STAGED_ICON}${VCS_STATUS_NUM_STAGED}"
+  (( VCS_STATUS_NUM_STAGED     )) && res+=" ${modified}${(g::)POWERLEVEL9K_VCS_STAGED_ICON}${VCS_STATUS_NUM_STAGED}"
   #  42 if have unstaged changes.
-  (( VCS_STATUS_NUM_UNSTAGED   )) && res+=" ${modified}${POWERLEVEL9K_VCS_UNSTAGED_ICON}${VCS_STATUS_NUM_UNSTAGED}"
+  (( VCS_STATUS_NUM_UNSTAGED   )) && res+=" ${modified}${(g::)POWERLEVEL9K_VCS_UNSTAGED_ICON}${VCS_STATUS_NUM_UNSTAGED}"
   #  42 if have untracked files.
   # Remove the next line if you don't want to see untracked files at all.
-  (( VCS_STATUS_NUM_UNTRACKED  )) && res+=" ${untracked}${POWERLEVEL9K_VCS_UNTRACKED_ICON}${VCS_STATUS_NUM_UNTRACKED}"
+  (( VCS_STATUS_NUM_UNTRACKED  )) && res+=" ${untracked}${(g::)POWERLEVEL9K_VCS_UNTRACKED_ICON}${VCS_STATUS_NUM_UNTRACKED}"
 
   typeset -g my_git_format=$res
 }
 functions -M my_git_formatter 2>/dev/null
+
+# Don't count the number of unstaged, untracked and conflicted files in Git repositories with
+# more than this many files in the index. Negative value means infinity.
+#
+# If you are working in Git repositories with tens of millions of files and seeing performance
+# sagging, try setting POWERLEVEL9K_VCS_MAX_INDEX_SIZE_DIRTY to a number lower than the output
+# of `git ls-files | wc -l`. Alternatively, add `bash.showDirtyState = false` to the repository's
+# config: `git config bash.showDirtyState false`.
+typeset -g POWERLEVEL9K_VCS_MAX_INDEX_SIZE_DIRTY=-1
+
+# Don't show Git status in prompt for repositories whose workdir matches this pattern.
+# For example, if set to '~', the Git repository at $HOME/.git will be ignored.
+# Multiple patterns can be combined with '|': '~(|/foo)|/bar/baz/*'.
+typeset -g POWERLEVEL9K_VCS_DISABLED_WORKDIR_PATTERN='~'
 
 # Disable the default Git status formatting.
 typeset -g POWERLEVEL9K_VCS_DISABLE_GITSTATUS_FORMATTING=true
