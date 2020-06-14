@@ -226,6 +226,10 @@ nmap t <Plug>(easymotion-t)
 " ==== vim-move ====
 let g:move_key_modifier = 'S'
 
+" ==== linediff ====
+map <leader>ld :Linediff<CR>
+map <leader>lr :LinediffReset<CR>
+
 " ==== vim-multiple-cursors ====
 let g:multi_cursor_select_all_word_key = '<C-M>'
 
