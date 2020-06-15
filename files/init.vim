@@ -140,6 +140,7 @@ if has('autocmd')
   augroup VimrcTabSettings
     autocmd!
     autocmd FileType python setlocal sw=4 ts=4
+    autocmd FileType jinja  setlocal sw=0
     autocmd FileType go     setlocal sw=8 ts=8 noet
   augroup END
 endif
