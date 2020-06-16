@@ -55,6 +55,17 @@ autocmd BufReadPost *
   \   exe "normal! g`\"" |
   \ endif
 
+" Press * to search for the term under the cursor or a visual selection and
+" then press a key below to replace all instances of it in the current file.
+" Second binding is for comfirmation.
+nnoremap <leader>rr :%s///g<Left><Left>
+nnoremap <leader>rc :%s///gc<Left><Left><Left>
+
+" Type a replacement term and press . to repeat the replacement again. Useful
+" for replacing a few instances of the term (comparable to multiple cursors).
+nnoremap <leader>rs :let @/='\<'.expand('<cword>').'\>'<CR>cgn
+xnoremap <leader>rs "sy:let @/=@s<CR>cgn
+
 " Replace all tabs with 4 whitespaces
 nnoremap <leader>T :%s/\t/    /g<CR>
 
@@ -148,7 +159,6 @@ endif
 " ==== SYNTAX AND SEARCH ====
 syntax on
 set cursorline       " highlight cursorline
-set hlsearch
 set incsearch
 set nohlsearch
 set ignorecase
@@ -248,8 +258,11 @@ let g:mundo_close_on_revert = 1
 let g:doge_doc_standard_python = 'google'
 
 " ==== fzf ====
-map ; :Files<CR>
-map <C-p> :Rg<CR>
+nnoremap ; :Files<CR>
+nnoremap <C-p> :Rg<CR>
+nnoremap <leader>bl :BLines<CR>
+nnoremap <leader>m :Maps<CR>
+nnoremap <leader>co :Commands<CR>
 
 " Hide statusline
 autocmd! FileType fzf set laststatus=0 noshowmode noruler
@@ -301,7 +314,7 @@ nmap <Leader>t <Plug>(coc-translator-p)
 " echo
 nmap <Leader>e <Plug>(coc-translator-e)
 " replace
-nmap <Leader>r <Plug>(coc-translator-r)
+" nmap <Leader>r <Plug>(coc-translator-r)
 
 " Open/close coc-explorer
 nmap ge :CocCommand explorer<CR>
@@ -367,9 +380,6 @@ endfunction
 " Format using linters
 command! -nargs=0 Format :call CocAction('format')
 nnoremap <leader>f :call CocAction('format')<cr>
-" Formatting selected code.
-xmap <leader>fs <Plug>(coc-format-selected)
-nmap <leader>fs <Plug>(coc-format-selected)
 
 " Highlight the symbol and its references when holding the cursor.
 " autocmd CursorHold * silent call CocActionAsync('highlight')
