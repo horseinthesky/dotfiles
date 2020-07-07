@@ -317,8 +317,11 @@ nmap <Leader>te <Plug>(coc-translator-e)
 " replace
 " nmap <Leader>r <Plug>(coc-translator-r)
 
-" CoC rename across project
+" Search a word across whole project
 " https://www.youtube.com/watch?v=q7gr6s8skt0
+" CocSearch uses rg under the hood so it is possible to use options
+" :CocSearch <regex> -A 20
+" All matches are presented in one buffer. Once changed, all files changed
 nnoremap <leader>prw :CocSearch <C-R>=expand("<cword>")<CR><CR>
 
 " Open/close coc-explorer
