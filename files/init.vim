@@ -413,6 +413,7 @@ let g:indentLine_color_term = 239
 " ==== Theme ====
 set background=dark
 let g:gruvbox_contrast_dark='soft'
+let g:gruvbox_invert_selection='0'
 colorscheme $NVIM_COLORSCHEME
 
 " ==== diminactive ===
