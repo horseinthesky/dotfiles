@@ -55,13 +55,14 @@ autocmd BufReadPost *
   \   exe "normal! g`\"" |
   \ endif
 
-" Press * to search for the term under the cursor or a visual selection and
-" then press a key below to replace all instances of it in the current file.
+" Press * to search for the term under the cursor and then press a key below
+" to replace all instances of it in the current file.
 " Second binding is for comfirmation.
 nnoremap <leader>rr :%s///g<Left><Left>
 nnoremap <leader>rc :%s///gc<Left><Left><Left>
 
-" Type a replacement term and press . to repeat the replacement again. Useful
+" Press key below on the word or on visual selection and type a replacement term
+" and press . to repeat the replacement again. Useful
 " for replacing a few instances of the term (comparable to multiple cursors).
 nnoremap <leader>rs :let @/='\<'.expand('<cword>').'\>'<CR>cgn
 xnoremap <leader>rs "sy:let @/=@s<CR>cgn
@@ -310,11 +311,15 @@ let g:coc_global_extensions = [
 
 " coc-translator settings
 " popup
-nmap <Leader>t <Plug>(coc-translator-p)
+nmap <Leader>tp <Plug>(coc-translator-p)
 " echo
-nmap <Leader>e <Plug>(coc-translator-e)
+nmap <Leader>te <Plug>(coc-translator-e)
 " replace
 " nmap <Leader>r <Plug>(coc-translator-r)
+
+" CoC rename across project
+" https://www.youtube.com/watch?v=q7gr6s8skt0
+nnoremap <leader>prw :CocSearch <C-R>=expand("<cword>")<CR><CR>
 
 " Open/close coc-explorer
 nmap ge :CocCommand explorer<CR>
