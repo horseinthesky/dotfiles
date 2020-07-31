@@ -3,6 +3,10 @@
     - name: Add NVIM repo for WSL
       apt_repository:
         repo: ppa:neovim-ppa/stable
+      when: >
+        ansible_env["WSLENV"] is defined and
+        ansible_lsb["major_release"] == "18" and
+        ansible_lsb["id"] == "Ubuntu"
 
     - name: Install NVIM for WSL
       apt:

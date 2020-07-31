@@ -11,3 +11,4 @@ RoA(PIDName, Target) {
 	    WinActivate,% "ahk_pid  " ErrorLevel ; errorlevel will = Process ID (PID) if process exists
 }
 #t::RoA("WindowsTerminal.exe", "wt.exe")
+#c::RoA("chrome.exe", "chrome.exe")
