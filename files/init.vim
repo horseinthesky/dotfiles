@@ -299,7 +299,6 @@ let g:coc_global_extensions = [
   \ 'coc-css',
   \ 'coc-html',
   \ 'coc-emmet',
-  \ 'coc-xml',
   \ 'coc-tabnine',
   \ 'coc-tsserver',
   \ 'coc-go',
