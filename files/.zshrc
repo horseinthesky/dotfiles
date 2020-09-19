@@ -1,85 +1,10 @@
-export NVIM_COLORSCHEME=gruvbox
-
-# Shell colorscheme fix
-if [[ "$NVIM_COLORSCHEME" == "solarized8" ]]; then
-  # solarized8 color fix
-  source "$HOME/.local/share/nvim/plugged/vim-solarized8/scripts/solarized8.sh"
-else
-  # gruvbox colors fix
-  source "$HOME/.local/share/nvim/plugged/gruvbox/gruvbox_256palette_osx.sh"
-fi
-
-# Disable tmupx autotitle
-export DISABLE_AUTO_TITLE="true"
-
-# Add ~/go/bin to PATH
-export GOPATH="$HOME/go"
-if [[ -d "$GOPATH" ]]; then
-  export PATH="$PATH:$GOPATH/bin"
-fi
-
-# Add /snap/bin to path
-export SNAPPATH="/snap/bin"
-if [[ -d "$SNAPPATH" ]]; then
-  export PATH="$PATH:$SNAPPATH"
-fi
-
-# Add pipx to path
-export PIPXPATH="$HOME/.local/bin"
-if [[ -d "$PIPXPATH" ]]; then
-  export PATH="$PATH:$PIPXPATH"
-fi
-
-# Set system locales
-# export LC_ALL=C.UTF-8
-# export LANG=C.UTF-8
-
-export TERM="xterm-256color"
-export EDITOR="nvim"
-export ZSH_DISABLE_COMPFIX=true
-
-# ssh-agent
-if [[ $(cat /etc/hostname) == 'horseinthesky-w' ]]; then
-  export PSSH_AUTH_SOCK="/mnt/c/Users/$USER/AppData/Local/Temp/pssh-agent.sock"
-  export SSH_AUTH_SOCK="${PSSH_AUTH_SOCK}"
-  if ! [[ $(ssh-add -l) =~ "/home/$USER/.ssh/id_rsa" ]]; then
-    ssh-add
-  fi
-fi
-# The next line updates PATH for Yandex Cloud CLI.
-if [ -f '/home/horseinthesky/yandex-cloud/path.bash.inc' ]; then source '/home/horseinthesky/yandex-cloud/path.bash.inc'; fi
-
-# pyenv settings
-if [[ -d "$HOME/.pyenv" ]]; then
-  export PYENV_ROOT="$HOME/.pyenv"
-  export PATH="$PYENV_ROOT/bin:$PATH"
-  # eval "$(pyenv init - --no-rehash)"
-  # eval "$(pyenv virtualenv-init -)"
-fi
-
-# poetry settings
-if [[ -d "$HOME/.poetry" ]]; then
-  source $HOME/.poetry/env
-fi
-
-# fzf
-if [[ -f "$HOME/.fzf.zsh" ]]; then
-  [[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
-  export FZF_DEFAULT_COMMAND='fd --type file --follow --hidden --exclude .git'
-  export FZF_DEFAULT_OPTS="--extended"
-  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-fi
-
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-
+# ======== ZSH ========
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-# ZSH_THEME=spaceship/spaceship
 ZSH_THEME=powerlevel10k/powerlevel10k
 
 # Uncomment the following line to use case-sensitive completion.
@@ -134,38 +59,77 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
-# User configuration
+# ======== SETTINGS ========
+export ZSH_DISABLE_COMPFIX=true
+export TERM="xterm-256color"
+export EDITOR="nvim"
 
-# export MANPATH="/usr/local/man:$MANPATH"
+export NVIM_COLORSCHEME=gruvbox
 
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
+# Shell colorscheme fix
+if [[ "$NVIM_COLORSCHEME" == "solarized8" ]]; then
+  # solarized8 color fix
+  source "$HOME/.local/share/nvim/plugged/vim-solarized8/scripts/solarized8.sh"
+else
+  # gruvbox colors fix
+  source "$HOME/.local/share/nvim/plugged/gruvbox/gruvbox_256palette_osx.sh"
+fi
 
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+# Set system locales
+# export LC_ALL=C.UTF-8
+# export LANG=C.UTF-8
 
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
+# Disable tmupx autotitle
+export DISABLE_AUTO_TITLE="true"
 
-# ssh
-# export SSH_KEY_PATH="~/.ssh/rsa_id"
+# fzf
+if [[ -f "$HOME/.fzf.zsh" ]]; then
+  source ~/.fzf.zsh
+  export FZF_DEFAULT_COMMAND='fd --type file --follow --hidden --exclude .git'
+  export FZF_DEFAULT_OPTS="--height 60% --layout=reverse"
+  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+fi
 
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
+# pyenv settings
+if [[ -d "$HOME/.pyenv" ]]; then
+  export PYENV_ROOT="$HOME/.pyenv"
+  export PATH="$PYENV_ROOT/bin:$PATH"
+  # eval "$(pyenv init - --no-rehash)"
+  # eval "$(pyenv virtualenv-init -)"
+fi
+
+# poetry settings
+[[ -d "$HOME/.poetry" ]] &&  source $HOME/.poetry/env
 
 # Vi Mode
 # bindkey -v
 export KEYTIMEOUT=1
+
+# ==== Yandex ====
+# ssh-agent
+if [[ $(cat /etc/hostname) == 'horseinthesky-w' ]]; then
+  export PSSH_AUTH_SOCK="/mnt/c/Users/$USER/AppData/Local/Temp/pssh-agent.sock"
+  export SSH_AUTH_SOCK="${PSSH_AUTH_SOCK}"
+  if ! [[ $(ssh-add -l) =~ "/home/$USER/.ssh/id_rsa" ]]; then
+    ssh-add
+  fi
+fi
+
+# The next line updates PATH for Yandex Cloud CLI.
+[[ -f '/home/horseinthesky/yandex-cloud/path.bash.inc' ]] && source '/home/horseinthesky/yandex-cloud/path.bash.inc'
+
+# ======== PATH ========
+# Add ~/go/bin to PATH
+export GOPATH="$HOME/go"
+[[ -d "$GOPATH" ]] && export PATH="$PATH:$GOPATH/bin"
+
+# Add /snap/bin to path
+export SNAPPATH="/snap/bin"
+[[ -d "$SNAPPATH" ]] && export PATH="$PATH:$SNAPPATH"
+
+# Add pipx to path
+export PIPXPATH="$HOME/.local/bin"
+[[ -d "$PIPXPATH" ]] && export PATH="$PATH:$PIPXPATH"
 
 # ======== ALIASES ========
 alias vi=$(which nvim)
@@ -207,7 +171,7 @@ alias tk='tmux kill-session -t '
 alias tl='tmux ls'
 alias tpl='tmuxp load '
 
-# ==== Powerlevel10k Settings ====
+# ======== POWERLEVEL10K SETTINGS ========
 if [[ "$ZSH_THEME" == "powerlevel10k/powerlevel10k" ]]; then
   P10K_THEME="lean"
   # P10K_THEME="rainbow"

@@ -3,7 +3,7 @@
 call plug#begin('~/.local/share/nvim/plugged')
 Plug 'dense-analysis/ale'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'easymotion/vim-easymotion'
 Plug 'terryma/vim-multiple-cursors'
@@ -35,8 +35,10 @@ Plug 'sheerun/vim-polyglot'
 call plug#end()
 
 " ================ SETTINGS ================
+if has("nvim")
+  set inccommand=split " incremental substitution shows substituted text before applying
+endif
 set laststatus=2       " Always show statusline
-set t_Co=256           " Use 256 colours (Use this setting only if your terminal supports 256 colours)
 set nobackup           " Don't create annoying backup files
 set noswapfile         " Dont' use swapfile
 set mouse=v            " Neovim mouse disable
@@ -55,14 +57,24 @@ autocmd BufReadPost *
   \   exe "normal! g`\"" |
   \ endif
 
+"gp selects code that was just pasted in the visual mode last used
+nnoremap <expr> gp  '`[' . strpart(getregtype(), 0, 1) . '`]'
+
 " Press * to search for the term under the cursor and then press a key below
 " to replace all instances of it in the current file.
 " Second binding is for comfirmation.
 nnoremap <leader>rr :%s///g<Left><Left>
 nnoremap <leader>rc :%s///gc<Left><Left><Left>
 
-" Press key below on the word or on visual selection and type a replacement term
-" and press . to repeat the replacement again. Useful
+" The same as above but instead of acting on the whole file it will be
+" restricted to the previously visually selected range. You can do that by
+" pressing *, visually selecting the range you want it to apply to and then
+" press a key below to replace all instances of it in the current selection.
+xnoremap <Leader>rr :s///g<Left><Left>
+xnoremap <Leader>rc :s///gc<Left><Left><Left>
+
+" Press key below on the word or on visual selection and type a replacement term.
+" Press . to repeat the replacement again. Useful
 " for replacing a few instances of the term (comparable to multiple cursors).
 nnoremap <leader>rs :let @/='\<'.expand('<cword>').'\>'<CR>cgn
 xnoremap <leader>rs "sy:let @/=@s<CR>cgn
@@ -87,6 +99,7 @@ set nofoldenable       " Dont fold by default
 set foldlevel=2        " This is just what I use
 
 " ==== File explorer ====
+" type :Explore
 map <F3> :!ls<CR>:e
 let g:netrw_banner=0                           " diable annoying banner
 let g:netrw_browse_split=4                     " open in proir window
@@ -151,9 +164,9 @@ if has('autocmd')
   filetype on
   augroup VimrcTabSettings
     autocmd!
-    autocmd FileType python setlocal sw=4 ts=4
-    autocmd FileType jinja  setlocal sw=0
-    autocmd FileType go     setlocal sw=8 ts=8 noet
+    autocmd FileType python       setlocal sw=4 ts=4
+    autocmd FileType jinja        setlocal sw=0
+    autocmd FileType go           setlocal sw=8 ts=8 noet
   augroup END
 endif
 
@@ -259,6 +272,8 @@ let g:mundo_close_on_revert = 1
 let g:doge_doc_standard_python = 'google'
 
 " ==== fzf ====
+let g:fzf_layout = {'down': '40%'}
+
 nnoremap ; :Files<CR>
 nnoremap <C-p> :Rg<CR>
 nnoremap <leader>bl :BLines<CR>
@@ -412,7 +427,7 @@ map <leader>ct :ColorToggle<cr>
 map <leader>cs :ColorSwapFgBg<cr>
 
 " ==== indentline ====
-let g:indentLine_fileTypeExclude = ['tagbar']
+let g:indentLine_fileTypeExclude = ['tagbar', 'markdown']
 let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 " let g:indentLine_setColors = 0
 let g:indentLine_color_term = 239
