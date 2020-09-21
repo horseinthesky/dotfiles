@@ -85,7 +85,7 @@ export DISABLE_AUTO_TITLE="true"
 # fzf
 if [[ -f "$HOME/.fzf.zsh" ]]; then
   source ~/.fzf.zsh
-  export FZF_DEFAULT_COMMAND='fd --type file --follow --hidden --exclude .git'
+  export FZF_DEFAULT_COMMAND='fd --type f --type d --follow --hidden --exclude .git'
   export FZF_DEFAULT_OPTS="--height 60% --layout=reverse"
   export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 fi
