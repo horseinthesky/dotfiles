@@ -1,4 +1,6 @@
 # ======== ZSH ========
+export ZSH_DISABLE_COMPFIX=true
+
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -60,20 +62,19 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 
 # ======== SETTINGS ========
-export ZSH_DISABLE_COMPFIX=true
 export TERM="xterm-256color"
 export EDITOR="nvim"
 
 export NVIM_COLORSCHEME=gruvbox
 
 # Shell colorscheme fix
-if [[ "$NVIM_COLORSCHEME" == "solarized8" ]]; then
-  # solarized8 color fix
-  source "$HOME/.local/share/nvim/plugged/vim-solarized8/scripts/solarized8.sh"
-else
-  # gruvbox colors fix
-  source "$HOME/.local/share/nvim/plugged/gruvbox/gruvbox_256palette_osx.sh"
-fi
+# if [[ "$NVIM_COLORSCHEME" == "solarized8" ]]; then
+#   # solarized8 color fix
+#   source "$HOME/.local/share/nvim/plugged/vim-solarized8/scripts/solarized8.sh"
+# else
+#   # gruvbox colors fix
+#   source "$HOME/.local/share/nvim/plugged/gruvbox/gruvbox_256palette_osx.sh"
+# fi
 
 # Set system locales
 # export LC_ALL=C.UTF-8
