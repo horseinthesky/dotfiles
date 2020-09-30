@@ -251,6 +251,11 @@ nmap t <Plug>(easymotion-t)
 " ==== vim-move ====
 let g:move_key_modifier = 'S'
 
+" ==== vim-commentary ====
+autocmd BufRead,BufNewFile *.conf setlocal filetype=config
+autocmd BufRead,BufNewFile *.cfg setlocal filetype=config
+autocmd FileType config setlocal commentstring=#\ %s
+
 " ==== linediff ====
 map <leader>ld :Linediff<CR>
 map <leader>lr :LinediffReset<CR>
