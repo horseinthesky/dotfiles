@@ -31,6 +31,8 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'yggdroot/indentline'
 Plug 'machakann/vim-highlightedyank'
 Plug 'blueyed/vim-diminactive'
+Plug 'dhruvasagar/vim-zoom'
+Plug 'ntpeters/vim-better-whitespace'
 Plug 'sheerun/vim-polyglot'
 call plug#end()
 
@@ -430,6 +432,11 @@ let g:highlightedyank_highlight_duration = 100
 " ==== Colorizer ====
 map <leader>ct :ColorToggle<cr>
 map <leader>cs :ColorSwapFgBg<cr>
+
+" ==== better-whitespace ====
+let g:better_whitespace_ctermcolor=167
+nnoremap ]w :NextTrailingWhitespace<CR>
+nnoremap [w :PrevTrailingWhitespace<CR>
 
 " ==== indentline ====
 let g:indentLine_fileTypeExclude = ['tagbar', 'markdown']

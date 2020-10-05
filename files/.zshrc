@@ -106,6 +106,31 @@ fi
 # bindkey -v
 export KEYTIMEOUT=1
 
+weather () {
+  local options="${2:-1}"
+  curl https://wttr.in/"${1}"\?"${options}"
+}
+
+cht () {
+  local options="${2:-Q}"
+  curl cht.sh/"${1}"\?"${options}"
+}
+
+# WSL 2 specific settings.
+if grep -q "microsoft" /proc/version &>/dev/null; then
+    # Requires: https://sourceforge.net/projects/vcxsrv/ (or alternative)
+    export DISPLAY="$(/sbin/ip route | awk '/default/ { print $3 }'):0"
+fi
+
+# WSL 1 specific settings.
+if grep -qE "(Microsoft|WSL)" /proc/version &>/dev/null; then
+    if [ "$(umask)" = "0000" ]; then
+        umask 0022
+    fi
+
+    # Requires: https://sourceforge.net/projects/vcxsrv/ (or alternative)
+    export DISPLAY=:0
+fi
 # ==== Yandex ====
 # ssh-agent
 if [[ $(cat /etc/hostname) == 'horseinthesky-w' ]]; then

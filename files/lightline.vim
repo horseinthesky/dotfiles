@@ -149,6 +149,7 @@ let g:lightline = {
   \   'right': [
   \     [ 'linter_checking', 'linter_errors', 'linter_warnings', 'percent', 'lineinfo', 'linter_ok' ],
   \     [ 'fileformat' ],
+  \     [ 'zoom' ],
   \   ]
   \ },
   \ 'tabline': {
@@ -171,6 +172,7 @@ let g:lightline = {
   \   'lineinfo': 'LightlineLineInfo',
   \   'percent': 'LightlinePercent',
   \   'cocstatus': 'coc#status',
+  \   'zoom': 'zoom#statusline',
   \ },
   \ 'tab_component_function': {
   \   'fticon': 'LightlineTabFiletypeIcon',
