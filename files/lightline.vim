@@ -1,6 +1,6 @@
 let s:viewplugins = '__Tagbar__\|__vista__\|__Mundo__\|__Mundo_Preview__\|NERD_tree\|\[Plugins\]\|\[coc-explorer\]'
 
-function! LightlineFugitive()       
+function! LightlineFugitive()
   if exists('*fugitive#head')
     let l:branch = fugitive#head()
     return winwidth(0) > 55 ?
@@ -8,8 +8,8 @@ function! LightlineFugitive()
         \ : l:branch !=# '' ? ' '.l:branch
           \ : ''
       \ : ''
-  endif                      
-  return ''                    
+  endif
+  return ''
 endfunction
 
 function! LightlineLineInfo()
@@ -53,7 +53,7 @@ function! LightlineMode()
     \ : ''
 endfunction
 
-function! LightlineFilenameExtended() 
+function! LightlineFilenameExtended()
   let l:filename = LightlineFilename()
   let l:modified = LightlineModified()
   if l:filename == ''
@@ -66,7 +66,7 @@ function! LightlineReadonly()
   return &readonly ? '' : ''
 endfunction
 function! LightlineFilename()
-  let l:fticon = (strlen(&filetype) ? WebDevIconsGetFileTypeSymbol() . ' ' : '') 
+  let l:fticon = (strlen(&filetype) ? WebDevIconsGetFileTypeSymbol() . ' ' : '')
   let l:readonly = LightlineReadonly()
   return ('' != l:readonly ? l:readonly . ' ' : '') .
     \ ('' != expand('%:t') ? l:fticon . expand('%:t') : '')
