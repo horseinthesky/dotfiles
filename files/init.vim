@@ -94,6 +94,19 @@ nnoremap <leader>v V`]
 vnoremap < <gv
 vnoremap > >gv
 
+" ==== Abbreviations ====
+" no one is really happy until you have this shortcuts
+cnoreabbrev W! w!
+cnoreabbrev Q! q!
+cnoreabbrev Qall! qall!
+cnoreabbrev Wq wq
+cnoreabbrev Wa wa
+cnoreabbrev wQ wq
+cnoreabbrev WQ wq
+cnoreabbrev W w
+cnoreabbrev Q q
+cnoreabbrev Qall qall
+
 " ==== Folding ====
 set foldmethod=indent  " Fold based on indent
 set foldnestmax=10     " Deepest fold is 10 levels
@@ -454,4 +467,6 @@ colorscheme $NVIM_COLORSCHEME
 let g:diminactive_use_syntax = 1
 
 " ==== lightline ====
-source ~/dotfiles/files/lightline.vim
+if filereadable(expand("~/dotfiles/files/lightline.vim"))
+  source ~/dotfiles/files/lightline.vim
+endif

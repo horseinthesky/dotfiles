@@ -1,0 +1,12 @@
+---
+- name: Check if duf is installed
+  command: dpkg-query -W duf
+  register: duf_check_deb
+  failed_when: duf_check_deb.rc > 1
+  changed_when: duf_check_deb.rc == 1
+
+- name: Install duf with a .deb file
+  apt:
+    deb: "{{ duf_release_url }}/v{{ duf_version }}/{{ duf_dpkg_file }}"
+  become: yes
+  when: duf_check_deb.rc == 1
