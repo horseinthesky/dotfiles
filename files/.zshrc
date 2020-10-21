@@ -116,6 +116,14 @@ cht () {
   curl cht.sh/"${1}"\?"${options}"
 }
 
+ip4 () {
+  curl https://api.ipify.org
+}
+
+ip6 () {
+  curl https://api64.ipify.org
+}
+
 # WSL 2 specific settings.
 if grep -q "microsoft" /proc/version &>/dev/null; then
     # Requires: https://sourceforge.net/projects/vcxsrv/ (or alternative)

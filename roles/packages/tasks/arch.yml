@@ -9,5 +9,6 @@
       - htop
       - tree
       - jq
+      - mtr
       - which
   become: yes

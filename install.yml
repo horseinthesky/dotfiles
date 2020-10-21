@@ -22,6 +22,7 @@
     - { role: duf, tags: ["duf"] }
     - { role: bat, tags: ["bat"] }
     - { role: tldr, tags: ["tldr"] }
+    - { role: asn, tags: ["asn"] }
     - { role: wsl, tags: ["wsl"] }
     - { role: ranger, tags: ["ranger"] }
     - { role: docker, tags: ["docker"] }
