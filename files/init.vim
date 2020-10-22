@@ -94,6 +94,9 @@ nnoremap <leader>v V`]
 vnoremap < <gv
 vnoremap > >gv
 
+" ==== Terminal ====
+tnoremap <Esc> <C-\><C-n>
+
 " ==== Abbreviations ====
 " no one is really happy until you have this shortcuts
 cnoreabbrev W! w!
