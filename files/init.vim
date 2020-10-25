@@ -95,7 +95,7 @@ vnoremap < <gv
 vnoremap > >gv
 
 " ==== Terminal ====
-tnoremap <Esc> <C-\><C-n>
+tnoremap <expr> <esc> &filetype == 'fzf' ? "\<esc>" : "\<c-\>\<c-n>"
 
 " ==== Abbreviations ====
 " no one is really happy until you have this shortcuts
