@@ -4,6 +4,20 @@
 - import_tasks: arch.yml
   when: ansible_os_family == "Archlinux"
 
+- name: Check if python exists
+  command: which python
+  register: python_check
+  failed_when: python_check.rc > 1
+  changed_when: python_check.rc == 1
+
+- name: Create python symlink
+  file:
+    src: /usr/bin/python3
+    dest: /usr/bin/python
+    state: link
+  become: yes
+  when: python_check.rc == 1
+
 - name: Install pyenv
   git:
     repo: https://github.com/pyenv/pyenv
@@ -24,17 +38,3 @@
   args:
     creates: "{{ '~/.pyenv/versions/' + item | expanduser }}"
   loop: "{{ pyenv_global_versions }}"
-
-- name: Check if python exists
-  command: which python
-  register: python_check
-  failed_when: python_check.rc > 1
-  changed_when: python_check.rc == 1
-
-- name: Create python symlink
-  file:
-    src: /usr/bin/python3
-    dest: /usr/bin/python
-    state: link
-  become: yes
-  when: python_check.rc == 1

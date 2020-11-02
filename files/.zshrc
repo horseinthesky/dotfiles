@@ -141,12 +141,11 @@ if grep -qE "(Microsoft|WSL)" /proc/version &>/dev/null; then
 fi
 # ==== Yandex ====
 # ssh-agent
-if [[ $(cat /etc/hostname) == 'horseinthesky-w' ]]; then
+# YA_HOSTNAMES=('horseinthesky-w' 'i104058879')
+if [[ $(cat /etc/hostname) == 'horseinthesky-w' ]] || [[ $(cat /etc/hostname) == 'i104058879' ]] ; then
   export PSSH_AUTH_SOCK="/mnt/c/Users/$USER/AppData/Local/Temp/pssh-agent.sock"
   export SSH_AUTH_SOCK="${PSSH_AUTH_SOCK}"
-  if ! [[ $(ssh-add -l) =~ "/home/$USER/.ssh/id_rsa" ]]; then
-    ssh-add
-  fi
+  [[ $(ssh-add -l) =~ "/home/$USER/.ssh/id_rsa" ]] || ssh-add
 fi
 
 # The next line updates PATH for Yandex Cloud CLI.

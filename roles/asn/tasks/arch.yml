@@ -1,0 +1,8 @@
+- name: Install asn required packages for arch
+  pacman:
+    name:
+      - whois
+      - ipcalc
+      - mtr
+    state: latest
+  become: yes
