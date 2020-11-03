@@ -169,7 +169,7 @@ nnoremap [b :bprev<cr>
 
 " <tab> / <s-tab> | Circular windows navigation
 nnoremap <tab> :tabn<cr>
-nnoremap <S-tab> :tabp<cr> 
+nnoremap <S-tab> :tabp<cr>
 
 " Useful mappings for managing tabs
 nnoremap ]t :tabn<cr>
@@ -307,7 +307,14 @@ let g:mundo_close_on_revert = 1
 let g:doge_doc_standard_python = 'google'
 
 " ==== fzf ====
-let g:fzf_layout = {'down': '40%'}
+let g:fzf_colors = {
+  \ 'hl':      ['fg', 'Search'],
+  \ 'hl+':     ['fg', 'Search'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+\ }
+
+let g:fzf_layout = { 'window': { 'width': 1, 'height': 0.5, 'yoffset': 1 } }
 
 nnoremap ; :Files<CR>
 nnoremap <C-p> :Rg<CR>
