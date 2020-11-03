@@ -99,6 +99,7 @@ tnoremap <expr> <esc> &filetype == 'fzf' ? "\<esc>" : "\<c-\>\<c-n>"
 
 " ==== Abbreviations ====
 " no one is really happy until you have this shortcuts
+inoreabbrev <expr> #!! "#!/usr/bin/env" . (empty(&filetype) ? '' : ' '.&filetype)
 cnoreabbrev W! w!
 cnoreabbrev Q! q!
 cnoreabbrev Qall! qall!
@@ -161,15 +162,26 @@ nnoremap <silent> <C-Right> :vertical resize -3<CR>
 nnoremap <silent> <C-Up> :resize +3<CR>
 nnoremap <silent> <C-Down> :resize -3<CR>
 
-" ==== TAB ====
+" ==== TABS ====
+" Buffers
+nnoremap ]b :bnext<cr>
+nnoremap [b :bprev<cr>
+
+" <tab> / <s-tab> | Circular windows navigation
+nnoremap <tab> :tabn<cr>
+nnoremap <S-tab> :tabp<cr> 
+
 " Useful mappings for managing tabs
-map <leader>tn :tabnew<cr>
-map <leader>to :tabonly<cr>
-map <leader>tc :tabclose<cr>
-map <leader>tm0 :tabmove 0<cr>
-map <leader>tm :tabmove $<cr>
-map <leader>tl :tabnext<cr>
-map <leader>th :tabprevious<cr>
+nnoremap ]t :tabn<cr>
+nnoremap [t :tabp<cr>
+nnoremap <leader>tl :tabnext<cr>
+nnoremap <leader>th :tabprevious<cr>
+
+nnoremap <leader>tn :tabnew<cr>
+nnoremap <leader>to :tabonly<cr>
+nnoremap <leader>tc :tabclose<cr>
+nnoremap <leader>tm0 :tabmove 0<cr>
+nnoremap <leader>tm :tabmove $<cr>
 
 set tabstop=2        " 2 whitespaces for tabs visual presentation
 set shiftwidth=2     " shift lines by 2 spaces
