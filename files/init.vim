@@ -3,7 +3,7 @@
 call plug#begin('~/.local/share/nvim/plugged')
 Plug 'dense-analysis/ale'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'easymotion/vim-easymotion'
 Plug 'terryma/vim-multiple-cursors'
@@ -17,7 +17,7 @@ Plug 'godlygeek/tabular'
 Plug 'majutsushi/tagbar'
 Plug 'liuchengxu/vista.vim'
 Plug 'simnalamburt/vim-mundo'
-Plug 'kkoomen/vim-doge'
+Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
 Plug 'will133/vim-dirdiff'
 Plug 'AndrewRadev/linediff.vim'
 
@@ -312,6 +312,12 @@ let g:fzf_colors = {
   \ 'hl+':     ['fg', 'Search'],
   \ 'pointer': ['fg', 'Exception'],
   \ 'marker':  ['fg', 'Keyword'],
+\ }
+
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-s': 'split',
+  \ 'ctrl-v': 'vsplit'
 \ }
 
 let g:fzf_layout = { 'window': { 'width': 1, 'height': 0.5, 'yoffset': 1 } }
