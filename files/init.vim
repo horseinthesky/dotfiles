@@ -59,6 +59,9 @@ autocmd BufReadPost *
   \   exe "normal! g`\"" |
   \ endif
 
+" Reload init.vim
+nnoremap <leader>r :source ~/dotfiles/files/init.vim<cr>
+
 "gp selects code that was just pasted in the visual mode last used
 nnoremap <expr> gp  '`[' . strpart(getregtype(), 0, 1) . '`]'
 
@@ -310,6 +313,7 @@ let g:doge_doc_standard_python = 'google'
 let g:fzf_colors = {
   \ 'hl':      ['fg', 'Search'],
   \ 'hl+':     ['fg', 'Search'],
+  \ 'info':    ['fg', 'PreProc'],
   \ 'pointer': ['fg', 'Exception'],
   \ 'marker':  ['fg', 'Keyword'],
 \ }
