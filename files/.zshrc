@@ -87,7 +87,9 @@ export DISABLE_AUTO_TITLE="true"
 if [[ -f "$HOME/.fzf.zsh" ]]; then
   source ~/.fzf.zsh
   export FZF_DEFAULT_COMMAND='fd --type f --type d --follow --hidden --exclude .git'
-  export FZF_DEFAULT_OPTS="--height 60% --layout=reverse"
+  export FZF_DEFAULT_OPTS='--height 60% --layout=reverse
+    --preview "bat --style=numbers --color=always --line-range :500 {}"
+    --color 'fg:230,fg+:229,hl:214,hl+:214,info:108''
   export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 fi
 
