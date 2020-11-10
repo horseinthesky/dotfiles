@@ -1,10 +1,3 @@
-# Basic style options that define the overall look of your prompt. You probably don't want to
-# change them.
-typeset -g POWERLEVEL9K_BACKGROUND=
-typeset -g POWERLEVEL9K_{LEFT,RIGHT}_{LEFT,RIGHT}_WHITESPACE=  # no surrounding whitespace
-typeset -g POWERLEVEL9K_{LEFT,RIGHT}_SUBSEGMENT_SEPARATOR=' '  # separate segments with a space
-typeset -g POWERLEVEL9K_{LEFT,RIGHT}_SEGMENT_SEPARATOR=        # no end-of-line symbol
-
 # Prefixes
 DEFAULT_PREFIX_COLOR=249
 typeset -g POWERLEVEL9K_{CUSTOM_HOST,VCS}_PREFIX='%F{$DEFAULT_PREFIX_COLOR}on '
@@ -13,7 +6,6 @@ typeset -g POWERLEVEL9K_PYENV_PREFIX='%F{$DEFAULT_PREFIX_COLOR}via '
 typeset -g POWERLEVEL9K_BATTERY_PREFIX='%F{$DEFAULT_PREFIX_COLOR}at '
 
 # Host block settings
-source /etc/os-release
 case $ID in
   ubuntu)
     typeset -g POWERLEVEL9K_CUSTOM_HOST_FOREGROUND=166

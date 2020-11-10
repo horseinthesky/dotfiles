@@ -45,9 +45,10 @@
   )
 
   # ==== Custom functions ====
+  source /etc/os-release
+
   typeset -g POWERLEVEL9K_CUSTOM_HOST="custom_host"
   custom_host(){
-    source /etc/os-release
     case $ID in
       ubuntu)
         OS_ICON="\uF31B"
@@ -86,7 +87,7 @@
 
   typeset -g POWERLEVEL9K_CUSTOM_USER="custom_user"
   custom_user(){
-    case USERNAME in
+    case $USERNAME in
       "root")
         USER_ICON=$POWERLEVEL9K_ROOT_ICON
         ;;
@@ -94,7 +95,6 @@
         USER_ICON=$POWERLEVEL9K_USER_ICON
         ;;
     esac
-    # echo -n "$USER_ICON $USERNAME"
     echo -n "$USER_ICON $USERNAME $(zsh_detect_ssh)"
   }
 
