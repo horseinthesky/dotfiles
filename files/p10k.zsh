@@ -1,74 +1,51 @@
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
+# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+# fi
+
+# Temporarily change options.
+'builtin' 'local' '-a' 'p10k_config_opts'
+[[ ! -o 'aliases'         ]] || p10k_config_opts+=('aliases')
+[[ ! -o 'sh_glob'         ]] || p10k_config_opts+=('sh_glob')
+[[ ! -o 'no_brace_expand' ]] || p10k_config_opts+=('no_brace_expand')
+'builtin' 'setopt' 'no_aliases' 'no_sh_glob' 'brace_expand'
 
 () {
   emulate -L zsh -o extended_glob
 
+  # Unset all configuration options. This allows you to apply configuration changes without
+  # restarting zsh. Edit ~/.p10k.zsh and type `source ~/.p10k.zsh`.
+  unset -m '(POWERLEVEL9K_*|DEFAULT_USER)~POWERLEVEL9K_GITSTATUS_DIR'
+
   # Zsh >= 5.1 is required.
   autoload -Uz is-at-least && is-at-least 5.1 || return
 
-  # ==== P10K Theme ====
-  if [[ "$P10K_THEME" == "lean" ]]; then
-    source $HOME/dotfiles/files/lean.zsh
-  else
-    source $HOME/dotfiles/files/rainbow.zsh
-  fi
-
-  # ==== Mode ====
-  typeset -g POWERLEVEL9K_MODE=nerdfont-complete
-
   # ==== Right/Left prompt settings ====
   typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
-    custom_user
-    dir
-    vcs
-    virtualenv
-    pyenv
-    newline
-    prompt_char
+    # =========================[ Line #1 ]=========================
+    custom_user             # username
+    dir                     # current directory
+    vcs                     # git status
+    virtualenv              # python virtual environment (https://docs.python.org/3/library/venv.html)
+    pyenv                   # python environment (https://github.com/pyenv/pyenv)
+    # =========================[ Line #2 ]=========================
+    newline                 # \n
+    prompt_char             # prompt symbol
   )
   typeset -g POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(
-    # ip
-    # public_ip
-    custom_host
-    # load
-    # ram
-    battery
+    # =========================[ Line #1 ]=========================
+    # ip                      # ip address and bandwidth usage for a specified network interface
+    # public_ip               # public IP address
+    custom_host             # os icon and hostname
+    # load                  # CPU load
+    # ram                   # free RAM
+    # battery               # internal battery
   )
 
-  # ==== Instant prompt ====
-  # Instant prompt mode.
-  #   - off:     Disable instant prompt. Choose this if you've tried instant prompt and found
-  #              it incompatible with your zsh configuration files.
-  #   - quiet:   Enable instant prompt and don't print warnings when detecting console output
-  #              during zsh initialization. Choose this if you've read and understood
-  #              https://github.com/romkatv/powerlevel10k/blob/master/README.md#instant-prompt.
-  #   - verbose: Enable instant prompt and print a warning when detecting console output during
-  #              zsh initialization. Choose this if you've never tried instant prompt, haven't
-  #              seen the warning, or if you are unsure what this all means.
-  typeset -g POWERLEVEL9K_INSTANT_PROMPT=verbose
-
-  # ==== Transient prompt ====
-  # Transient prompt works similarly to the builtin transient_rprompt option. It trims down prompt
-  # when accepting a command line. Supported values:
-  #
-  #   - off:      Don't change prompt when accepting a command line.
-  #   - always:   Trim down prompt when accepting a command line.
-  #   - same-dir: Trim down prompt when accepting a command line unless this is the first command
-  typeset -g POWERLEVEL9K_TRANSIENT_PROMPT=off
-
-  # ==== Hot reload ====
-  # Hot reload allows you to change POWERLEVEL9K options after Powerlevel10k has been initialized.
-  # For example, you can type POWERLEVEL9K_BACKGROUND=red and see your prompt turn red. Hot reload
-  # can slow down prompt by 1-2 milliseconds, so it's better to keep it turned off unless you
-  # really need it.
-  typeset -g POWERLEVEL9K_DISABLE_HOT_RELOAD=false
-
   # ==== Custom functions ====
+  typeset -g POWERLEVEL9K_CUSTOM_HOST="custom_host"
   custom_host(){
     source /etc/os-release
     case $ID in
@@ -92,7 +69,7 @@ fi
         ;;
     esac
     if [[ -n "$WSL_DISTRO_NAME" ]]; then
-      OS_ICON="\uF17A ${OS_ICON}"
+      OS_ICON="\uF17A $OS_ICON"
     fi
     echo -n "$OS_ICON $HOST"
   }
@@ -105,8 +82,11 @@ fi
     fi
   }
 
+  USERNAME=$(whoami)
+
+  typeset -g POWERLEVEL9K_CUSTOM_USER="custom_user"
   custom_user(){
-    case $(whoami) in
+    case USERNAME in
       "root")
         USER_ICON=$POWERLEVEL9K_ROOT_ICON
         ;;
@@ -114,8 +94,55 @@ fi
         USER_ICON=$POWERLEVEL9K_USER_ICON
         ;;
     esac
-    echo -n "$USER_ICON $(whoami) $(zsh_detect_ssh)"
+    # echo -n "$USER_ICON $USERNAME"
+    echo -n "$USER_ICON $USERNAME $(zsh_detect_ssh)"
   }
+
+  # Basic style options that define the overall look of your prompt. You probably don't want to
+  # change them.
+  typeset -g POWERLEVEL9K_BACKGROUND=                            # transparent background
+  typeset -g POWERLEVEL9K_{LEFT,RIGHT}_{LEFT,RIGHT}_WHITESPACE=  # no surrounding whitespace
+  typeset -g POWERLEVEL9K_{LEFT,RIGHT}_SUBSEGMENT_SEPARATOR=' '  # separate segments with a space
+  typeset -g POWERLEVEL9K_{LEFT,RIGHT}_SEGMENT_SEPARATOR=        # no end-of-line symbol
+
+  # ==== P10K Theme ====
+  if [[ "$P10K_THEME" == "lean" ]]; then
+    source $HOME/dotfiles/files/lean.zsh
+  else
+    source $HOME/dotfiles/files/rainbow.zsh
+  fi
+
+  # Defines character set used by powerlevel10k. It's best to let `p10k configure` set it for you.
+  typeset -g POWERLEVEL9K_MODE=nerdfont-complete
+
+  # When set to `moderate`, some icons will have an extra space after them. This is meant to avoid
+  # icon overlap when using non-monospace fonts. When set to `none`, spaces are not added.
+  typeset -g POWERLEVEL9K_ICON_PADDING=moderate
+
+  # Instant prompt mode.
+  #   - off:     Disable instant prompt. Choose this if you've tried instant prompt and found
+  #              it incompatible with your zsh configuration files.
+  #   - quiet:   Enable instant prompt and don't print warnings when detecting console output
+  #              during zsh initialization. Choose this if you've read and understood
+  #              https://github.com/romkatv/powerlevel10k/blob/master/README.md#instant-prompt.
+  #   - verbose: Enable instant prompt and print a warning when detecting console output during
+  #              zsh initialization. Choose this if you've never tried instant prompt, haven't
+  #              seen the warning, or if you are unsure what this all means.
+  typeset -g POWERLEVEL9K_INSTANT_PROMPT=verbose
+
+  # Transient prompt works similarly to the builtin transient_rprompt option. It trims down prompt
+  # when accepting a command line. Supported values:
+  #
+  #   - off:      Don't change prompt when accepting a command line.
+  #   - always:   Trim down prompt when accepting a command line.
+  #   - same-dir: Trim down prompt when accepting a command line unless this is the first command
+  typeset -g POWERLEVEL9K_TRANSIENT_PROMPT=off
+
+  # Hot reload allows you to change POWERLEVEL9K options after Powerlevel10k has been initialized.
+  # For example, you can type POWERLEVEL9K_BACKGROUND=red and see your prompt turn red. Hot reload
+  # can slow down prompt by 1-2 milliseconds, so it's better to keep it turned off unless you
+  # really need it.
+  typeset -g POWERLEVEL9K_DISABLE_HOT_RELOAD=true
 
   # ==== Icon berofe content ====
   # When set to true, icons appear before content on both sides of the prompt. When set
@@ -131,11 +158,55 @@ fi
   #   POWERLEVEL9K_DIR_NOT_WRITABLE_ICON_BEFORE_CONTENT=false
   typeset -g POWERLEVEL9K_ICON_BEFORE_CONTENT=true
 
+  # Add an empty line before each prompt.
+  typeset -g POWERLEVEL9K_PROMPT_ADD_NEWLINE=false
+
+  # Connect left prompt lines with these symbols.
+  typeset -g POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX=
+  typeset -g POWERLEVEL9K_MULTILINE_NEWLINE_PROMPT_PREFIX=
+  typeset -g POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX=
+  # Connect right prompt lines with these symbols.
+  typeset -g POWERLEVEL9K_MULTILINE_FIRST_PROMPT_SUFFIX=
+  typeset -g POWERLEVEL9K_MULTILINE_NEWLINE_PROMPT_SUFFIX=
+  typeset -g POWERLEVEL9K_MULTILINE_LAST_PROMPT_SUFFIX=
+
+  # The left end of left prompt.
+  typeset -g POWERLEVEL9K_LEFT_PROMPT_FIRST_SEGMENT_START_SYMBOL=
+  # The right end of right prompt.
+  typeset -g POWERLEVEL9K_RIGHT_PROMPT_LAST_SEGMENT_END_SYMBOL=
+
+  # Ruler, a.k.a. the horizontal line before each prompt. If you set it to true, you'll
+  # probably want to set POWERLEVEL9K_PROMPT_ADD_NEWLINE=false above and
+  # POWERLEVEL9K_MULTILINE_FIRST_PROMPT_GAP_CHAR=' ' below.
+  typeset -g POWERLEVEL9K_SHOW_RULER=false
+  typeset -g POWERLEVEL9K_RULER_CHAR='─'        # reasonable alternative: '·'
+  typeset -g POWERLEVEL9K_RULER_FOREGROUND=242
+
+  # Filler between left and right prompt on the first prompt line. You can set it to '·' or '─'
+  # to make it easier to see the alignment between left and right prompt and to separate prompt
+  # from command output. It serves the same purpose as ruler (see above) without increasing
+  # the number of prompt lines. You'll probably want to set POWERLEVEL9K_SHOW_RULER=false
+  # if using this. You might also like POWERLEVEL9K_PROMPT_ADD_NEWLINE=false for more compact
+  # prompt.
+  typeset -g POWERLEVEL9K_MULTILINE_FIRST_PROMPT_GAP_CHAR=' '
+  if [[ $POWERLEVEL9K_MULTILINE_FIRST_PROMPT_GAP_CHAR != ' ' ]]; then
+    # The color of the filler.
+    typeset -g POWERLEVEL9K_MULTILINE_FIRST_PROMPT_GAP_FOREGROUND=242
+    # Add a space between the end of left prompt and the filler.
+    typeset -g POWERLEVEL9K_LEFT_PROMPT_LAST_SEGMENT_END_SYMBOL=' '
+    # Add a space between the filler and the start of right prompt.
+    typeset -g POWERLEVEL9K_RIGHT_PROMPT_FIRST_SEGMENT_START_SYMBOL=' '
+    # Start filler from the edge of the screen if there are no left segments on the first line.
+    typeset -g POWERLEVEL9K_EMPTY_LINE_LEFT_PROMPT_FIRST_SEGMENT_END_SYMBOL='%{%}'
+    # End filler on the edge of the screen if there are no right segments on the first line.
+    typeset -g POWERLEVEL9K_EMPTY_LINE_RIGHT_PROMPT_FIRST_SEGMENT_START_SYMBOL='%{%}'
+  fi
+
   # ======== User ========
-  typeset -g POWERLEVEL9K_USER_ICON='\uF415' #  
-  typeset -g POWERLEVEL9K_ROOT_ICON='\uF198' #  
-  # typeset -g POWERLEVEL9K_ROOT_ICON='\uF09C' #  
-  typeset -g POWERLEVEL9K_SSH_ICON='\uF489' #  
+  typeset -g POWERLEVEL9K_USER_ICON='\uF415' # 
+  typeset -g POWERLEVEL9K_ROOT_ICON='\uF198' # 
+  # typeset -g POWERLEVEL9K_ROOT_ICON='\uF09C' # 
+  typeset -g POWERLEVEL9K_SSH_ICON='\uF489' # 
   typeset -g POWERLEVEL9K_HOST_ICON='' # \uF108
   if [[ -d /sys/class/power_supply/BAT1 ]] && grep -Fxq "1" /sys/class/power_supply/BAT1/present; then
     typeset -g POWERLEVEL9K_HOST_ICON='' # \uF109
@@ -144,12 +215,12 @@ fi
   fi
 
   # ==== OS ====
-  # typeset -g POWERLEVEL9K_LINUX_ICON='\uE712' #  
-  # typeset -g POWERLEVEL9K_LINUX_REDHAT_ICON='\uF316' #  
-  # typeset -g POWERLEVEL9K_LINUX_UBUNTU_ICON='\uF31B' #  
+  # typeset -g POWERLEVEL9K_LINUX_ICON='\uE712' # 
+  # typeset -g POWERLEVEL9K_LINUX_REDHAT_ICON='\uF316' # 
+  # typeset -g POWERLEVEL9K_LINUX_UBUNTU_ICON='\uF31B' # 
 
   # ==== Python ====
-  typeset -g POWERLEVEL9K_PYTHON_ICON='\uE606' #  
+  typeset -g POWERLEVEL9K_PYTHON_ICON='\uE606' # 
 
   # ==== Pyenv ====
   # Hide python version if it doesn't come from one of these sources.
@@ -174,9 +245,9 @@ fi
   typeset -g POWERLEVEL9K_PYENV_VISUAL_IDENTIFIER_EXPANSION='${${P9K_CONTENT:#system}:+$P9K_VISUAL_IDENTIFIER}'
 
   # ==== Home ====
-  typeset -g POWERLEVEL9K_HOME_ICON='\uF015' #  
-  typeset -g POWERLEVEL9K_HOME_SUB_ICON='\uF07C' #  
-  typeset -g POWERLEVEL9K_FOLDER_ICON='\uF115' #  
+  typeset -g POWERLEVEL9K_HOME_ICON='\uF015' # 
+  typeset -g POWERLEVEL9K_HOME_SUB_ICON='\uF07C' # 
+  typeset -g POWERLEVEL9K_FOLDER_ICON='\uF115' # 
 
   # ==== ETC ====
   # typeset -g POWERLEVEL9K_ETC_ICON=' '
@@ -259,15 +330,15 @@ fi
   # Battery pictograms going from low to high level of charge when charging.
   # typeset -g POWERLEVEL9K_BATTERY_CHARGING_STAGES=$'\uf585\uf586\uf587\uf588\uf589\uf58a\uf584'
   # Pictogram to show when the battery is charging and fully charged and connected to power supply.
-  # typeset -g POWERLEVEL9K_BATTERY_CHARGED_VISUAL_IDENTIFIER_EXPANSION=$'\uf584' #  
+  # typeset -g POWERLEVEL9K_BATTERY_CHARGED_VISUAL_IDENTIFIER_EXPANSION=$'\uf584' # 
   typeset -g POWERLEVEL9K_BATTERY_{CHARGING,CHARGED}_VISUAL_IDENTIFIER_EXPANSION=$'\uf583' # 
   # Don't show the remaining time to charge/discharge.
   typeset -g POWERLEVEL9K_BATTERY_VERBOSE=false
 
   # ==== Prompt char ====
   # Transparent background
-  typeset -g POWERLEVEL9K_PROMPT_CHAR_BACKGROUND= 
-  # Green prompt symbol if the last command succeeded. 
+  typeset -g POWERLEVEL9K_PROMPT_CHAR_BACKGROUND=
+  # Green prompt symbol if the last command succeeded.
   typeset -g POWERLEVEL9K_PROMPT_CHAR_OK_{VIINS,VICMD,VIVIS,VIOWR}_FOREGROUND=142
   # Red prompt symbol if the last command failed.
   typeset -g POWERLEVEL9K_PROMPT_CHAR_ERROR_{VIINS,VICMD,VIVIS,VIOWR}_FOREGROUND=167
@@ -276,23 +347,23 @@ fi
   # Prompt symbol in command vi mode.
   typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VICMD_CONTENT_EXPANSION=''
   # Prompt symbol in visual vi mode.
-  typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VIVIS_CONTENT_EXPANSION='Ⅴ'
+  typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VIVIS_CONTENT_EXPANSION='V'
   # Prompt symbol in overwrite vi mode.
   typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VIOWR_CONTENT_EXPANSION=''
   typeset -g POWERLEVEL9K_PROMPT_CHAR_OVERWRITE_STATE=true
-  # No line terminator if prompt_char is the last segment. 
+  # No line terminator if prompt_char is the last segment.
   typeset -g POWERLEVEL9K_PROMPT_CHAR_LEFT_PROMPT_LAST_SEGMENT_END_SYMBOL=''
-  # No line introducer if prompt_char is the first segment. 
-  typeset -g POWERLEVEL9K_PROMPT_CHAR_LEFT_PROMPT_FIRST_SEGMENT_START_SYMBOL= 
-  # No surrounding whitespace. 
-  typeset -g POWERLEVEL9K_PROMPT_CHAR_LEFT_{LEFT,RIGHT}_WHITESPACE= 
+  # No line introducer if prompt_char is the first segment.
+  typeset -g POWERLEVEL9K_PROMPT_CHAR_LEFT_PROMPT_FIRST_SEGMENT_START_SYMBOL=
+  # No surrounding whitespace.
+  typeset -g POWERLEVEL9K_PROMPT_CHAR_LEFT_{LEFT,RIGHT}_WHITESPACE=
 
   # ==== CPU ====
   # Show average CPU load over this many last minutes. Valid values are 1, 5 and 15.
   typeset -g POWERLEVEL9K_LOAD_WHICH=1
   # Load color when load is under 50%.
   typeset -g POWERLEVEL9K_LOAD_NORMAL_FOREGROUND=142
-  # Load color when load is between 50% and 70%. 
+  # Load color when load is between 50% and 70%.
   typeset -g POWERLEVEL9K_LOAD_WARNING_FOREGROUND=214
   # Load color when load is over 70%.
   typeset -g POWERLEVEL9K_LOAD_CRITICAL_FOREGROUND=167
@@ -330,4 +401,11 @@ fi
 
   # Custom icon.
   # typeset -g POWERLEVEL9K_IP_VISUAL_IDENTIFIER_EXPANSION='⭐'
+
+  # If p10k is already loaded, reload configuration.
+  # This works even with POWERLEVEL9K_DISABLE_HOT_RELOAD=true.
+  (( ! $+functions[p10k] )) || p10k reload
 }
+
+(( ${#p10k_config_opts} )) && setopt ${p10k_config_opts[@]}
+'builtin' 'unset' 'p10k_config_opts'

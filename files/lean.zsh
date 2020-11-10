@@ -13,7 +13,6 @@ typeset -g POWERLEVEL9K_PYENV_PREFIX='%F{$DEFAULT_PREFIX_COLOR}via '
 typeset -g POWERLEVEL9K_BATTERY_PREFIX='%F{$DEFAULT_PREFIX_COLOR}at '
 
 # Host block settings
-typeset -g POWERLEVEL9K_CUSTOM_HOST="custom_host"
 source /etc/os-release
 case $ID in
   ubuntu)
@@ -37,8 +36,7 @@ case $ID in
 esac
 
 # User block settings
-typeset -g POWERLEVEL9K_CUSTOM_USER="custom_user"
-if [[ $(whoami) == "root" ]]; then
+if [[ $USERNAME == "root" ]]; then
   typeset -g POWERLEVEL9K_CUSTOM_USER_FOREGROUND=167
 else
   typeset -g POWERLEVEL9K_CUSTOM_USER_FOREGROUND=174
