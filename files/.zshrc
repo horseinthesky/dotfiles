@@ -208,8 +208,8 @@ alias tpl='tmuxp load '
 
 # ======== POWERLEVEL10K SETTINGS ========
 if [[ "$ZSH_THEME" == "powerlevel10k/powerlevel10k" ]]; then
-  # P10K_THEME="lean"
-  P10K_THEME="rainbow"
+  P10K_THEME="lean"
+  # P10K_THEME="rainbow"
 
   source $HOME/dotfiles/files/p10k.zsh
 fi
