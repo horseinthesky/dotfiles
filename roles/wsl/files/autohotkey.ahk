@@ -16,3 +16,4 @@ RoA(PIDName, Target) {
 #n::RoA("ONENOTE.EXE", "ONENOTE.EXE")
 #f::RoA("firefox.exe", "firefox.exe")
 #q::RoA("SecureCRT.exe", "SecureCRT.exe")
+#y::RoA("browser.exe", "browser.exe")
