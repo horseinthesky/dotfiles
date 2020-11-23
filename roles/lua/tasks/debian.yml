@@ -1,0 +1,13 @@
+- name: Install lua via apt
+  apt:
+    name: lua5.3
+    state: latest
+  become: yes
+
+- name: Create symlink for lua
+  file:
+    src: /usr/bin/lua5.3
+    dest: /usr/local/bin/lua
+    state: link
+    force: yes
+  become: true

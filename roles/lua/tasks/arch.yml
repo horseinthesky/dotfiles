@@ -1,0 +1,5 @@
+- name: Install lua
+  pacman:
+    name: lua
+    state: latest
+  become: true
