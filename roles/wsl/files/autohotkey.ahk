@@ -12,3 +12,8 @@ RoA(PIDName, Target) {
 }
 #t::RoA("WindowsTerminal.exe", "wt.exe")
 #c::RoA("chrome.exe", "chrome.exe")
+#g::RoA("Telegram.exe", "Telegram.exe")
+#n::RoA("ONENOTE.EXE", "ONENOTE.EXE")
+#f::RoA("firefox.exe", "firefox.exe")
+#q::RoA("SecureCRT.exe", "SecureCRT.exe")
+#y::RoA("browser.exe", "browser.exe")
