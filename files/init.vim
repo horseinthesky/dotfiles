@@ -17,6 +17,7 @@ Plug 'godlygeek/tabular'
 Plug 'majutsushi/tagbar'
 Plug 'liuchengxu/vista.vim'
 Plug 'simnalamburt/vim-mundo'
+Plug 'AndrewRadev/sideways.vim'
 Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
 Plug 'will133/vim-dirdiff'
 Plug 'AndrewRadev/linediff.vim'
@@ -308,6 +309,10 @@ let g:mundo_close_on_revert = 1
 " ==== doge ====
 " Runs on <leader>d and TAB/S-TAB for jumping TODOs
 let g:doge_doc_standard_python = 'google'
+
+" ==== sideways ====
+nnoremap <leader>h :SidewaysLeft<cr>
+nnoremap <leader>l :SidewaysRight<cr>
 
 " ==== fzf ====
 let g:fzf_colors = {
