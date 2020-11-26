@@ -110,6 +110,12 @@
     "vue-html": "html",
     "javascript": "javascriptreact"
   },
+  // coc-html
+  "html.filetypes": [
+    "html",
+    "handlebars",
+    "blade"
+  ],
   // coc-python
   "python.jediEnabled": true,
   "python.pythonPath": "/usr/bin/python3",
