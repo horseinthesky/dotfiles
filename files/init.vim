@@ -38,30 +38,124 @@ Plug 'sheerun/vim-polyglot'
 call plug#end()
 
 " ================ SETTINGS ================
-if has("nvim")
-  set inccommand=split " incremental substitution shows substituted text before applying
-endif
-set laststatus=2       " Always show statusline
-set nobackup           " Don't create annoying backup files
-set noswapfile         " Dont' use swapfile
-set mouse=v            " Neovim mouse disable
-set scrolloff=5        " Start scrolling 5 lines before edge of viewpoint
-set pastetoggle=<F2>   " Paste mode toggle to paste code properly
-set guicursor=         " Fix for mysterious 'q' letters
-set shortmess+=c       " don't give |ins-completion-menu| messages
-" set cmdheight=2      " More space for messages
-" set signcolumn=yes   " Always show signcolumns (left row)
-set updatetime=300     " You will have bad experience for diagnostic messages when it's default 4000.
-set colorcolumn=80,120 " add vertical lines on columns
-
 " Return to last edit position when opening files (You want this!)
 autocmd BufReadPost *
   \ if line("'\"") > 0 && line("'\"") <= line("$") |
   \   exe "normal! g`\"" |
   \ endif
 
+if has("nvim")
+  set inccommand=split " incremental substitution shows substituted text before applying
+endif
+set laststatus=2       " Always show statusline
+set nobackup           " Don't create annoying backup files
+set noswapfile         " Dont' use swapfile
+set iskeyword+=-       " treat dash separated words as a word text object
+set mouse=v            " Neovim mouse disable
+set scrolloff=5        " Start scrolling 5 lines before edge of viewpoint
+set pastetoggle=<F2>   " Paste mode toggle to paste code properly
+set noshowmode         " We don't need to see things like -- INSERT -- anymore
+set guicursor=         " Fix for mysterious 'q' letters
+set shortmess+=c       " don't give |ins-completion-menu| messages
+" set cmdheight=2      " More space for messages
+" set signcolumn=yes   " Always show signcolumns (left row)
+set updatetime=300     " Faster completion (default is 4000)
+set timeoutlen=500     " By default timeoutlen is 1000 ms
+set colorcolumn=80,120 " add vertical lines on columns
+
+autocmd FileType * set formatoptions-=o " Stop newline continution of comments
+
+let g:loaded_python_provider = 0
+let g:loaded_ruby_provider = 0
+let g:python3_host_prog = '/usr/bin/python3'
+
+" ==== Numbers ====
+set number
+set relativenumber
+
+" ==== Folding ====
+set foldmethod=indent  " Fold based on indent
+set foldnestmax=10     " Deepest fold is 10 levels
+set nofoldenable       " Dont fold by default
+set foldlevel=2        " This is just what I use
+
+" ==== History ====
+set history=100
+set undolevels=100
+set undofile
+set undodir=$HOME/.config/nvim/tmp/undo
+
+" ==== SYNTAX AND SEARCH ====
+syntax on
+set cursorline         " highlight cursorline
+set incsearch
+set nohlsearch
+set ignorecase
+set smartcase
+
+" ==== SPLITS ====
+set splitbelow splitright " new horizontal split to appear below and vertical split to appear on the right
+
+" Split navigation
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+" Split resizing
+nnoremap <silent> <C-Left> :vertical resize +3<CR>
+nnoremap <silent> <C-Right> :vertical resize -3<CR>
+nnoremap <silent> <C-Up> :resize +3<CR>
+nnoremap <silent> <C-Down> :resize -3<CR>
+
+" ==== TABS ====
+set showtabline=1    " show tabs only when 2 or more open
+
+" Buffers
+nnoremap ]b :bnext<cr>
+nnoremap [b :bprev<cr>
+
+" <tab> / <s-tab> | Circular windows navigation
+nnoremap <tab> :tabn<cr>
+nnoremap <S-tab> :tabp<cr>
+
+" Useful mappings for managing tabs
+nnoremap ]t :tabn<cr>
+nnoremap [t :tabp<cr>
+nnoremap <leader>tl :tabnext<cr>
+nnoremap <leader>th :tabprevious<cr>
+
+nnoremap <leader>tn :tabnew<cr>
+nnoremap <leader>to :tabonly<cr>
+nnoremap <leader>tc :tabclose<cr>
+nnoremap <leader>tm0 :tabmove 0<cr>
+nnoremap <leader>tm :tabmove $<cr>
+
+set tabstop=2        " 2 whitespaces for tabs visual presentation
+set shiftwidth=2     " shift lines by 2 spaces
+set smarttab         " set tabs for a shifttabs logic
+set expandtab        " expand tabs into spaces
+set smartindent
+
+" Change TAB key behavior base on filetype
+if has('autocmd')
+  filetype on
+  augroup VimrcTabSettings
+    autocmd!
+    autocmd FileType python       setlocal sw=4 ts=4
+    autocmd FileType jinja        setlocal sw=0
+    autocmd FileType go           setlocal sw=8 ts=8 noet
+  augroup END
+endif
+
+" ==== Bindings ====
 " Reload init.vim
 nnoremap <leader>r :source ~/dotfiles/files/init.vim<cr>
+
+" Alternate way to save
+nnoremap <C-s> :w<CR>
+" Alternate way to quit
+nnoremap <C-Q> :wq!<CR>
 
 "gp selects code that was just pasted in the visual mode last used
 nnoremap <expr> gp  '`[' . strpart(getregtype(), 0, 1) . '`]'
@@ -115,26 +209,6 @@ cnoreabbrev W w
 cnoreabbrev Q q
 cnoreabbrev Qall qall
 
-" ==== Folding ====
-set foldmethod=indent  " Fold based on indent
-set foldnestmax=10     " Deepest fold is 10 levels
-set nofoldenable       " Dont fold by default
-set foldlevel=2        " This is just what I use
-
-" ==== File explorer ====
-" type :Explore
-map <F3> :!ls<CR>:e
-let g:netrw_banner=0                           " diable annoying banner
-let g:netrw_browse_split=4                     " open in proir window
-let g:netrw_altv=1                             " open splits to the right
-let g:netrw_liststyle=3                        " tree view
-let g:netrw_list_hide=netrw_gitignore#Hide()
-let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
-
-" ==== Numbers ====
-set number
-set relativenumber
-
 " ==== File autoload ====
 " Triger `autoread` when files changes on disk
 " https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
@@ -145,72 +219,15 @@ autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checkti
 autocmd FileChangedShellPost *
   \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
 
-" ==== History ====
-set history=100
-set undolevels=100
-set undofile
-set undodir=$HOME/.config/nvim/tmp/undo
-
-" ==== SPLITS ====
-set splitbelow splitright " new horizontal split to appear below and vertical split to appear on the right
-
-" Split navigation
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
-
-" Split resizing
-nnoremap <silent> <C-Left> :vertical resize +3<CR>
-nnoremap <silent> <C-Right> :vertical resize -3<CR>
-nnoremap <silent> <C-Up> :resize +3<CR>
-nnoremap <silent> <C-Down> :resize -3<CR>
-
-" ==== TABS ====
-" Buffers
-nnoremap ]b :bnext<cr>
-nnoremap [b :bprev<cr>
-
-" <tab> / <s-tab> | Circular windows navigation
-nnoremap <tab> :tabn<cr>
-nnoremap <S-tab> :tabp<cr>
-
-" Useful mappings for managing tabs
-nnoremap ]t :tabn<cr>
-nnoremap [t :tabp<cr>
-nnoremap <leader>tl :tabnext<cr>
-nnoremap <leader>th :tabprevious<cr>
-
-nnoremap <leader>tn :tabnew<cr>
-nnoremap <leader>to :tabonly<cr>
-nnoremap <leader>tc :tabclose<cr>
-nnoremap <leader>tm0 :tabmove 0<cr>
-nnoremap <leader>tm :tabmove $<cr>
-
-set tabstop=2        " 2 whitespaces for tabs visual presentation
-set shiftwidth=2     " shift lines by 2 spaces
-set smarttab         " set tabs for a shifttabs logic
-set expandtab        " expand tabs into spaces
-set smartindent
-
-" Change TAB key behavior base on filetype
-if has('autocmd')
-  filetype on
-  augroup VimrcTabSettings
-    autocmd!
-    autocmd FileType python       setlocal sw=4 ts=4
-    autocmd FileType jinja        setlocal sw=0
-    autocmd FileType go           setlocal sw=8 ts=8 noet
-  augroup END
-endif
-
-" ==== SYNTAX AND SEARCH ====
-syntax on
-set cursorline       " highlight cursorline
-set incsearch
-set nohlsearch
-set ignorecase
-set smartcase
+" ==== File explorer ====
+" type :Explore
+map <F3> :!ls<CR>:e
+let g:netrw_banner=0                           " diable annoying banner
+let g:netrw_browse_split=4                     " open in proir window
+let g:netrw_altv=1                             " open splits to the right
+let g:netrw_liststyle=3                        " tree view
+let g:netrw_list_hide=netrw_gitignore#Hide()
+let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
 
 " ================ PLUGINS CONFIG ================
 " ==== ALE ====
