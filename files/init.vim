@@ -94,6 +94,9 @@ set ignorecase
 set smartcase
 
 " ==== SPLITS ====
+nnoremap <leader>; :vsplit n<CR>
+nnoremap <leader>' :split n<CR>
+
 set splitbelow splitright " new horizontal split to appear below and vertical split to appear on the right
 
 " Split navigation
