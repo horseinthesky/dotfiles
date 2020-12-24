@@ -513,6 +513,8 @@ let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 " let g:indentLine_setColors = 0
 let g:indentLine_color_term = 239
 
+nnoremap <leader>i :IndentLinesToggle<CR>
+
 " ==== Theme ====
 set background=dark
 let g:gruvbox_contrast_dark='soft'

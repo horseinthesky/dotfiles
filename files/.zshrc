@@ -113,6 +113,19 @@ weather () {
   curl https://wttr.in/"${1}"\?"${options}"
 }
 
+rate () {
+  local FROM="${1:-USD}"
+  local TO="${2:-RUB}"
+  curl -s https://api.ratesapi.io/api/latest\?base\="${FROM}" | jq .rates."${TO}"
+}
+
+crate () {
+  local coin="${1:-bitcoin}"
+  local currency="${2:-usd}"
+  curl -s https://api.coingecko.com/api/v3/simple/price\?ids="${coin}"\&vs_currencies="${currency}" \
+    | jq ."${coin}"."${currency}"
+}
+
 cht () {
   local options="${2:-Q}"
   curl cht.sh/"${1}"\?"${options}"

@@ -142,6 +142,9 @@
     "completeUnimported": true,
     "deepCompletion": true
   },
+  // coc-lua
+  "lua.version": "5.3",
+  "lua.commandPath": "/home/horseinthesky/.luarocks/bin/lua-lsp",
   // coc-yaml
   "yaml.validate": false,
   "yaml.format.enable": true,
