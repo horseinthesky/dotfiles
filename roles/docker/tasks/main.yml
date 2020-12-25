@@ -8,6 +8,7 @@
   systemd:
     name: docker
     state: started
+    enabled: yes
   become: yes
   ignore_errors: yes
 
