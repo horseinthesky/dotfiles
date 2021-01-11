@@ -51,6 +51,7 @@ set laststatus=2       " Always show statusline
 set nobackup           " Don't create annoying backup files
 set noswapfile         " Dont' use swapfile
 set iskeyword+=-       " treat dash separated words as a word text object
+set linebreak          " Wraps text at the end of a word. This is what prevents a word from being split in two.
 set mouse=v            " Neovim mouse disable
 set scrolloff=5        " Start scrolling 5 lines before edge of viewpoint
 set pastetoggle=<F2>   " Paste mode toggle to paste code properly
@@ -136,6 +137,7 @@ nnoremap <leader>tm :tabmove $<cr>
 
 set tabstop=2        " 2 whitespaces for tabs visual presentation
 set shiftwidth=2     " shift lines by 2 spaces
+set shiftround       " When shifting lines, round the indentation to the nearest multiple of “shiftwidth.”
 set smarttab         " set tabs for a shifttabs logic
 set expandtab        " expand tabs into spaces
 set smartindent
