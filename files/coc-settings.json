@@ -96,15 +96,19 @@
     "gf": "gotoSource:file",
     "gb": "gotoSource:buffer"
   },
-  "explorer.icon.expanded": " ",
-  "explorer.icon.collapsed": " ",
-  "explorer.icon.selected": "",
-  "explorer.file.column.git.icon.unmodified": "",
-  "explorer.file.column.git.icon.mixed": "* ",
-  "explorer.file.column.git.icon.modified": " ",
-  "explorer.file.column.git.icon.untracked": " ",
-  "explorer.file.column.git.icon.deleted": " ",
-  "explorer.file.column.git.icon.added": " ",
+  "explorer.icon": {
+    "expanded": " ",
+    "collapsed": " ",
+    "selected": ""
+  },
+  "explorer.git.icon": {
+    "unmodified": "",
+    "mixed": "* ",
+    "modified": " ",
+    "untracked": " ",
+    "deleted": " ",
+    "added": " "
+  },
   // coc-emmet
   "emmet.includeLanguages": {
     "vue-html": "html",
@@ -119,12 +123,14 @@
   // coc-python
   "python.jediEnabled": true,
   "python.pythonPath": "/usr/bin/python3",
-  "python.linting.enabled": false,
-  "python.linting.pylintEnabled": false,
-  "python.linting.flake8Enabled": true,
-  "python.linting.flake8Args": [
-    "--ignore=E501,E402,F401,E701"
-  ],
+  "python.linting": {
+    "enabled": false,
+    "pylintEnabled": false,
+    "flake8Enabled": true,
+    "flake8Args": [
+      "--ignore=E501,E402,F401,E701"
+    ]
+  },
   "python.formatting.provider": "autopep8",
   "python.formatting.autopep8Args": [
     "--ignore=E501"

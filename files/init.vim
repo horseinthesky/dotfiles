@@ -53,7 +53,7 @@ set noswapfile         " Dont' use swapfile
 set iskeyword+=-       " treat dash separated words as a word text object
 set linebreak          " Wraps text at the end of a word. This is what prevents a word from being split in two.
 set mouse=v            " Neovim mouse disable
-set scrolloff=5        " Start scrolling 5 lines before edge of viewpoint
+set scrolloff=10       " Start scrolling 10 lines before edge of viewpoint
 set pastetoggle=<F2>   " Paste mode toggle to paste code properly
 set noshowmode         " We don't need to see things like -- INSERT -- anymore
 set guicursor=         " Fix for mysterious 'q' letters
