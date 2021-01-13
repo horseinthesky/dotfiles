@@ -31,10 +31,9 @@
 - name: Install required PyPI packages
   pip:
     name:
-      - ipython
+      - ptpython
       - isort
       - jedi
-      - black
       - mypy
       - flake8
       - autopep8
@@ -42,6 +41,12 @@
       - pynvim
   become: yes
   when: nvim_check.rc == 1
+
+- name: Create ptpython config symlink
+  file:
+    src: "{{ dotfiles_home }}/ptpython.py"
+    dest: "{{ user_home }}/.config/ptpython/confg.py"
+    state: link
 
 # Plugin manager
 - name: Makes sure autoload directory exists
