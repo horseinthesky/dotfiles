@@ -132,11 +132,11 @@ cht () {
 }
 
 ip4 () {
-  curl https://api.ipify.org
+  curl -w '\n' https://api.ipify.org
 }
 
 ip6 () {
-  curl https://api64.ipify.org
+  curl -w '\n' https://api64.ipify.org
 }
 
 # WSL 2 specific settings.
