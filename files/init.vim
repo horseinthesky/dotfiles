@@ -12,10 +12,8 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-fugitive'
-Plug 'junegunn/gv.vim'
 Plug 'godlygeek/tabular'
 Plug 'majutsushi/tagbar'
-Plug 'liuchengxu/vista.vim'
 Plug 'simnalamburt/vim-mundo'
 Plug 'AndrewRadev/sideways.vim'
 Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
@@ -32,12 +30,27 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'yggdroot/indentline'
 Plug 'machakann/vim-highlightedyank'
 Plug 'blueyed/vim-diminactive'
-Plug 'dhruvasagar/vim-zoom'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'sheerun/vim-polyglot'
 call plug#end()
 
+" ==== Syntax & Search ====
+syntax on
+set cursorline         " highlight cursorline
+set incsearch
+set nohlsearch
+set ignorecase
+set smartcase
+
+" ==== Theme ====
+set background=dark
+let g:gruvbox_contrast_dark='soft'
+let g:gruvbox_invert_selection='0'
+colorscheme $NVIM_COLORSCHEME
+
 " ================ SETTINGS ================
+let $CONFIG_DIR = expand('$HOME/dotfiles/files/')
+
 " Return to last edit position when opening files (You want this!)
 autocmd BufReadPost *
   \ if line("'\"") > 0 && line("'\"") <= line("$") |
@@ -58,6 +71,7 @@ set pastetoggle=<F2>   " Paste mode toggle to paste code properly
 set noshowmode         " We don't need to see things like -- INSERT -- anymore
 set guicursor=         " Fix for mysterious 'q' letters
 set shortmess+=c       " don't give |ins-completion-menu| messages
+set completeopt=menuone,noinsert,noselect " Set completeopt to have a better completion experience
 " set cmdheight=2      " More space for messages
 " set signcolumn=yes   " Always show signcolumns (left row)
 set updatetime=300     " Faster completion (default is 4000)
@@ -86,13 +100,10 @@ set undolevels=100
 set undofile
 set undodir=$HOME/.config/nvim/tmp/undo
 
-" ==== SYNTAX AND SEARCH ====
-syntax on
-set cursorline         " highlight cursorline
-set incsearch
-set nohlsearch
-set ignorecase
-set smartcase
+" ==== quickfix ====
+nnoremap ]q :cnext<cr>
+nnoremap [q :cprev<cr>
+nnoremap qc :cclose<cr>
 
 " ==== SPLITS ====
 nnoremap <leader>; :vsplit n<CR>
@@ -280,17 +291,6 @@ let g:tagbar_autofocus = 1
 let g:tagbar_autoclose = 1
 let g:tagbar_sort = 1
 
-" ==== Vista ====
-nnoremap <F7> :Vista!!<CR>
-let g:vista#renderer#enable_icon = 1
-let g:vista_default_executive = 'coc'
-let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
-let g:vista_fzf_preview = ['right:50%']
-let g:vista#renderer#icons = {
-  \   "function": "\uf794",
-  \   "variable": "\uf71b",
-  \  }
-
 " ==== Fugitive ====
 " conflict resolution
 nnoremap <leader>gd :Gvdiffsplit!<CR>
@@ -386,6 +386,7 @@ let g:coc_disable_startup_warning = 1
 " Install CoC plugins
 let g:coc_global_extensions = [
   \ 'coc-python',
+  \ 'coc-vimlsp',
   \ 'coc-snippets',
   \ 'coc-prettier',
   \ 'coc-json',
@@ -403,9 +404,9 @@ let g:coc_global_extensions = [
 
 " coc-translator settings
 " popup
-nmap <Leader>tp <Plug>(coc-translator-p)
+nmap <leader>tp <Plug>(coc-translator-p)
 " echo
-nmap <Leader>te <Plug>(coc-translator-e)
+nmap <leader>te <Plug>(coc-translator-e)
 " replace
 " nmap <Leader>r <Plug>(coc-translator-r)
 
@@ -517,16 +518,10 @@ let g:indentLine_color_term = 239
 
 nnoremap <leader>i :IndentLinesToggle<CR>
 
-" ==== Theme ====
-set background=dark
-let g:gruvbox_contrast_dark='soft'
-let g:gruvbox_invert_selection='0'
-colorscheme $NVIM_COLORSCHEME
-
 " ==== diminactive ===
 let g:diminactive_use_syntax = 1
 
 " ==== lightline ====
-if filereadable(expand("~/dotfiles/files/lightline.vim"))
-  source ~/dotfiles/files/lightline.vim
+if filereadable(expand('$CONFIG_DIR/lightline.vim'))
+  source $CONFIG_DIR/lightline.vim
 endif

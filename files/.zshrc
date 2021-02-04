@@ -181,7 +181,7 @@ export PIPXPATH="$HOME/.local/bin"
 
 # ======== ALIASES ========
 alias vi=$(which nvim)
-alias nv=$(which nvim)
+alias nv=$(which nvim-nightly)
 alias sr='sudo -E -s'
 alias diff='diff --color -u'
 alias vid='vdiff'
