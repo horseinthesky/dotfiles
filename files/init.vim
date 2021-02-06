@@ -34,13 +34,20 @@ Plug 'ntpeters/vim-better-whitespace'
 Plug 'sheerun/vim-polyglot'
 call plug#end()
 
-" ==== Syntax & Search ====
+" ==== Highlight & Search ====
 syntax on
 set cursorline         " highlight cursorline
 set incsearch
 set nohlsearch
 set ignorecase
 set smartcase
+
+if has('nvim-0.5')
+  augroup highlight_yank
+    autocmd!
+    autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank({timeout = 100})
+  augroup END
+endif
 
 " ==== Theme ====
 set background=dark
@@ -383,6 +390,7 @@ command! -bang -nargs=? -complete=dir Files
 
 " ==== coc ====
 let g:coc_disable_startup_warning = 1
+
 " Install CoC plugins
 let g:coc_global_extensions = [
   \ 'coc-python',
@@ -401,6 +409,9 @@ let g:coc_global_extensions = [
   \ 'coc-translator',
   \ 'coc-marketplace',
   \ ]
+
+" Close NVIM if CoC Explorer is the only buffer opened
+autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif
 
 " coc-translator settings
 " popup
@@ -447,18 +458,19 @@ function! s:check_back_space() abort
 endfunction
 
 " Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
-
-" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
-" position. Coc only does snippet and additional edit on confirm.
-" <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
-if exists('*complete_info')
-  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
 else
-  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+  inoremap <silent><expr> <c-@> coc#refresh()
 endif
 
-" Navigate diagnostics
+" Make <CR> auto-select the first completion item and notify coc.nvim to
+" format on enter, <cr> could be remapped by other vim plugin
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+" Use `[g` and `]g` to navigate diagnostics
+" " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
@@ -467,14 +479,16 @@ nmap <silent> gd <Plug>(coc-definition)
 " Open a list of references of an object in a split
 nmap <silent> gr <Plug>(coc-references)
 
-" Use gh - get hint - to show documentation in preview window.
+" Use gh to show documentation in preview window.
 nnoremap <silent> gh :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
   else
-    call CocAction('doHover')
+    execute '!' . &keywordprg . " " . expand('<cword>')
   endif
 endfunction
 
@@ -485,8 +499,8 @@ nnoremap <leader>f :call CocAction('format')<cr>
 " Highlight the symbol and its references when holding the cursor.
 " autocmd CursorHold * silent call CocActionAsync('highlight')
 
-" `:SI` command for organize imports of the current buffer.
-command! -nargs=0 SI :call CocAction('runCommand', 'editor.action.organizeImport')
+" `:OR` command for organize imports of the current buffer.
+command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport')
 nnoremap <leader>s :call CocAction('runCommand', 'editor.action.organizeImport')<CR>
 
 " Add missing go imports on save
