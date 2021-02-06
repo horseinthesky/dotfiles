@@ -1,8 +1,8 @@
 let s:viewplugins = '__Tagbar__\|__vista__\|__Mundo__\|__Mundo_Preview__\|NERD_tree\|\[Plugins\]\|\[coc-explorer\]'
 
 function! LightlineFugitive()
-  if exists('*fugitive#head')
-    let l:branch = fugitive#head()
+  if exists('*FugitiveHead')
+    let l:branch = FugitiveHead()
     return winwidth(0) > 55 ?
       \ expand('%:t') =~# s:viewplugins ? ''
         \ : l:branch !=# '' ? ' '.l:branch
@@ -143,7 +143,7 @@ let g:lightline = {
   \ 'active': {
   \   'left': [
   \     [ 'mode', 'paste' ],
-  \     [ 'fugitive', 'filename' ],
+  \     [ 'gitbranch', 'filename' ],
   \     [ 'cocstatus' ],
   \   ],
   \   'right': [
@@ -165,7 +165,7 @@ let g:lightline = {
   \   'percent': '☰ %3p%%',
   \ },
   \ 'component_function': {
-  \   'fugitive': 'LightlineFugitive',
+  \   'gitbranch': 'LightlineFugitive',
   \   'mode': 'LightlineMode',
   \   'fileformat': 'LighlineFileformat',
   \   'filename': 'LightlineFilenameExtended',
