@@ -58,8 +58,10 @@ if exists('+termguicolors')
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 endif
 let g:gruvbox_invert_selection='0'
+
 colorscheme $NVIM_COLORSCHEME
 
+" transparency toggle
 let g:is_transparent = 1
 hi Normal guibg=NONE ctermbg=NONE
 
@@ -72,7 +74,7 @@ function! ToggleTransparent()
         let g:is_transparent = 0
     endif
 endfunction
-nnoremap <C-t> :call ToggleTransparent()<CR>
+nnoremap <silent> <C-t> :call ToggleTransparent()<CR>
 
 " ================ SETTINGS ================
 let $CONFIG_DIR = expand('$HOME/dotfiles/files/')
