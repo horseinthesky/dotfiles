@@ -63,17 +63,18 @@ colorscheme $NVIM_COLORSCHEME
 
 " transparency toggle
 let g:is_transparent = 1
-hi Normal guibg=NONE ctermbg=NONE
+highlight Normal guibg=NONE ctermbg=NONE
 
 function! ToggleTransparent()
-    if g:is_transparent == 0
-        hi Normal guibg=NONE ctermbg=NONE
-        let g:is_transparent = 1
-    else
-        set background=dark
-        let g:is_transparent = 0
-    endif
+  if g:is_transparent == 0
+    highlight Normal guibg=NONE ctermbg=NONE
+    let g:is_transparent = 1
+  else
+    set background=dark
+    let g:is_transparent = 0
+  endif
 endfunction
+
 nnoremap <silent> <C-t> :call ToggleTransparent()<CR>
 
 " ================ SETTINGS ================
