@@ -90,6 +90,7 @@ if has("nvim")
   set inccommand=split " incremental substitution shows substituted text before applying
 endif
 set laststatus=2       " Always show statusline
+set noshowmode         " No to duplicate statusline
 set nobackup           " Don't create annoying backup files
 set noswapfile         " Dont' use swapfile
 set iskeyword+=-       " treat dash separated words as a word text object
