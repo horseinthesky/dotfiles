@@ -62,19 +62,8 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 
 # ======== SETTINGS ========
-export TERM="xterm-256color"
+# export TERM="xterm-256color"
 export EDITOR="nvim"
-
-export NVIM_COLORSCHEME=gruvbox
-
-# Shell colorscheme fix
-if [[ "$NVIM_COLORSCHEME" == "solarized8" ]]; then
-  # solarized8 color fix
-  source "$HOME/.local/share/nvim/plugged/vim-solarized8/scripts/solarized8.sh"
-else
-  # gruvbox colors fix
-  source "$HOME/.local/share/nvim/plugged/gruvbox/gruvbox_256palette_osx.sh"
-fi
 
 # Set system locales
 # export LC_ALL=C.UTF-8
@@ -89,7 +78,7 @@ if [[ -f "$HOME/.fzf.zsh" ]]; then
   export FZF_DEFAULT_COMMAND='fd --type f --type d --follow --hidden --exclude .git'
   export FZF_DEFAULT_OPTS='--height 60% --layout=reverse
     --preview "bat --style=numbers --color=always --line-range :500 {}"
-    --color 'fg:230,fg+:229,hl:214,hl+:214,info:108''
+    --color 'fg:#bdae93,fg+:#f9f5d7,hl:#fabd2f,hl+:#fabd2f,info:#8ec07c,pointer:#fb4934,marker:#fe8019,bg+:#3c3836''
   export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 fi
 

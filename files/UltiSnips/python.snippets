@@ -1,0 +1,14 @@
+global !p
+def token():
+    import secrets
+    return secrets.token_hex(16)
+
+def h(token):
+    import hashlib
+    return hashlib.sha256(token.encode('utf-8')).hexdigest()
+endglobal
+
+snippet token "Returns 16-byte token and a sha256 hash" !b
+${1:username}: ${2:`!p if not snip.c: snip.rv = token()`}
+`!p snip.rv = h(t[2])`: $1
+endsnippet

@@ -53,26 +53,39 @@ function! LightlineMode()
     \ : ''
 endfunction
 
-function! LightlineFilenameExtended()
-  let l:filename = LightlineFilename()
-  let l:modified = LightlineModified()
+function! Readonly()
+  return &readonly ? '' : ''
+endfunction
+function! Filename()
+  return winwidth(0) > 120 ?
+    \ fnamemodify(expand('%'), ':~:.')
+    \ : expand('%:t')
+endfunction
+function! FileOptions()
+  let l:fticon = (strlen(&filetype) ? WebDevIconsGetFileTypeSymbol() . ' ' : '')
+  let l:readonly = Readonly()
+  return ('' != l:readonly ? l:readonly . ' ' : '') .
+    \ ('' != expand('%:t') ? l:fticon . Filename() : '')
+endfunction
+function! Modified()
+  return &ft =~ 'help' ? '' : &modified ? ' ' : &modifiable ? '' : ' '
+endfunction
+
+function! LightlineFilename()
+  let l:filename = FileOptions()
+  let l:modified = Modified()
   if l:filename == ''
       return ''
   endif
   return expand('%:t') =~# s:viewplugins ? '' :
     \ join([l:filename, l:modified],'')
 endfunction
-function! LightlineReadonly()
-  return &readonly ? '' : ''
-endfunction
-function! LightlineFilename()
-  let l:fticon = (strlen(&filetype) ? WebDevIconsGetFileTypeSymbol() . ' ' : '')
-  let l:readonly = LightlineReadonly()
-  return ('' != l:readonly ? l:readonly . ' ' : '') .
-    \ ('' != expand('%:t') ? l:fticon . expand('%:t') : '')
-endfunction
-function! LightlineModified()
-  return &ft =~ 'help' ? '' : &modified ? ' ' : &modifiable ? '' : ' '
+
+function! LightlineCocStatus()
+  return winwidth(0) > 85 ?
+    \ expand('%:t') =~# s:viewplugins ? ''
+      \ : exists('*coc#rpc#start_server') ? coc#status() : ''
+    \ : ''
 endfunction
 
 function! LightlineTabFiletypeIcon(n)
@@ -139,7 +152,7 @@ augroup LightLineOnALE
 augroup end
 
 let g:lightline = {
-  \ 'colorscheme': $NVIM_COLORSCHEME,
+  \ 'colorscheme': 'gruvbox',
   \ 'active': {
   \   'left': [
   \     [ 'mode', 'paste' ],
@@ -147,7 +160,7 @@ let g:lightline = {
   \     [ 'cocstatus' ],
   \   ],
   \   'right': [
-  \     [ 'linter_checking', 'linter_errors', 'linter_warnings', 'percent', 'lineinfo', 'linter_ok' ],
+  \     [ 'linter_checking', 'linter_errors', 'linter_warnings', 'lineinfo', 'percent', 'linter_ok' ],
   \     [ 'fileformat' ],
   \     [ 'zoom' ],
   \   ]
@@ -168,10 +181,10 @@ let g:lightline = {
   \   'gitbranch': 'LightlineFugitive',
   \   'mode': 'LightlineMode',
   \   'fileformat': 'LighlineFileformat',
-  \   'filename': 'LightlineFilenameExtended',
+  \   'filename': 'LightlineFilename',
   \   'lineinfo': 'LightlineLineInfo',
   \   'percent': 'LightlinePercent',
-  \   'cocstatus': 'coc#status',
+  \   'cocstatus': 'LightlineCocStatus',
   \   'zoom': 'zoom#statusline',
   \ },
   \ 'tab_component_function': {

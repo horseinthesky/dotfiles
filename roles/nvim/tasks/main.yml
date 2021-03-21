@@ -39,13 +39,24 @@
       - autopep8
       - yamllint
       - pynvim
+      - python-language-server[all]
   become: yes
-  when: nvim_check.rc == 1
+
+- name: Install required npm packages
+  community.general.npm:
+    name: "{{ item }}"
+    global: yes
+  loop:
+    - pyright
+    - vscode-json-languageserver
+    - yaml-language-server
+    - vim-language-server
+  become: yes
 
 - name: Create ptpython config symlink
   file:
     src: "{{ dotfiles_home }}/ptpython.py"
-    dest: "{{ user_home }}/.config/ptpython/confg.py"
+    dest: "{{ user_home }}/.config/ptpython/config.py"
     state: link
 
 # Plugin manager
@@ -78,21 +89,30 @@
   file:
     path: "{{ user_home }}/.config/nvim"
     state: directory
-  when: nvim_check.rc == 1
 
 - name: Symlink coc-settings
   file:
     src: "{{ dotfiles_home }}/coc-settings.json"
     dest: "{{ user_home }}/.config/nvim/coc-settings.json"
     state: link
-  when: nvim_check.rc == 1
 
-- name: Symlink vimrc
+- name: Symlink init.vim
   file:
     src: "{{ dotfiles_home }}/init.vim"
     dest: "{{ user_home }}/.config/nvim/init.vim"
     state: link
-  when: nvim_check.rc == 1
+
+- name: Symlink lua
+  file:
+    src: "{{ dotfiles_home }}/lua"
+    dest: "{{ user_home }}/.config/nvim/lua"
+    state: link
+
+- name: Symlink snippets
+  file:
+    src: "{{ dotfiles_home }}/UltiSnips"
+    dest: "{{ user_home }}/.config/nvim/UltiSnips"
+    state: link
 
 - name: Install plugins
   command: nvim +':silent PlugInstall' +qa

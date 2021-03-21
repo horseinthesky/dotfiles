@@ -1,11 +1,24 @@
 [user]
-        name = {{ full_name }}
-        email = {{ git_email }}
+  name = {{ full_name }}
+  email = {{ git_email }}
 [core]
-        editor = vim
+  editor = nvim
 [merge]
-        tool = vimdiff
+  tool = vimdiff
 [credential]
-        helper = store
+  helper = store
 [push]
-        default = simple
+  default = simple
+[color]
+  branch = auto
+  diff = auto
+  status = auto
+[color "diff"]
+  meta = "#fabd2f"
+  frag = "#d3869b"
+  old = "#fb4934"
+  new = "#b8bb26"
+[color "status"]
+  added = "#b8bb26"
+  changed = "#fabd2f"
+  untracked = "#fb4934"

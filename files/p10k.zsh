@@ -50,28 +50,18 @@
   typeset -g POWERLEVEL9K_CUSTOM_HOST="custom_host"
   custom_host(){
     case $ID in
-      ubuntu)
-        OS_ICON="\uF31B"
-        ;;
-      debian)
-        OS_ICON="\uF306"
-        ;;
-      centos)
-        OS_ICON="\uF309"
-        ;;
-      manjaro)
-        OS_ICON="\uF312"
-        ;;
-      arch)
-        OS_ICON="\uF303"
-        ;;
-      *)
-        OS_ICON="\uF17C"
-        ;;
+      ubuntu) OS_ICON="\uF31B" ;;
+      debian) OS_ICON="\uF306" ;;
+      centos) OS_ICON="\uF309" ;;
+      manjaro) OS_ICON="\uF312" ;;
+      arch) OS_ICON="\uF303" ;;
+      *) OS_ICON="\uF17C" ;;
     esac
+
     if [[ -n "$WSL_DISTRO_NAME" ]]; then
       OS_ICON="\uF17A $OS_ICON"
     fi
+
     echo -n "$OS_ICON $HOST"
   }
 
@@ -88,13 +78,10 @@
   typeset -g POWERLEVEL9K_CUSTOM_USER="custom_user"
   custom_user(){
     case $USERNAME in
-      "root")
-        USER_ICON=$POWERLEVEL9K_ROOT_ICON
-        ;;
-      *)
-        USER_ICON=$POWERLEVEL9K_USER_ICON
-        ;;
+      root) USER_ICON=$POWERLEVEL9K_ROOT_ICON ;;
+      *) USER_ICON=$POWERLEVEL9K_USER_ICON ;;
     esac
+
     echo -n "$USER_ICON $USERNAME $(zsh_detect_ssh)"
   }
 
