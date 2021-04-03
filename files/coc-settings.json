@@ -1,7 +1,5 @@
 {
-  "coc.preferences.formatOnSaveFiletypes": [
-    "*"
-  ],
+  "coc.preferences.formatOnSaveFiletypes": ["*"],
   "coc.preferences.snippetStatusText": " ",
   "suggest.languageSourcePriority": 99,
   "suggest.timeout": 500,
@@ -36,12 +34,8 @@
   "diagnostic.displayByAle": true,
   // coc-snippets
   "snippets.extends": {
-    "javascriptreact": [
-      "javascript"
-    ],
-    "typescript": [
-      "javascript"
-    ]
+    "javascriptreact": ["javascript"],
+    "typescript": ["javascript"]
   },
   // coc-explorer
   "explorer.width": 40,
@@ -68,11 +62,7 @@
   "explorer.file.child.template": "[selection | clip | 1] [indent][icon | 1] [diagnosticError & 1][filename omitCenter 1][readonly] [linkIcon & 1][link growRight 1 omitCenter 5][size]",
   "explorer.keyMappings.global": {
     "<tab>": "toggleSelection",
-    "<cr>": [
-      "expanded?",
-      "collapse",
-      "expand"
-    ],
+    "<cr>": ["expanded?", "collapse", "expand"],
     "gl": "expandRecursive",
     "gh": "collapseRecursive",
     "e": "open",
@@ -115,11 +105,7 @@
     "javascript": "javascriptreact"
   },
   // coc-html
-  "html.filetypes": [
-    "html",
-    "handlebars",
-    "blade"
-  ],
+  "html.filetypes": ["html", "handlebars", "blade"],
   // coc-python
   "python.jediEnabled": true,
   "python.pythonPath": "/usr/bin/python3",
@@ -127,20 +113,14 @@
     "enabled": false,
     "pylintEnabled": false,
     "flake8Enabled": true,
-    "flake8Args": [
-      "--ignore=E501,E402,F401,E701"
-    ]
+    "flake8Args": ["--ignore=E501,E402,F401,E701"]
   },
   "python.formatting.provider": "autopep8",
-  "python.formatting.autopep8Args": [
-    "--ignore=E501"
-  ],
+  "python.formatting.autopep8Args": ["--ignore=E501"],
   // coc-translator
   "translator": {
     "toLang": "ru",
-    "engines": [
-      "google"
-    ]
+    "engines": ["google"]
   },
   // coc-go
   "go.goplsOptions": {

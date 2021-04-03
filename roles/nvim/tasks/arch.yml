@@ -2,6 +2,7 @@
   pacman:
     name:
       - cmake
+      - ninja
       - ctags
       - nodejs
       - npm

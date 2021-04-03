@@ -13,10 +13,12 @@ colorscheme gruvbox
 " Transparency toggle
 let g:is_transparent = 1
 highlight Normal guibg=NONE ctermbg=NONE
+highlight SignColumn guibg=NONE ctermbg=NONE
 
 function! ToggleTransparent()
   if g:is_transparent == 0
     highlight Normal guibg=NONE ctermbg=NONE
+    highlight SignColumn guibg=NONE ctermbg=NONE
     let g:is_transparent = 1
   else
     set background=dark

@@ -11,7 +11,6 @@ Plug 'dstein64/vim-startuptime'
 Plug 'liuchengxu/vim-which-key'
 Plug 'easymotion/vim-easymotion'
 Plug 'mg979/vim-visual-multi'
-Plug 'matze/vim-move'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
@@ -19,7 +18,6 @@ Plug 'tpope/vim-fugitive'
 Plug 'godlygeek/tabular'
 Plug 'majutsushi/tagbar'
 Plug 'simnalamburt/vim-mundo'
-Plug 'AndrewRadev/sideways.vim'
 Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
 Plug 'will133/vim-dirdiff'
 Plug 'AndrewRadev/linediff.vim'
@@ -62,8 +60,8 @@ let g:ale_fixers = {
   \ 'javascript': ['prettier', 'eslint'],
   \ '*': ['remove_trailing_lines', 'trim_whitespace']
   \ }
-let g:ale_python_flake8_options = '--ignore=E501,E402,F401,E701' " ignore long-lines, import on top of the file, unused modules and statement with colon
-let g:ale_python_autopep8_options = '--ignore=E501'              " ignore long-lines for autopep8 fixer
+let g:ale_python_flake8_options = '--max-line-length 160 --ignore=E402' " ignore import on top of the file
+let g:ale_python_autopep8_options = '--max-line-length 160'
 let g:ale_yaml_yamllint_options='-d "{extends: relaxed, rules: {line-length: disable}}"'
 
 " let g:airline#extensions#ale#enabled = 1
@@ -100,9 +98,6 @@ nmap f <Plug>(easymotion-s)
 " ==== vim-visual-multi ====
 let g:VM_mouse_mappings = 1
 
-" ==== vim-move ====
-let g:move_key_modifier = 'S'
-
 " ==== linediff ====
 map <leader>ld :Linediff<CR>
 map <leader>lr :LinediffReset<CR>
@@ -119,10 +114,6 @@ let g:mundo_close_on_revert = 1
 " ==== doge ====
 " Runs on <leader>d and TAB/S-TAB for jumping TODOs
 let g:doge_doc_standard_python = 'google'
-
-" ==== sideways ====
-nnoremap <leader>h :SidewaysLeft<cr>
-nnoremap <leader>l :SidewaysRight<cr>
 
 " ==== fzf ====
 let g:fzf_colors = {
@@ -290,7 +281,7 @@ endfunction
 
 " Format using linters
 command! -nargs=0 Format :call CocAction('format')
-nnoremap <leader>f :call CocAction('format')<cr>
+nnoremap <leader>F :call CocAction('format')<cr>
 
 " Highlight the symbol and its references when holding the cursor.
 " autocmd CursorHold * silent call CocActionAsync('highlight')

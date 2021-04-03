@@ -1,6 +1,21 @@
+" ==== Providers ====
+" let g:loaded_clipboard_provider = 0
+let g:clipboard = {
+  \ 'name': 'void',
+  \ 'copy': {
+  \   '+': {-> v:true},
+  \   '*': {-> v:true}
+  \ },
+  \ 'paste': {
+  \   '+': {-> []},
+  \   '*': {-> []}
+  \ }
+\ }
 let g:loaded_python_provider = 0
 let g:loaded_ruby_provider = 0
+let g:loaded_perl_provider = 0
 let g:python3_host_prog = '/usr/bin/python3'
+let g:node_host_prog = '/usr/lib/node_modules/neovim/bin/cli.js'
 
 syntax on
 
@@ -18,7 +33,6 @@ set iskeyword+=-       " Treat dash separated words as a word text object
 set mouse=v            " Diable mouse (if enabled temp. disable with holding Shift)
 set scrolloff=10       " Start scrolling 10 lines before edge of viewpoint
 set pastetoggle=<F2>   " Paste mode toggle to paste code properly
-set noshowmode         " We don't need to see things like -- INSERT -- anymore
 set guicursor=         " Fix for mysterious 'q' letters
 set completeopt=menu,menuone,noselect " Set completeopt to have a better completion experience
 set shortmess+=c       " don't give |ins-completion-menu| messages

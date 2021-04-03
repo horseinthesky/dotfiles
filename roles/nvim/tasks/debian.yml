@@ -21,6 +21,7 @@
   apt:
     name:
       - cmake
+      - ninja-build
       - exuberant-ctags
       - shellcheck
     state: latest

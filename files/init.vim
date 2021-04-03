@@ -2,6 +2,7 @@ let $CONFIG_DIR = expand('$HOME/dotfiles/files/nvim/')
 
 " ==== Stable config ====
 if !has('nvim-0.5')
+  set packpath-=~/.local/share/nvim/site
   source $CONFIG_DIR/setup.vim
 endif
 
@@ -11,49 +12,10 @@ if has('nvim-0.5')
   lua require 'setup'
 endif
 
-call which_key#register('<leader>', 'g:which_key_map')
-nnoremap <silent> <leader> :<c-u>WhichKey '<leader>'<CR>
-vnoremap <silent> <leader> :<c-u>WhichKeyVisual '<leader>'<CR>
-let g:which_key_use_floating_win = 0
-let g:which_key_max_size = 0
-let g:which_key_timeout = 100
-let g:which_key_display_names = {'<CR>': '↵', '<TAB>': '⇆'}
-
-autocmd! FileType which_key
-autocmd FileType which_key set laststatus=0 | autocmd BufLeave <buffer> set laststatus=2
-
-let g:which_key_map =  {}
-let g:which_key_map["'"] = [ '<C-W>s', 'split below']
-let g:which_key_map.s = {
-  \ 'name' : '+sessions',
-  \ 'c' : ['SClose!' , 'close session'],
-  \ 'd' : ['SDelete!', 'delete session'],
-  \ 'l' : ['SLoad!', 'load session'],
-  \ 's' : ['SSave!', 'save session'],
-\ }
-
-" let g:which_key_map['<leader>'] = {
-"       \ 'name' : '+windows' ,
-"       \ "'" : ["<leader>'"  , 'new horizontal split']  ,
-"       \ 'w' : ['<C-W>w'     , 'other-window']          ,
-"       \ 'd' : ['<C-W>c'     , 'delete-window']         ,
-"       \ '-' : ['<C-W>s'     , 'split-window-below']    ,
-"       \ '|' : ['<C-W>v'     , 'split-window-right']    ,
-"       \ '2' : ['<C-W>v'     , 'layout-double-columns'] ,
-"       \ 'h' : ['<C-W>h'     , 'window-left']           ,
-"       \ 'j' : ['<C-W>j'     , 'window-below']          ,
-"       \ 'l' : ['<C-W>l'     , 'window-right']          ,
-"       \ 'k' : ['<C-W>k'     , 'window-up']             ,
-"       \ 'H' : ['<C-W>5<'    , 'expand-window-left']    ,
-"       \ 'J' : [':resize +5'  , 'expand-window-below']   ,
-"       \ 'L' : ['<C-W>5>'    , 'expand-window-right']   ,
-"       \ 'K' : [':resize -5'  , 'expand-window-up']      ,
-"       \ '=' : ['<C-W>='     , 'balance-window']        ,
-"       \ 's' : ['<C-W>s'     , 'split-window-below']    ,
-"       \ 'v' : ['<C-W>v'     , 'split-window-below']    ,
-"       \ '?' : ['Windows'    , 'fzf-window']            ,
-"       \ }
-
+nm <silent> <F1> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name")
+    \ . '> trans<' . synIDattr(synID(line("."),col("."),0),"name")
+    \ . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name")
+    \ . ">"<CR>
 " ======== Autocommands ========
 augroup auto_checktime
   autocmd!

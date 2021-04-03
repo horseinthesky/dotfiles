@@ -103,16 +103,18 @@ weather () {
 }
 
 rate () {
-  local FROM="${1:-USD}"
-  local TO="${2:-RUB}"
-  curl -s https://api.ratesapi.io/api/latest\?base\="${FROM}" | jq .rates."${TO}"
+  local from="${1:-usd}"
+  local to="${2:-rub}"
+  local rate=$(curl -s https://api.ratesapi.io/api/latest\?base="${(U)from}" | jq .rates."${(U)to}")
+  echo "1 ${(U)from} is ${rate} ${(U)to}"
 }
 
 crate () {
   local coin="${1:-bitcoin}"
   local currency="${2:-usd}"
-  curl -s https://api.coingecko.com/api/v3/simple/price\?ids="${coin}"\&vs_currencies="${currency}" \
-    | jq ."${coin}"."${currency}"
+  local crate=$(curl -s https://api.coingecko.com/api/v3/simple/price\?ids="${coin}"\&vs_currencies="${currency}" \
+    | jq ."${coin}"."${currency}")
+  echo "1 ${coin} is ${crate} $currency"
 }
 
 cht () {
@@ -143,10 +145,11 @@ if grep -qE "(Microsoft|WSL)" /proc/version &>/dev/null; then
     # Requires: https://sourceforge.net/projects/vcxsrv/ (or alternative)
     export DISPLAY=:0
 fi
+
 # ==== Yandex ====
 # ssh-agent
 # YA_HOSTNAMES=('horseinthesky-w' 'i104058879')
-if [[ $(cat /etc/hostname) == 'horseinthesky-w' ]] || [[ $(cat /etc/hostname) == 'i104058879' ]] ; then
+if [[ $(cat /etc/hostname) == 'i104058879' ]] ; then
   export PSSH_AUTH_SOCK="/mnt/c/Users/$USER/AppData/Local/Temp/pssh-agent.sock"
   export SSH_AUTH_SOCK="${PSSH_AUTH_SOCK}"
   [[ $(ssh-add -l) =~ "/home/$USER/.ssh/id_rsa" ]] || ssh-add

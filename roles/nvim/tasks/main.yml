@@ -40,6 +40,8 @@
       - yamllint
       - pynvim
       - python-language-server[all]
+      - pyls-mypy
+      - pyls-isort
   become: yes
 
 - name: Install required npm packages
@@ -47,10 +49,14 @@
     name: "{{ item }}"
     global: yes
   loop:
+    - neovim
     - pyright
     - vscode-json-languageserver
     - yaml-language-server
     - vim-language-server
+    - bash-language-server
+    - prettier
+    - lua-fmt
   become: yes
 
 - name: Create ptpython config symlink

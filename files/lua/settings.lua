@@ -1,12 +1,23 @@
 local utils = require('utils')
 
-local cmd = vim.cmd
-local indent = 2
-
 -- Neovim providers
+-- vim.g.loaded_clipboard_provider = 0
+vim.g.clipboard = {
+  name = "void",
+  copy = {
+    ["+"] = true,
+    ["*"] = true
+  },
+  paste = {
+    ["+"] = {},
+    ["*"] = {}
+  }
+}
 vim.g.loaded_python_provider = 0
 vim.g.loaded_ruby_provider = 0
+vim.g.loaded_perl_provider = 0
 vim.g.python3_host_prog = '/usr/bin/python3'
+vim.g.node_host_prog = '/usr/lib/node_modules/neovim/bin/cli.js'
 
 -- Set options
 local settings = {
@@ -25,7 +36,6 @@ local settings = {
   mouse = 'v',                             --  Diable mouse (if enabled temp. disable with holding Shift)
   scrolloff = 10,                          --  Start scrolling 10 lines before edge of viewpoint
   pastetoggle = '<F2>',                    --  Paste mode toggle to paste code properly
-  showmode = false,                        --  We don't need to see things like --INSERT-- anymore
   guicursor = '',                          --  Fix for mysterious 'q' letters
   completeopt = 'menu,menuone,noselect',   --  Set completeopt to have a better completion experience
   shortmess = 'filnxtToOFcI',              --  Don't give |ins-completion-menu| messages
@@ -55,7 +65,7 @@ local settings = {
   history = 100,
   undolevels = 100,
   undofile = true,
-  undodir = '~/.config/nvim/tmp/undo',
+  undodir = vim.fn.stdpath('config') .. '/tmp/undo',
 
   -- Splits
   splitbelow = true,                       --  new horizontal split to appear below
@@ -72,7 +82,7 @@ local settings = {
   shiftround = true,                       --  When shifting lines, round the indentation to the nearest multiple of “shiftwidth.”
 }
 
-cmd [[syntax enable]]
+vim.cmd [[syntax enable]]
 for option, value in pairs(settings) do
   if type(value) == 'table' then
     value, scope = unpack(value)
@@ -97,4 +107,4 @@ vim.api.nvim_exec([[
 ]], false)
 
 -- Highlight on yank
-cmd 'autocmd TextYankPost * lua vim.highlight.on_yank {on_visual = false, timeout = 100}'
+vim.cmd [[autocmd TextYankPost * lua vim.highlight.on_yank {on_visual = false, timeout = 100}]]

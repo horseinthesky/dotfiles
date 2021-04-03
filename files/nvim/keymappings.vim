@@ -21,23 +21,23 @@ inoremap <C-Down> <cmd>resize -3<CR>
 " ==== Buffers ====
 nnoremap ]b :bnext<cr>
 nnoremap [b :bprev<cr>
-nnoremap bd :bdelete<cr>
+nnoremap <leader>bd :bdelete<cr>
 
 " ==== Tabs ====
 " Useful mappings for managing tabs
 nnoremap ]t :tabnew<cr>
 nnoremap [t :tabprevious<cr>
-nnoremap tt :tabnew<CR>
-nnoremap tl :tabnext<cr>
-nnoremap th :tabprevious<cr>
-nnoremap tj :tablast<CR>
-nnoremap tk :tabfirst<CR>
-nnoremap tc :tabclose<CR>
-nnoremap to :tabonly<cr>
-nnoremap tH :-tabmove<CR>
-nnoremap tL :+tabmove<CR>
-nnoremap tJ :tabmove 0<CR>
-nnoremap tK :tabmove $<CR>
+nnoremap <leader>tt :tabnew<CR>
+nnoremap <leader>tl :tabnext<cr>
+nnoremap <leader>th :tabprevious<cr>
+nnoremap <leader>tj :tablast<CR>
+nnoremap <leader>tk :tabfirst<CR>
+nnoremap <leader>tc :tabclose<CR>
+nnoremap <leader>to :tabonly<cr>
+nnoremap <leader>tH :-tabmove<CR>
+nnoremap <leader>tL :+tabmove<CR>
+nnoremap <leader>tJ :tabmove 0<CR>
+nnoremap <leader>tK :tabmove $<CR>
 
 " <tab> / <s-tab> | Circular windows navigation
 nnoremap <tab> :tabn<cr>
@@ -47,11 +47,17 @@ nnoremap <S-tab> :tabp<cr>
 tnoremap <expr> <Esc> (&filetype == "fzf") ? "<Esc>" : "<c-\><c-n>"
 nnoremap <leader>` :10split <Bar> :terminal<CR>
 
-" ==== quickfix ====
-nnoremap qo :copen
+" ==== quickfix list ====
+nnoremap <leader>qo :copen
 nnoremap ]q :cnext<cr>
 nnoremap [q :cprev<cr>
-nnoremap qc :cclose<cr>
+nnoremap <leader>qc :cclose<cr>
+
+" ==== location list  ====
+nnoremap <leader>lo :lopen
+nnoremap ]l :lnext<cr>
+nnoremap [l :lprev<cr>
+nnoremap <leader>lc :lclose<cr>
 
 " ==== Bindings ====
 " Replace all tabs with 4 whitespaces
@@ -68,7 +74,7 @@ vnoremap < <gv
 vnoremap > >gv
 
 " Reload init.vim
-nnoremap <leader>r :source ~/dotfiles/files/init.vim<cr>
+nnoremap <expr><leader>r (&filetype == 'lua') ? '<cmd>luafile %<CR>' : '<cmd>source %<CR>'
 
 " Alternate way to save
 nnoremap <C-s> :w<CR>
