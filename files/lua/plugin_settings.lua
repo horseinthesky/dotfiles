@@ -25,44 +25,58 @@ vim.api.nvim_exec(
 )
 
 -- lspkind
-require"lspkind".init()
+require "lspkind".init()
 
 -- ==== Feature plugin settings ====
 -- telescope
-local actions = require('telescope.actions')
+local actions = require("telescope.actions")
 
-require('telescope').setup {
+require("telescope").setup {
   defaults = {
     mappings = {
       i = {
         ["<esc>"] = actions.close,
         ["<C-J>"] = actions.move_selection_next,
-        ["<C-K>"] = actions.move_selection_previous,
-      },
+        ["<C-K>"] = actions.move_selection_previous
+      }
     },
     prompt_position = "top",
     sorting_strategy = "ascending",
-    scroll_strategy = 'cycle',
+    scroll_strategy = "cycle",
     -- layout_strategy = 'vertical',
     prompt_prefix = " ",
     selection_caret = " ",
-    preview_cutoff = 80,
+    layout_defaults = {
+      horizontal = {
+        preview_width = 0.6,
+        -- width_padding = 10,
+        -- height_padding = 7
+      },
+    },
+    preview_cutoff = 80
   },
   extensions = {
     fzy_native = {
       override_generic_sorter = false,
-      override_file_sorter = true,
+      override_file_sorter = true
     }
   }
 }
 
-require('telescope').load_extension('fzy_native')
+require("telescope").load_extension("fzy_native")
 
 map("n", "<leader>fb", [[<cmd>lua require('telescope.builtin').builtin()<CR>]])
-map("n", "<leader>ff", [[<cmd>lua require('telescope.builtin').find_files()<CR>]])
-map("n", "<leader>fg", [[<cmd>lua require('telescope.builtin').live_grep()<CR>]])
+map("n", "<leader>ff", [[<cmd>lua require('telescope.builtin').find_files { hidden = true}<CR>]])
+map("n", "<leader>fgb", [[<cmd>lua require('telescope.builtin').git_branches()<CR>]])
+map("n", "<leader>fgc", [[<cmd>lua require('telescope.builtin').git_commits()<CR>]])
+map("n", "<leader>fgs", [[<cmd>lua require('telescope.builtin').git_status()<CR>]])
+map("n", "<leader>fG", [[<cmd>lua require('telescope.builtin').live_grep()<CR>]])
 map("n", "<leader>fw", [[<cmd>lua require('telescope.builtin').grep_string { search = vim.fn.expand("<cword>") }<CR>]])
-map("n", "<leader>fs", [[<cmd>lua require('telescope.builtin').grep_string({ search = vim.fn.input("Grep For > ")})<CR>]])
+map(
+  "n",
+  "<leader>fs",
+  [[<cmd>lua require('telescope.builtin').grep_string({ search = vim.fn.input("Grep For > ")})<CR>]]
+)
 map("n", "<leader>fl", [[<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>]])
 map("n", "<leader>fm", [[<cmd>lua require('telescope.builtin').keymaps()<CR>]])
 map("n", "<leader>fo", [[<cmd>lua require('telescope.builtin').vim_options()<CR>]])
@@ -147,11 +161,11 @@ map("n", "<leader>", ":WhichKey '<leader>'<CR>")
 map("v", "<leader>", ":<c-u>WhichKeyVisual '<leader>'<CR>")
 
 vim.api.nvim_exec(
-	[[
+  [[
 		autocmd! FileType which_key
 		autocmd FileType which_key set laststatus=0 | autocmd BufLeave <buffer> set laststatus=2
-	]]
-	, false
+	]],
+  false
 )
 
 vim.g.which_key_use_floating_win = 0
@@ -159,21 +173,21 @@ vim.g.which_key_max_size = 30
 vim.g.which_key_timeout = 100
 vim.g.which_key_display_names = {["<CR>"] = "↵", ["<TAB>"] = "⇆"}
 
-vim.g.which_key_map =  {}
+vim.g.which_key_map = {}
 vim.g.which_key_map["'"] = {"<C-W>s", "split below"}
 vim.g.which_key_map.s = {
-  name = '+sessions',
-  c = { 'SClose!' , 'close session' },
-  d = { 'SDelete!', 'delete session' },
-  l = { 'SLoad!', 'load session' },
-  s = { 'SSave!', 'save session' },
+  name = "+sessions",
+  c = {"SClose!", "close session"},
+  d = {"SDelete!", "delete session"},
+  l = {"SLoad!", "load session"},
+  s = {"SSave!", "save session"}
 }
 
 vim.g.which_key_map.c = {
-  name = '+lsp',
-  o = { '<cmd>Command' , 'commands' },
-  s = { '<cmd>ColorSwapFgBg', 'color swap fg bf' },
-  t = { '<cmd>ColorToggle', 'color toggle' },
+  name = "+lsp",
+  o = {"<cmd>Command", "commands"},
+  s = {"<cmd>ColorSwapFgBg", "color swap fg bf"},
+  t = {"<cmd>ColorToggle", "color toggle"}
 }
 
 vim.cmd [[call which_key#register('<leader>', 'g:which_key_map')]]
@@ -187,7 +201,7 @@ map("n", "<S-Up>", ":<C-U>call vm#commands#add_cursor_up(0, v:count1)<CR>")
 map("n", "<S-Down>", ":<C-U>call vm#commands#add_cursor_down(0, v:count1)<CR>")
 
 -- peekup
-require('nvim-peekup.config').on_keystroke["delay"] = ""
+require("nvim-peekup.config").on_keystroke["delay"] = ""
 
 -- vim-fugitive
 map("n", "<leader>gd", "<cmd>Gvdiffsplit!<CR>")
@@ -254,7 +268,7 @@ vim.g.indent_blankline_use_treesitter = true
 vim.g.indent_blankline_show_first_indent_level = false
 vim.g.indent_blankline_show_trailing_blankline_indent = false
 vim.g.indent_blankline_char_list = {"|", "¦", "┆", "┊"}
-vim.g.indent_blankline_space_char = ' '
+vim.g.indent_blankline_space_char = " "
 vim.api.nvim_exec(
   [[
     highlight IndentBlanklineChar guifg=#504945 gui=nocombine
@@ -300,7 +314,7 @@ vim.g.bufferline = {
   tabpages = false,
   maximum_padding = 1,
   icon_separator_active = "",
-  icon_separator_inactive = "▎",
+  icon_separator_inactive = "▎"
 }
 
 map("n", "<leader>bp", "<cmd>BufferPick<CR>")

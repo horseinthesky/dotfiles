@@ -1,5 +1,18 @@
 let $CONFIG_DIR = expand('$HOME/dotfiles/files/nvim/')
 
+" ==== clipboard ====
+let g:clipboard = {
+  \ 'name': 'void',
+  \ 'copy': {
+  \   '+': {-> v:true},
+  \   '*': {-> v:true}
+  \ },
+  \ 'paste': {
+  \   '+': {-> []},
+  \   '*': {-> []}
+  \ }
+\ }
+
 " ==== Stable config ====
 if !has('nvim-0.5')
   set packpath-=~/.local/share/nvim/site
@@ -12,10 +25,6 @@ if has('nvim-0.5')
   lua require 'setup'
 endif
 
-nm <silent> <F1> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name")
-    \ . '> trans<' . synIDattr(synID(line("."),col("."),0),"name")
-    \ . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name")
-    \ . ">"<CR>
 " ======== Autocommands ========
 augroup auto_checktime
   autocmd!

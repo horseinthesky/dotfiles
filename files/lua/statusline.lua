@@ -103,6 +103,18 @@ local function in_vcs()
 end
 
 gls.left[1] = {
+  Paste = {
+    provider = function()
+      local _, fg, _ = unpack(mode_hl())
+      highlight('GalaxyPaste', colors.bright_red, fg)
+      if vim.o.paste then return 'Paste' end
+      return ''
+    end,
+    icon = '  ' .. icons.paste .. ' ',
+    highlight = 'GalaxyPaste',
+  }
+}
+gls.left[2] = {
   ViMode = {
     provider = function()
       local label, fg, nested_fg = unpack(mode_hl())
@@ -116,7 +128,7 @@ gls.left[1] = {
     separator_highlight = 'GalaxyViModeInv',
   }
 }
-gls.left[2] = {
+gls.left[3] = {
   FileIcon = {
     provider = function()
       local extention = vim.fn.expand('%:e')
@@ -132,7 +144,7 @@ gls.left[2] = {
     condition = buffer_not_empty,
   }
 }
-gls.left[3] = {
+gls.left[4] = {
   FileName = {
     provider = function()
       if vim.bo.buftype == 'terminal' then return '' end
@@ -157,20 +169,10 @@ gls.left[3] = {
     condition = buffer_not_empty,
   }
 }
-gls.left[4] = {
+gls.left[5] = {
   LeftSep = {
     provider = function() return sep.left_filled end,
     highlight = 'GalaxyViModeInvNested',
-  }
-}
-gls.left[5] = {
-  Paste = {
-    provider = function()
-      if vim.o.paste then return 'Paste ' end
-      return ''
-    end,
-    icon = '  ' .. icons.paste .. ' ',
-    highlight = {colors.bright_purple, colors.bg1},
   }
 }
 gls.left[6] = {
@@ -191,7 +193,7 @@ gls.left[7] = {
   GitBranch = {
     provider = function ()
       if in_vcs() and wide_enough(85) then
-        return vcs.get_git_branch()
+        return vcs.get_git_branch() .. ' '
       end
       return ''
     end,

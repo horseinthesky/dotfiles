@@ -1,16 +1,5 @@
 " ==== Providers ====
 " let g:loaded_clipboard_provider = 0
-let g:clipboard = {
-  \ 'name': 'void',
-  \ 'copy': {
-  \   '+': {-> v:true},
-  \   '*': {-> v:true}
-  \ },
-  \ 'paste': {
-  \   '+': {-> []},
-  \   '*': {-> []}
-  \ }
-\ }
 let g:loaded_python_provider = 0
 let g:loaded_ruby_provider = 0
 let g:loaded_perl_provider = 0
