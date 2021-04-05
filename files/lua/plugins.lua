@@ -29,10 +29,13 @@ packer.startup(function(use)
 
   -- LSP and completion
   use "neovim/nvim-lspconfig"
-  use "nvim-lua/completion-nvim"
-  use "steelsojka/completion-buffers"
+  use "hrsh7th/nvim-compe"
+  use {"tzachar/compe-tabnine", run="./install.sh" }
+  -- use "nvim-lua/completion-nvim"
+  -- use "steelsojka/completion-buffers"
+  -- use {"aca/completion-tabnine", run = "./install.sh"}
+  -- lsp addons
   use "glepnir/lspsaga.nvim"
-  use {"aca/completion-tabnine", run = "./install.sh"}
   use "onsails/lspkind-nvim"
 
   -- Features

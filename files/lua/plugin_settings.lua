@@ -25,7 +25,11 @@ vim.api.nvim_exec(
 )
 
 -- lspkind
-require "lspkind".init()
+require("lspkind").init {
+  symbol_map = {
+    Class = "",
+  }
+}
 
 -- ==== Feature plugin settings ====
 -- telescope
@@ -48,10 +52,10 @@ require("telescope").setup {
     selection_caret = " ",
     layout_defaults = {
       horizontal = {
-        preview_width = 0.6,
         -- width_padding = 10,
-        -- height_padding = 7
-      },
+        -- height_padding = 7,
+        preview_width = 0.6
+      }
     },
     preview_cutoff = 80
   },
@@ -202,6 +206,7 @@ map("n", "<S-Down>", ":<C-U>call vm#commands#add_cursor_down(0, v:count1)<CR>")
 
 -- peekup
 require("nvim-peekup.config").on_keystroke["delay"] = ""
+-- vim.g.peekup_paste_after = '""'
 
 -- vim-fugitive
 map("n", "<leader>gd", "<cmd>Gvdiffsplit!<CR>")

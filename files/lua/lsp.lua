@@ -1,40 +1,28 @@
 local utils = require "utils"
-local icons = utils.icons
+-- local icons = utils.icons
 local lspconfig = require "lspconfig"
 
--- Completion
-vim.g.completion_auto_change_source = 1
--- vim.g.completion_confirm_key = ""
-vim.g.completion_matching_strategy_list = {"exact", "substring", "fuzzy"}
-vim.g.completion_chain_complete_list = {
-  default = {
-    default = {
-      {complete_items = {"lsp"}},
-      {complete_items = {"snippet", "UltiSnips"}},
-      {complete_items = {"tabnine"}},
-      {complete_items = {"path", "buffers"}},
-      {mode = {"<c-p>", "<c-n>", "file"}}
-    }
-    -- string = {},
-    -- comment = {}
+-- compe
+require'compe'.setup {
+  preselect = 'disable',
+  source_timeout = 100,
+
+  source = {
+    path = true,
+    buffer = true,
+    calc = true,
+    nvim_lsp = true,
+    ultisnips = true,
+    tabnine = true,
+    emoji = true,
   },
-  -- vim = {
-  --   {complete_items = {'lsp'}},
-  --   {complete_items = {'snippet'}},
-  --   {mode = 'cmd'}
-  -- },
-  python = {
-    {complete_items = {"lsp"}},
-    {complete_items = {"snippet", "UltiSnips"}},
-    {complete_items = {"tabnine"}},
-    {complete_items = {"path", "buffers"}},
-    {mode = {"<c-p>", "<c-n>", "file"}}
-  }
 }
 
 -- Servers setup
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+
 local on_attach = function(client, _)
-  require"completion".on_attach(client)
 
   utils.opt("omnifunc", "v:lua.vim.lsp.omnifunc")
 
@@ -85,13 +73,14 @@ local on_attach = function(client, _)
   end
 end
 
-local luafmt = require "efm".luafmt
-local flake8 = require "efm".flake8
-local isort = require "efm".isort
-local autopep8 = require "efm".autopep8
-local mypy = require "efm".mypy
-local prettier = require "efm".prettier
--- local shellcheck = require'efm'.shellcheck
+local efm = require "efm"
+local luafmt = efm.luafmt
+-- local flake8 = efm.flake8
+-- local isort = efm.isort
+-- local autopep8 = efm.autopep8
+-- local mypy = efm.mypy
+local prettier = efm.prettier
+-- local shellcheck = efm.shellcheck
 
 local languages = {
   lua = {luafmt},
@@ -119,6 +108,7 @@ lspconfig.efm.setup {
 lspconfig.pyls.setup {
   cmd = {"pyls"},
   filetypes = {"python"},
+  capabilities = capabilities,
   settings = {
     pyls = {
       configurationSources = {"flake8"},
@@ -153,6 +143,7 @@ local sumneko_binary = sumneko_root_path .. "/bin/Linux/lua-language-server"
 
 lspconfig.sumneko_lua.setup {
   cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"},
+  capabilities = capabilities,
   settings = {
     Lua = {
       runtime = {
@@ -178,41 +169,10 @@ lspconfig.sumneko_lua.setup {
   on_attach = on_attach
 }
 
--- lspconfig.sumneko_lua.setup {
---   cmd = {
---     "/usr/local/bin/lua-language-server", "-E",
---     "/usr/share/lua-language-server/main.lua"
---   },
---   on_attach = on_attach,
---   root_dir = function(fname)
---     return lspconfig.util.find_git_ancestor(fname) or lspconfig.util.path.dirname(fname)
---   end,
---   settings = {
---     Lua = {
---       runtime = {
---         -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
---         version = 'LuaJIT',
---         -- Setup your lua path
---         path = vim.split(package.path, ';')
---       },
---       diagnostics = {
---         -- Get the language server to recognize the `vim` global
---         globals = {'vim'}
---       },
---       workspace = {
---         -- Make the server aware of Neovim runtime files
---         library = {
---           [vim.fn.expand('$VIMRUNTIME/lua')] = true,
---           [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true
---         }
---       }
---     }
---   }
--- }
-
 lspconfig.jsonls.setup {
   cmd = {"vscode-json-languageserver", "--stdio"},
   filetypes = {"json", "jsonc"},
+  capabilities = capabilities,
   init_options = {
     provideFormatter = true
   },
@@ -220,15 +180,18 @@ lspconfig.jsonls.setup {
 }
 
 lspconfig.yamlls.setup {
+  capabilities = capabilities,
   on_attach = on_attach
 }
 
 lspconfig.bashls.setup {
   filetypes = {"zsh", "bash", "sh"},
+  capabilities = capabilities,
   on_attach = on_attach
 }
 
 lspconfig.vimls.setup {
+  capabilities = capabilities,
   on_attach = on_attach
 }
 
