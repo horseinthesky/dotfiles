@@ -60,7 +60,6 @@ packer.startup(function(use)
   use "tpope/vim-commentary"
   use "tpope/vim-repeat"
   use "tpope/vim-fugitive"
-  use "godlygeek/tabular"
   use "majutsushi/tagbar"
   use "simnalamburt/vim-mundo"
   use {"kkoomen/vim-doge", run = ":call doge#install()"}

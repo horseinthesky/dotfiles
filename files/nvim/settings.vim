@@ -14,20 +14,20 @@ set nohlsearch
 set ignorecase
 set smartcase
 
-set inccommand=nosplit   " incremental substitution shows substituted text before applying
-set laststatus=2       " Always show statusline
-set noshowmode         " No to duplicate statusline
-set nobackup           " Don't create annoying backup files
-set iskeyword+=-       " Treat dash separated words as a word text object
-set mouse=v            " Diable mouse (if enabled temp. disable with holding Shift)
-set scrolloff=10       " Start scrolling 10 lines before edge of viewpoint
-set pastetoggle=<F2>   " Paste mode toggle to paste code properly
-set guicursor=         " Fix for mysterious 'q' letters
+set inccommand=nosplit                " incremental substitution shows substituted text before applying
+set laststatus=2                      " Always show statusline
+set noshowmode                        " No to duplicate statusline
+set nobackup                          " Don't create annoying backup files
+set iskeyword+=-                      " Treat dash separated words as a word text object
+set mouse=v                           " Diable mouse (if enabled temp. disable with holding Shift)
+set scrolloff=10                      " Start scrolling 10 lines before edge of viewpoint
+set pastetoggle=<F2>                  " Paste mode toggle to paste code properly
+set guicursor=                        " Fix for mysterious 'q' letters
 set completeopt=menu,menuone,noselect " Set completeopt to have a better completion experience
-set shortmess+=c       " don't give |ins-completion-menu| messages
-set updatetime=300     " Faster completion (default is 4000)
-set timeoutlen=500     " By default timeoutlen is 1000 ms
-" set cmdheight=2      " More space for messages
+set shortmess+=c                      " don't give |ins-completion-menu| messages
+set updatetime=300                    " Faster completion (default is 4000)
+set timeoutlen=500                    " By default timeoutlen is 1000 ms
+" set cmdheight=2                       " More space for messages
 
 " ==== Windows ====
 set number
@@ -36,16 +36,16 @@ set listchars=tab:\ ,trail:·,precedes:←,extends:→,space:·,eol:↲,nbsp:
 " set list
 
 " ==== Cursor ====
-set cursorline         " highlight cursorline
-set colorcolumn=80,120 " add vertical lines on columns
-set linebreak          " Wraps text at the end of a word. This is what prevents a word from being split in two.
-" set signcolumn=yes   " Always show signcolumns (left row)
+set cursorline                        " Highlight cursorline
+set colorcolumn=80,120                " Add vertical lines on columns
+set linebreak                         " Word wrap
+" set signcolumn=yes                    " Always show signcolumns (left row)
 
 " ==== Folding ====
-set foldmethod=indent  " Fold based on indent
-set foldnestmax=10     " Deepest fold is 10 levels
-set nofoldenable       " Dont fold by default
-set foldlevel=2        " This is just what I use
+set foldmethod=indent                 " Fold based on indent
+set foldnestmax=10                    " Deepest fold is 10 levels
+set nofoldenable                      " Dont fold by default
+set foldlevel=2                       " This is just what I use
 
 " ==== History ====
 set history=100
@@ -54,18 +54,18 @@ set undofile
 set undodir=$HOME/.config/nvim/tmp/undo
 
 " ==== Splits ====
-set splitbelow         " new horizontal split to appear below
-set splitright         " new vertical split to appear on the right
+set splitbelow                        " new horizontal split to appear below
+set splitright                        " new vertical split to appear on the right
 
 " ==== Buffers ====
-set showtabline=1      " show tabs only when 2 or more open
-set noswapfile         " Dont' use swapfile
-set shiftwidth=2       " shift lines by 2 spaces
-set tabstop=2          " 2 whitespaces for tabs visual presentation
-set smarttab           " set tabs for a shifttabs logic
-set expandtab          " expand tabs into spaces
+set showtabline=1                     " show tabs only when 2 or more open
+set noswapfile                        " Dont' use swapfile
+set shiftwidth=2                      " shift lines by 2 spaces
+set tabstop=2                         " 2 whitespaces for tabs visual presentation
+set smarttab                          " set tabs for a shifttabs logic
+set expandtab                         " expand tabs into spaces
 set smartindent
-set shiftround         " When shifting lines, round the indentation to the nearest multiple of “shiftwidth.”
+set shiftround                        " When shifting lines, round the indentation to the nearest multiple of “shiftwidth.”
 
 augroup TabSettings
   autocmd!

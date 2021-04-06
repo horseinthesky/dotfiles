@@ -50,11 +50,9 @@
     global: yes
   loop:
     - neovim
-    - pyright
     - vscode-json-languageserver
     - yaml-language-server
     - vim-language-server
-    - bash-language-server
     - prettier
     - lua-fmt
   become: yes

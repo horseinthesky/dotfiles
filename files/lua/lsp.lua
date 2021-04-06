@@ -12,6 +12,7 @@ require'compe'.setup {
     buffer = true,
     calc = true,
     nvim_lsp = true,
+    nvim_lua = true,
     ultisnips = true,
     tabnine = true,
     emoji = true,
@@ -74,22 +75,20 @@ local on_attach = function(client, _)
 end
 
 local efm = require "efm"
-local luafmt = efm.luafmt
 -- local flake8 = efm.flake8
 -- local isort = efm.isort
 -- local autopep8 = efm.autopep8
 -- local mypy = efm.mypy
+local luafmt = efm.luafmt
 local prettier = efm.prettier
--- local shellcheck = efm.shellcheck
 
 local languages = {
-  lua = {luafmt},
   -- python = {isort, flake8, autopep8, mypy},
+  lua = {luafmt},
   yaml = {prettier},
   json = {prettier},
   html = {prettier},
   css = {prettier},
-  -- zsh = {shellcheck},
   markdown = {prettier}
 }
 
@@ -100,10 +99,6 @@ lspconfig.efm.setup {
   settings = {languages = languages, log_level = 1, log_file = "~/efm.log"},
   on_attach = on_attach
 }
-
--- lspconfig.pyright.setup {
---   on_attach = on_attach
--- }
 
 lspconfig.pyls.setup {
   cmd = {"pyls"},
@@ -180,12 +175,6 @@ lspconfig.jsonls.setup {
 }
 
 lspconfig.yamlls.setup {
-  capabilities = capabilities,
-  on_attach = on_attach
-}
-
-lspconfig.bashls.setup {
-  filetypes = {"zsh", "bash", "sh"},
   capabilities = capabilities,
   on_attach = on_attach
 }

@@ -178,7 +178,9 @@ vim.g.which_key_timeout = 100
 vim.g.which_key_display_names = {["<CR>"] = "↵", ["<TAB>"] = "⇆"}
 
 vim.g.which_key_map = {}
-vim.g.which_key_map["'"] = {"<C-W>s", "split below"}
+vim.g.which_key_map["'"] = {"<C-W>s", "horizontal split"}
+vim.g.which_key_map[";"] = {"<C-W>v", "vertical split"}
+vim.g.which_key_map["`"] = {":terminal", "terminal windows"}
 vim.g.which_key_map.s = {
   name = "+sessions",
   c = {"SClose!", "close session"},
@@ -188,13 +190,14 @@ vim.g.which_key_map.s = {
 }
 
 vim.g.which_key_map.c = {
-  name = "+lsp",
+  name = "+colors",
   o = {"<cmd>Command", "commands"},
   s = {"<cmd>ColorSwapFgBg", "color swap fg bf"},
   t = {"<cmd>ColorToggle", "color toggle"}
 }
 
 vim.cmd [[call which_key#register('<leader>', 'g:which_key_map')]]
+-- vim.fn["which_key#register"]('<leader>', 'g:which_key_map')
 
 -- hop.nvim
 map("n", "f", "<cmd>HopChar1<CR>")
@@ -206,7 +209,7 @@ map("n", "<S-Down>", ":<C-U>call vm#commands#add_cursor_down(0, v:count1)<CR>")
 
 -- peekup
 require("nvim-peekup.config").on_keystroke["delay"] = ""
--- vim.g.peekup_paste_after = '""'
+require('nvim-peekup.config').on_keystroke["paste_reg"] = "\""
 
 -- vim-fugitive
 map("n", "<leader>gd", "<cmd>Gvdiffsplit!<CR>")
