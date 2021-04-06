@@ -74,6 +74,7 @@ packer.startup(function(use)
   use {"lukas-reineke/indent-blankline.nvim", branch = "lua"}
   use "ntpeters/vim-better-whitespace"
   use {"nvim-treesitter/nvim-treesitter", run = ":TSUpdate"}
+  use "nvim-treesitter/playground"
 
   -- Statusine
   use {

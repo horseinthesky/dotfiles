@@ -27,7 +27,7 @@ vim.api.nvim_exec(
 -- lspkind
 require("lspkind").init {
   symbol_map = {
-    Class = "",
+    Class = ""
   }
 }
 
@@ -209,7 +209,7 @@ map("n", "<S-Down>", ":<C-U>call vm#commands#add_cursor_down(0, v:count1)<CR>")
 
 -- peekup
 require("nvim-peekup.config").on_keystroke["delay"] = ""
-require('nvim-peekup.config').on_keystroke["paste_reg"] = "\""
+require("nvim-peekup.config").on_keystroke["paste_reg"] = '"'
 
 -- vim-fugitive
 map("n", "<leader>gd", "<cmd>Gvdiffsplit!<CR>")
@@ -299,6 +299,12 @@ require "nvim-treesitter.configs".setup {
   ensure_installed = "maintained",
   highlight = {
     enable = true
+  },
+  playground = {
+    enable = true,
+    disable = {},
+    updatetime = 25,
+    persist_queries = false
   }
 }
 
