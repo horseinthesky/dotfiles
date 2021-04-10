@@ -1,6 +1,9 @@
 -- Sensible defaults
 require("settings")
 
+-- Key mappings
+require("keymappings")
+
 -- Set colorscheme
 require("colorscheme")
 
@@ -10,9 +13,6 @@ require("plugin_settings")
 
 -- Setup Lua language server using submodule
 require("lsp")
-
--- Key mappings
-require("keymappings")
 
 -- Statusline
 require "statusline"

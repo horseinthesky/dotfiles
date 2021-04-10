@@ -64,12 +64,12 @@ let g:ale_python_autopep8_options = '--max-line-length 160'
 let g:ale_yaml_yamllint_options='-d "{extends: relaxed, rules: {line-length: disable}}"'
 
 " let g:airline#extensions#ale#enabled = 1
-" let g:ale_sign_warning = "\uf421" "  
-" let g:ale_sign_error = "\uf05e" "  
+" let g:ale_sign_warning = "\uf421" " 
+" let g:ale_sign_error = "\uf05e" " 
 " let g:ale_sign_warning = "\uf12a" " 
-" let g:ale_sign_error = "\uf00d" "  
-let g:ale_sign_warning = "\uf06a" "  
-let g:ale_sign_error = "\uf658" "  
+" let g:ale_sign_error = "\uf00d" " 
+let g:ale_sign_warning = "\uf06a" " 
+let g:ale_sign_error = "\uf658" " 
 let g:ale_echo_msg_format = '[%linter%] %code%: %s'
 
 " Navigate between errors
@@ -166,22 +166,16 @@ let g:UltiSnipsJumpBackwardTrigger='<C-k>'
 let g:UltiSnipsEditSplit="vertical"
 
 " ==== floaterm ====
-" let g:floaterm_keymap_toggle = '<F3>'
-" let g:floaterm_keymap_new    = '<F4>'
-" let g:floaterm_keymap_prev   = '<F5>'
-" let g:floaterm_keymap_next   = '<F6>'
-let g:floaterm_position      = 'bottom'
+let g:floaterm_position = 'bottom'
 let g:floaterm_width = 1.0
 let g:floaterm_height = 0.3
 
-nnoremap <F3> <cmd>FloatermToggle<CR>
-tnoremap <F3> <cmd>FloatermToggle<CR>
+let g:floaterm_keymap_toggle = '<F3>'
+let g:floaterm_keymap_prev   = '<F5>'
+let g:floaterm_keymap_next   = '<F6>'
+
 nnoremap <F4> <cmd>FloatermNew python<CR>
 tnoremap <F4> <cmd>FloatermNew python<CR>
-nnoremap <F5> <cmd>FloatermPrev<CR>
-tnoremap <F5> <cmd>FloatermPrev<CR>
-nnoremap <F6> <cmd>FloatermNext<CR>
-tnoremap <F6> <cmd>FloatermNext<CR>
 
 " ==== coc ====
 let g:coc_disable_startup_warning = 1
@@ -324,7 +318,9 @@ map <leader>ct :ColorToggle<cr>
 map <leader>cs :ColorSwapFgBg<cr>
 
 " ==== better-whitespace ====
-let g:better_whitespace_ctermcolor=167
+let g:better_whitespace_guicolor="#fb4934"
+let g:better_whitespace_filetypes_blacklist = ['dashboard', 'packer']
+
 nnoremap ]w :NextTrailingWhitespace<CR>
 nnoremap [w :PrevTrailingWhitespace<CR>
 

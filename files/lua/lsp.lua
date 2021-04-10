@@ -8,14 +8,15 @@ require'compe'.setup {
   source_timeout = 100,
 
   source = {
-    path = true,
-    buffer = true,
-    calc = true,
-    nvim_lsp = true,
-    nvim_lua = true,
-    ultisnips = true,
-    tabnine = true,
-    emoji = true,
+    path = {kind = ""},
+    buffer = {kind = ""},
+    calc = {kind = ""},
+    nvim_lsp = {kind = ""},
+    nvim_lua = {kind = ""},
+    spell = {kind = ""},
+    ultisnips = {kind = ""},
+    tabnine = {kind = "", priority = 50},
+    emoji = {kind = "ﲃ", filetypes={"markdown"}},
   },
 }
 
@@ -75,15 +76,15 @@ local on_attach = function(client, _)
 end
 
 local efm = require "efm"
--- local flake8 = efm.flake8
--- local isort = efm.isort
--- local autopep8 = efm.autopep8
--- local mypy = efm.mypy
+local flake8 = efm.flake8
+local isort = efm.isort
+local autopep8 = efm.autopep8
+local mypy = efm.mypy
 local luafmt = efm.luafmt
 local prettier = efm.prettier
 
 local languages = {
-  -- python = {isort, flake8, autopep8, mypy},
+  python = {isort, flake8, autopep8, mypy},
   lua = {luafmt},
   yaml = {prettier},
   json = {prettier},
@@ -100,38 +101,43 @@ lspconfig.efm.setup {
   on_attach = on_attach
 }
 
-lspconfig.pyls.setup {
-  cmd = {"pyls"},
-  filetypes = {"python"},
+lspconfig.pyright.setup {
   capabilities = capabilities,
-  settings = {
-    pyls = {
-      configurationSources = {"flake8"},
-      plugins = {
-        jedi_completion = {enabled = true},
-        jedi_hover = {enabled = true},
-        jedi_references = {enabled = true},
-        jedi_signature_help = {enabled = true},
-        jedi_symbols = {enabled = true, all_scopes = true},
-        pycodestyle = {enabled = false},
-        flake8 = {
-          enabled = true,
-          ignore = {},
-          maxLineLength = 160
-        },
-        pyls_mypy = {enabled = true, live_mode = true},
-        pyls_isort = {enabled = true},
-        yapf = {enabled = false},
-        pylint = {enabled = false},
-        pydocstyle = {enabled = false},
-        mccabe = {enabled = false},
-        preload = {enabled = false},
-        rope_completion = {enabled = false}
-      }
-    }
-  },
   on_attach = on_attach
 }
+
+-- lspconfig.pyls.setup {
+--   cmd = {"pyls"},
+--   filetypes = {"python"},
+--   capabilities = capabilities,
+--   settings = {
+--     pyls = {
+--       configurationSources = {"flake8"},
+--       plugins = {
+--         jedi_completion = {enabled = true},
+--         jedi_hover = {enabled = true},
+--         jedi_references = {enabled = true},
+--         jedi_signature_help = {enabled = true},
+--         jedi_symbols = {enabled = true, all_scopes = true},
+--         pycodestyle = {enabled = false},
+--         flake8 = {
+--           enabled = true,
+--           ignore = {},
+--           maxLineLength = 160
+--         },
+--         pyls_mypy = {enabled = true, live_mode = true},
+--         pyls_isort = {enabled = true},
+--         yapf = {enabled = false},
+--         pylint = {enabled = false},
+--         pydocstyle = {enabled = false},
+--         mccabe = {enabled = false},
+--         preload = {enabled = false},
+--         rope_completion = {enabled = false}
+--       }
+--     }
+--   },
+--   on_attach = on_attach
+-- }
 
 local sumneko_root_path = vim.fn.expand("~") .. "/lua-language-server"
 local sumneko_binary = sumneko_root_path .. "/bin/Linux/lua-language-server"

@@ -224,7 +224,7 @@ gls.left[6] = {
 gls.left[7] = {
   DiffAdd = {
     provider = function()
-      if condition.check_git_workspace() and wide_enough(95) then
+      if condition.check_git_workspace() and wide_enough(100) then
         return vcs.diff_add()
       end
       return ""
@@ -236,7 +236,7 @@ gls.left[7] = {
 gls.left[8] = {
   DiffModified = {
     provider = function()
-      if condition.check_git_workspace() and wide_enough(95) then
+      if condition.check_git_workspace() and wide_enough(100) then
         return vcs.diff_modified()
       end
       return ""
@@ -248,7 +248,7 @@ gls.left[8] = {
 gls.left[9] = {
   DiffRemove = {
     provider = function()
-      if condition.check_git_workspace() and wide_enough(95) then
+      if condition.check_git_workspace() and wide_enough(100) then
         return vcs.diff_remove()
       end
       return ""

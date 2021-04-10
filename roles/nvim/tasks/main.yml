@@ -54,6 +54,7 @@
     - yaml-language-server
     - vim-language-server
     - prettier
+    - pyright
     - lua-fmt
   become: yes
 

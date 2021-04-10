@@ -10,6 +10,7 @@ require "lspsaga".init_lsp_saga {
 map("n", "<leader>ca", "<cmd>lua require('lspsaga.codeaction').code_action()<CR>", {silent = true})
 map("n", "<leader>gr", "<cmd>lua require('lspsaga.rename').rename()<CR>", {silent = true})
 map("n", "gh", "<cmd>lua require('lspsaga.hover').render_hover_doc()<CR>", {silent = true})
+map("n", "gs", "<cmd>lua require('lspsaga.signaturehelp').signature_help()<CR>", {silent = true})
 map("n", "<leader>ld", "<cmd>lua require'lspsaga.diagnostic'.show_line_diagnostics()<CR>", {silent = true})
 map("n", "]d", "<cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_next()<CR>", {silent = true})
 map("n", "[d", "<cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()<CR>", {silent = true})
@@ -20,6 +21,7 @@ vim.api.nvim_exec(
     highlight link LspSagaDiagnosticTruncateLine LspSagaHoverBorder
     highlight link LspSagaRenameBorder LspSagaHoverBorder
     highlight link LspSagaCodeActionBorder LspSagaHoverBorder
+    highlight link LspSagaSignatureHelpBorder LspSagaHoverBorder
   ]],
   false
 )
@@ -143,22 +145,18 @@ vim.g.UltiSnipsJumpBackwardTrigger = "<C-k>"
 vim.g.UltiSnipsEditSplit = "vertical"
 
 -- floaterm
-vim.g.floaterm_keymap_toggle = "<F3>"
-vim.g.floaterm_keymap_new = "<F4>"
-vim.g.floaterm_keymap_prev = "<F5>"
-vim.g.floaterm_keymap_next = "<F6>"
 vim.g.floaterm_position = "bottom"
 vim.g.floaterm_width = 1.001
 vim.g.floaterm_height = 0.3
 
--- map("n", "<F3>", "<cmd>FloatermToggle<CR>")
--- map("t", "<F3>", "<cmd>FloatermToggle<CR>")
--- map("n", "<F4>", "<cmd>FloatermNew python<CR>")
--- map("t", "<F4>", "<cmd>FloatermNew python<CR>")
--- map("n", "<F5>", "<cmd>FloatermPrev<CR>")
--- map("t", "<F5>", "<cmd>FloatermPrev<CR>")
--- map("n", "<F6>", "<cmd>FloatermNext<CR>")
--- map("t", "<F6>", "<cmd>FloatermNext<CR>")
+vim.g.floaterm_keymap_toggle = "<F3>"
+vim.g.floaterm_keymap_prev = "<F5>"
+vim.g.floaterm_keymap_next = "<F6>"
+
+map("n", "<F4>", "<cmd>FloatermNew python<CR>")
+map("t", "<F4>", "<cmd>FloatermNew python<CR>")
+
+vim.cmd [[highlight link FloatermBorder Normal]]
 
 -- which-key
 map("n", "<leader>", ":WhichKey '<leader>'<CR>")
@@ -172,8 +170,10 @@ vim.api.nvim_exec(
   false
 )
 
+vim.call('which_key#register', '<leader>', 'g:which_key_map')
+
 vim.g.which_key_use_floating_win = 0
-vim.g.which_key_max_size = 30
+vim.g.which_key_max_size = 0
 vim.g.which_key_timeout = 100
 vim.g.which_key_display_names = {["<CR>"] = "↵", ["<TAB>"] = "⇆"}
 
@@ -182,7 +182,7 @@ vim.g.which_key_map["'"] = {"<C-W>s", "horizontal split"}
 vim.g.which_key_map[";"] = {"<C-W>v", "vertical split"}
 vim.g.which_key_map["`"] = {":terminal", "terminal windows"}
 vim.g.which_key_map.s = {
-  name = "+sessions",
+  name = "Sessions",
   c = {"SClose!", "close session"},
   d = {"SDelete!", "delete session"},
   l = {"SLoad!", "load session"},
@@ -195,9 +195,6 @@ vim.g.which_key_map.c = {
   s = {"<cmd>ColorSwapFgBg", "color swap fg bf"},
   t = {"<cmd>ColorToggle", "color toggle"}
 }
-
-vim.cmd [[call which_key#register('<leader>', 'g:which_key_map')]]
--- vim.fn["which_key#register"]('<leader>', 'g:which_key_map')
 
 -- hop.nvim
 map("n", "f", "<cmd>HopChar1<CR>")
@@ -270,7 +267,8 @@ vim.g.indent_blankline_filetype_exclude = {
   "markdown",
   "startify",
   "json",
-  "peek"
+  "peek",
+  "packer"
 }
 vim.g.indent_blankline_use_treesitter = true
 vim.g.indent_blankline_show_first_indent_level = false
@@ -289,7 +287,8 @@ vim.api.nvim_exec(
 map("n", "<leader>i", "<cmd>IndentBlanklineToggle<CR>")
 
 -- vim-better-whitespace
-vim.g.better_whitespace_ctermcolor = 167
+vim.g.better_whitespace_guicolor = "#fb4934"
+vim.g.better_whitespace_filetypes_blacklist = {'dashboard', 'packer'}
 
 map("n", "]w", "<cmd>NextTrailingWhitespace<CR>")
 map("n", "[w", "<cmd>PrevTrailingWhitespace<CR>")
@@ -345,7 +344,7 @@ vim.api.nvim_exec(
     highlight link BufferCurrentMod BufferCurrent
     highlight link BufferInactiveSign BufferInactive
     highlight link BufferInactiveMod BufferInactive
-    highlight BufferTabpageFill guibg=None
+    highlight BufferTabpageFill guifg=#bdae93 guibg=None
   ]],
   false
 )
