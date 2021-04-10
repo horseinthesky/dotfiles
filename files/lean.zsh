@@ -65,7 +65,8 @@ function my_git_formatter() {
   if (( $1 )); then
     # Styling for up-to-date Git status.
     local       meta='%f'     # default foreground
-    local      clean='%F{#d5c4a1}'  # ivory foreground
+    local     branch='%F{#d5c4a1}'  # ivory foreground
+    local      clean='%F{#b8bb26}'  # green foreground
     local   modified='%F{#fabd2f}'  # yellow foreground
     local  untracked='%F{#fe8019}'  # orange foreground
     local conflicted='%F{#fb4934}'  # red foreground
@@ -83,7 +84,7 @@ function my_git_formatter() {
   local res
   local where  # branch or tag
   if [[ -n $VCS_STATUS_LOCAL_BRANCH ]]; then
-    # res+="${clean}${(g::)POWERLEVEL9K_VCS_BRANCH_ICON}"
+    # res+="${branch}${(g::)POWERLEVEL9K_VCS_BRANCH_ICON}"
     where=${(V)VCS_STATUS_LOCAL_BRANCH}
   elif [[ -n $VCS_STATUS_TAG ]]; then
     res+="${meta}#"
@@ -94,15 +95,15 @@ function my_git_formatter() {
   # Otherwise show the first 12 … the last 12.
   # Tip: To always show local branch name in full without truncation, delete the next line.
   (( $#where > 32 )) && where[13,-13]="…"
-  res+="${clean}${where//\%/%%}"  # escape %
+  res+="${branch}${where//\%/%%}"  # escape %
 
   # Display the current Git commit if there is no branch or tag.
   # Tip: To always display the current Git commit, remove `[[ -z $where ]] &&` from the next line.
-  [[ -z $where ]] && res+="${meta}@${clean}${VCS_STATUS_COMMIT[1,8]}"
+  [[ -z $where ]] && res+="${meta}@${branch}${VCS_STATUS_COMMIT[1,8]}"
 
   # Show tracking branch name if it differs from local branch.
   if [[ -n ${VCS_STATUS_REMOTE_BRANCH:#$VCS_STATUS_LOCAL_BRANCH} ]]; then
-    res+="${meta}:${clean}${(V)VCS_STATUS_REMOTE_BRANCH//\%/%%}"  # escape %
+    res+="${meta}:${branch}${(V)VCS_STATUS_REMOTE_BRANCH//\%/%%}"  # escape %
   fi
 
   #  42 if behind the remote.
