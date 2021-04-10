@@ -1,5 +1,5 @@
 # Prefixes
-DEFAULT_PREFIX_COLOR=249
+DEFAULT_PREFIX_COLOR="#928374"
 typeset -g POWERLEVEL9K_{CUSTOM_HOST,VCS}_PREFIX='%F{$DEFAULT_PREFIX_COLOR}on '
 typeset -g POWERLEVEL9K_{DIR,VIRTUALENV}_PREFIX='%F{$DEFAULT_PREFIX_COLOR}in '
 typeset -g POWERLEVEL9K_PYENV_PREFIX='%F{$DEFAULT_PREFIX_COLOR}via '
@@ -7,33 +7,33 @@ typeset -g POWERLEVEL9K_BATTERY_PREFIX='%F{$DEFAULT_PREFIX_COLOR}at '
 
 # Host block settings
 case $ID in
-  ubuntu) typeset -g POWERLEVEL9K_CUSTOM_HOST_FOREGROUND=166 ;;
-  debian) typeset -g POWERLEVEL9K_CUSTOM_HOST_FOREGROUND=197 ;;
-  centos) typeset -g POWERLEVEL9K_CUSTOM_HOST_FOREGROUND=160 ;;
-  manjaro) typeset -g POWERLEVEL9K_CUSTOM_HOST_FOREGROUND=041 ;;
-  arch) typeset -g POWERLEVEL9K_CUSTOM_HOST_FOREGROUND=039 ;;
-  *) typeset -g POWERLEVEL9K_CUSTOM_HOST_FOREGROUND=032 ;;
+  ubuntu) typeset -g POWERLEVEL9K_CUSTOM_HOST_FOREGROUND="#e46f08" ;;
+  debian) typeset -g POWERLEVEL9K_CUSTOM_HOST_FOREGROUND="#c7004d" ;;
+  centos) typeset -g POWERLEVEL9K_CUSTOM_HOST_FOREGROUND="#882076" ;;
+  manjaro) typeset -g POWERLEVEL9K_CUSTOM_HOST_FOREGROUND="#4ebf57" ;;
+  arch) typeset -g POWERLEVEL9K_CUSTOM_HOST_FOREGROUND="#368fcc" ;;
+  *) typeset -g POWERLEVEL9K_CUSTOM_HOST_FOREGROUND="#368fcc" ;;
 esac
 
 # User block settings
 if [[ $USERNAME == "root" ]]; then
-  typeset -g POWERLEVEL9K_CUSTOM_USER_FOREGROUND=167
+  typeset -g POWERLEVEL9K_CUSTOM_USER_FOREGROUND="#cc241d"
 else
-  typeset -g POWERLEVEL9K_CUSTOM_USER_FOREGROUND=174
+  typeset -g POWERLEVEL9K_CUSTOM_USER_FOREGROUND="#d78787"
 fi
 
 # Dir block settings
-typeset -g POWERLEVEL9K_DIR_FOREGROUND=033 # dodgerblue1
-typeset -g POWERLEVEL9K_DIR_{DEFAULT,HOME,HOME_SUBFOLDER}_FOREGROUND=033 # dodgerblue1
-typeset -g POWERLEVEL9K_DIR_NOT_WRITABLE_FOREGROUND=167
-typeset -g POWERLEVEL9K_DIR_ETC_FOREGROUND=142
+typeset -g POWERLEVEL9K_DIR_FOREGROUND="#3385ff" # dodgerblue1
+typeset -g POWERLEVEL9K_DIR_{DEFAULT,HOME,HOME_SUBFOLDER}_FOREGROUND="#3385ff" # dodgerblue1
+typeset -g POWERLEVEL9K_DIR_NOT_WRITABLE_FOREGROUND="#fb4934"
+typeset -g POWERLEVEL9K_DIR_ETC_FOREGROUND="#b8bb26"
 
 # Dir Writable settings
-typeset -g POWERLEVEL9K_DIR_WRITABLE_FORBIDDEN_FOREGROUND=167
+typeset -g POWERLEVEL9K_DIR_WRITABLE_FORBIDDEN_FOREGROUND="#fb4934"
 typeset -g POWERLEVEL9K_DIR_WRITABLE_FORBIDDEN_ICON=' '
 
 # Virtualenv block settings
-typeset -g POWERLEVEL9K_{VIRTUALENV,PYENV}_FOREGROUND=220
+typeset -g POWERLEVEL9K_{VIRTUALENV,PYENV}_FOREGROUND="#fabd2f"
 
 # Battery background color
 typeset -g POWERLEVEL9K_BATTERY_{LOW,CHARGING,CHARGED,DISCONNECTED}_BACKGROUND=
@@ -42,9 +42,9 @@ typeset -g POWERLEVEL9K_BATTERY_{LOW,CHARGING,CHARGED,DISCONNECTED}_BACKGROUND=
 typeset -g POWERLEVEL9K_{CPU,RAM}_BACKGROUND=
 
 # VCS block settings
-typeset -g POWERLEVEL9K_VCS_CLEAN_FOREGROUND=142
-typeset -g POWERLEVEL9K_VCS_UNTRACKED_FOREGROUND=167 #indianred
-typeset -g POWERLEVEL9K_VCS_MODIFIED_FOREGROUND=214 # orange1
+typeset -g POWERLEVEL9K_VCS_CLEAN_FOREGROUND="#b8bb26"
+typeset -g POWERLEVEL9K_VCS_UNTRACKED_FOREGROUND="#fb4934"
+typeset -g POWERLEVEL9K_VCS_MODIFIED_FOREGROUND="#fabd2f"
 
 # Formatter for Git status.
 #
@@ -65,25 +65,25 @@ function my_git_formatter() {
   if (( $1 )); then
     # Styling for up-to-date Git status.
     local       meta='%f'     # default foreground
-    local      clean='%142F'  # green foreground
-    local   modified='%214F'  # yellow foreground
-    local  untracked='%208F'  # orange foreground
-    local conflicted='%167F'  # red foreground
-    local    stashed='%109F'  # blue foreground
+    local      clean='%F{#d5c4a1}'  # ivory foreground
+    local   modified='%F{#fabd2f}'  # yellow foreground
+    local  untracked='%F{#fe8019}'  # orange foreground
+    local conflicted='%F{#fb4934}'  # red foreground
+    local    stashed='%F{#83a598}'  # blue foreground
   else
     # Styling for incomplete and stale Git status.
-    local       meta='%244F'  # grey foreground
-    local      clean='%244F'  # grey foreground
-    local   modified='%244F'  # grey foreground
-    local  untracked='%244F'  # grey foreground
-    local conflicted='%244F'  # grey foreground
-    local    stashed='%244F'  # blue foreground
+    local       meta='%F{#928374}'  # grey foreground
+    local      clean='%F{#928374}'  # grey foreground
+    local   modified='%F{#928374}'  # grey foreground
+    local  untracked='%F{#928374}'  # grey foreground
+    local conflicted='%F{#928374}'  # grey foreground
+    local    stashed='%F{#928374}'  # grey foreground
   fi
 
   local res
   local where  # branch or tag
   if [[ -n $VCS_STATUS_LOCAL_BRANCH ]]; then
-    res+="${clean}${(g::)POWERLEVEL9K_VCS_BRANCH_ICON}"
+    # res+="${clean}${(g::)POWERLEVEL9K_VCS_BRANCH_ICON}"
     where=${(V)VCS_STATUS_LOCAL_BRANCH}
   elif [[ -n $VCS_STATUS_TAG ]]; then
     res+="${meta}#"
@@ -154,8 +154,8 @@ typeset -g POWERLEVEL9K_VCS_CONTENT_EXPANSION='${$((my_git_formatter(1)))+${my_g
 typeset -g POWERLEVEL9K_VCS_LOADING_CONTENT_EXPANSION='${$((my_git_formatter(0)))+${my_git_format}}'
 
 # Icon color.
-typeset -g POWERLEVEL9K_VCS_VISUAL_IDENTIFIER_COLOR=142
-typeset -g POWERLEVEL9K_VCS_LOADING_VISUAL_IDENTIFIER_COLOR=244
+typeset -g POWERLEVEL9K_VCS_VISUAL_IDENTIFIER_COLOR="#fb4934"
+typeset -g POWERLEVEL9K_VCS_LOADING_VISUAL_IDENTIFIER_COLOR="#928374"
 # Custom icon.
 # typeset -g POWERLEVEL9K_VCS_VISUAL_IDENTIFIER_EXPANSION='⭐'
 
