@@ -17,7 +17,7 @@ esac
 
 # User block settings
 if [[ $USERNAME == "root" ]]; then
-  typeset -g POWERLEVEL9K_CUSTOM_USER_FOREGROUND="#cc241d"
+  typeset -g POWERLEVEL9K_CUSTOM_USER_FOREGROUND="#fb4934"
 else
   typeset -g POWERLEVEL9K_CUSTOM_USER_FOREGROUND="#d78787"
 fi

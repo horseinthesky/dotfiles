@@ -163,7 +163,7 @@
   # POWERLEVEL9K_MULTILINE_FIRST_PROMPT_GAP_CHAR=' ' below.
   typeset -g POWERLEVEL9K_SHOW_RULER=false
   typeset -g POWERLEVEL9K_RULER_CHAR='─'        # reasonable alternative: '·'
-  typeset -g POWERLEVEL9K_RULER_FOREGROUND=242
+  typeset -g POWERLEVEL9K_RULER_FOREGROUND="#665c54"
 
   # Filler between left and right prompt on the first prompt line. You can set it to '·' or '─'
   # to make it easier to see the alignment between left and right prompt and to separate prompt
@@ -174,7 +174,7 @@
   typeset -g POWERLEVEL9K_MULTILINE_FIRST_PROMPT_GAP_CHAR=' '
   if [[ $POWERLEVEL9K_MULTILINE_FIRST_PROMPT_GAP_CHAR != ' ' ]]; then
     # The color of the filler.
-    typeset -g POWERLEVEL9K_MULTILINE_FIRST_PROMPT_GAP_FOREGROUND=242
+    typeset -g POWERLEVEL9K_MULTILINE_FIRST_PROMPT_GAP_FOREGROUND="#665c54"
     # Add a space between the end of left prompt and the filler.
     typeset -g POWERLEVEL9K_LEFT_PROMPT_LAST_SEGMENT_END_SYMBOL=' '
     # Add a space between the filler and the start of right prompt.
@@ -240,13 +240,13 @@
   # Enable counters for staged, unstaged, etc.
   typeset -g POWERLEVEL9K_VCS_{STAGED,UNSTAGED,UNTRACKED,CONFLICTED,COMMITS_AHEAD,COMMITS_BEHIND}_MAX_NUM=-1
 
-  typeset -g POWERLEVEL9K_VCS_BRANCH_ICON=' ' # \uF126
+  typeset -g POWERLEVEL9K_VCS_GIT_ICON='' # \uF7A1
   # typeset -g POWERLEVEL9K_VCS_GIT_GITHUB_ICON=' ' # \uF408
   # typeset -g POWERLEVEL9K_VCS_GIT_GITHUB_ICON=' ' # \uF113
   typeset -g POWERLEVEL9K_VCS_GIT_GITHUB_ICON='' # \uF7A1
   typeset -g POWERLEVEL9K_VCS_GIT_GITLAB_ICON=' ' # \uF296
   typeset -g POWERLEVEL9K_VCS_GIT_BITBUCKET_ICON=' ' # \uF171
-  # typeset -g POWERLEVEL9K_VCS_GIT_ICON='' # \uF7A1
+  typeset -g POWERLEVEL9K_VCS_BRANCH_ICON=' ' # \uF126
   typeset -g POWERLEVEL9K_VCS_STASH_ICON=' ' # \uF01C
   typeset -g POWERLEVEL9K_VCS_STAGED_ICON=' ' # \uF055
   typeset -g POWERLEVEL9K_VCS_UNTRACKED_ICON=' ' # \uF00D
@@ -302,7 +302,7 @@
 
   # ==== Battery ====
   # Show battery in blue when it's charging or fully charged.
-  typeset -g POWERLEVEL9K_BATTERY_{CHARGING,CHARGED}_FOREGROUND=109
+  typeset -g POWERLEVEL9K_BATTERY_{CHARGING,CHARGED}_FOREGROUND="#83a598"
   # Battery colors for different levels of charge when disconnected.
   typeset -g POWERLEVEL9K_BATTERY_LEVEL_FOREGROUND=(
     167 167 167 214 214 214 214 142 142 142)
@@ -323,9 +323,9 @@
   # Transparent background
   typeset -g POWERLEVEL9K_PROMPT_CHAR_BACKGROUND=
   # Green prompt symbol if the last command succeeded.
-  typeset -g POWERLEVEL9K_PROMPT_CHAR_OK_{VIINS,VICMD,VIVIS,VIOWR}_FOREGROUND=142
+  typeset -g POWERLEVEL9K_PROMPT_CHAR_OK_{VIINS,VICMD,VIVIS,VIOWR}_FOREGROUND="#b8bb26"
   # Red prompt symbol if the last command failed.
-  typeset -g POWERLEVEL9K_PROMPT_CHAR_ERROR_{VIINS,VICMD,VIVIS,VIOWR}_FOREGROUND=167
+  typeset -g POWERLEVEL9K_PROMPT_CHAR_ERROR_{VIINS,VICMD,VIVIS,VIOWR}_FOREGROUND="#fb4934"
   # Default prompt symbol.
   typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VIINS_CONTENT_EXPANSION=''
   # Prompt symbol in command vi mode.
@@ -346,26 +346,26 @@
   # Show average CPU load over this many last minutes. Valid values are 1, 5 and 15.
   typeset -g POWERLEVEL9K_LOAD_WHICH=1
   # Load color when load is under 50%.
-  typeset -g POWERLEVEL9K_LOAD_NORMAL_FOREGROUND=142
+  typeset -g POWERLEVEL9K_LOAD_NORMAL_FOREGROUND="#b8bb26"
   # Load color when load is between 50% and 70%.
-  typeset -g POWERLEVEL9K_LOAD_WARNING_FOREGROUND=214
+  typeset -g POWERLEVEL9K_LOAD_WARNING_FOREGROUND="#fabd2f"
   # Load color when load is over 70%.
-  typeset -g POWERLEVEL9K_LOAD_CRITICAL_FOREGROUND=167
+  typeset -g POWERLEVEL9K_LOAD_CRITICAL_FOREGROUND="#fb4934"
 
   # ==== RAM ====
-  typeset -g POWERLEVEL9K_RAM_FOREGROUND=109
+  typeset -g POWERLEVEL9K_RAM_FOREGROUND="#83a598"
 
   # ==== Public IP ====
   # Public IP color.
-  typeset -g POWERLEVEL9K_PUBLIC_IP_FOREGROUND=94
+  typeset -g POWERLEVEL9K_PUBLIC_IP_FOREGROUND="#875f00"
   # Custom icon.
   typeset -g POWERLEVEL9K_PUBLIC_IP_VISUAL_IDENTIFIER_EXPANSION='' # \uF484
 
   # ==== IP ====
   # IP address and bandwidth usage for a specified network interface
-  typeset -g POWERLEVEL9K_IP_FOREGROUND=94
-  typeset -g POWERLEVEL9K_IP_RX_RATE_FOREGROUND=70
-  typeset -g POWERLEVEL9K_IP_TX_RATE_FOREGROUND=38
+  typeset -g POWERLEVEL9K_IP_FOREGROUND="#875f00"
+  typeset -g POWERLEVEL9K_IP_RX_RATE_FOREGROUND="#5faf00"
+  typeset -g POWERLEVEL9K_IP_TX_RATE_FOREGROUND="#00afd7"
 
   # The following parameters are accessible within the expansion:
   #
