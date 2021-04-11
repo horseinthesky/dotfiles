@@ -1,6 +1,3 @@
-local packer = require "packer"
-local util = require "packer.util"
-
 -- Auto install packer.nvim if not exists
 local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
@@ -8,6 +5,9 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
 end
 -- vim.cmd [[packadd packer.nvim]]
 -- vim.cmd "autocmd BufWritePost plugins.lua PackerCompile" -- Auto compile when there are changes in plugins.lua
+
+local packer = require "packer"
+local util = require "packer.util"
 
 packer.init {
   compile_path = util.join_paths(vim.fn.stdpath("config"), "packer", "packer_compiled.vim")

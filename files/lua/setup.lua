@@ -1,3 +1,6 @@
+-- Install plugins
+require("plugins")
+
 -- Sensible defaults
 require("settings")
 
@@ -7,8 +10,7 @@ require("keymappings")
 -- Set colorscheme
 require("colorscheme")
 
--- Install plugins
-require("plugins")
+-- Plugin settings
 require("plugin_settings")
 
 -- Setup Lua language server using submodule
