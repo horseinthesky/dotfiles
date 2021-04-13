@@ -282,6 +282,7 @@
   # are no matches, the directory will have no icon.
   typeset -g POWERLEVEL9K_DIR_CLASSES=(
     '~/dotfiles(|/*)'  DOTFILES     ''
+    '~/netinfra(|/*)'  NETINFRA     '歷'
     '~(|/*)'           HOME         ''
     '/etc(|/*)'        ETC          ''
     '/usr(|/*)'        USR          ''
