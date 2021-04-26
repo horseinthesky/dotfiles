@@ -22,6 +22,8 @@ require'compe'.setup {
 
 utils.map('i', '<CR>', 'compe#confirm("<CR>")', {expr = true})
 
+vim.cmd [[highlight link CompeDocumentation Pmenu]]
+
 -- Servers setup
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
@@ -103,7 +105,12 @@ lspconfig.efm.setup {
   on_attach = on_attach
 }
 
-lspconfig.pyright.setup {
+-- lspconfig.pyright.setup {
+--   capabilities = capabilities,
+--   on_attach = on_attach
+-- }
+
+lspconfig.jedi_language_server.setup {
   capabilities = capabilities,
   on_attach = on_attach
 }
