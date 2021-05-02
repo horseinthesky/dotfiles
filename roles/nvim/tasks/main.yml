@@ -39,9 +39,7 @@
       - autopep8
       - yamllint
       - pynvim
-      - python-language-server[all]
-      - pyls-mypy
-      - pyls-isort
+      - jedi-language-server
   become: yes
 
 - name: Install required npm packages
@@ -54,7 +52,6 @@
     - yaml-language-server
     - vim-language-server
     - prettier
-    - pyright
     - lua-fmt
   become: yes
 

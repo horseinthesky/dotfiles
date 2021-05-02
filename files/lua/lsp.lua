@@ -3,10 +3,9 @@ local utils = require "utils"
 local lspconfig = require "lspconfig"
 
 -- compe
-require'compe'.setup {
-  preselect = 'disable',
+require "compe".setup {
+  preselect = "disable",
   source_timeout = 100,
-
   source = {
     path = {kind = ""},
     buffer = {kind = ""},
@@ -16,11 +15,11 @@ require'compe'.setup {
     spell = {kind = ""},
     ultisnips = {kind = ""},
     tabnine = {kind = "", priority = 50},
-    emoji = {kind = "ﲃ", filetypes={"markdown"}},
-  },
+    emoji = {kind = "ﲃ", filetypes = {"markdown"}}
+  }
 }
 
-utils.map('i', '<CR>', 'compe#confirm("<CR>")', {expr = true})
+utils.map("i", "<CR>", 'compe#confirm("<CR>")', {expr = true})
 
 vim.cmd [[highlight link CompeDocumentation Pmenu]]
 
@@ -35,17 +34,17 @@ local on_attach = function(client, _)
   local lsp_keymappings = {
     -- {"n", "]d", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>"},
     -- {"n", "[d", "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>"},
-    {"n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>"},
-    {"n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>"},
-    {"n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>"},
-    -- {"n", "gh", "<cmd>lua vim.lsp.buf.hover()<CR>"},
-    -- {"n", "gr", "<cmd>lua vim.lsp.buf.rename()<CR>"},
+    {"n", "<leader>cd", "<cmd>lua vim.lsp.buf.definition()<CR>"},
+    -- {"n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>"},
+    {"n", "<leader>ci", "<cmd>lua vim.lsp.buf.implementation()<CR>"},
+    -- {"n", "<leader>ch", "<cmd>lua vim.lsp.buf.hover()<CR>"},
+    -- {"n", "<leader>cr", "<cmd>lua vim.lsp.buf.rename()<CR>"},
     {"n", "<leader>F", "<cmd>lua vim.lsp.buf.formatting()<CR>"},
     {"n", "<leader>td", "<cmd>lua vim.lsp.buf.type_definition()<CR>"},
     {"n", "<leader>rf", "<cmd>lua vim.lsp.buf.references()<CR>"},
     -- {"n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action({ source = { organizeImports = true } })<CR>"},
-    -- {"n", "<leader>ld", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>"},
-    {"n", "<leader>ll", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>"},
+    -- {"n", "<leader>cD", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>"},
+    {"n", "<leader>cl", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>"},
     -- Use <Tab> and <S-Tab> to navigate through popup menu
     {"i", "<Tab>", 'pumvisible() ? "\\<C-n>" : "\\<Tab>"', {expr = true}},
     {"i", "<S-Tab>", 'pumvisible() ? "\\<C-p>" : "\\<Tab>"', {expr = true}}
@@ -79,78 +78,13 @@ local on_attach = function(client, _)
   end
 end
 
-local efm = require "efm"
-local flake8 = efm.flake8
-local isort = efm.isort
-local autopep8 = efm.autopep8
-local mypy = efm.mypy
-local luafmt = efm.luafmt
-local prettier = efm.prettier
-
-local languages = {
-  python = {isort, flake8, autopep8, mypy},
-  lua = {luafmt},
-  yaml = {prettier},
-  json = {prettier},
-  html = {prettier},
-  css = {prettier},
-  markdown = {prettier}
-}
-
-lspconfig.efm.setup {
-  root_dir = lspconfig.util.root_pattern(".git", "."),
-  filetypes = vim.tbl_keys(languages),
-  init_options = {documentFormatting = true, codeAction = true},
-  settings = {languages = languages, log_level = 1, log_file = "~/efm.log"},
-  on_attach = on_attach
-}
-
--- lspconfig.pyright.setup {
---   capabilities = capabilities,
---   on_attach = on_attach
--- }
-
 lspconfig.jedi_language_server.setup {
   capabilities = capabilities,
   on_attach = on_attach
 }
 
--- lspconfig.pyls.setup {
---   cmd = {"pyls"},
---   filetypes = {"python"},
---   capabilities = capabilities,
---   settings = {
---     pyls = {
---       configurationSources = {"flake8"},
---       plugins = {
---         jedi_completion = {enabled = true},
---         jedi_hover = {enabled = true},
---         jedi_references = {enabled = true},
---         jedi_signature_help = {enabled = true},
---         jedi_symbols = {enabled = true, all_scopes = true},
---         pycodestyle = {enabled = false},
---         flake8 = {
---           enabled = true,
---           ignore = {},
---           maxLineLength = 160
---         },
---         pyls_mypy = {enabled = true, live_mode = true},
---         pyls_isort = {enabled = true},
---         yapf = {enabled = false},
---         pylint = {enabled = false},
---         pydocstyle = {enabled = false},
---         mccabe = {enabled = false},
---         preload = {enabled = false},
---         rope_completion = {enabled = false}
---       }
---     }
---   },
---   on_attach = on_attach
--- }
-
 local sumneko_root_path = vim.fn.expand("~") .. "/lua-language-server"
 local sumneko_binary = sumneko_root_path .. "/bin/Linux/lua-language-server"
-
 lspconfig.sumneko_lua.setup {
   cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"},
   capabilities = capabilities,
@@ -198,6 +132,33 @@ lspconfig.vimls.setup {
   capabilities = capabilities,
   on_attach = on_attach
 }
+
+local efm = require "efm"
+local flake8 = efm.flake8
+local isort = efm.isort
+local autopep8 = efm.autopep8
+local mypy = efm.mypy
+local luafmt = efm.luafmt
+local prettier = efm.prettier
+
+local languages = {
+  python = {isort, flake8, autopep8, mypy},
+  lua = {luafmt},
+  yaml = {prettier},
+  json = {prettier},
+  html = {prettier},
+  css = {prettier},
+  markdown = {prettier}
+}
+
+lspconfig.efm.setup {
+  root_dir = lspconfig.util.root_pattern(".git", "."),
+  filetypes = vim.tbl_keys(languages),
+  init_options = {documentFormatting = true, codeAction = true},
+  settings = {languages = languages, log_level = 1, log_file = "~/efm.log"},
+  on_attach = on_attach
+}
+
 
 -- Diagnostic
 vim.lsp.handlers["textDocument/publishDiagnostics"] =

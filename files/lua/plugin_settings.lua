@@ -8,10 +8,10 @@ require "lspsaga".init_lsp_saga {
   code_action_keys = {quit = "<ESC>", exec = "<CR>"}
 }
 map("n", "<leader>ca", "<cmd>lua require('lspsaga.codeaction').code_action()<CR>", {silent = true})
-map("n", "<leader>gr", "<cmd>lua require('lspsaga.rename').rename()<CR>", {silent = true})
-map("n", "gh", "<cmd>lua require('lspsaga.hover').render_hover_doc()<CR>", {silent = true})
-map("n", "gs", "<cmd>lua require('lspsaga.signaturehelp').signature_help()<CR>", {silent = true})
-map("n", "<leader>ld", "<cmd>lua require'lspsaga.diagnostic'.show_line_diagnostics()<CR>", {silent = true})
+map("n", "<leader>cr", "<cmd>lua require('lspsaga.rename').rename()<CR>", {silent = true})
+map("n", "<leader>ch", "<cmd>lua require('lspsaga.hover').render_hover_doc()<CR>", {silent = true})
+map("n", "<leader>cs", "<cmd>lua require('lspsaga.signaturehelp').signature_help()<CR>", {silent = true})
+map("n", "<leader>cD", "<cmd>lua require'lspsaga.diagnostic'.show_line_diagnostics()<CR>", {silent = true})
 map("n", "]d", "<cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_next()<CR>", {silent = true})
 map("n", "[d", "<cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()<CR>", {silent = true})
 vim.api.nvim_exec(
@@ -147,7 +147,7 @@ vim.g.UltiSnipsEditSplit = "vertical"
 -- floaterm
 vim.g.floaterm_position = "bottom"
 vim.g.floaterm_width = 1.001
-vim.g.floaterm_height = 0.3
+vim.g.floaterm_height = 0.5
 
 vim.g.floaterm_keymap_toggle = "<F3>"
 vim.g.floaterm_keymap_prev = "<F5>"
@@ -157,44 +157,6 @@ map("n", "<F4>", "<cmd>FloatermNew python<CR>")
 map("t", "<F4>", "<cmd>FloatermNew python<CR>")
 
 vim.cmd [[highlight link FloatermBorder Normal]]
-
--- which-key
-map("n", "<leader>", ":WhichKey '<leader>'<CR>")
-map("v", "<leader>", ":<c-u>WhichKeyVisual '<leader>'<CR>")
-
-vim.api.nvim_exec(
-  [[
-		autocmd! FileType which_key
-		autocmd FileType which_key set laststatus=0 | autocmd BufLeave <buffer> set laststatus=2
-	]],
-  false
-)
-
-vim.call('which_key#register', '<leader>', 'g:which_key_map')
-
-vim.g.which_key_use_floating_win = 0
-vim.g.which_key_max_size = 0
-vim.g.which_key_timeout = 100
-vim.g.which_key_display_names = {["<CR>"] = "↵", ["<TAB>"] = "⇆"}
-
-vim.g.which_key_map = {}
-vim.g.which_key_map["'"] = {"<C-W>s", "horizontal split"}
-vim.g.which_key_map[";"] = {"<C-W>v", "vertical split"}
-vim.g.which_key_map["`"] = {":terminal", "terminal windows"}
-vim.g.which_key_map.s = {
-  name = "Sessions",
-  c = {"SClose!", "close session"},
-  d = {"SDelete!", "delete session"},
-  l = {"SLoad!", "load session"},
-  s = {"SSave!", "save session"}
-}
-
-vim.g.which_key_map.c = {
-  name = "+colors",
-  o = {"<cmd>Command", "commands"},
-  s = {"<cmd>ColorSwapFgBg", "color swap fg bf"},
-  t = {"<cmd>ColorToggle", "color toggle"}
-}
 
 -- hop.nvim
 map("n", "f", "<cmd>HopChar1<CR>")
@@ -288,7 +250,7 @@ map("n", "<leader>i", "<cmd>IndentBlanklineToggle<CR>")
 
 -- vim-better-whitespace
 vim.g.better_whitespace_guicolor = "#fb4934"
-vim.g.better_whitespace_filetypes_blacklist = {'dashboard', 'packer'}
+vim.g.better_whitespace_filetypes_blacklist = {"dashboard", "packer"}
 
 map("n", "]w", "<cmd>NextTrailingWhitespace<CR>")
 map("n", "[w", "<cmd>PrevTrailingWhitespace<CR>")
@@ -298,6 +260,15 @@ require "nvim-treesitter.configs".setup {
   ensure_installed = "maintained",
   highlight = {
     enable = true
+  },
+  incremental_selection = {
+    enable = true,
+    keymaps = {
+      init_selection = "gnn",
+      node_incremental = "grn",
+      node_decremental = "grm",
+      scope_incremental = "grc"
+    }
   },
   playground = {
     enable = true,

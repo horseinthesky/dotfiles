@@ -168,7 +168,7 @@ let g:UltiSnipsEditSplit="vertical"
 " ==== floaterm ====
 let g:floaterm_position = 'bottom'
 let g:floaterm_width = 1.0
-let g:floaterm_height = 0.3
+let g:floaterm_height = 0.5
 
 let g:floaterm_keymap_toggle = '<F3>'
 let g:floaterm_keymap_prev   = '<F5>'
@@ -255,7 +255,7 @@ nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 " Go to definition (Ctrl+^ for return)
-nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> <leader>cd <Plug>(coc-definition)
 " Open a list of references of an object in a split
 nmap <silent> gr <Plug>(coc-references)
 

@@ -66,21 +66,18 @@ nnoremap <leader>T :%s/\t/    /g<CR>
 " Strip all trailing whitespace in the current file
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 
-" Reselect the text that was just pasted
-nnoremap <leader>v V`]
-
 " Visual shifting (does not exit Visual mode)
 vnoremap < <gv
 vnoremap > >gv
 
-" Reload init.vim
-nnoremap <expr><leader>r (&filetype == 'lua') ? '<cmd>luafile %<CR>' : '<cmd>source %<CR>'
+" Reload current buffer
+nnoremap <expr><leader>R (&filetype == 'lua') ? '<cmd>luafile %<CR>' : '<cmd>source %<CR>'
 
 " Alternate way to save
 nnoremap <C-s> :w<CR>
 
 "gp selects code that was just pasted in the visual mode last used
-nnoremap <expr> gp  '`[' . strpart(getregtype(), 0, 1) . '`]'
+nnoremap <expr> <leader>v  '`[' . strpart(getregtype(), 0, 1) . '`]'
 
 " Press * to search for the term under the cursor and then press a key below
 " to replace all instances of it in the current file.

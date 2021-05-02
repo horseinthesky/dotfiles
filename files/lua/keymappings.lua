@@ -56,17 +56,15 @@ local mappings = {
   {"n", "<leader>T", "<cmd>%s/\t/    /g<CR>"},
   -- Strip all trailing whitespace in the current file
   {"n", "<leader>W", "<cmd>%s/\\s\\+$//<cr>:let @/=''<CR>"},
-  -- Reselect the text that was just pasted
-  {"n", "<leader>v", "V`"},
   -- Visual shifting (does not exit Visual mode)
   {"v", "<", "<gv"},
   {"v", ">", ">gv"},
-  -- Reload init.vim
-  {"n", "<leader>r", "(&filetype == 'lua') ? '<cmd>luafile %<CR>' : '<cmd>source %<CR>'", {expr = true}},
+  -- Reload current buffer
+  {"n", "<leader>R", "(&filetype == 'lua') ? '<cmd>luafile %<CR>' : '<cmd>source %<CR>'", {expr = true}},
   -- Alternate way to save
   {"n", "<C-s>", "<cmd>w<CR>"},
   -- gp selects code that was just pasted in the visual mode last used
-  {"n", "gp", "'`[' . strpart(getregtype(), 0, 1) . '`]'", {expr = true}},
+  {"n", "<leader>v", "'`[' . strpart(getregtype(), 0, 1) . '`]'", {expr = true}},
   -- Press * to search for the term under the cursor and then press a key below
   -- to replace all instances of it in the current file.
   -- Second binding is for comfirmation.
