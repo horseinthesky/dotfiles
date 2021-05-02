@@ -14,8 +14,7 @@ autocmd  FileType which_key set laststatus=0 noruler
 
 " Map leader to which_key
 nnoremap <silent> <leader> :silent <c-u> :silent WhichKey 'leader'<CR>
-nnoremap <silent> g :silent <c-u> :silent WhichKey 'g'<CR>
-" vnoremap <silent> <leader> :silent <c-u> :silent WhichKeyVisual 'leader'<CR>
+vnoremap <silent> <leader> :silent <c-u> :silent WhichKeyVisual 'leader'<CR>
 
 " Create map to add keys to
 let g:which_leader_map =  {}
@@ -109,17 +108,5 @@ let g:which_leader_map.f.g = {
   \ 's' : ['', 'status'],
 \ }
 
-let g:which_g_map =  {}
-let g:which_g_map.cc = ['', 'comment']
-let g:which_g_map.n = ['', 'which_key_ignore']
-let g:which_g_map.c = ['', 'which_key_ignore']
-let g:which_g_map.x = ['', 'which_key_ignore']
-let g:which_g_map['%'] = ['', 'which_key_ignore']
-let g:which_g_map.d = {
-  \ 'name' : '+diff',
-  \ 'h' : 'diff to (left)',
-  \ 'l' : 'diff from (right)',
-\ }
 " Register which key map
 call which_key#register('leader', "g:which_leader_map")
-call which_key#register('g', "g:which_g_map")

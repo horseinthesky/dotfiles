@@ -63,7 +63,7 @@ local settings = {
   history = 100,
   undolevels = 100,
   undofile = true,
-  undodir = vim.fn.stdpath("config") .. "/tmp/undo",
+  undodir = vim.fn.stdpath("config") .. "/undo",
   -- Splits
   splitbelow = true,                       -- new horizontal split to appear below
   splitright = true,                       -- new vertical split to appear on the right

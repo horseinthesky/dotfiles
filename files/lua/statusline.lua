@@ -8,7 +8,15 @@ local utils = require "utils"
 local icons = utils.icons
 local colors = utils.colors
 
-gl.short_line_list = {"vim-plug", "tagbar", "Mundo", "MundoDiff", "coc-explorer", "startify", "packer"}
+gl.short_line_list = {
+  "vim-plug",
+  "tagbar",
+  "Mundo",
+  "MundoDiff",
+  "coc-explorer",
+  "startify",
+  "packer"
+}
 
 local mode_map = {
   ["n"] = {"NORMAL", colors.fg3, colors.bg2},
@@ -259,18 +267,26 @@ gls.left[9] = {
 }
 
 gls.right[1] = {
-  LspStatus = {
+  LspIcon = {
     provider = function()
       if diagnostic_exists() then
-        return string.format("%s %s ", icons.connected, lspclient.get_lsp_client())
-      else
-        return icons.disconnected .. " "
+        return icons.gears .. " "
+      end
+    end,
+    highlight = {colors.bright_purple, colors.bg1}
+  }
+}
+gls.right[2] = {
+  LspServer = {
+    provider = function()
+      if diagnostic_exists() then
+        return lspclient.get_lsp_client() .. " "
       end
     end,
     highlight = {colors.fg4, colors.bg1}
   }
 }
-gls.right[2] = {
+gls.right[3] = {
   DiagnosticOk = {
     provider = function()
       if not diagnostic_exists() then
@@ -288,7 +304,7 @@ gls.right[2] = {
     highlight = {colors.bright_green, colors.bg1}
   }
 }
-gls.right[3] = {
+gls.right[4] = {
   DiagnosticError = {
     provider = function()
       return diag("Error")
@@ -296,7 +312,7 @@ gls.right[3] = {
     highlight = {colors.bright_red, colors.bg1}
   }
 }
-gls.right[4] = {
+gls.right[5] = {
   DiagnosticWarn = {
     provider = function()
       return diag("Warning")
@@ -304,7 +320,7 @@ gls.right[4] = {
     highlight = {colors.bright_yellow, colors.bg1}
   }
 }
-gls.right[5] = {
+gls.right[6] = {
   DiagnosticInfo = {
     provider = function()
       return diag("Information")
@@ -312,7 +328,7 @@ gls.right[5] = {
     highlight = {colors.bright_blue, colors.bg1}
   }
 }
-gls.right[6] = {
+gls.right[7] = {
   DiagnosticHint = {
     provider = function()
       return diag("Hint")
@@ -320,7 +336,7 @@ gls.right[6] = {
     highlight = {colors.bright_aqua, colors.bg1}
   }
 }
-gls.right[7] = {
+gls.right[8] = {
   RightSepNested = {
     provider = function()
       return sep.right_filled
@@ -328,7 +344,7 @@ gls.right[7] = {
     highlight = "GalaxyViModeInvNested"
   }
 }
-gls.right[8] = {
+gls.right[9] = {
   FileFormat = {
     provider = function()
       if not buffer_not_empty() or not wide_enough(70) then
@@ -340,7 +356,7 @@ gls.right[8] = {
     highlight = "GalaxyViModeNested"
   }
 }
-gls.right[9] = {
+gls.right[10] = {
   RightSep = {
     provider = function()
       return sep.right_filled
@@ -348,18 +364,21 @@ gls.right[9] = {
     highlight = "GalaxyViModeInv"
   }
 }
-gls.right[10] = {
+gls.right[11] = {
   PositionInfo = {
     provider = function()
       if not buffer_not_empty() or not wide_enough(60) then
         return ""
       end
-      return string.format("  %s %s:%s ", icons.line_number, vim.fn.line("."), vim.fn.col("."))
+      return string.format(
+        "  %s %s:%s ",
+        icons.line_number, vim.fn.line("."), vim.fn.col(".")
+      )
     end,
     highlight = "GalaxyViMode"
   }
 }
-gls.right[11] = {
+gls.right[12] = {
   PercentInfo = {
     provider = function()
       if not buffer_not_empty() or not wide_enough(65) then

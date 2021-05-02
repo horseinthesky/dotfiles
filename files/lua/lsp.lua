@@ -32,8 +32,8 @@ local on_attach = function(client, _)
   utils.opt("omnifunc", "v:lua.vim.lsp.omnifunc")
 
   local lsp_keymappings = {
-    -- {"n", "]d", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>"},
-    -- {"n", "[d", "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>"},
+    -- {"n", "]d", "<cmd>lua vim.lsp.diagnostic.goto_next({enable_popup = false})<CR>"},
+    -- {"n", "[d", "<cmd>lua vim.lsp.diagnostic.goto_prev({enable_popup = false})<CR>"},
     {"n", "<leader>cd", "<cmd>lua vim.lsp.buf.definition()<CR>"},
     -- {"n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>"},
     {"n", "<leader>ci", "<cmd>lua vim.lsp.buf.implementation()<CR>"},

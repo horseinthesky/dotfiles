@@ -37,6 +37,7 @@ M.icons = {
   paste = "", -- f691
   circle = "", -- f62e
   git = "", -- f7a1
+  branch = "", -- f418
   added = "", -- f457
   removed = "", --f458
   modified = "", --f459
