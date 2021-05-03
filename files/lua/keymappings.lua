@@ -1,4 +1,4 @@
-local utils = require("utils")
+local map = require "utils".map
 
 local mappings = {
   -- Splits
@@ -83,7 +83,7 @@ local mappings = {
   {"x", "<leader>rs", '"sy:let @/=@s<CR>cgn'}
 }
 
-for _, map in ipairs(mappings) do
-  local mode, lhs, rhs, opts = unpack(map)
-  utils.map(mode, lhs, rhs, opts)
+for _, keymap in ipairs(mappings) do
+  local mode, lhs, rhs, opts = unpack(keymap)
+  map(mode, lhs, rhs, opts)
 end

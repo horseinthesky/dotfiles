@@ -280,7 +280,12 @@ gls.right[2] = {
   LspServer = {
     provider = function()
       if diagnostic_exists() then
-        return lspclient.get_lsp_client() .. " "
+        local client = lspclient.get_lsp_client()
+        local client_short = string.match(client, "(.-)_.*")
+        if client_short then
+          return client_short .. " "
+        end
+        return client .. " "
       end
     end,
     highlight = {colors.fg4, colors.bg1}
@@ -370,10 +375,7 @@ gls.right[11] = {
       if not buffer_not_empty() or not wide_enough(60) then
         return ""
       end
-      return string.format(
-        "  %s %s:%s ",
-        icons.line_number, vim.fn.line("."), vim.fn.col(".")
-      )
+      return string.format("  %s %s:%s ", icons.line_number, vim.fn.line("."), vim.fn.col("."))
     end,
     highlight = "GalaxyViMode"
   }

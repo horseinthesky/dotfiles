@@ -28,6 +28,7 @@ let g:which_leader_map.W = ['', 'strip whitespaces']
 let g:which_leader_map.v = ['', 'reselect pasted text']
 let g:which_leader_map.R = ['', 'reload buffer']
 let g:which_leader_map.F = ['', 'format']
+let g:which_leader_map.I = ['', 'lsp info']
 let g:which_leader_map.s = {
   \ 'name' : '+sessions',
   \ 'c' : ['SClose!', 'session close'],
@@ -87,9 +88,11 @@ let g:which_leader_map.f = {
   \ 'f' : ['', 'files'],
   \ 'G' : ['', 'live grep'],
   \ 'w' : ['', 'word'],
+  \ 'r' : ['', 'registers'],
   \ 's' : ['', 'search'],
-  \ 'l' : ['', 'line'],
-  \ 'm' : ['', 'keymaps'],
+  \ 'L' : ['', 'line'],
+  \ 'm' : ['', 'marks'],
+  \ 'M' : ['', 'keymaps'],
   \ 'o' : ['', 'options'],
   \ 'O' : ['', 'oldfiles'],
   \ 'c' : ['', 'comands'],
@@ -100,12 +103,19 @@ let g:which_leader_map.f = {
   \ 'H' : ['', 'highlights'],
   \ 'C' : ['', 'colorscheme'],
   \ 'S' : ['', 'symbols'],
-\ }
-let g:which_leader_map.f.g = {
-  \ 'name' : '+git' ,
-  \ 'b' : ['', 'branches'],
-  \ 'c' : ['', 'cimmits'],
-  \ 's' : ['', 'status'],
+  \ 'g' : {
+    \ 'name' : '+git' ,
+    \ 'b' : ['', 'branches'],
+    \ 'c' : ['', 'cimmits'],
+    \ 's' : ['', 'status'],
+  \ },
+  \ 'l' : {
+    \ 'name' : '+lsp' ,
+    \ 'd' : ['', 'document diagnostics'],
+    \ 'D' : ['', 'workspace diagnostics'],
+    \ 's' : ['', 'document symbols'],
+    \ 'S' : ['', 'workspace symbols'],
+  \ },
 \ }
 
 " Register which key map

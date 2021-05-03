@@ -78,13 +78,15 @@ map("n", "<leader>fgc", [[<cmd>lua require('telescope.builtin').git_commits()<CR
 map("n", "<leader>fgs", [[<cmd>lua require('telescope.builtin').git_status()<CR>]])
 map("n", "<leader>fG", [[<cmd>lua require('telescope.builtin').live_grep()<CR>]])
 map("n", "<leader>fw", [[<cmd>lua require('telescope.builtin').grep_string { search = vim.fn.expand("<cword>") }<CR>]])
+map("n", "<leader>fr", [[<cmd>lua require('telescope.builtin').registers()<CR>]])
 map(
   "n",
   "<leader>fs",
   [[<cmd>lua require('telescope.builtin').grep_string({ search = vim.fn.input("Grep For > ")})<CR>]]
 )
-map("n", "<leader>fl", [[<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>]])
-map("n", "<leader>fm", [[<cmd>lua require('telescope.builtin').keymaps()<CR>]])
+map("n", "<leader>fL", [[<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>]])
+map("n", "<leader>fm", [[<cmd>lua require('telescope.builtin').marks()<CR>]])
+map("n", "<leader>fM", [[<cmd>lua require('telescope.builtin').keymaps()<CR>]])
 map("n", "<leader>fo", [[<cmd>lua require('telescope.builtin').vim_options()<CR>]])
 map("n", "<leader>fO", [[<cmd>lua require('telescope.builtin').oldfiles()<CR>]])
 map("n", "<leader>fc", [[<cmd>lua require('telescope.builtin').commands()<CR>]])
@@ -95,6 +97,10 @@ map("n", "<leader>fB", [[<cmd>lua require('telescope.builtin').buffers()<CR>]])
 map("n", "<leader>fH", [[<cmd>lua require('telescope.builtin').highlights()<CR>]])
 map("n", "<leader>fC", [[<cmd>lua require('telescope.builtin').colorscheme()<CR>]])
 map("n", "<leader>fS", [[<cmd>lua require('telescope.builtin').symbols()<CR>]])
+map("n", "<leader>fld", [[<cmd>lua require('telescope.builtin').lsp_document_diagnostics()<CR>]])
+map("n", "<leader>flD", [[<cmd>lua require('telescope.builtin').lsp_workspace_diagnostics()<CR>]])
+map("n", "<leader>fls", [[<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]])
+map("n", "<leader>flS", [[<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<CR>]])
 
 vim.api.nvim_exec(
   [[
