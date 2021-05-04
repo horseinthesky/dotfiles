@@ -6,6 +6,8 @@ vim.api.nvim_exec(
     highlight default link WhichKeySeperator LineNr
     highlight default link WhichKeyGroup     Number
     highlight default link WhichKeyDesc      Identifier
+    highlight default link WhichKeyValue     Title
+    highlight default link WhichKeyFloat     Normal
   ]],
   false
 )
@@ -15,7 +17,7 @@ local leader_map = {
   [";"] = "vertical split",
   ["`"] = "terminal",
   ["\\"] = {
-    name = "+visual multi",
+    name = "visual multi",
     ["/"] = "start regex search",
     ["\\"] = "add cursor at position",
     A = "select all",
@@ -33,19 +35,19 @@ local leader_map = {
   F = "format",
   I = "lsp info",
   s = {
-    name = "+sessions",
+    name = "sessions",
     c = "session close",
     d = "session delete",
     l = "session load",
     s = "session save"
   },
   b = {
-    name = "+buffers",
+    name = "buffers",
     d = "delete buffer",
     p = "pick buffer"
   },
   t = {
-    name = "+tabs",
+    name = "tabs",
     t = "new tab",
     l = "next tab",
     h = "previous tab",
@@ -59,24 +61,24 @@ local leader_map = {
     K = "tab move last"
   },
   q = {
-    name = "+quicklist",
+    name = "quicklist",
     o = "open quicklist",
     c = "close quicklist"
   },
   l = {
-    name = "+loclist",
+    name = "loclist",
     o = "open loclist",
     c = "close loclist",
     r = "which_key_ignore"
   },
   r = {
-    name = "+replace",
+    name = "replace",
     r = "replace all entries",
     c = "replace with confirmation",
     s = "replace one entry"
   },
   c = {
-    name = "+code",
+    name = "code",
     a = "code action",
     d = "definition",
     i = "implementation",
@@ -88,7 +90,7 @@ local leader_map = {
     t = "which_key_ignore"
   },
   f = {
-    name = "+find",
+    name = "find",
     b = "builtins",
     f = "files",
     G = "live grep",
@@ -109,13 +111,13 @@ local leader_map = {
     C = "colorscheme",
     S = "symbols",
     g = {
-      name = "+git",
+      name = "git",
       b = "branches",
       c = "cimmits",
       s = "status"
     },
     l = {
-      name = "+lsp",
+      name = "lsp",
       d = "document diagnostics",
       D = "workspace diagnostics",
       s = "document symbols",
@@ -127,7 +129,7 @@ local leader_map = {
 local g_map = {
   c = "comment",
   d = {
-    name = "+diff",
+    name = "diff",
     h = "diff from (left)",
     l = "diff to (right)"
   }
