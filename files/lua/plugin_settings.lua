@@ -137,10 +137,6 @@ vim.g.fzf_layout = {
 vim.g.fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
 
 map("n", ";", "<cmd>Files<CR>")
-map("n", "<C-p>", "<cmd>Rg<CR>")
-map("n", "<leader>bl", "<cmd>BLines<CR>")
-map("n", "<leader>m", "<cmd>Maps<CR>")
-map("n", "<leader>co", "<cmd>Commands<CR>")
 
 -- UltiSnips
 vim.g.UltiSnipsExpandTrigger = "<C-s>"
@@ -171,10 +167,6 @@ vim.cmd [[highlight HopNextKey guifg=#fabd2f]]
 -- visual-multi
 map("n", "<S-Up>", ":<C-U>call vm#commands#add_cursor_up(0, v:count1)<CR>")
 map("n", "<S-Down>", ":<C-U>call vm#commands#add_cursor_down(0, v:count1)<CR>")
-
--- peekup
-require("nvim-peekup.config").on_keystroke["delay"] = ""
-require("nvim-peekup.config").on_keystroke["paste_reg"] = '"'
 
 -- vim-fugitive
 map("n", "<leader>gd", "<cmd>Gvdiffsplit!<CR>")

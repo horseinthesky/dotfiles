@@ -1,20 +1,23 @@
 -- Install plugins
-require("plugins")
+require "plugins"
 
 -- Sensible defaults
-require("settings")
+require "settings"
 
 -- Key mappings
-require("keymappings")
+require "keymappings"
 
 -- Set colorscheme
-require("colorscheme")
+require "colorscheme"
 
 -- Plugin settings
-require("plugin_settings")
+require "plugin_settings"
+
+-- Which-key
+require "which_key"
 
 -- Setup Lua language server using submodule
-require("lsp")
+require "lsp"
 
 -- Statusline
 require "statusline"

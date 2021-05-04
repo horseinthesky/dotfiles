@@ -31,9 +31,6 @@ packer.startup(function(use)
   use "neovim/nvim-lspconfig"
   use "hrsh7th/nvim-compe"
   use {"tzachar/compe-tabnine", run="./install.sh" }
-  -- use "nvim-lua/completion-nvim"
-  -- use "steelsojka/completion-buffers"
-  -- use {"aca/completion-tabnine", run = "./install.sh"}
   -- lsp addons
   use "glepnir/lspsaga.nvim"
   use "onsails/lspkind-nvim"
@@ -51,11 +48,10 @@ packer.startup(function(use)
     requires = {"honza/vim-snippets"}
   }
   use "voldikss/vim-floaterm"
-  use "liuchengxu/vim-which-key"
+  use "folke/which-key.nvim"
   use "dstein64/vim-startuptime"
   use "phaazon/hop.nvim"
   use {"mg979/vim-visual-multi", branch = "master"}
-  use "gennaro-tedesco/nvim-peekup"
   use "tpope/vim-surround"
   use "tpope/vim-commentary"
   use "tpope/vim-repeat"

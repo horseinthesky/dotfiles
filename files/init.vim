@@ -25,8 +25,6 @@ if has('nvim-0.5')
   lua require 'setup'
 endif
 
-source $CONFIG_DIR/which_key.vim
-
 " ======== Autocommands ========
 augroup auto_checktime
   autocmd!
