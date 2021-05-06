@@ -28,7 +28,6 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 local on_attach = function(client, _)
-
   utils.opt("omnifunc", "v:lua.vim.lsp.omnifunc")
 
   local lsp_keymappings = {
@@ -45,10 +44,7 @@ local on_attach = function(client, _)
     -- {"n", "<leader>rf", "<cmd>lua vim.lsp.buf.references()<CR>"},
     -- {"n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action({ source = { organizeImports = true } })<CR>"},
     -- {"n", "<leader>cD", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>"},
-    {"n", "<leader>cl", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>"},
-    -- Use <Tab> and <S-Tab> to navigate through popup menu
-    {"i", "<Tab>", 'pumvisible() ? "\\<C-n>" : "\\<Tab>"', {expr = true}},
-    {"i", "<S-Tab>", 'pumvisible() ? "\\<C-p>" : "\\<Tab>"', {expr = true}}
+    {"n", "<leader>cl", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>"}
   }
 
   for _, map in ipairs(lsp_keymappings) do
@@ -159,7 +155,6 @@ lspconfig.efm.setup {
   settings = {languages = languages, log_level = 1, log_file = "~/efm.log"},
   on_attach = on_attach
 }
-
 
 -- Diagnostic
 vim.lsp.handlers["textDocument/publishDiagnostics"] =
