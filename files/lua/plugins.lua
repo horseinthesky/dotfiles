@@ -66,6 +66,7 @@ packer.startup(function(use)
   use "mhinz/vim-startify"
   use "morhetz/gruvbox"
   use "lifepillar/vim-solarized8"
+  use "Glench/Vim-Jinja2-Syntax"
   use "chrisbra/Colorizer"
   use {"lukas-reineke/indent-blankline.nvim", branch = "lua"}
   use "ntpeters/vim-better-whitespace"
