@@ -175,6 +175,7 @@ export PIPXPATH="$HOME/.local/bin"
 alias vi=$(which nvim)
 alias nv=$(which nvim-nightly)
 alias sr='sudo -E -s'
+alias grep='grep --color=auto --line-buffered'
 alias diff='diff --color -u'
 alias vid='vdiff'
 
