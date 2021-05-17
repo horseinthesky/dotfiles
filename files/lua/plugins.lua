@@ -26,6 +26,7 @@ packer.startup(function(use)
       {'nvim-telescope/telescope-symbols.nvim'},
     },
   }
+  use "folke/todo-comments.nvim"
 
   -- LSP and completion
   use "neovim/nvim-lspconfig"

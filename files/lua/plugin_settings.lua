@@ -71,7 +71,7 @@ require("telescope").setup {
 
 require("telescope").load_extension("fzy_native")
 
-map("n", "<leader>fb", [[<cmd>lua require('telescope.builtin').builtin()<CR>]])
+map("n", "<leader>fB", [[<cmd>lua require('telescope.builtin').builtin()<CR>]])
 map("n", "<leader>ff", [[<cmd>lua require('telescope.builtin').find_files { hidden = true}<CR>]])
 map("n", "<leader>fgb", [[<cmd>lua require('telescope.builtin').git_branches()<CR>]])
 map("n", "<leader>fgc", [[<cmd>lua require('telescope.builtin').git_commits()<CR>]])
@@ -91,9 +91,8 @@ map("n", "<leader>fo", [[<cmd>lua require('telescope.builtin').vim_options()<CR>
 map("n", "<leader>fO", [[<cmd>lua require('telescope.builtin').oldfiles()<CR>]])
 map("n", "<leader>fc", [[<cmd>lua require('telescope.builtin').commands()<CR>]])
 map("n", "<leader>fa", [[<cmd>lua require('telescope.builtin').autocommands()<CR>]])
-map("n", "<leader>ft", [[<cmd>lua require('telescope.builtin').treesitter()<CR>]])
 map("n", "<leader>fh", [[<cmd>lua require('telescope.builtin').help_tags()<CR>]])
-map("n", "<leader>fB", [[<cmd>lua require('telescope.builtin').buffers()<CR>]])
+map("n", "<leader>fb", [[<cmd>lua require('telescope.builtin').buffers()<CR>]])
 map("n", "<leader>fH", [[<cmd>lua require('telescope.builtin').highlights()<CR>]])
 map("n", "<leader>fC", [[<cmd>lua require('telescope.builtin').colorscheme()<CR>]])
 map("n", "<leader>fS", [[<cmd>lua require('telescope.builtin').symbols()<CR>]])
@@ -112,6 +111,21 @@ vim.api.nvim_exec(
   ]],
   false
 )
+
+-- todo-comments
+require("todo-comments").setup {
+  signs = false,
+  keywords = {
+    PERF = {color = "perf"},
+    HACK = {color = "hack"},
+  },
+  colors = {
+    perf = "Number",
+    hack = "Special",
+  }
+}
+
+map("n", "<leader>ft", [[<cmd>TodoTelescope<CR>]])
 
 -- fzf
 vim.g.fzf_colors = {
