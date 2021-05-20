@@ -62,6 +62,9 @@ local mappings = {
   -- Visual shifting (does not exit Visual mode)
   {"v", "<", "<gv"},
   {"v", ">", ">gv"},
+  -- Linewise wrapped lines movement
+  {"n", "j", "gj"},
+  {"n", "k", "gk"},
   -- Reload current buffer
   {"n", "<leader>R", "(&filetype == 'lua') ? '<cmd>luafile %<CR>' : '<cmd>source %<CR>'", {expr = true}},
   -- Alternate way to save

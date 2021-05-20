@@ -70,6 +70,10 @@ nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 vnoremap < <gv
 vnoremap > >gv
 
+" Linewise wrapped lines movement
+nnoremap j gj
+nnoremap k gk
+
 " Reload current buffer
 nnoremap <expr><leader>R (&filetype == 'lua') ? '<cmd>luafile %<CR>' : '<cmd>source %<CR>'
 
