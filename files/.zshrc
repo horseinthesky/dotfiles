@@ -75,12 +75,16 @@ export DISABLE_AUTO_TITLE="true"
 # fzf
 if [[ -f "$HOME/.fzf.zsh" ]]; then
   source ~/.fzf.zsh
-  export FZF_DEFAULT_COMMAND='fd --type f --type d --follow --hidden --exclude .git'
-  export FZF_DEFAULT_OPTS='--height 60% --layout=reverse
-    --preview "bat --style=numbers --color=always --line-range :500 {}"
-    --color 'fg:#bdae93,fg+:#f9f5d7,hl:#fabd2f,hl+:#fabd2f,info:#8ec07c,pointer:#fb4934,marker:#fe8019,bg+:#3c3836''
+
+  FD_OPTIONS="--hidden --follow --exclude .git"
+  export FZF_DEFAULT_COMMAND="fd --type f --type l $FD_OPTIONS"
+  export FZF_DEFAULT_OPTS="--prompt ' ' --pointer '⯈' --marker=⦁ --height 60% --layout=reverse
+    --color 'fg:#bdae93,fg+:#f9f5d7,hl:#fabd2f,hl+:#fabd2f,info:#8ec07c,pointer:#fb4934,marker:#fe8019,bg+:-1'"
   export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
+  bindkey '^f' fzf-cd-widget
 fi
+
 
 # pyenv settings
 if [[ -d "$HOME/.pyenv" ]]; then
@@ -147,8 +151,6 @@ if grep -qE "(Microsoft|WSL)" /proc/version &>/dev/null; then
 fi
 
 # ==== Yandex ====
-# ssh-agent
-# YA_HOSTNAMES=('horseinthesky-w' 'i104058879')
 if [[ $(cat /etc/hostname) == 'i104058879' ]] ; then
   export PSSH_AUTH_SOCK="/mnt/c/Users/$USER/AppData/Local/Temp/pssh-agent.sock"
   export SSH_AUTH_SOCK="${PSSH_AUTH_SOCK}"
@@ -177,27 +179,6 @@ alias nv=$(which nvim-nightly)
 alias sr='sudo -E -s'
 alias grep='grep --color=auto --line-buffered'
 alias diff='diff --color -u'
-alias vid='vdiff'
-
-vdiff () {
-    if [ "${#}" -ne 2 ] ; then
-        echo "vdiff requires two arguments"
-        echo "  comparing dirs:  vdiff dir_a dir_b"
-        echo "  comparing files: vdiff file_a file_b"
-        return 1
-    fi
-
-    local left="${1}"
-    local right="${2}"
-
-    if [ -d "${left}" ] && [ -d "${right}" ]; then
-        nvim +"DirDiff ${left} ${right}"
-    else
-        nvim -d "${left}" "${right}"
-    fi
-}
-
-# ranger aliases
 alias ra='ranger'
 
 # lsd aliases

@@ -48,7 +48,7 @@ packer.startup(function(use)
     "SirVer/ultisnips",
     requires = {"honza/vim-snippets"}
   }
-  use "voldikss/vim-floaterm"
+  use "numToStr/FTerm.nvim"
   use "folke/which-key.nvim"
   use "dstein64/vim-startuptime"
   use "phaazon/hop.nvim"
@@ -57,10 +57,8 @@ packer.startup(function(use)
   use "tpope/vim-commentary"
   use "tpope/vim-repeat"
   use "tpope/vim-fugitive"
-  use "majutsushi/tagbar"
   use "simnalamburt/vim-mundo"
   use {"kkoomen/vim-doge", run = ":call doge#install()"}
-  use "will133/vim-dirdiff"
   use "AndrewRadev/linediff.vim"
 
   -- Visuals

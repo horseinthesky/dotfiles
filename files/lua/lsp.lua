@@ -31,9 +31,9 @@ local on_attach = function(client, _)
   utils.opt("omnifunc", "v:lua.vim.lsp.omnifunc")
 
   local lsp_keymappings = {
-    {"n", "<leader>I", "<cmd>LspInfo<CR>"},
-    -- {"n", "]d", "<cmd>lua vim.lsp.diagnostic.goto_next({enable_popup = false})<CR>"},
-    -- {"n", "[d", "<cmd>lua vim.lsp.diagnostic.goto_prev({enable_popup = false})<CR>"},
+    {"n", "<leader>i", "<cmd>LspInfo<CR>"},
+    {"n", "]d", "<cmd>lua vim.lsp.diagnostic.goto_next({enable_popup = false})<CR>"},
+    {"n", "[d", "<cmd>lua vim.lsp.diagnostic.goto_prev({enable_popup = false})<CR>"},
     {"n", "<leader>cd", "<cmd>lua vim.lsp.buf.definition()<CR>"},
     -- {"n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>"},
     {"n", "<leader>ci", "<cmd>lua vim.lsp.buf.implementation()<CR>"},
@@ -133,13 +133,13 @@ lspconfig.vimls.setup {
 local efm = require "efm"
 local flake8 = efm.flake8
 local isort = efm.isort
-local autopep8 = efm.autopep8
+local yapf = efm.yapf
 local mypy = efm.mypy
 local luafmt = efm.luafmt
 local prettier = efm.prettier
 
 local languages = {
-  python = {isort, flake8, autopep8, mypy},
+  python = {isort, flake8, yapf, mypy},
   lua = {luafmt},
   yaml = {prettier},
   json = {prettier},

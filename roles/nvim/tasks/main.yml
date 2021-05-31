@@ -116,6 +116,17 @@
     dest: "{{ user_home }}/.config/nvim/UltiSnips"
     state: link
 
+- name: Creates .config/yapf dir
+  file:
+    path: "{{ user_home }}/.config/yapf"
+    state: directory
+
+- name: Symlink yapf config
+  file:
+    src: "{{ dotfiles_home }}/style.yapf"
+    dest: "{{ user_home }}/.config/yapf/style"
+    state: link
+
 - name: Install plugins
   command: nvim +':silent PlugInstall' +qa
   when: nvim_check.rc == 1

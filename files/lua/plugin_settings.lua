@@ -12,8 +12,8 @@ map("n", "<leader>cr", "<cmd>lua require('lspsaga.rename').rename()<CR>", {silen
 map("n", "<leader>ch", "<cmd>lua require('lspsaga.hover').render_hover_doc()<CR>", {silent = true})
 map("n", "<leader>cs", "<cmd>lua require('lspsaga.signaturehelp').signature_help()<CR>", {silent = true})
 map("n", "<leader>cD", "<cmd>lua require'lspsaga.diagnostic'.show_line_diagnostics()<CR>", {silent = true})
-map("n", "]d", "<cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_next()<CR>", {silent = true})
-map("n", "[d", "<cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()<CR>", {silent = true})
+-- map("n", "]d", "<cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_next()<CR>", {silent = true})
+-- map("n", "[d", "<cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()<CR>", {silent = true})
 vim.api.nvim_exec(
   [[
     highlight LspSagaHoverBorder guifg=#fe8019
@@ -114,14 +114,14 @@ vim.api.nvim_exec(
 
 -- todo-comments
 require("todo-comments").setup {
-  signs = false,
+  signs = true,
   keywords = {
     PERF = {color = "perf"},
-    HACK = {color = "hack"},
+    HACK = {color = "hack"}
   },
   colors = {
     perf = "Number",
-    hack = "Special",
+    hack = "Special"
   }
 }
 
@@ -133,7 +133,6 @@ vim.g.fzf_colors = {
   ["hl+"] = {"fg", "Search"},
   ["info"] = {"fg", "PreProc"},
   ["pointer"] = {"fg", "Exception"},
-  ["bg+"] = {"bg", "CursorLine", "CursorColumn"},
   ["marker"] = {"fg", "Tag"}
 }
 vim.g.fzf_action = {
@@ -160,19 +159,36 @@ vim.g.UltiSnipsJumpBackwardTrigger = "<C-k>"
 -- If you want :UltiSnipsEdit to split your window.
 vim.g.UltiSnipsEditSplit = "vertical"
 
--- floaterm
-vim.g.floaterm_position = "bottom"
-vim.g.floaterm_width = 1.001
-vim.g.floaterm_height = 0.5
+-- FTerm
+require("FTerm").setup {
+  dimensions = {
+    width = 1,
+    height = 0.5,
+    x = 0,
+    y = 1
+  }
+}
 
-vim.g.floaterm_keymap_toggle = "<F3>"
-vim.g.floaterm_keymap_prev = "<F5>"
-vim.g.floaterm_keymap_next = "<F6>"
+map("n", "<F3>", '<CMD>lua require("FTerm").toggle()<CR>')
+map("t", "<F3>", '<CMD>lua require("FTerm").toggle()<CR>')
 
-map("n", "<F4>", "<cmd>FloatermNew python<CR>")
-map("t", "<F4>", "<cmd>FloatermNew python<CR>")
+local ptpython =
+  require("FTerm.terminal"):new():setup {
+  cmd = "ptpython",
+  dimensions = {
+    width = 1,
+    height = 0.5,
+    x = 0,
+    y = 1
+  }
+}
 
-vim.cmd [[highlight link FloatermBorder Normal]]
+function _G.__fterm_ptpython()
+  ptpython:toggle()
+end
+
+map("n", "<F4>", "<CMD>lua __fterm_ptpython()<CR>")
+map("t", "<F4>", "<CMD>lua __fterm_ptpython()<CR>")
 
 -- hop.nvim
 map("n", "f", "<cmd>HopChar1<CR>")
@@ -186,12 +202,6 @@ map("n", "<S-Down>", ":<C-U>call vm#commands#add_cursor_down(0, v:count1)<CR>")
 map("n", "<leader>gd", "<cmd>Gvdiffsplit!<CR>")
 map("n", "gdh", "<cmd>diffget //2<CR>")
 map("n", "gdl", "<cmd>diffget //3<CR>")
-
--- tagbar
-map("n", "<F8>", "<cmd>TagbarToggle<CR>")
-vim.g.tagbar_autofocus = 1
-vim.g.tagbar_autoclose = 1
-vim.g.tagbar_sort = 1
 
 -- vim-mundo
 map("n", "<F7>", "<cmd>MundoToggle<CR>")
@@ -237,7 +247,6 @@ map("n", "<leader>cs", "<cmd>ColorSwapFgBg<CR>")
 -- indentline
 vim.g.indent_blankline_filetype_exclude = {
   "help",
-  "tagbar",
   "markdown",
   "startify",
   "json",
@@ -258,7 +267,7 @@ vim.api.nvim_exec(
   false
 )
 
-map("n", "<leader>i", "<cmd>IndentBlanklineToggle<CR>")
+map("n", "<leader>I", "<cmd>IndentBlanklineToggle<CR>")
 
 -- vim-better-whitespace
 vim.g.better_whitespace_guicolor = "#fb4934"

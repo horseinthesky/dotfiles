@@ -10,12 +10,12 @@ function M.opt(key, value, scope)
   end
 end
 
-function M.map(mode, lhs, rhs, opts)
+function M.map(mode, key, action, opts)
   local options = {noremap = true}
   if opts then
     options = vim.tbl_extend("force", options, opts)
   end
-  vim.api.nvim_set_keymap(mode, lhs, rhs, options)
+  vim.api.nvim_set_keymap(mode, key, action, options)
 end
 
 -- TODO: rewrite to `nvim_set_hl()` when API will be stable

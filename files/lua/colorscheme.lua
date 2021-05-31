@@ -19,7 +19,9 @@ vim.g.is_transparent = 1
 vim.api.nvim_exec(
   [[
   highlight Normal guibg=NONE ctermbg=NONE
+  highlight! default link VertSplit Normal
   highlight SignColumn guibg=NONE ctermbg=NONE
+  highlight PmenuSel blend=0
 ]],
   false
 )
@@ -29,7 +31,9 @@ vim.api.nvim_exec(
   function! ToggleTransparent()
   if g:is_transparent == 0
     highlight Normal guibg=NONE ctermbg=NONE
+    highlight! default link VertSplit Normal
     highlight SignColumn guibg=NONE ctermbg=NONE
+    highlight PmenuSel blend=0
     highlight LspDiagnosticsDefaultInformation ctermfg=109 guifg=#83a598
     highlight LspDiagnosticsDefaultHint ctermfg=109 guifg=#fbf1c7
     highlight LspDiagnosticsDefaultError ctermfg=167 guifg=#fb4934

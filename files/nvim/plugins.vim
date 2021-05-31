@@ -15,10 +15,8 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-fugitive'
-Plug 'majutsushi/tagbar'
 Plug 'simnalamburt/vim-mundo'
 Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
-Plug 'will133/vim-dirdiff'
 Plug 'AndrewRadev/linediff.vim'
 
 " ==== Visual plugins ====
@@ -76,12 +74,6 @@ let g:ale_echo_msg_format = '[%linter%] %code%: %s'
 nmap <silent> [a <Plug>(ale_previous_wrap)
 nmap <silent> ]a <Plug>(ale_next_wrap)
 
-" ==== TagBar ====
-nmap <F8> :TagbarToggle<CR>
-let g:tagbar_autofocus = 1
-let g:tagbar_autoclose = 1
-let g:tagbar_sort = 1
-
 " ==== Fugitive ====
 " conflict resolution
 nnoremap <leader>gd :Gvdiffsplit!<CR>
@@ -120,7 +112,6 @@ let g:fzf_colors = {
   \ 'hl+':     ['fg', 'Search'],
   \ 'info':    ['fg', 'PreProc'],
   \ 'pointer': ['fg', 'Exception'],
-  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
   \ 'marker':  ['fg', 'Tag'],
 \ }
 
@@ -325,12 +316,12 @@ nnoremap ]w :NextTrailingWhitespace<CR>
 nnoremap [w :PrevTrailingWhitespace<CR>
 
 " ==== indentline ====
-let g:indentLine_fileTypeExclude = ['help', 'tagbar', 'markdown', 'startify', 'json']
+let g:indentLine_fileTypeExclude = ['help', 'markdown', 'startify', 'json']
 let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 " let g:indentLine_setColors = 0
 let g:indentLine_color_term = 239
 
-nnoremap <leader>i :IndentLinesToggle<CR>
+nnoremap <leader>I :IndentLinesToggle<CR>
 
 " ==== diminactive ===
 let g:diminactive_use_syntax = 1

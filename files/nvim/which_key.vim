@@ -22,13 +22,13 @@ let g:which_leader_map["'"] = ["'", 'horizontal split']
 let g:which_leader_map[";"] = [';', 'vertical split']
 let g:which_leader_map["`"] = ['', 'terminal']
 let g:which_leader_map.d = ['', 'doge generate']
-let g:which_leader_map.i = ['', 'indentline toggle']
+let g:which_leader_map.I = ['', 'indentline toggle']
 let g:which_leader_map.T = ['', 'replace tabs']
 let g:which_leader_map.W = ['', 'strip whitespaces']
 let g:which_leader_map.v = ['', 'reselect pasted text']
 let g:which_leader_map.R = ['', 'reload buffer']
 let g:which_leader_map.F = ['', 'format']
-let g:which_leader_map.I = ['', 'lsp info']
+let g:which_leader_map.i = ['', 'lsp info']
 let g:which_leader_map.s = {
   \ 'name' : '+sessions',
   \ 'c' : ['SClose!', 'session close'],

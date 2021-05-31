@@ -129,7 +129,7 @@ gls.left[1] = {
       highlight("GalaxyViModeInv", fg, nested_fg)
       highlight("GalaxyViModeNested", fg, nested_fg)
       highlight("GalaxyViModeInvNested", nested_fg, colors.bg1)
-      local mode = "  " .. label .. " "
+      local mode = "   " .. label .. " "
       if vim.o.paste then
         mode = mode .. sep.left .. " " .. icons.paste .. " Paste "
       end

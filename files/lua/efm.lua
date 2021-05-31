@@ -6,19 +6,24 @@ M.luafmt = {
 }
 
 M.flake8 = {
-  lintCommand = "flake8 --ignore= --max-line-length 160 --stdin-display-name ${INPUT} -",
+  lintCommand = "flake8 --ignore=E501 --stdin-display-name ${INPUT} -",
   lintStdin = true,
   lintIgnoreExitCode = true,
   lintFormats = {"%f:%l:%c: %m"}
 }
 
 M.isort = {
-  formatCommand = "isort --profile black -",
+  formatCommand = "isort -",
   formatStdin = true
 }
 
 M.autopep8 = {
-  formatCommand = "autopep8 --max-line-length 160 -",
+  formatCommand = "autopep8 --ignore E501 -",
+  formatStdin = true
+}
+
+M.yapf = {
+  formatCommand = "yapf",
   formatStdin = true
 }
 
