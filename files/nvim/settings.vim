@@ -16,7 +16,7 @@ set nobackup                          " Don't create annoying backup files
 set iskeyword+=-                      " Treat dash separated words as a word text object
 set mouse=v                           " Diable mouse (if enabled temp. disable with holding Shift)
 " set winblend=10,                      " Transparency for floating windows
-set pumblend=10,                      " Transparency for popup-menu
+set pumblend=10                       " Transparency for popup-menu
 set scrolloff=10                      " Start scrolling 10 lines before edge of viewpoint
 set pastetoggle=<F2>                  " Paste mode toggle to paste code properly
 set guicursor=                        " Fix for mysterious 'q' letters

@@ -101,6 +101,7 @@ fi
 # bindkey -v
 export KEYTIMEOUT=1
 
+# ==== Functions ====
 weather () {
   local options="${2:-1}"
   curl https://wttr.in/"${1}"\?"${options}"
@@ -150,6 +151,24 @@ if grep -qE "(Microsoft|WSL)" /proc/version &>/dev/null; then
     export DISPLAY=:0
 fi
 
+# RIPEstat
+prfx () {
+  local as="${1}"
+  curl -s https://stat.ripe.net/data/announced-prefixes/data.json\?resource\="${as}" | jq -r '.data.prefixes[] | .prefix'
+}
+
+lg () {
+  local resource="${1}"
+  local filter="${2}"
+  curl -s https://stat.ripe.net/data/looking-glass/data.json\?resource\="${resource}" | jq --arg as_path "${filter}" '.data.rrcs[].peers[] | select(.as_path | contains($as_path))'
+}
+
+rpki () {
+  local as="${1}"
+  local prefix="${2}"
+  curl -s https://stat.ripe.net/data/rpki-validation/data.json\?resource\="${as}"\&prefix="${prefix}" | jq -r '.data.status'
+}
+
 # ==== Yandex ====
 if [[ $(cat /etc/hostname) == 'i104058879' ]] ; then
   export PSSH_AUTH_SOCK="/mnt/c/Users/$USER/AppData/Local/Temp/pssh-agent.sock"
@@ -169,9 +188,9 @@ export GOPATH="$HOME/go"
 export SNAPPATH="/snap/bin"
 [[ -d "$SNAPPATH" ]] && export PATH="$PATH:$SNAPPATH"
 
-# Add pipx to path
-export PIPXPATH="$HOME/.local/bin"
-[[ -d "$PIPXPATH" ]] && export PATH="$PATH:$PIPXPATH"
+# Add local bin to path
+export LOCALBIN="$HOME/.local/bin"
+[[ -d "$LOCALBIN" ]] && export PATH="$PATH:$LOCALBIN"
 
 # ======== ALIASES ========
 alias vi=$(which nvim)

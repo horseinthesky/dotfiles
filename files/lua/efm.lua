@@ -27,6 +27,11 @@ M.yapf = {
   formatStdin = true
 }
 
+M.black = {
+  formatCommand = "black -",
+  formatStdin = true
+}
+
 M.mypy = {
   lintCommand = "mypy --show-column-numbers --ignore-missing-imports",
   lintFormats = {"%f:%l:%c: %trror: %m", "%f:%l:%c: %tarning: %m", "%f:%l:%c: %tote: %m"}
