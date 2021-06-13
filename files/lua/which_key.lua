@@ -27,6 +27,7 @@ local leader_map = {
   },
   g = "which_key_ignore",
   d = "doge generate",
+  D = "dim inactive toggle",
   I = "indentline toggle",
   T = "replace tabs",
   W = "strip whitespaces",

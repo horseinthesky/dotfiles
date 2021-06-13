@@ -17,51 +17,6 @@
     ansible_os_family == "Archlinux" and
     nvim_check.rc == 1
 
-- name: Install NVIM from Github
-  get_url:
-    url: "{{ nvim_release_url }}{{ nvim_version }}/{{ nvim_binary_file }}"
-    dest: /usr/local/bin/nvim
-    mode: "0755"
-  become: yes
-  when: >
-    nvim_check.rc == 1 and
-    ansible_env["WSLENV"] is not defined and
-    ansible_os_family != "Archlinux"
-
-- name: Install required PyPI packages
-  pip:
-    name:
-      - ptpython
-      - isort
-      - jedi
-      - mypy
-      - flake8
-      - autopep8
-      - yamllint
-      - pynvim
-      - jedi-language-server
-  become: yes
-
-- name: Install required npm packages
-  community.general.npm:
-    name: "{{ item }}"
-    global: yes
-  loop:
-    - neovim
-    - vscode-json-languageserver
-    - yaml-language-server
-    - vim-language-server
-    - prettier
-    - lua-fmt
-  become: yes
-
-- name: Create ptpython config symlink
-  file:
-    src: "{{ dotfiles_home }}/ptpython.py"
-    dest: "{{ user_home }}/.config/ptpython/config.py"
-    state: link
-
-# Plugin manager
 - name: Makes sure autoload directory exists
   file:
     path: "{{ user_home }}/.local/share/nvim/site/autoload"
@@ -74,7 +29,6 @@
     dest: "{{ user_home }}/.local/share/nvim/site/autoload/plug.vim"
   when: nvim_check.rc == 1
 
-# Configuration
 - name: Check if vimrc exists
   stat:
     path: "{{ user_home }}/.config/nvim/init.vim"
@@ -114,17 +68,6 @@
   file:
     src: "{{ dotfiles_home }}/UltiSnips"
     dest: "{{ user_home }}/.config/nvim/UltiSnips"
-    state: link
-
-- name: Creates .config/yapf dir
-  file:
-    path: "{{ user_home }}/.config/yapf"
-    state: directory
-
-- name: Symlink yapf config
-  file:
-    src: "{{ dotfiles_home }}/style.yapf"
-    dest: "{{ user_home }}/.config/yapf/style"
     state: link
 
 - name: Install plugins

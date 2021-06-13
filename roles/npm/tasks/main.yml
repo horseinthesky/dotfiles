@@ -1,0 +1,25 @@
+# - name: Install required npm packages
+#   community.general.npm:
+#     name: "{{ item }}"
+#     executable: ~/.nvm/versions/node/v14.17.0/bin/npm
+#     path: ~/opt/node_modules
+#     state: latest
+#   loop:
+#     - prettier
+#     - neovim
+#     - vscode-json-languageserver
+#     - yaml-language-server
+#     - vim-language-server
+#     - lua-fmt
+
+- name: Install required npm packages
+  shell: "source ~/.nvm/nvm.sh && cd ~/opt && ~/.nvm/versions/node/v14.17.0/bin/npm install {{ item }}"
+  args:
+    executable: /bin/bash
+  loop:
+    - prettier
+    - neovim
+    - vscode-json-languageserver
+    - yaml-language-server
+    - vim-language-server
+    - lua-fmt

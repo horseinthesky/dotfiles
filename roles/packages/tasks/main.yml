@@ -3,9 +3,3 @@
 
 - import_tasks: arch.yml
   when: ansible_os_family == "Archlinux"
-
-- name: Install pip packages
-  pip:
-    name:
-      - speedtest-cli
-  become: yes

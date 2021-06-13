@@ -11,12 +11,13 @@
   roles:
     # Tag each role so that we can select individual roles to run with ansible-playbook --tags
     - { role: packages, tags: ["packages"] }
+    - { role: dev, tags: ["dev"] }
+    - { role: wsl, tags: ["wsl"] }
     - { role: git, tags: ["git"] }
     - { role: zsh, tags: ["zsh"] }
-    - { role: go, tags: ["go"] }
-    - { role: lua, tags: ["lua"] }
-    - { role: nvim, tags: ["nvim"] }
+    - { role: fzf, tags: ["fzf"] }
     - { role: tmux, tags: ["tmux"] }
+    - { role: ranger, tags: ["ranger"] }
     - { role: rg, tags: ["rg"] }
     - { role: fd, tags: ["fd"] }
     - { role: lsd, tags: ["lsd"] }
@@ -24,8 +25,12 @@
     - { role: bat, tags: ["bat"] }
     - { role: tldr, tags: ["tldr"] }
     - { role: asn, tags: ["asn"] }
-    - { role: wsl, tags: ["wsl"] }
-    - { role: ranger, tags: ["ranger"] }
-    - { role: docker, tags: ["docker"] }
+    - { role: go, tags: ["go"] }
+    - { role: lua, tags: ["lua"] }
     - { role: poetry, tags: ["poetry"] }
+    - { role: pip, tags: ["pip"] }
+    - { role: nvm, tags: ["nvm"] }
+    - { role: npm, tags: ["npm"] }
+    - { role: nvim, tags: ["nvim"] }
+    - { role: docker, tags: ["docker"] }
     - { role: pyenv, tags: ["pyenv"] }

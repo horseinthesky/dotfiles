@@ -1,6 +1,0 @@
-- name: Install golang for Arch based systems
-  pacman:
-    name:
-      - go
-    state: latest
-  become: yes

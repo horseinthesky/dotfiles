@@ -9,23 +9,20 @@ let g:gruvbox_contrast_dark='medium'
 let g:gruvbox_invert_selection = 0
 
 colorscheme gruvbox
+highlight PmenuSel blend=0
+highlight SignColumn guibg=NONE
 
 " Transparency toggle
-let g:is_transparent = 1
-highlight Normal guibg=NONE ctermbg=NONE
-highlight! default link VertSplit Normal
-highlight SignColumn guibg=NONE ctermbg=NONE
-highlight PmenuSel blend=0
+let g:original_normal_bg = synIDattr(hlID("Normal"), "bg")
+let g:is_transparent = 0
 
 function! ToggleTransparent()
   if g:is_transparent == 0
-    highlight Normal guibg=NONE ctermbg=NONE
-    highlight! default link VertSplit Normal
-    highlight SignColumn guibg=NONE ctermbg=NONE
-    highlight PmenuSel blend=0
+    highlight Normal guibg=None
     let g:is_transparent = 1
   else
-    set background=dark
+    " set background=dark
+    exe 'highlight Normal guibg=' . g:original_normal_bg
     let g:is_transparent = 0
   endif
 endfunction

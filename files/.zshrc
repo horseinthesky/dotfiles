@@ -69,34 +69,6 @@ export EDITOR="nvim"
 # export LC_ALL=C.UTF-8
 # export LANG=C.UTF-8
 
-# Disable tmupx autotitle
-export DISABLE_AUTO_TITLE="true"
-
-# fzf
-if [[ -f "$HOME/.fzf.zsh" ]]; then
-  source ~/.fzf.zsh
-
-  FD_OPTIONS="--hidden --follow --exclude .git"
-  export FZF_DEFAULT_COMMAND="fd --type f --type l $FD_OPTIONS"
-  export FZF_DEFAULT_OPTS="--prompt ' ' --pointer '⯈' --marker=⦁ --height 60% --layout=reverse
-    --color 'fg:#bdae93,fg+:#f9f5d7,hl:#fabd2f,hl+:#fabd2f,info:#8ec07c,pointer:#fb4934,marker:#fe8019,bg+:-1'"
-  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-
-  bindkey '^f' fzf-cd-widget
-fi
-
-
-# pyenv settings
-if [[ -d "$HOME/.pyenv" ]]; then
-  export PYENV_ROOT="$HOME/.pyenv"
-  export PATH="$PYENV_ROOT/bin:$PATH"
-  # eval "$(pyenv init - --no-rehash)"
-  # eval "$(pyenv virtualenv-init -)"
-fi
-
-# poetry settings
-[[ -d "$HOME/.poetry" ]] &&  source $HOME/.poetry/env
-
 # Vi Mode
 # bindkey -v
 export KEYTIMEOUT=1
@@ -107,24 +79,25 @@ weather () {
   curl https://wttr.in/"${1}"\?"${options}"
 }
 
+erapi_key=71afe1269a1f5f7206152de2b43a9819
 rate () {
-  local from="${1:-usd}"
-  local to="${2:-rub}"
-  local rate=$(curl -s https://api.ratesapi.io/api/latest\?base="${(U)from}" | jq .rates."${(U)to}")
-  echo "1 ${(U)from} is ${rate} ${(U)to}"
+  local from=${1:-usd}
+  local to=${2:-rub}
+  local rate=$(curl -s http://api.exchangeratesapi.io/v1/latest\?access_key=${erapi_key} | jq .rates.${(U)to})
+  echo 1 ${(U)from} is ${rate} ${(U)to}
 }
 
 crate () {
-  local coin="${1:-bitcoin}"
-  local currency="${2:-usd}"
-  local crate=$(curl -s https://api.coingecko.com/api/v3/simple/price\?ids="${coin}"\&vs_currencies="${currency}" \
-    | jq ."${coin}"."${currency}")
-  echo "1 ${coin} is ${crate} $currency"
+  local coin=${1:-bitcoin}
+  local currency=${2:-usd}
+  local crate=$(curl -s https://api.coingecko.com/api/v3/simple/price\?ids=${coin}\&vs_currencies=${currency} \
+    | jq .${coin}.${currency})
+  echo 1 ${coin} is ${crate} $currency
 }
 
 cht () {
-  local options="${2:-Q}"
-  curl cht.sh/"${1}"\?"${options}"
+  local options=${2:-Q}
+  curl cht.sh/${1}\?${options}
 }
 
 ip4 () {
@@ -173,29 +146,72 @@ rpki () {
 if [[ $(cat /etc/hostname) == 'i104058879' ]] ; then
   export PSSH_AUTH_SOCK="/mnt/c/Users/$USER/AppData/Local/Temp/pssh-agent.sock"
   export SSH_AUTH_SOCK="${PSSH_AUTH_SOCK}"
-  [[ $(ssh-add -l) =~ "/home/$USER/.ssh/id_rsa" ]] || ssh-add
+  [[ $(ssh-add -l) =~ "$HOME/.ssh/id_rsa" ]] || ssh-add
 fi
 
 # The next line updates PATH for Yandex Cloud CLI.
 [[ -f '/home/horseinthesky/yandex-cloud/path.bash.inc' ]] && source '/home/horseinthesky/yandex-cloud/path.bash.inc'
 
-# ======== PATH ========
+# ======== Tools ========
+# fzf
+if [[ -f "$HOME/.fzf.zsh" ]]; then
+  source ~/.fzf.zsh
+
+  FD_OPTIONS="--hidden --follow --exclude .git"
+  export FZF_DEFAULT_COMMAND="fd --type f --type l $FD_OPTIONS"
+  export FZF_DEFAULT_OPTS="--prompt ' ' --pointer '⯈' --marker=⦁ --height 60% --layout=reverse
+    --color 'fg:#bdae93,fg+:#f9f5d7,hl:#fabd2f,hl+:#fabd2f,info:#8ec07c,pointer:#fb4934,marker:#fe8019,bg+:-1'"
+  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
+  bindkey '^f' fzf-cd-widget
+fi
+
+# Disable tmupx autotitle
+export DISABLE_AUTO_TITLE="true"
+
+# pyenv settings
+if [[ -d $HOME/.pyenv ]] && [[ ! $PATH == *$HOME/.pyenv/bin* ]]; then
+  export PATH=$HOME/.pyenv/bin:$PATH
+  # eval "$(pyenv init - --no-rehash)"
+  # eval "$(pyenv virtualenv-init -)"
+fi
+
 # Add ~/go/bin to PATH
 export GOPATH="$HOME/go"
-[[ -d "$GOPATH" ]] && export PATH="$PATH:$GOPATH/bin"
-
-# Add /snap/bin to path
-export SNAPPATH="/snap/bin"
-[[ -d "$SNAPPATH" ]] && export PATH="$PATH:$SNAPPATH"
+if [[ -d $GOPATH ]] && [[ ! $PATH == *$GOPATH/bin* ]]; then
+  export PATH=$GOPATH/bin:$PATH
+fi
 
 # Add local bin to path
-export LOCALBIN="$HOME/.local/bin"
-[[ -d "$LOCALBIN" ]] && export PATH="$PATH:$LOCALBIN"
+if [[ -d $HOME/.local/bin ]] && [[ ! $PATH == *$HOME/.local/bin* ]]; then
+  export PATH=$PATH:$HOME/.local/bin
+fi
+
+# Add private bin to path
+if [[ -d $HOME/bin ]] && [[ ! $PATH == *$HOME/bin* ]]; then
+  export PATH=$HOME/bin:$PATH
+fi
+
+# Add python dev venv to path
+if [[ -d $HOME/opt/venv ]] && [[ ! $PATH == *$HOME/opt/venv/bin* ]]; then
+  export PATH=$HOME/opt/venv/bin:$PATH
+fi
+
+# nvm
+[[ -d $HOME/.nvm ]] && source $HOME/.nvm/nvm.sh
+
+# node modules
+if [[ -d $HOME/opt/node_modules ]] && [[ ! $PATH == *$HOME/opt/node_modules/.bin* ]]; then
+  export PATH=$HOME/opt/node_modules/.bin:$PATH
+fi
 
 # ======== ALIASES ========
 alias vi=$(which nvim)
-alias nv=$(which nvim-nightly)
+alias nv='~/.local/bin/nvim'
 alias sr='sudo -E -s'
+alias v='virtualenv .venv'
+alias a='source ./.venv/bin/activate'
+alias d='deactivate'
 alias grep='grep --color=auto --line-buffered'
 alias diff='diff --color -u'
 alias ra='ranger'
@@ -213,9 +229,9 @@ alias tl='tmux ls'
 alias tpl='tmuxp load '
 
 # ======== POWERLEVEL10K SETTINGS ========
-if [[ "$ZSH_THEME" == "powerlevel10k/powerlevel10k" ]]; then
-  P10K_THEME="lean"
-  # P10K_THEME="rainbow"
+if [[ $ZSH_THEME == "powerlevel10k/powerlevel10k" ]]; then
+  P10K_THEME=lean
+  # P10K_THEME=rainbow
 
   source $HOME/dotfiles/files/p10k.zsh
 fi

@@ -176,8 +176,8 @@ local hl_cmds =
   [[
   highlight LspDiagnosticsDefaultInformation ctermfg=109 guifg=#83a598
   highlight LspDiagnosticsDefaultHint ctermfg=108 guifg=#8ec07c
-  highlight LspDiagnosticsDefaultError ctermfg=167 guifg=#fb4934
   highlight LspDiagnosticsDefaultWarning ctermfg=214 guifg=#fabd2f
+  highlight LspDiagnosticsDefaultError ctermfg=167 guifg=#fb4934
 ]]
 
 vim.api.nvim_exec(hl_cmds, false)

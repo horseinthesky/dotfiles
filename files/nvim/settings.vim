@@ -3,25 +3,26 @@
 let g:loaded_python_provider = 0
 let g:loaded_ruby_provider = 0
 let g:loaded_perl_provider = 0
-let g:python3_host_prog = '/usr/bin/python3'
-let g:node_host_prog = '/usr/lib/node_modules/neovim/bin/cli.js'
+let g:python3_host_prog = '~/opt/venv/bin/python'
+let g:node_host_prog = '~/opt/node_modules/neovim/bin/cli.js'
 
 syntax on
 
 " ==== Gerenal ====
-set inccommand=nosplit                " incremental substitution shows substituted text before applying
+set inccommand=nosplit                " Incremental substitution shows substituted text before applying
 set laststatus=2                      " Always show statusline
 set noshowmode                        " No to duplicate statusline
 set nobackup                          " Don't create annoying backup files
 set iskeyword+=-                      " Treat dash separated words as a word text object
 set mouse=v                           " Diable mouse (if enabled temp. disable with holding Shift)
-" set winblend=10,                      " Transparency for floating windows
+set winblend=10                       " Transparency for floating windows
 set pumblend=10                       " Transparency for popup-menu
 set scrolloff=10                      " Start scrolling 10 lines before edge of viewpoint
 set pastetoggle=<F2>                  " Paste mode toggle to paste code properly
 set guicursor=                        " Fix for mysterious 'q' letters
 set completeopt=menu,menuone,noselect " Set completeopt to have a better completion experience
 set shortmess+=c                      " don't give |ins-completion-menu| messages
+set guifont=DejavuSansMono\ NF:h16    " Font
 set updatetime=300                    " Faster completion (default is 4000)
 set timeoutlen=500                    " Timeout for a mapped sequence to complete. (1000 ms by default)
 " set cmdheight=2                       " More space for messages

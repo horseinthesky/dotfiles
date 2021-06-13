@@ -1,11 +1,12 @@
-- import_tasks: debian.yml
-  when: ansible_os_family == "Debian"
-
 - name: Install ranger
   pip:
     name: ranger-fm
     state: latest
-  become: yes
+
+- name: Check if .config directory exist
+  file:
+    path: "{{ user_home }}/.config"
+    state: directory
 
 - name: Symlink ranger config
   file:

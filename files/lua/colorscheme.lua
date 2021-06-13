@@ -13,39 +13,21 @@ vim.g.gruvbox_contrast_dark = "medium"
 vim.g.gruvbox_invert_selection = 0
 
 vim.cmd "colorscheme gruvbox"
+vim.cmd [[highlight PmenuSel blend=0]]
+vim.cmd [[highlight SignColumn guibg=NONE]]
 
 -- Transparency toggle
-vim.g.is_transparent = 1
-vim.api.nvim_exec(
-  [[
-  highlight Normal guibg=NONE ctermbg=NONE
-  highlight! default link VertSplit Normal
-  highlight SignColumn guibg=NONE ctermbg=NONE
-  highlight PmenuSel blend=0
-]],
-  false
-)
+vim.g.original_normal_bg = vim.fn.synIDattr(vim.fn.hlID("Normal"), "bg")
+vim.g.is_transparent = 0
 
 vim.api.nvim_exec(
   [[
   function! ToggleTransparent()
   if g:is_transparent == 0
-    highlight Normal guibg=NONE ctermbg=NONE
-    highlight! default link VertSplit Normal
-    highlight SignColumn guibg=NONE ctermbg=NONE
-    highlight PmenuSel blend=0
-    highlight LspDiagnosticsDefaultInformation ctermfg=109 guifg=#83a598
-    highlight LspDiagnosticsDefaultHint ctermfg=109 guifg=#fbf1c7
-    highlight LspDiagnosticsDefaultError ctermfg=167 guifg=#fb4934
-    highlight LspDiagnosticsDefaultWarning ctermfg=214 guifg=#fabd2f
+    highlight Normal guibg=None
     let g:is_transparent = 1
   else
-    set background=dark
-    highlight SignColumn guibg=NONE ctermbg=NONE
-    highlight LspDiagnosticsDefaultInformation ctermfg=109 guifg=#83a598
-    highlight LspDiagnosticsDefaultHint ctermfg=109 guifg=#fbf1c7
-    highlight LspDiagnosticsDefaultError ctermfg=167 guifg=#fb4934
-    highlight LspDiagnosticsDefaultWarning ctermfg=214 guifg=#fabd2f
+    exe 'highlight Normal guibg=' . g:original_normal_bg
     let g:is_transparent = 0
   endif
   endfunction

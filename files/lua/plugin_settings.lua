@@ -59,7 +59,8 @@ require("telescope").setup {
         preview_width = 0.6
       }
     },
-    preview_cutoff = 80
+    preview_cutoff = 80,
+    winblend = 10
   },
   extensions = {
     fzy_native = {
@@ -153,8 +154,8 @@ map("n", ";", "<cmd>Files<CR>")
 
 -- UltiSnips
 vim.g.UltiSnipsExpandTrigger = "<C-s>"
-vim.g.UltiSnipsJumpForwardTrigger = "<C-j>"
-vim.g.UltiSnipsJumpBackwardTrigger = "<C-k>"
+vim.g.UltiSnipsJumpForwardTrigger = "<Tab>"
+vim.g.UltiSnipsJumpBackwardTrigger = "<S-Tab>"
 
 -- If you want :UltiSnipsEdit to split your window.
 vim.g.UltiSnipsEditSplit = "vertical"
@@ -269,6 +270,15 @@ vim.api.nvim_exec(
 
 map("n", "<leader>I", "<cmd>IndentBlanklineToggle<CR>")
 
+-- shade
+-- require "shade".setup {
+--   overlay_opacity = 50,
+--   opacity_step = 1,
+--   keys = {
+--     toggle = "<leader>D"
+--   }
+-- }
+
 -- vim-better-whitespace
 vim.g.better_whitespace_guicolor = "#fb4934"
 vim.g.better_whitespace_filetypes_blacklist = {"dashboard", "packer"}
@@ -283,7 +293,8 @@ require "nvim-treesitter.configs".setup {
     enable = true
   },
   indent = {
-    enable = true
+    enable = true,
+    disable = {"yaml"}
   },
   incremental_selection = {
     enable = true,

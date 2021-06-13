@@ -16,8 +16,8 @@ local utils = require("utils")
 vim.g.loaded_python_provider = 0
 vim.g.loaded_ruby_provider = 0
 vim.g.loaded_perl_provider = 0
-vim.g.python3_host_prog = "/usr/bin/python3"
-vim.g.node_host_prog = "/usr/lib/node_modules/neovim/bin/cli.js"
+vim.g.python3_host_prog = "~/opt/venv/bin/python"
+vim.g.node_host_prog = "~/opt/node_modules/neovim/bin/cli.js"
 
 -- Set options
 local settings = {
@@ -28,13 +28,14 @@ local settings = {
   backup = false, -- Don't create annoying backup files
   iskeyword = "@,48-57,_,192-255,-", -- Treat dash separated words as a word text object
   mouse = "v", -- Diable mouse (if enabled temp. disable with holding Shift)
-  -- winblend = 10, -- Transparency for floating windows
+  winblend = 10, -- Transparency for floating windows
   pumblend = 10, -- Transparency for popup-menu
   scrolloff = 10, -- Start scrolling 10 lines before edge of viewpoint
   pastetoggle = "<F2>", -- Paste mode toggle to paste code properly
   guicursor = "", -- Fix for mysterious 'q' letters
   completeopt = "menu,menuone,noselect", -- Set completeopt to have a better completion experience
   shortmess = "filnxtToOFcI", -- Don't give |ins-completion-menu| messages
+  guifont = "DejavuSansMono NF:h16", -- Font
   updatetime = 300, -- Faster completion (default is 4000)
   timeoutlen = 500, -- Timeout for a mapped sequence to complete. (1000 ms by default)
   -- cmdheight = 2     -- More space for messages

@@ -41,7 +41,6 @@ packer.startup(function(use)
     "junegunn/fzf.vim",
     requires = {
       "junegunn/fzf",
-      run = "./install --all"
     }
   }
   use {
@@ -68,6 +67,7 @@ packer.startup(function(use)
   use "Glench/Vim-Jinja2-Syntax"
   use "chrisbra/Colorizer"
   use {"lukas-reineke/indent-blankline.nvim", branch = "lua"}
+  use "sunjon/Shade.nvim"
   use "ntpeters/vim-better-whitespace"
   use {"nvim-treesitter/nvim-treesitter", run = ":TSUpdate"}
   use "nvim-treesitter/playground"

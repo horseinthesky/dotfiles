@@ -2,6 +2,8 @@
   pacman:
     name:
       - base-devel
-      - multilib-devel
+      - openssl
+      - zlib
+      - xz
     state: latest
   become: yes

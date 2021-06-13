@@ -1,5 +1,0 @@
-- name: Install required packages
-  apt:
-    name: w3m-img
-    state: latest
-  become: yes

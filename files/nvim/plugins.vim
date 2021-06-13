@@ -150,8 +150,8 @@ command! -bang -nargs=? -complete=dir Files
 " ==== utlisnips ====
 " Trigger configuration.
 let g:UltiSnipsExpandTrigger='<C-s>'
-let g:UltiSnipsJumpForwardTrigger='<C-j>'
-let g:UltiSnipsJumpBackwardTrigger='<C-k>'
+let g:UltiSnipsJumpForwardTrigger='Tab>'
+let g:UltiSnipsJumpBackwardTrigger='<S-Tab>'
 
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"

@@ -17,28 +17,11 @@
   become: yes
   when: ansible_env["WSLENV"] is defined
 
-- name: Install packages for plugins
-  apt:
-    name:
-      - cmake
-      - ninja-build
-      - exuberant-ctags
-      - shellcheck
-    state: latest
+- name: Install NVIM from Github
+  get_url:
+    url: "{{ nvim_release_url }}{{ nvim_version }}/{{ nvim_binary_file }}"
+    dest: /usr/local/bin/nvim
+    mode: "0755"
   become: yes
-
-- name: Add Nodejs repo key
-  apt_key:
-    url: https://deb.nodesource.com/gpgkey/nodesource.gpg.key
-  become: yes
-
-- name: Add Nodejs repo
-  apt_repository:
-    repo: "deb https://deb.nodesource.com/node_13.x {{ ansible_distribution_release }} main"
-  become: yes
-
-- name: Install Nodejs
-  apt:
-    name: nodejs
-    state: latest
-  become: yes
+  when: >
+    ansible_env["WSLENV"] is not defined

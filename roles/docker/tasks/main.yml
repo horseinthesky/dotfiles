@@ -25,8 +25,15 @@
     append: yes
   become: yes
 
+- name: Unsure private bin exist
+  file:
+    path: ~/bin
+    state: directory
+
 - name: Install docker-compose
-  pip:
-    name: docker-compose
-    state: latest
-  become: yes
+  shell: curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o ~/bin/docker-compose
+
+- name: Give permissions to docker-compose
+  file:
+    path: ~/bin/docker-compose
+    mode: '0775'
