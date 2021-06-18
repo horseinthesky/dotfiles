@@ -13,12 +13,12 @@ M.flake8 = {
 }
 
 M.isort = {
-  formatCommand = "isort -",
+  formatCommand = "isort --profile black -l 100 -",
   formatStdin = true
 }
 
 M.autopep8 = {
-  formatCommand = "autopep8 --ignore E501 -",
+  formatCommand = "autopep8 --max-line-length 100 -",
   formatStdin = true
 }
 
@@ -28,7 +28,7 @@ M.yapf = {
 }
 
 M.black = {
-  formatCommand = "black -",
+  formatCommand = "black --quiet -l 100 -",
   formatStdin = true
 }
 

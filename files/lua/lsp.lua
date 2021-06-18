@@ -133,13 +133,13 @@ lspconfig.vimls.setup {
 local efm = require "efm"
 local flake8 = efm.flake8
 local isort = efm.isort
-local yapf = efm.yapf
+local black = efm.black
 local mypy = efm.mypy
 local luafmt = efm.luafmt
 local prettier = efm.prettier
 
 local languages = {
-  python = {isort, flake8, yapf, mypy},
+  python = {isort, flake8, black, mypy},
   lua = {luafmt},
   yaml = {prettier},
   json = {prettier},
