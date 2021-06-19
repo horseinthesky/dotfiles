@@ -60,43 +60,42 @@ require("telescope").setup {
       }
     },
     preview_cutoff = 80,
-    winblend = 10
-  },
-  extensions = {
-    fzy_native = {
-      override_generic_sorter = false,
-      override_file_sorter = true
-    }
+    winblend = 10,
   }
 }
 
-require("telescope").load_extension("fzy_native")
+require("telescope").load_extension "fzf"
 
-map("n", "<leader>fB", [[<cmd>lua require('telescope.builtin').builtin()<CR>]])
+-- regular search mappings
 map("n", "<leader>ff", [[<cmd>lua require('telescope.builtin').find_files { hidden = true}<CR>]])
-map("n", "<leader>fgb", [[<cmd>lua require('telescope.builtin').git_branches()<CR>]])
-map("n", "<leader>fgc", [[<cmd>lua require('telescope.builtin').git_commits()<CR>]])
-map("n", "<leader>fgs", [[<cmd>lua require('telescope.builtin').git_status()<CR>]])
+map("n", "<leader>fh", [[<cmd>lua require('telescope.builtin').help_tags()<CR>]])
+map("n", "<leader>fb", [[<cmd>lua require('telescope.builtin').buffers()<CR>]])
+map("n", "<leader>fL", [[<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>]])
+map("n", "<leader>fB", [[<cmd>lua require('telescope.builtin').builtin()<CR>]])
 map("n", "<leader>fG", [[<cmd>lua require('telescope.builtin').live_grep()<CR>]])
 map("n", "<leader>fw", [[<cmd>lua require('telescope.builtin').grep_string { search = vim.fn.expand("<cword>") }<CR>]])
-map("n", "<leader>fr", [[<cmd>lua require('telescope.builtin').registers()<CR>]])
 map(
   "n",
   "<leader>fs",
   [[<cmd>lua require('telescope.builtin').grep_string({ search = vim.fn.input("Grep For > ")})<CR>]]
 )
-map("n", "<leader>fL", [[<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>]])
+map("n", "<leader>fr", [[<cmd>lua require('telescope.builtin').registers()<CR>]])
 map("n", "<leader>fm", [[<cmd>lua require('telescope.builtin').marks()<CR>]])
 map("n", "<leader>fM", [[<cmd>lua require('telescope.builtin').keymaps()<CR>]])
 map("n", "<leader>fo", [[<cmd>lua require('telescope.builtin').vim_options()<CR>]])
 map("n", "<leader>fO", [[<cmd>lua require('telescope.builtin').oldfiles()<CR>]])
 map("n", "<leader>fc", [[<cmd>lua require('telescope.builtin').commands()<CR>]])
 map("n", "<leader>fa", [[<cmd>lua require('telescope.builtin').autocommands()<CR>]])
-map("n", "<leader>fh", [[<cmd>lua require('telescope.builtin').help_tags()<CR>]])
-map("n", "<leader>fb", [[<cmd>lua require('telescope.builtin').buffers()<CR>]])
 map("n", "<leader>fH", [[<cmd>lua require('telescope.builtin').highlights()<CR>]])
 map("n", "<leader>fC", [[<cmd>lua require('telescope.builtin').colorscheme()<CR>]])
 map("n", "<leader>fS", [[<cmd>lua require('telescope.builtin').symbols()<CR>]])
+
+-- git search mappings
+map("n", "<leader>fgb", [[<cmd>lua require('telescope.builtin').git_branches()<CR>]])
+map("n", "<leader>fgc", [[<cmd>lua require('telescope.builtin').git_commits()<CR>]])
+map("n", "<leader>fgs", [[<cmd>lua require('telescope.builtin').git_status()<CR>]])
+
+-- lsp search mappings
 map("n", "<leader>fld", [[<cmd>lua require('telescope.builtin').lsp_document_diagnostics()<CR>]])
 map("n", "<leader>flD", [[<cmd>lua require('telescope.builtin').lsp_workspace_diagnostics()<CR>]])
 map("n", "<leader>fls", [[<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]])
@@ -112,21 +111,6 @@ vim.api.nvim_exec(
   ]],
   false
 )
-
--- todo-comments
-require("todo-comments").setup {
-  signs = true,
-  keywords = {
-    PERF = {color = "perf"},
-    HACK = {color = "hack"}
-  },
-  colors = {
-    perf = "Number",
-    hack = "Special"
-  }
-}
-
-map("n", "<leader>ft", [[<cmd>TodoTelescope<CR>]])
 
 -- fzf
 vim.g.fzf_colors = {
@@ -150,7 +134,38 @@ vim.g.fzf_layout = {
 }
 vim.g.fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
 
+vim.api.nvim_exec(
+  [[
+  function! RipgrepFzf(query, fullscreen)
+    let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
+    let initial_command = printf(command_fmt, shellescape(a:query))
+    let reload_command = printf(command_fmt, '{q}')
+    let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+    call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+  endfunction
+
+  command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
+]],
+  false
+)
+
 map("n", ";", "<cmd>Files<CR>")
+map("n", "<C-p>", "<cmd>Rg<CR>")
+
+-- todo-comments
+require("todo-comments").setup {
+  signs = true,
+  keywords = {
+    PERF = {color = "perf"},
+    HACK = {color = "hack"}
+  },
+  colors = {
+    perf = "Number",
+    hack = "Special"
+  }
+}
+
+map("n", "<leader>ft", [[<cmd>TodoTelescope<CR>]])
 
 -- UltiSnips
 vim.g.UltiSnipsExpandTrigger = "<C-s>"
@@ -190,6 +205,9 @@ end
 
 map("n", "<F4>", "<CMD>lua __fterm_ptpython()<CR>")
 map("t", "<F4>", "<CMD>lua __fterm_ptpython()<CR>")
+
+-- StartupTime
+vim.g.startuptime_tries = 5
 
 -- hop.nvim
 map("n", "f", "<cmd>HopChar1<CR>")

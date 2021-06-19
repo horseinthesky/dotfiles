@@ -18,31 +18,37 @@ packer.startup(function(use)
 
   -- Fuzzy finder
   use {
-    'nvim-telescope/telescope.nvim',
+    "nvim-telescope/telescope.nvim",
     requires = {
-      {'nvim-lua/popup.nvim'},
-      {'nvim-lua/plenary.nvim'},
-      {'nvim-telescope/telescope-fzy-native.nvim'},
-      {'nvim-telescope/telescope-symbols.nvim'},
-    },
+      {"nvim-lua/popup.nvim"},
+      {"nvim-lua/plenary.nvim"},
+      {"nvim-telescope/telescope-fzf-native.nvim", run = "make"},
+      {"nvim-telescope/telescope-symbols.nvim"}
+    }
   }
-  use "folke/todo-comments.nvim"
+  use {
+    "junegunn/fzf.vim",
+    requires = {
+      "junegunn/fzf"
+    }
+  }
 
   -- LSP and completion
   use "neovim/nvim-lspconfig"
   use "hrsh7th/nvim-compe"
-  use {"tzachar/compe-tabnine", run="./install.sh" }
+  use {"tzachar/compe-tabnine", run = "./install.sh"}
   -- lsp addons
   use "glepnir/lspsaga.nvim"
   use "onsails/lspkind-nvim"
 
+  -- Dap
+  use "mfussenegger/nvim-dap"
+  use "nvim-telescope/telescope-dap.nvim"
+  use "mfussenegger/nvim-dap-python"
+  use "theHamsta/nvim-dap-virtual-text"
+
   -- Features
-  use {
-    "junegunn/fzf.vim",
-    requires = {
-      "junegunn/fzf",
-    }
-  }
+  use "folke/todo-comments.nvim"
   use {
     "SirVer/ultisnips",
     requires = {"honza/vim-snippets"}
