@@ -41,12 +41,6 @@ packer.startup(function(use)
   use "glepnir/lspsaga.nvim"
   use "onsails/lspkind-nvim"
 
-  -- Dap
-  use "mfussenegger/nvim-dap"
-  use "nvim-telescope/telescope-dap.nvim"
-  use "mfussenegger/nvim-dap-python"
-  use "theHamsta/nvim-dap-virtual-text"
-
   -- Features
   use "folke/todo-comments.nvim"
   use {
