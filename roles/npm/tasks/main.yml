@@ -13,7 +13,7 @@
 #     - lua-fmt
 
 - name: Install required npm packages
-  shell: "source ~/.nvm/nvm.sh && cd ~/opt && ~/.nvm/versions/node/v14.17.0/bin/npm install {{ item }}"
+  shell: "PATH=$PATH:$HOME/.fnm && eval \"$(fnm env)\" && cd ~/opt && npm install {{ item }}"
   args:
     executable: /bin/bash
   loop:

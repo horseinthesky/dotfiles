@@ -1,0 +1,7 @@
+- name: Install fnm
+  shell: curl -fsSL https://fnm.vercel.app/install | bash -s -- --skip-shell
+
+- name: Load fnm and install node/npm
+  shell: PATH=$PATH:$HOME/.fnm && eval "$(fnm env)" ; fnm install v14.17.1
+  args:
+    executable: /bin/bash

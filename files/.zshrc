@@ -251,8 +251,8 @@ if [[ -d $HOME/opt/venv ]] && [[ ! $PATH == *$HOME/opt/venv/bin* ]]; then
   export PATH=$HOME/opt/venv/bin:$PATH
 fi
 
-# nvm
-[[ -d $HOME/.nvm ]] && source $HOME/.nvm/nvm.sh
+# fnm
+[[ -d $HOME/.fnm ]] && export PATH=$PATH:$HOME/.fnm && eval "$(fnm env)"
 
 # node modules
 if [[ -d $HOME/opt/node_modules ]] && [[ ! $PATH == *$HOME/opt/node_modules/.bin* ]]; then

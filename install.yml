@@ -29,7 +29,7 @@
     - { role: lua, tags: ["lua"] }
     - { role: poetry, tags: ["poetry"] }
     - { role: pip, tags: ["pip"] }
-    - { role: nvm, tags: ["nvm"] }
+    - { role: fnm, tags: ["fnm"] }
     - { role: npm, tags: ["npm"] }
     - { role: nvim, tags: ["nvim"] }
     - { role: docker, tags: ["docker"] }
