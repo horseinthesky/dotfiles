@@ -41,7 +41,7 @@ set listchars=tab:\ ,trail:·,precedes:←,extends:→,space:·,eol:↲,nbsp:
 
 " ==== Cursor ====
 set cursorline                        " Highlight cursorline
-set colorcolumn=80,120                " Add vertical lines on columns
+set colorcolumn=80,100                " Add vertical lines on columns
 set linebreak                         " Word wrap
 " set signcolumn=yes                    " Always show signcolumns (left row)
 
@@ -76,6 +76,7 @@ augroup TabSettings
   " vim-commentary help
   autocmd BufRead,BufNewFile *.conf,*.cfg setlocal filetype=config
   autocmd FileType config       setlocal commentstring=#\ %s
+  autocmd FileType toml         setlocal commentstring=#\ %s
 
   autocmd FileType python       setlocal sw=4 ts=4
   autocmd FileType make         setlocal sw=4 ts=4 noet

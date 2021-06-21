@@ -3,7 +3,7 @@ zle_highlight=('paste:none')
 export ZSH_DISABLE_COMPFIX=true
 
 # Path to your oh-my-zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
+export ZSH="$HOME/.ohmyzsh"
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -288,5 +288,5 @@ if [[ $ZSH_THEME == "powerlevel10k/powerlevel10k" ]]; then
   P10K_THEME=lean
   # P10K_THEME=rainbow
 
-  source $HOME/dotfiles/files/p10k.zsh
+  source $HOME/dotfiles/files/zsh/p10k.zsh
 fi

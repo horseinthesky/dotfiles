@@ -11,7 +11,6 @@
   roles:
     # Tag each role so that we can select individual roles to run with ansible-playbook --tags
     - { role: packages, tags: ["packages"] }
-    - { role: dev, tags: ["dev"] }
     - { role: wsl, tags: ["wsl"] }
     - { role: git, tags: ["git"] }
     - { role: zsh, tags: ["zsh"] }

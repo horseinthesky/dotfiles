@@ -1,7 +1,7 @@
-- name: Install oh-my-zsh
+- name: Install ohmyzsh
   git:
-    repo: https://github.com/robbyrussell/oh-my-zsh
-    dest: ~/.oh-my-zsh
+    repo: git@github.com:ohmyzsh/ohmyzsh.git
+    dest: ~/.ohmyzsh
 
 - name: Create fonts dorectory
   file:
@@ -15,20 +15,20 @@
 
 - name: Install zsh-autosuggestions
   git:
-    repo: git://github.com/zsh-users/zsh-autosuggestions
-    dest: ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+    repo: git@github.com:zsh-users/zsh-autosuggestions.git
+    dest: ~/.ohmyzsh/custom/plugins/zsh-autosuggestions
 
 - name: Install POWERLEVEL10K theme
   git:
-    repo: https://github.com/romkatv/powerlevel10k.git
-    dest: ~/.oh-my-zsh/custom/themes/powerlevel10k
+    repo: git@github.com:romkatv/powerlevel10k.git
+    dest: ~/.ohmyzsh/custom/themes/powerlevel10k
 
 - name: Install forgit plugin
   git:
-    repo: https://github.com/wfxr/forgit
-    dest: ~/.oh-my-zsh/custom/plugins/forgit
+    repo: git@github.com:wfxr/forgit.git
+    dest: ~/.ohmyzsh/custom/plugins/forgit
 
 - name: Install alias-tips plugin
   git:
-    repo: https://github.com/djui/alias-tips.git
-    dest: ~/.oh-my-zsh/custom/plugins/alias-tips
+    repo: git@github.com:djui/alias-tips.git
+    dest: ~/.ohmyzsh/custom/plugins/alias-tips

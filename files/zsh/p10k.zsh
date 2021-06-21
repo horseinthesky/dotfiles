@@ -93,7 +93,7 @@
   typeset -g POWERLEVEL9K_{LEFT,RIGHT}_SEGMENT_SEPARATOR=        # no end-of-line symbol
 
   # ==== P10K Theme ====
-  [[ -f '$HOME/dotfiles/files/$P10K_THEME.zsh' ]] || source $HOME/dotfiles/files/$P10K_THEME.zsh
+  [[ -f '$HOME/dotfiles/files/zsh/$P10K_THEME.zsh' ]] || source $HOME/dotfiles/files/zsh/$P10K_THEME.zsh
 
   # Defines character set used by powerlevel10k. It's best to let `p10k configure` set it for you.
   typeset -g POWERLEVEL9K_MODE=nerdfont-complete

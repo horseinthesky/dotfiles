@@ -53,7 +53,7 @@ local settings = {
 
   -- Cursor
   cursorline = {true, "w"}, -- Highlight cursorline
-  colorcolumn = {"80,120", "w"}, -- Add vertical lines on columns
+  colorcolumn = {"80,100", "w"}, -- Add vertical lines on columns
   linebreak = {true, "w"}, -- Word wrap
   -- signcolumn = {'yes', 'w'},               -- Always show signcolumns (left row)
 
@@ -98,6 +98,7 @@ vim.api.nvim_exec(
     " vim-commentary help
     autocmd BufRead,BufNewFile *.conf,*.cfg        setlocal filetype=config
     autocmd FileType config                        setlocal commentstring=#\ %s
+    autocmd FileType toml                          setlocal commentstring=#\ %s
 
     autocmd FileType python                        setlocal sw=4 ts=4
     autocmd FileType make                          setlocal sw=4 ts=4 noet

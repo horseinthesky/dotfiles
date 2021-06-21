@@ -1,0 +1,26 @@
+[user]
+  name = FULL_NAME
+  email = GIT_EMAIL
+[core]
+  editor = nvim
+[merge]
+  tool = vimdiff
+[alias]
+  git = !git
+[credential]
+  helper = store
+[push]
+  default = simple
+[color]
+  branch = auto
+  diff = auto
+  status = auto
+[color "diff"]
+  meta = "#fabd2f"
+  frag = "#d3869b"
+  old = "#fb4934"
+  new = "#b8bb26"
+[color "status"]
+  added = "#b8bb26"
+  changed = "#fabd2f"
+  untracked = "#fb4934"
