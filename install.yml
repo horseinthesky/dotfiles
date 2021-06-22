@@ -17,6 +17,7 @@
     - { role: fzf, tags: ["fzf"] }
     - { role: tmux, tags: ["tmux"] }
     - { role: ranger, tags: ["ranger"] }
+    - { role: cargo, tags: ["cargo"] }
     - { role: rg, tags: ["rg"] }
     - { role: fd, tags: ["fd"] }
     - { role: lsd, tags: ["lsd"] }

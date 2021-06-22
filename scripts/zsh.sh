@@ -26,15 +26,16 @@ if [[ ! -f $HOME/.local/share/fonts/"$FONT" ]]; then
 else
   echo -e "${YELLOW}Already exits${NORMAL}"
 fi
-echo done
+echo -e "${GREEN}Done${NORMAL}"
+echo $DOTFILES_HOME
 
-echo -e "\n${LIGHTMAGENTA}Installing packages...${NORMAL}"
+echo -e "\n${LIGHTMAGENTA}Installing zsh...${NORMAL}"
 install zsh | grep -P "\d\K upgraded"
 
 echo -e "\n${LIGHTMAGENTA}Cloning oh-my-zsh...${NORMAL}"
 if [[ ! -d $HOME/.ohmyzsh ]]; then
   git clone -q git@github.com:ohmyzsh/ohmyzsh.git $HOME/.ohmyzsh
-  echo done
+  echo -e "${GREEN}Done${NORMAL}"
 else
   echo -e "${YELLOW}Already exits${NORMAL}"
 fi
@@ -54,4 +55,4 @@ symlink $DOTFILES_HOME/.zshrc $HOME/.zshrc
 
 echo -e "\n${LIGHTMAGENTA}Setting shell${NORMAL}"
 sudo chsh -s $(which zsh) $(whoami)
-echo done
+echo -e "${GREEN}Done${NORMAL}"

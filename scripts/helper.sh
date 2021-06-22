@@ -74,18 +74,26 @@ symlink () {
   if [[ -f ${2} ]] && [[ ! -L ${2} ]]; then
     cp ${2} ${2}.bak
     echo -e "${YELLOW}${2} backed up${NORMAL}"
+  elif [[ -d ${2} ]] && [[ ! -L ${2} ]]; then
+    cp -R ${2} ${2}.bak
+    echo -e "${YELLOW}${2} backed up${NORMAL}"
+  fi
+
+  if [[ -L ${2} ]]; then
+    echo -e "${YELLOW}${2} is already a symlink${NORMAL}"
+    return 0
   fi
 
   ln -sf ${1} ${2}
-  echo done
+  echo -e "${GREEN}Done${NORMAL}"
 }
 
 clone () {
-  PLUGIN_NAME=$(echo $1 | cut -d "/" -f 2)
-  if [[ ! -d ${2}/$PLUGIN_NAME ]]; then
-    git clone -q git@github.com:${1}.git ${2}/$PLUGIN_NAME
-    echo $PLUGIN_NAME installed
+  TOOL_NAME=$(echo $1 | cut -d "/" -f 2)
+  if [[ ! -d ${2}/$TOOL_NAME ]]; then
+    git clone -q git@github.com:${1}.git ${2}/$TOOL_NAME
+    echo -e "${GREEN}$TOOL_NAME installed${NORMAL}"
   else
-    echo -e "${YELLOW}$PLUGIN_NAME already exits${NORMAL}"
+    echo -e "${YELLOW}$TOOL_NAME already exits${NORMAL}"
   fi
 }

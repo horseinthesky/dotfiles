@@ -12,7 +12,7 @@ if [[ ! -z $WSLENV ]]; then
   fi
 
   cp files/autohotkey.ahk "$WINDOWS_STARTUP_DIR"/
-  echo done
+  echo -e "${GREEN}Done${NORMAL}"
 else
   echo -e "${YELLOW}Abort. Not a WSL environment${NORMAL}"
 fi

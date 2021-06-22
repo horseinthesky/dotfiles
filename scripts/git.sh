@@ -20,4 +20,5 @@ sed -i \
   -e "s/FULL_NAME/$GIT_FULLNAME/g" \
   -e "s/GIT_EMAIL/$GIT_EMAIL/g" \
   $HOME/.gitconfig
-echo done
+
+echo -e "${GREEN}Done${NORMAL}"

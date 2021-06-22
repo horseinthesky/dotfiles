@@ -260,6 +260,11 @@ if [[ -d $HOME/opt/node_modules ]] && [[ ! $PATH == *$HOME/opt/node_modules/.bin
   export PATH=$HOME/opt/node_modules/.bin:$PATH
 fi
 
+# cargo
+if [[ -d $HOME/.cargo ]] && [[ ! $PATH == *$HOME/.cargo/bin* ]]; then
+  export PATH=$PATH:$HOME/.cargo/bin
+fi
+
 # ======== ALIASES ========
 alias vi=$(which nvim)
 alias nv='~/.local/bin/nvim'

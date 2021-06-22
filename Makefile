@@ -1,21 +1,22 @@
-export PATH := $(HOME)/opt/venv/bin:$(PATH)
-# export DOTFILES_HOME = $(HOME)/dotfiles/files
+PATH := $(HOME)/opt/venv/bin:$(PATH)
+# DOTFILES_HOME = $(HOME)/dotfiles/files
 
 ROLES_DIR = scripts
-roles = packages wsl git zsh
+
+roles = \
+	packages \
+	wsl \
+	git \
+	zsh \
+	fzf \
+	tmux \
+	ranger \
+	cargo \
+	rg \
 
 .PHONY: all $(roles)
 
 all: $(roles)
 
-packages:
-	@bash $(ROLES_DIR)/packages.sh
-
-wsl:
-	@bash $(ROLES_DIR)/wsl.sh
-
-git:
-	@bash $(ROLES_DIR)/git.sh
-
-zsh:
-	@bash $(ROLES_DIR)/zsh.sh
+$(roles):
+	@bash $(ROLES_DIR)/$@.sh
