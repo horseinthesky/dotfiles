@@ -89,11 +89,16 @@ symlink () {
 }
 
 clone () {
+  local path_prefix=${3:-}
   TOOL_NAME=$(echo $1 | cut -d "/" -f 2)
-  if [[ ! -d ${2}/$TOOL_NAME ]]; then
-    git clone -q git@github.com:${1}.git ${2}/$TOOL_NAME
+
+  echo -e "\n${LIGHTMAGENTA}Installing $TOOL_NAME...${NORMAL}"
+
+  if [[ ! -d ${2}/$path_prefix$TOOL_NAME ]]; then
+    git clone -q git@github.com:${1}.git ${2}/$path_prefix$TOOL_NAME
     echo -e "${GREEN}$TOOL_NAME installed${NORMAL}"
   else
-    echo -e "${YELLOW}$TOOL_NAME already exits${NORMAL}"
+    echo -e "${YELLOW}$TOOL_NAME already exits. Updating...${NORMAL}"
+    cd ${2}/$path_prefix$TOOL_NAME && git pull
   fi
 }

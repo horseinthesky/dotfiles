@@ -23,29 +23,20 @@ fi
 
 if [[ ! -f $HOME/.local/share/fonts/"$FONT" ]]; then
   curl https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/DejaVuSansMono/Regular/complete/DejaVu%20Sans%20Mono%20Nerd%20Font%20Complete.ttf -o $HOME/.local/share/fonts/"$FONT"
-else
-  echo -e "${YELLOW}Already exits${NORMAL}"
-fi
-echo -e "${GREEN}Done${NORMAL}"
-echo $DOTFILES_HOME
-
-echo -e "\n${LIGHTMAGENTA}Installing zsh...${NORMAL}"
-install zsh | grep -P "\d\K upgraded"
-
-echo -e "\n${LIGHTMAGENTA}Cloning oh-my-zsh...${NORMAL}"
-if [[ ! -d $HOME/.ohmyzsh ]]; then
-  git clone -q git@github.com:ohmyzsh/ohmyzsh.git $HOME/.ohmyzsh
   echo -e "${GREEN}Done${NORMAL}"
 else
   echo -e "${YELLOW}Already exits${NORMAL}"
 fi
 
-echo -e "\n${LIGHTMAGENTA}Cloning zsh plugins...${NORMAL}"
+echo -e "\n${LIGHTMAGENTA}Installing zsh...${NORMAL}"
+install zsh | grep -P "\d\K upgraded"
+
+clone ohmyzsh/ohmyzsh $HOME .
+
 for plugin in ${plugins[@]}; do
   clone $plugin $OHMYZSH_CUSTOM_PLUGINS
 done
 
-echo -e "\n${LIGHTMAGENTA}Cloning zsh themes...${NORMAL}"
 for theme in ${themes[@]}; do
   clone $theme $OHMYZSH_CUSTOM_THEMES
 done

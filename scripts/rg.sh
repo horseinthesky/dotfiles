@@ -2,26 +2,22 @@
 
 source scripts/helper.sh
 
+export PATH=$PATH:$HOME/.cargo/bin
+
 build () {
   if [[ ! -d $HOME/.cargo ]]; then
     echo -e "${LIGHTRED}Cargo is not found. Please install cargo to build.${NORMAL}"
     return 1
   fi
 
-  cd $HOME/ripgrep
-  PATH=$PATH:$HOME/.cargo/bin cargo build --release && \
-  sudo mv ./target/release/rg /usr/local/bin/
+  cd $HOME/ripgrep && \
+    cargo build --release && \
+    sudo mv ./target/release/rg /usr/local/bin/
 
   echo -e "${GREEN}Done${NORMAL}"
 }
 
-echo -e "\n${LIGHTMAGENTA}Cloning ripgrep...${NORMAL}"
-if [[ ! -d $HOME/ripgrep ]]; then
-  clone BurntSushi/ripgrep $HOME
-else
-  echo -e "${YELLOW}Updating...${NORMAL}"
-  cd $HOME/ripgrep && git pull
-fi
+clone BurntSushi/ripgrep $HOME
 
 echo -e "\n${LIGHTMAGENTA}Building ripgrep from source...${NORMAL}"
 if [[ $(which rg) == "rg not found" ]]; then

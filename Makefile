@@ -13,6 +13,7 @@ roles = \
 	ranger \
 	cargo \
 	rg \
+	fd \
 
 .PHONY: all $(roles)
 
