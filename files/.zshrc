@@ -265,16 +265,26 @@ if [[ -d $HOME/.cargo ]] && [[ ! $PATH == *$HOME/.cargo/bin* ]]; then
   export PATH=$PATH:$HOME/.cargo/bin
 fi
 
+# zoxide
+[[ ! -z $(which zoxide) ]] && eval "$(zoxide init zsh)"
+
 # ======== ALIASES ========
+alias sr='sudo -E -s'
+
 alias vi=$(which nvim)
 alias nv='~/.local/bin/nvim'
-alias sr='sudo -E -s'
+
 alias v='virtualenv .venv'
 alias a='source ./.venv/bin/activate'
 alias d='deactivate'
+
 alias grep='grep --color=auto --line-buffered'
 alias diff='diff --color -u'
 alias ra='ranger'
+alias bw="sudo $HOME/.cargo/bin/bandwhich"
+alias t="btm"
+alias p="procs"
+alias du="dust"
 
 # lsd aliases
 alias ll='lsd -lA --group-dirs first'

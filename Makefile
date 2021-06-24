@@ -12,8 +12,10 @@ roles = \
 	tmux \
 	ranger \
 	cargo \
-	rg \
-	fd \
+	cli \
+	asn \
+	go \
+	gotools \
 
 .PHONY: all $(roles)
 
