@@ -3,8 +3,8 @@
     name:
       - apt-transport-https
       - ca-certificates
-      - curl
-      - software-properties-common
+      - gnupg
+      - lsb-release
     state: latest
     update_cache: yes
   become: yes

@@ -79,12 +79,7 @@ symlink () {
     echo -e "${YELLOW}${2} backed up${NORMAL}"
   fi
 
-  if [[ -L ${2} ]]; then
-    echo -e "${YELLOW}${2} is already a symlink${NORMAL}"
-    return 0
-  fi
-
-  ln -sf ${1} ${2}
+  ln -snf ${1} ${2}
   echo -e "${GREEN}Done${NORMAL}"
 }
 
@@ -95,24 +90,25 @@ clone () {
   echo -e "\n${LIGHTMAGENTA}Installing $TOOL_NAME...${NORMAL}"
 
   if [[ ! -d ${2}/$path_prefix$TOOL_NAME ]]; then
-    git clone -q git@github.com:${1}.git ${2}/$path_prefix$TOOL_NAME
+    git clone -q git@github.com:${1}.git ${2}/$path_prefix$TOOL_NAME 1> /dev/null
     echo -e "${GREEN}$TOOL_NAME installed${NORMAL}"
   else
     echo -e "${YELLOW}$TOOL_NAME already exits. Updating...${NORMAL}"
-    cd ${2}/$path_prefix$TOOL_NAME && git pull
+    cd ${2}/$path_prefix$TOOL_NAME && git pull 1> /dev/null
+    echo -e "${GREEN}Done${NORMAL}"
   fi
 }
 
 cargo_install () {
   echo -e "\n${LIGHTMAGENTA}Installing ${1}...${NORMAL}"
 
-  if [[ -d $HOME/.cargo ]] && [[ ! $PATH == *$HOME/.cargo/bin* ]]; then
-    PATH=$HOME/.cargo/bin:$PATH
-  fi
-
   if [[ ! -d $HOME/.cargo ]]; then
     echo -e "${LIGHTRED}Cargo is not found. Can't procced.${NORMAL}"
     return 1
+  fi
+
+  if [[ -d $HOME/.cargo ]] && [[ ! $PATH == *$HOME/.cargo/bin* ]]; then
+    PATH=$HOME/.cargo/bin:$PATH
   fi
 
   # Name mappping

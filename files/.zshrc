@@ -242,11 +242,6 @@ if [[ -d $HOME/.local/bin ]] && [[ ! $PATH == *$HOME/.local/bin* ]]; then
   export PATH=$PATH:$HOME/.local/bin
 fi
 
-# Add private bin to path
-if [[ -d $HOME/bin ]] && [[ ! $PATH == *$HOME/bin* ]]; then
-  export PATH=$HOME/bin:$PATH
-fi
-
 # Add python dev venv to path
 if [[ -d $HOME/opt/venv ]] && [[ ! $PATH == *$HOME/opt/venv/bin* ]]; then
   export PATH=$HOME/opt/venv/bin:$PATH

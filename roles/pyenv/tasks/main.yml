@@ -21,7 +21,7 @@
 
 - name: Ensure private bin exist
   file:
-    path: ~/bin
+    path: ~/.local/bin
     state: directory
 
 - name: Install Python versions with pyenv
@@ -33,6 +33,6 @@
 - name: Create pyenv versions symlink
   file:
     src: "{{ user_home }}/.pyenv/versions/{{ item }}/bin/python"
-    dest: "{{ user_home }}/bin/python{{ item }}"
+    dest: "{{ user_home }}/.local/bin/python{{ item }}"
     state: link
   loop: "{{ pyenv_global_versions }}"

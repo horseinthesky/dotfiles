@@ -16,6 +16,13 @@ roles = \
 	asn \
 	go \
 	gotools \
+	lua \
+	poetry \
+	pythontools \
+	fnm \
+	npm \
+	docker \
+	pyenv \
 
 .PHONY: all $(roles)
 
