@@ -10,4 +10,4 @@ packages=(
 )
 
 echo -e "\n${LIGHTMAGENTA}Installing packages...${NORMAL}"
-install ${packages[@]} | grep -P "\d\K upgraded"
+install ${packages[@]}

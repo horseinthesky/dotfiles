@@ -1,18 +1,17 @@
 #!/usr/bin/env bash
 
 source scripts/helper.sh
-source /etc/os-release
 
 echo -e "\n${LIGHTMAGENTA}Installing docker...${NORMAL}"
-case $ID_LIKE in
-  debian)
+case $ID in
+  debian|ubuntu)
     packages=(
       apt-transport-https
       ca-certificates
       curl
       software-properties-common
     )
-    install ${packages[@]} | grep -P "\d\K upgraded"
+    install ${packages[@]}
 
     echo -e "${GREY}Adding docker gpg key...${NORMAL}"
     if [[ ! -f /usr/share/keyrings/docker-archive-keyring.gpg ]]; then
@@ -20,7 +19,7 @@ case $ID_LIKE in
         sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
     fi
 
-    echo -e "${GREY}Adding docker gpg key...${NORMAL}"
+    echo -e "${GREY}Adding docker repo...${NORMAL}"
     if [[ ! -f /etc/apt/sources.list.d/docker.list ]]; then
       echo \
         "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
@@ -28,9 +27,9 @@ case $ID_LIKE in
     fi
 
     echo -e "${GREY}Installing docker-ce...${NORMAL}"
-    install docker-ce docker-ce-cli containerd.io | grep -E "upgraded"
+    install docker-ce docker-ce-cli containerd.io
     ;;
-  arch)
+  arch|manjaro)
     install docker
     ;;
 esac

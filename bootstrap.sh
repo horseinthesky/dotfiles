@@ -17,20 +17,28 @@ setup_env () {
   pip install ansible
 }
 
-echo -e "${LIGHTMAGENTA}Installing base packages...${NORMAL}"
-install ${packages[@]} | grep -P "\d\K upgraded"
+echo -e "\n${LIGHTMAGENTA}Installing base packages...${NORMAL}"
+case $ID in
+  arch|manjaro)
+    packages+=(
+      base-devel
+      python
+    )
+    ;;
+esac
+install ${packages[@]}
 
-echo -e "${LIGHTMAGENTA}Creating python symlink...${NORMAL}"
+echo -e "\n${LIGHTMAGENTA}Creating python symlink...${NORMAL}"
 if [[ ! -f $(which python) ]] || [[ $(python -V) == *"2."* ]]; then
   sudo ln -s python3 /usr/bin/python
-  echo done
+  echo -e "${GREEN}Done${NORMAL}"
 else
   echo -e "${YELLOW}Already exists${NORMAL}"
 fi
 
-echo -e "${LIGHTMAGENTA}Setting up dev environment...${NORMAL}"
+echo -e "\n${LIGHTMAGENTA}Setting up dev environment...${NORMAL}"
 if [[ ! -d $HOME/opt/venv ]]; then
-  setup_env | grep -P "\d\K installed"
+  setup_env | grep -E "installed"
 else
   echo -e "${YELLOW}Already exists${NORMAL}"
 fi

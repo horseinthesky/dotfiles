@@ -17,47 +17,19 @@ NORMAL="\e[0m"
 
 DOTFILES_HOME=$HOME/dotfiles/files
 
+source /etc/os-release
+
 install () {
-  source /etc/os-release
-
-  case $ID_LIKE in
-    debian)
-      local package_manager=apt-get
-      local update=update
-      local noask=-y
-      local install_command=install
+  case $ID in
+    debian|ubuntu)
+      sudo apt-get update -y 1> /dev/null
+      sudo apt-get install ${@} -y | grep -E "upgraded"
       ;;
-    "rhel fedora")
-      local package_manager=yum
-      local update=update
-      local noask=-y
-      local install_command=install
+    arch|manjaro)
+      sudo pacman -Sy --noconfirm 1> /dev/null
+      sudo pacman -S ${@} --noconfirm --needed
       ;;
-    arch)
-      local package_manager=pacman
-      local update=-Sy
-      local noask=--noconfirm
-      local install_command=-S
-      ;;
-    *)
-      case $ID in
-        debian)
-          local package_manager=apt-get
-          local update=update
-          local noask=-y
-          local install_command=install
-          ;;
-        arch)
-          local package_manager=pacman
-          local update=-Sy
-          local noask=--noconfirm
-          local install_command=-S
-          ;;
-      esac
   esac
-
-  sudo ${package_manager} ${update} ${noask}
-  sudo ${package_manager} ${install_command} ${@} ${noask}
 }
 
 download (){
@@ -80,7 +52,6 @@ symlink () {
   fi
 
   ln -snf ${1} ${2}
-  echo -e "${GREEN}Done${NORMAL}"
 }
 
 clone () {
@@ -90,7 +61,7 @@ clone () {
   echo -e "\n${LIGHTMAGENTA}Installing $TOOL_NAME...${NORMAL}"
 
   if [[ ! -d ${2}/$path_prefix$TOOL_NAME ]]; then
-    git clone -q git@github.com:${1}.git ${2}/$path_prefix$TOOL_NAME 1> /dev/null
+    git clone -q https://github.com/${1}.git ${2}/$path_prefix$TOOL_NAME
     echo -e "${GREEN}$TOOL_NAME installed${NORMAL}"
   else
     echo -e "${YELLOW}$TOOL_NAME already exits. Updating...${NORMAL}"
@@ -104,12 +75,10 @@ cargo_install () {
 
   if [[ ! -d $HOME/.cargo ]]; then
     echo -e "${LIGHTRED}Cargo is not found. Can't procced.${NORMAL}"
-    return 1
+    return 0
   fi
 
-  if [[ -d $HOME/.cargo ]] && [[ ! $PATH == *$HOME/.cargo/bin* ]]; then
-    PATH=$HOME/.cargo/bin:$PATH
-  fi
+  PATH=$HOME/.cargo/bin:$PATH
 
   # Name mappping
   case ${1} in
@@ -141,9 +110,11 @@ cargo_install () {
 go_get () {
   echo -e "\n${LIGHTMAGENTA}Installing ${1}...${NORMAL}"
 
+  PATH=$HOME/.local/bin:$PATH
+
   if [[ -z $(which go) ]]; then
     echo -e "${LIGHTRED}Go is not found. Can't procced.${NORMAL}"
-    return 1
+    return 0
   fi
 
   go get github.com/${1}

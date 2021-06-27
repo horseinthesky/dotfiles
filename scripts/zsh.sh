@@ -29,7 +29,7 @@ else
 fi
 
 echo -e "\n${LIGHTMAGENTA}Installing zsh...${NORMAL}"
-install zsh | grep -P "\d\K upgraded"
+install zsh
 
 clone ohmyzsh/ohmyzsh $HOME .
 
@@ -43,6 +43,7 @@ done
 
 echo -e "\n${LIGHTMAGENTA}Symlink .zshrc${NORMAL}"
 symlink $DOTFILES_HOME/.zshrc $HOME/.zshrc
+echo -e "${GREEN}Done${NORMAL}"
 
 echo -e "\n${LIGHTMAGENTA}Setting shell${NORMAL}"
 sudo chsh -s $(which zsh) $(whoami)

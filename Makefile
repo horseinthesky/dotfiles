@@ -1,5 +1,4 @@
 PATH := $(HOME)/opt/venv/bin:$(PATH)
-# DOTFILES_HOME = $(HOME)/dotfiles/files
 
 ROLES_DIR = scripts
 
@@ -21,6 +20,7 @@ roles = \
 	pythontools \
 	fnm \
 	npm \
+	nvim \
 	docker \
 	pyenv \
 

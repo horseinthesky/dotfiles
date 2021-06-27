@@ -198,7 +198,7 @@ if grep -qE "(Microsoft|WSL)" /proc/version &>/dev/null; then
 fi
 
 # ======== Yandex ========
-if [[ $(cat /etc/hostname) == 'i104058879' ]] ; then
+if [[ $(cat /proc/sys/kernel/hostname) == 'i104058879' ]] ; then
   export PSSH_AUTH_SOCK="/mnt/c/Users/$USER/AppData/Local/Temp/pssh-agent.sock"
   export SSH_AUTH_SOCK="${PSSH_AUTH_SOCK}"
   [[ $(ssh-add -l) =~ "$HOME/.ssh/id_rsa" ]] || ssh-add

@@ -6,7 +6,7 @@ GIT_FULLNAME="Kirill 'horseinthesky' Pletnev"
 GIT_EMAIL=pwnedbyspawn@gmail.com
 
 echo -e "\n${LIGHTMAGENTA}Installing git...${NORMAL}"
-install git | grep -P "\d\K upgraded"
+install git
 
 
 echo -e "\n${LIGHTMAGENTA}Deploying git config${NORMAL}"
