@@ -38,7 +38,7 @@ download (){
     curl $FILE_NAME -o ${2}/$FILE_NAME
     echo $FILE_NAME downloaded
   else
-    echo -e "${YELLOW}$FILE_NAME already exits${NORMAL}"
+    echo -e "${YELLOW}$FILE_NAME already exists${NORMAL}"
   fi
 }
 
@@ -64,7 +64,7 @@ clone () {
     git clone -q https://github.com/${1}.git ${2}/$path_prefix$TOOL_NAME
     echo -e "${GREEN}$TOOL_NAME installed${NORMAL}"
   else
-    echo -e "${YELLOW}$TOOL_NAME already exits. Updating...${NORMAL}"
+    echo -e "${YELLOW}$TOOL_NAME already exists. Updating...${NORMAL}"
     cd ${2}/$path_prefix$TOOL_NAME && git pull 1> /dev/null
     echo -e "${GREEN}Done${NORMAL}"
   fi

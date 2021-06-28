@@ -31,13 +31,18 @@ if [[ ! -z $(which fnm) ]]; then
 
     if [[ $CURRENT_VERSION < $NODE_VERSION ]]; then
       fnm uninstall $CURRENT_VERSION
+
       fnm install $NODE_VERSION
+      npm install --global npm
+      npm install --global yarn
       echo -e "${GREEN}Done${NORMAL}"
     else
       echo -e "${YELLOW}Latest ($NODE_VERSION) version is already installed${NORMAL}"
     fi
   else
     fnm install $NODE_VERSION
+    npm install --global npm
+    npm install --global yarn
     echo -e "${GREEN}Done${NORMAL}"
   fi
 else

@@ -243,16 +243,16 @@ if [[ -d $HOME/.local/bin ]] && [[ ! $PATH == *$HOME/.local/bin* ]]; then
 fi
 
 # Add python dev venv to path
-if [[ -d $HOME/opt/venv ]] && [[ ! $PATH == *$HOME/opt/venv/bin* ]]; then
-  export PATH=$HOME/opt/venv/bin:$PATH
+if [[ -d $HOME/.python ]] && [[ ! $PATH == *$HOME/.python/bin* ]]; then
+  export PATH=$HOME/.python/bin:$PATH
 fi
 
 # fnm
 [[ -d $HOME/.fnm ]] && export PATH=$PATH:$HOME/.fnm && eval "$(fnm env)"
 
-# node modules
-if [[ -d $HOME/opt/node_modules ]] && [[ ! $PATH == *$HOME/opt/node_modules/.bin* ]]; then
-  export PATH=$HOME/opt/node_modules/.bin:$PATH
+# yarn
+if [[ -d $HOME/.yarn ]] && [[ ! $PATH == *$HOME/.yarn/bin* ]]; then
+  export PATH=$HOME/.yarn/bin:$PATH
 fi
 
 # cargo

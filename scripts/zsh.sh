@@ -25,7 +25,7 @@ if [[ ! -f $HOME/.local/share/fonts/"$FONT" ]]; then
   curl https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/DejaVuSansMono/Regular/complete/DejaVu%20Sans%20Mono%20Nerd%20Font%20Complete.ttf -o $HOME/.local/share/fonts/"$FONT"
   echo -e "${GREEN}Done${NORMAL}"
 else
-  echo -e "${YELLOW}Already exits${NORMAL}"
+  echo -e "${YELLOW}Already exists${NORMAL}"
 fi
 
 echo -e "\n${LIGHTMAGENTA}Installing zsh...${NORMAL}"

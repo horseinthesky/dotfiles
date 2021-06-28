@@ -1,4 +1,4 @@
-PATH := $(HOME)/opt/venv/bin:$(PATH)
+PATH := $(HOME)/.python/bin:$(PATH)
 
 ROLES_DIR = scripts
 
@@ -19,8 +19,9 @@ roles = \
 	poetry \
 	pythontools \
 	fnm \
-	npm \
+	yarn \
 	nvim \
+	nvimn \
 	docker \
 	pyenv \
 

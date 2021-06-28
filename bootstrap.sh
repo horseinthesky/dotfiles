@@ -9,10 +9,10 @@ packages=(
 
 setup_env () {
   curl --silent --output ~/virtualenv.pyz https://bootstrap.pypa.io/virtualenv.pyz
-  python ~/virtualenv.pyz ~/opt/venv --quiet
+  python ~/virtualenv.pyz ~/.python --quiet
   rm ~/virtualenv.pyz
 
-  [[ ! $PATH == *$HOME/opt/venv/bin* ]] && export PATH=$HOME/opt/venv/bin:$PATH
+  [[ ! $PATH == *$HOME/.python/bin* ]] && export PATH=$HOME/.python/bin:$PATH
 
   pip install ansible
 }
@@ -37,7 +37,7 @@ else
 fi
 
 echo -e "\n${LIGHTMAGENTA}Setting up dev environment...${NORMAL}"
-if [[ ! -d $HOME/opt/venv ]]; then
+if [[ ! -d $HOME/.python ]]; then
   setup_env | grep -E "installed"
 else
   echo -e "${YELLOW}Already exists${NORMAL}"

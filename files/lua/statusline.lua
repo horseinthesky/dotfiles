@@ -114,13 +114,6 @@ local function wide_enough(width)
   return false
 end
 
-local function in_vcs()
-  if vim.bo.buftype == "help" then
-    return false
-  end
-  return condition.check_git_workspace()
-end
-
 gls.left[1] = {
   ViMode = {
     provider = function()
@@ -210,9 +203,13 @@ gls.left[5] = {
       highlight("DiffAdd", colors.bright_green, colors.bg1)
       highlight("DiffChange", colors.bright_orange, colors.bg1)
       highlight("DiffDelete", colors.bright_red, colors.bg1)
-      if in_vcs() and wide_enough(85) then
+
+      local branch = vcs.get_git_branch()
+
+      if wide_enough(85) and branch ~= nil then
         return "  " .. icons.git .. " "
       end
+
       return ""
     end,
     highlight = {colors.bright_red, colors.bg1}
@@ -221,9 +218,12 @@ gls.left[5] = {
 gls.left[6] = {
   GitBranch = {
     provider = function()
-      if in_vcs() and wide_enough(85) then
-        return vcs.get_git_branch() .. " "
+      local branch = vcs.get_git_branch()
+
+      if wide_enough(85) and branch ~= nil then
+        return branch .. " "
       end
+
       return ""
     end,
     highlight = {colors.fg2, colors.bg1}
