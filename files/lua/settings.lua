@@ -16,8 +16,8 @@ local utils = require("utils")
 vim.g.loaded_python_provider = 0
 vim.g.loaded_ruby_provider = 0
 vim.g.loaded_perl_provider = 0
-vim.g.python3_host_prog = "~/opt/venv/bin/python"
-vim.g.node_host_prog = "~/opt/node_modules/neovim/bin/cli.js"
+vim.g.python3_host_prog = "~/.python/bin/python"
+vim.g.node_host_prog = "~/.config/yarn/global/node_modules/neovim/bin/cli.js"
 
 -- Set options
 local settings = {
