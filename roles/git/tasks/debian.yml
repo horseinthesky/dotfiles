@@ -1,5 +1,0 @@
-- name: Install git with apt
-  apt:
-    name: git
-    state: latest
-  become: yes

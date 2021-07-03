@@ -28,7 +28,6 @@ case $ID in
       libffi-dev
       liblzma-dev
     )
-    install ${packages[@]}
     ;;
   arch|manjaro)
     packages=(
@@ -37,9 +36,13 @@ case $ID in
       zlib
       xz
     )
-    install ${packages[@]}
+    ;;
+  *)
+    echo -e "${LIGHTRED}Abort. Distro is not supported"
+    exit 0
     ;;
 esac
+install ${packages[@]}
 echo -e "${GREEN}Done${NORMAL}"
 
 clone pyenv/pyenv $HOME .

@@ -2,7 +2,7 @@
 
 source scripts/helper.sh
 
-echo -e "\n${LIGHTMAGENTA}Installing NVIM build deps...${NORMAL}"
+echo -e "\n${LIGHTMAGENTA}Installing neovim build deps...${NORMAL}"
 case $ID in
   debian|ubuntu)
     deps=(
@@ -17,8 +17,6 @@ case $ID in
       pkg-config
       unzip
     )
-
-    install ${deps[@]}
     ;;
   arch|manjaro)
     deps=(
@@ -28,14 +26,17 @@ case $ID in
       ninja
       tree-sitter
     )
-
-    install ${deps[@]}
+    ;;
+  *)
+    echo -e "${LIGHTRED}Abort. Distro is not supported"
+    exit 0
     ;;
 esac
+install ${deps[@]}
 
 clone neovim/neovim $HOME
 
-echo -e "\n${LIGHTMAGENTA}Build NVIM...${NORMAL}"
+echo -e "\n${LIGHTMAGENTA}Building neovim from source...${NORMAL}"
 cd $HOME/neovim
 make \
   CMAKE_BUILD_TYPE=RelWithDebInfo \
@@ -51,7 +52,7 @@ else
   echo -e "${YELLOW}Already exists${NORMAL}"
 fi
 
-echo -e "\n${LIGHTMAGENTA}Setup NVIM...${NORMAL}"
+echo -e "\n${LIGHTMAGENTA}Setting up neovim...${NORMAL}"
 [[ ! -d $HOME/.config/nvim ]] && mkdir -p $HOME/.config/nvim
 symlink $DOTFILES_HOME/init.vim $HOME/.config/nvim/init.vim
 symlink $DOTFILES_HOME/coc-settings.json $HOME/.config/nvim/coc-settings.json

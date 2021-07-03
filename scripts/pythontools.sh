@@ -17,6 +17,7 @@ packages=(
 )
 
 echo -e "\n${LIGHTMAGENTA}Installing python packages...${NORMAL}"
+[[ ! $PATH == *$HOME/.python/bin* ]] && export PATH=$HOME/.python/bin:$PATH
 pip install -U ${packages[@]} | grep -E "installed"
 
 echo -e "\n${LIGHTMAGENTA}Setting up ptpython...${NORMAL}"

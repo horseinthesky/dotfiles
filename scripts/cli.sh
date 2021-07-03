@@ -9,6 +9,7 @@ tools=(
   bat
   procs
   du-dust
+  bandwhich
   bottom
   tealdeer
   zoxide
@@ -22,17 +23,18 @@ case $ID in
       libssl-dev
       pkg-config
     )
-
-    install ${deps[@]}
     ;;
   arch|manjaro)
     deps=(
       openssl
     )
-
-    install ${deps[@]}
+    ;;
+  *)
+    echo -e "${LIGHTRED}Abort. Distro is not supported"
+    exit 0
     ;;
 esac
+install ${deps[@]}
 
 for tool in ${tools[@]}; do
   cargo_install $tool

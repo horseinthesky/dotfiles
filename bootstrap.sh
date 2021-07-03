@@ -11,10 +11,6 @@ setup_env () {
   curl --silent --output ~/virtualenv.pyz https://bootstrap.pypa.io/virtualenv.pyz
   python ~/virtualenv.pyz ~/.python --quiet
   rm ~/virtualenv.pyz
-
-  [[ ! $PATH == *$HOME/.python/bin* ]] && export PATH=$HOME/.python/bin:$PATH
-
-  pip install ansible
 }
 
 echo -e "\n${LIGHTMAGENTA}Installing base packages...${NORMAL}"

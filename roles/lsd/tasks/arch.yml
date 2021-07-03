@@ -1,5 +1,0 @@
-- name: Install lsd
-  pacman:
-    name: lsd
-    state: latest
-  become: yes

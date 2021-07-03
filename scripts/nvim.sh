@@ -20,7 +20,7 @@ else
   echo -e "${YELLOW}Already installed${NORMAL}"
 fi
 
-echo -e "\n${LIGHTMAGENTA}Setup NVIM...${NORMAL}"
+echo -e "\n${LIGHTMAGENTA}Setting up neovim...${NORMAL}"
 [[ ! -d $HOME/.config/nvim ]] && mkdir -p $HOME/.config/nvim
 symlink $DOTFILES_HOME/init.vim $HOME/.config/nvim/init.vim
 symlink $DOTFILES_HOME/coc-settings.json $HOME/.config/nvim/coc-settings.json
@@ -28,7 +28,7 @@ symlink $DOTFILES_HOME/lua $HOME/.config/nvim/lua
 symlink $DOTFILES_HOME/UltiSnips $HOME/.config/nvim/UltiSnips
 echo -e "${GREEN}Done${NORMAL}"
 
-echo -e "\n${LIGHTMAGENTA}Setup Neovim plugins...${NORMAL}"
+echo -e "\n${LIGHTMAGENTA}Setup neovim plugins...${NORMAL}"
 if [[ $(nvim --version | head -n 1 | cut -c7-11) < 0.5.0 ]]; then
   nvim +':silent PlugInstall' +qa
 fi

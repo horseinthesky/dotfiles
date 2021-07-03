@@ -1,2 +1,2 @@
 # dotfiles
- My dotfiles for tmux, neovim and zsh
+Always a WIP :)

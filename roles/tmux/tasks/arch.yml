@@ -1,5 +1,0 @@
-- name: Install tmux
-  pacman:
-    name: tmux
-    state: latest
-  become: yes

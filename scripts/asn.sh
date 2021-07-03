@@ -11,7 +11,6 @@ packages=(
 echo -e "\n${LIGHTMAGENTA}Installing asn deps...${NORMAL}"
 install ${packages[@]}
 
-
 echo -e "\n${LIGHTMAGENTA}Downloading asn...${NORMAL}"
 [[ ! -d $HOME/.local/bin ]] && mkdir -p $HOME/.local/bin
 

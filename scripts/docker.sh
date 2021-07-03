@@ -32,6 +32,10 @@ case $ID in
   arch|manjaro)
     install docker
     ;;
+  *)
+    echo -e "${LIGHTRED}Abort. Distro is not supported"
+    exit 0
+    ;;
 esac
 echo -e "${GREEN}Done${NORMAL}"
 

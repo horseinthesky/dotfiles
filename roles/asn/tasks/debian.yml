@@ -1,8 +1,0 @@
-- name: Install asn required packages for debian
-  apt:
-    name:
-      - whois
-      - ipcalc
-      - mtr
-    state: latest
-  become: yes

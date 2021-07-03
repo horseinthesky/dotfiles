@@ -1,5 +1,0 @@
-- name: Make sure zsh is installed
-  apt:
-    name: zsh
-    state: latest
-  become: yes

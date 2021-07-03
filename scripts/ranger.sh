@@ -3,6 +3,7 @@
 source scripts/helper.sh
 
 echo -e "\n${LIGHTMAGENTA}Installing ranger...${NORMAL}"
+[[ ! $PATH == *$HOME/.python/bin* ]] && export PATH=$HOME/.python/bin:$PATH
 pip install ranger-fm | grep -E "installed|satisfied"
 
 echo -e "\n${LIGHTMAGENTA}Symlink ranger dir${NORMAL}"

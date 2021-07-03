@@ -5,6 +5,7 @@ source scripts/helper.sh
 tools=(
   mattn/efm-langserver
   muesli/duf
+  charmbracelet/glow
 )
 
 for tool in ${tools[@]}; do

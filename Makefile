@@ -1,5 +1,3 @@
-PATH := $(HOME)/.python/bin:$(PATH)
-
 ROLES_DIR = scripts
 
 roles = \

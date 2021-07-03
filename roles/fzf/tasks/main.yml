@@ -1,7 +1,0 @@
-- name: Clone fzf repo
-  git:
-    repo: https://github.com/junegunn/fzf.git
-    dest: ~/.fzf
-
-- name: Install fzf
-  shell: ~/.fzf/install --all

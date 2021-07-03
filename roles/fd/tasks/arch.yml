@@ -1,5 +1,0 @@
-- name: Install fd
-  pacman:
-    name: fd
-    state: latest
-  become: yes
