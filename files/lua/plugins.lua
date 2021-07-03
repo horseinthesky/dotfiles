@@ -66,11 +66,12 @@ packer.startup(function(use)
   use "lifepillar/vim-solarized8"
   use "Glench/Vim-Jinja2-Syntax"
   use "chrisbra/Colorizer"
-  use {"lukas-reineke/indent-blankline.nvim", branch = "lua"}
+  use "lukas-reineke/indent-blankline.nvim"
   use "sunjon/Shade.nvim"
   use "ntpeters/vim-better-whitespace"
   use {"nvim-treesitter/nvim-treesitter", run = ":TSUpdate"}
   use "nvim-treesitter/playground"
+  use "nvim-treesitter/nvim-treesitter-textobjects"
 
   -- Statusine
   use {

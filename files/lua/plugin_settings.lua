@@ -37,7 +37,7 @@ require("lspkind").init {
 -- telescope
 local actions = require("telescope.actions")
 
-require("telescope").setup {
+require "telescope".setup {
   defaults = {
     mappings = {
       i = {
@@ -46,21 +46,21 @@ require("telescope").setup {
         ["<C-K>"] = actions.move_selection_previous
       }
     },
-    prompt_position = "top",
     sorting_strategy = "ascending",
     scroll_strategy = "cycle",
     -- layout_strategy = 'vertical',
     prompt_prefix = " ",
-    selection_caret = " ",
-    layout_defaults = {
+    selection_caret = " ",
+    layout_config = {
+      prompt_position = "top",
+      preview_cutoff = 80,
       horizontal = {
         -- width_padding = 10,
         -- height_padding = 7,
         preview_width = 0.6
       }
     },
-    preview_cutoff = 80,
-    winblend = 10,
+    winblend = 10
   }
 }
 
@@ -245,19 +245,19 @@ map("n", "<leader>lr", "<cmd>LinediffReset<CR>")
 vim.g.startify_files_number = 10
 vim.g.startify_session_persistence = 1
 vim.g.startify_bookmarks = {
-  {["v"] = "~/.config/nvim/init.vim"},
-  {["z"] = "~/.zshrc"}
+  {v = "~/.config/nvim/init.vim"},
+  {z = "~/.zshrc"}
 }
 vim.g.startify_lists = {
-  {["type"] = "bookmarks", ["header"] = {"   Bookmarks"}},
-  {["type"] = "dir", ["header"] = {"   Recent files"}},
-  {["type"] = "sessions", ["header"] = {"   Saved sessions"}}
+  {type = "bookmarks", header = {"   Bookmarks"}},
+  {type = "dir", header = {"   Recent files"}},
+  {type = "sessions", header = {"   Saved sessions"}}
 }
 
-map("n", "<leader>ss", "<cmd>SSave!<CR>")
-map("n", "<leader>sl", "<cmd>SLoad!<CR>")
-map("n", "<leader>sc", "<cmd>SClose!<CR>")
-map("n", "<leader>sd", "<cmd>SDelete!<CR>")
+map("n", "gss", "<cmd>SSave!<CR>")
+map("n", "gsl", "<cmd>SLoad!<CR>")
+map("n", "gsc", "<cmd>SClose!<CR>")
+map("n", "gsd", "<cmd>SDelete!<CR>")
 
 -- Colorizer
 map("n", "<leader>ct", "<cmd>ColorToggle<CR>")
@@ -305,6 +305,23 @@ map("n", "]w", "<cmd>NextTrailingWhitespace<CR>")
 map("n", "[w", "<cmd>PrevTrailingWhitespace<CR>")
 
 -- nvim-treesitter
+local swap_next, swap_prev =
+  (function()
+  local swap_objects = {
+    p = "@parameter.inner",
+    f = "@function.outer",
+    c = "@class.outer"
+  }
+
+  local n, p = {}, {}
+  for key, obj in pairs(swap_objects) do
+    n[string.format("<leader>s%s", key)] = obj
+    p[string.format("<leader>S%s", key)] = obj
+  end
+
+  return n, p
+end)()
+
 require "nvim-treesitter.configs".setup {
   ensure_installed = "maintained",
   highlight = {
@@ -317,10 +334,51 @@ require "nvim-treesitter.configs".setup {
   incremental_selection = {
     enable = true,
     keymaps = {
-      init_selection = "gnn",
-      node_incremental = "grn",
-      node_decremental = "grm",
-      scope_incremental = "grc"
+      init_selection = "gis",
+      node_incremental = "gni",
+      node_decremental = "gnd",
+      scope_incremental = "gsi"
+    }
+  },
+  textobjects = {
+    select = {
+      enable = true,
+      -- Automatically jump forward to textobj, similar to targets.vim
+      lookahead = true,
+      keymaps = {
+        -- You can use the capture groups defined in textobjects.scm
+        ["of"] = "@function.outer",
+        ["if"] = "@function.inner",
+        ["oc"] = "@class.outer",
+        ["ic"] = "@class.inner",
+        ["ol"] = "@loop.outer",
+        ["il"] = "@loop.inner"
+      }
+    },
+    swap = {
+      enable = true,
+      swap_next = swap_next,
+      swap_previous = swap_prev
+    },
+    move = {
+      enable = true,
+      set_jumps = true, -- whether to set jumps in the jumplist
+      goto_next_start = {
+        ["]m"] = "@function.outer",
+        ["]]"] = "@class.outer"
+      },
+      goto_next_end = {
+        ["]M"] = "@function.outer",
+        ["]["] = "@class.outer"
+      },
+      goto_previous_start = {
+        ["[m"] = "@function.outer",
+        ["[["] = "@class.outer"
+      },
+      goto_previous_end = {
+        ["[M"] = "@function.outer",
+        ["[]"] = "@class.outer"
+      }
     }
   },
   playground = {

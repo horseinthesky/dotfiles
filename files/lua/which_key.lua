@@ -36,11 +36,18 @@ local leader_map = {
   F = "format",
   i = "lsp info",
   s = {
-    name = "sessions",
-    c = "session close",
-    d = "session delete",
-    l = "session load",
-    s = "session save"
+    name = "swap next",
+    ["<space>"] = "which_key_ignore",
+    p = "inner parameter",
+    f = "outer function",
+    c = "outer class",
+  },
+  S = {
+    name = "swap previous",
+    ["<space>"] = "which_key_ignore",
+    p = "inner parameter",
+    f = "outer function",
+    c = "outer class",
   },
   b = {
     name = "buffers",
@@ -133,7 +140,14 @@ local g_map = {
     name = "diff",
     h = "diff from (left)",
     l = "diff to (right)"
-  }
+  },
+  s = {
+    name = "sessions",
+    c = "session close",
+    d = "session delete",
+    l = "session load",
+    s = "session save"
+  },
 }
 
 wk.register(leader_map, {prefix = "<leader>"})
