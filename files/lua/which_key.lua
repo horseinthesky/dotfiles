@@ -40,14 +40,14 @@ local leader_map = {
     ["<space>"] = "which_key_ignore",
     p = "inner parameter",
     f = "outer function",
-    c = "outer class",
+    c = "outer class"
   },
   S = {
     name = "swap previous",
     ["<space>"] = "which_key_ignore",
     p = "inner parameter",
     f = "outer function",
-    c = "outer class",
+    c = "outer class"
   },
   b = {
     name = "buffers",
@@ -129,7 +129,7 @@ local leader_map = {
       d = "document diagnostics",
       D = "workspace diagnostics",
       s = "document symbols",
-      S = "workspace symbols",
+      S = "workspace symbols"
     }
   }
 }
@@ -148,7 +148,46 @@ local g_map = {
     l = "session load",
     s = "session save"
   },
+  i = {
+    name = "init selection",
+    s = "init selection"
+  },
+  n = {
+    name = "node selection",
+    i = "node incremental",
+    d = "node decremental"
+  }
+}
+
+local open_square_bracket_map = {
+  l = "loclist entry",
+  q = "quickfixlist entry",
+  b = "buffer",
+  t = "tab",
+  d = "definition",
+  w = "whitespace",
+  c = "git hunk",
+  m = "function start",
+  M = "function end",
+  ["]"] = "class start",
+  ["["] = "class end",
+}
+
+local close_square_bracket_map = {
+  l = "loclist entry",
+  q = "quickfixlist entry",
+  b = "buffer",
+  t = "tab",
+  d = "definition",
+  w = "whitespace",
+  c = "git hunk",
+  m = "function start",
+  M = "function end",
+  ["["] = "class start",
+  ["]"] = "class end",
 }
 
 wk.register(leader_map, {prefix = "<leader>"})
 wk.register(g_map, {prefix = "g"})
+wk.register(open_square_bracket_map, {prefix = "]"})
+wk.register(close_square_bracket_map, {prefix = "["})
