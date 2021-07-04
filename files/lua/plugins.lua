@@ -47,6 +47,7 @@ packer.startup(function(use)
     "SirVer/ultisnips",
     requires = {"honza/vim-snippets"}
   }
+  use "simrat39/symbols-outline.nvim"
   use "numToStr/FTerm.nvim"
   use "folke/which-key.nvim"
   use "dstein64/vim-startuptime"

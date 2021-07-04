@@ -175,6 +175,11 @@ vim.g.UltiSnipsJumpBackwardTrigger = "<S-Tab>"
 -- If you want :UltiSnipsEdit to split your window.
 vim.g.UltiSnipsEditSplit = "vertical"
 
+-- symbols-outline
+map("n", "<F5>", "<cmd>SymbolsOutline<CR>")
+
+vim.cmd [[highlight link FocusedSymbol Search]]
+
 -- FTerm
 require("FTerm").setup {
   dimensions = {
@@ -270,7 +275,8 @@ vim.g.indent_blankline_filetype_exclude = {
   "startify",
   "json",
   "peek",
-  "packer"
+  "packer",
+  "dashboard"
 }
 vim.g.indent_blankline_use_treesitter = true
 vim.g.indent_blankline_show_first_indent_level = false

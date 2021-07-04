@@ -40,15 +40,13 @@
   show = delta
 
 [delta]
-  plus-style = "syntax #012800"
-  minus-style = "syntax #340001"
-  syntax-theme = Sublime Snazzy
-  navigate = true
-  line-numbers = true
+  features = side-by-side line-numbers navigate
+  syntax-theme = Monokai Extended
+  plus-style = "syntax #004d00"
+  minus-style = "syntax #4d0000"
+  line-numbers-plus-style = "#b8bb26"
   line-numbers-minus-style = "#fb4934"
-  line-numbers-plug-style = "#b8bb26"
   line-numbers-zero-style = "#665c54"
-  side-by-side = true
 
 [interactive]
   diffFilter = delta --color-only

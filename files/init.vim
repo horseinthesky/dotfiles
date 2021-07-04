@@ -53,6 +53,7 @@ autocmd TermOpen * setlocal nonumber norelativenumber | startinsert
 let g:disable_line_numbers = [
   \ 'NvimTree', 'help', 'list', 'startuptime',
   \ 'startify', 'TelescopePrompt', 'Mundo',
+  \ 'dashboard'
 \ ]
 
 function! s:SetNumber(set)

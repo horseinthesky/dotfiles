@@ -15,7 +15,8 @@ gl.short_line_list = {
   "MundoDiff",
   "coc-explorer",
   "startify",
-  "packer"
+  "packer",
+  "Outline"
 }
 
 local mode_map = {
@@ -401,6 +402,7 @@ local short_map = {
   ["startify"] = "Starfity",
   ["tagbar"] = "Tagbar",
   ["packer"] = "Packer",
+  ["Outline"] = "Outline",
   ["Mundo"] = "History",
   ["MundoDiff"] = "Diff"
 }
