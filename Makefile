@@ -1,6 +1,6 @@
-ROLES_DIR = scripts
+SCRIPTS_DIR = scripts
 
-roles = \
+targets = \
 	packages \
 	wsl \
 	git \
@@ -23,9 +23,9 @@ roles = \
 	docker \
 	pyenv \
 
-.PHONY: all $(roles)
+.PHONY: all $(targets)
 
-all: $(roles)
+all: $(targets)
 
-$(roles):
-	@bash $(ROLES_DIR)/$@.sh
+$(targets):
+	@bash $(SCRIPTS_DIR)/$@.sh
