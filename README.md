@@ -7,6 +7,13 @@
 	<a href="https://github.com/horseinthesky/dotfiles/#install">Install</a>
 </div>
 
+<img src ="https://raw.githubusercontent.com/horseinthes/dotfiles/master/media/nvim.png"><hr>
+<img src ="https://raw.githubusercontent.com/horseinthes/dotfiles/master/media/lsp.png"><hr>
+<img src ="https://raw.githubusercontent.com/horseinthes/dotfiles/master/media/telescope.png"><hr>
+<img src ="https://raw.githubusercontent.com/horseinthes/dotfiles/master/media/zsh.png"><hr>
+<img src ="https://raw.githubusercontent.com/horseinthes/dotfiles/master/media/rg.png"><hr>
+<img src ="https://raw.githubusercontent.com/horseinthes/dotfiles/master/media/fd.png"><hr>
+
 ## Features
 
 - Autohotkey config for Windows 10/11
