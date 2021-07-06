@@ -33,7 +33,7 @@ M.black = {
 }
 
 M.mypy = {
-  lintCommand = "mypy --show-column-numbers --ignore-missing-imports",
+  lintCommand = "mypy --show-column-numbers --ignore-missing-imports --disable-error-code name-defined",
   lintFormats = {"%f:%l:%c: %trror: %m", "%f:%l:%c: %tarning: %m", "%f:%l:%c: %tote: %m"}
 }
 
