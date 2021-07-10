@@ -15,6 +15,7 @@ vim.g.gruvbox_invert_selection = 0
 vim.cmd "colorscheme gruvbox"
 vim.cmd [[highlight PmenuSel blend=0]]
 vim.cmd [[highlight SignColumn guibg=NONE]]
+vim.cmd [[highlight link NormalFloat Normal]]
 
 -- Transparency toggle
 vim.g.original_normal_bg = vim.fn.synIDattr(vim.fn.hlID("Normal"), "bg")

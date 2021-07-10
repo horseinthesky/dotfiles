@@ -41,8 +41,9 @@ for theme in ${themes[@]}; do
   clone $theme $OHMYZSH_CUSTOM_THEMES
 done
 
-echo -e "\n${LIGHTMAGENTA}Symlink .zshrc${NORMAL}"
-symlink $DOTFILES_HOME/.zshrc $HOME/.zshrc
+echo -e "\n${LIGHTMAGENTA}Symlink .zshenv and ZDOTDIR${NORMAL}"
+symlink $DOTFILES_HOME/zsh/.zshenv $HOME/.zshenv
+symlink $DOTFILES_HOME/zsh $HOME/.config/zsh
 echo -e "${GREEN}Done${NORMAL}"
 
 echo -e "\n${LIGHTMAGENTA}Setting shell${NORMAL}"

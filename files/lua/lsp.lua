@@ -12,9 +12,16 @@ require "compe".setup {
     calc = {kind = ""},
     nvim_lsp = {kind = ""},
     nvim_lua = {kind = ""},
-    -- spell = {kind = ""},
+    spell = {
+      kind = "",
+      priority = 45
+    },
     ultisnips = {kind = ""},
-    tabnine = {kind = "", priority = 50},
+    tabnine = {
+      kind = "",
+      priority = 50,
+      ignore_pattern = "[(|,]"
+    },
     emoji = {kind = "ﲃ", filetypes = {"markdown"}}
   }
 }
@@ -29,6 +36,8 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 local on_attach = function(client, _)
   utils.opt("omnifunc", "v:lua.vim.lsp.omnifunc")
+
+  require "lsp_signature".on_attach()
 
   local lsp_keymappings = {
     {"n", "<leader>i", "<cmd>LspInfo<CR>"},

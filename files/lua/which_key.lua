@@ -25,7 +25,6 @@ local leader_map = {
       S = "reselect last"
     }
   },
-  g = "which_key_ignore",
   d = "doge generate",
   D = "dim inactive toggle",
   I = "indentline toggle",
@@ -97,6 +96,14 @@ local leader_map = {
     l = "diagnostics to loclist",
     t = "which_key_ignore"
   },
+  g = {
+    name = "git",
+    d = "which_key_ignore",
+    b = "branches",
+    c = "cimmits",
+    s = "status",
+    h = "hunk"
+  },
   f = {
     name = "find",
     b = "buffers",
@@ -118,12 +125,6 @@ local leader_map = {
     H = "highlights",
     C = "colorscheme",
     S = "symbols",
-    g = {
-      name = "git",
-      b = "branches",
-      c = "cimmits",
-      s = "status"
-    },
     l = {
       name = "lsp",
       d = "document diagnostics",
@@ -166,7 +167,7 @@ local open_square_bracket_map = {
   t = "tab",
   d = "definition",
   w = "whitespace",
-  c = "git hunk",
+  h = "git hunk",
   m = "function start",
   M = "function end",
   ["]"] = "class start",
@@ -180,7 +181,7 @@ local close_square_bracket_map = {
   t = "tab",
   d = "definition",
   w = "whitespace",
-  c = "git hunk",
+  h = "git hunk",
   m = "function start",
   M = "function end",
   ["["] = "class start",

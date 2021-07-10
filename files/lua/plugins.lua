@@ -40,6 +40,7 @@ packer.startup(function(use)
   -- lsp addons
   use "glepnir/lspsaga.nvim"
   use "onsails/lspkind-nvim"
+  use "ray-x/lsp_signature.nvim"
 
   -- Features
   use "folke/todo-comments.nvim"

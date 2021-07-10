@@ -30,8 +30,8 @@ local mode_map = {
   ["s"] = {"SELECT", colors.bright_orange, colors.faded_orange},
   ["S"] = {"S-LINE", colors.bright_orange, colors.faded_orange},
   ["t"] = {"TERMINAL", colors.bright_aqua, colors.faded_aqua},
-  [""] = {"V-BLOCK", colors.bright_orange, colors.faded_orange},
-  [""] = {"S-BLOCK", colors.bright_orange, colors.faded_orange},
+  ["\22"] = {"V-BLOCK", colors.bright_orange, colors.faded_orange},
+  ["\19"] = {"S-BLOCK", colors.bright_orange, colors.faded_orange},
   ["Rv"] = {"VIRTUAL"},
   ["rm"] = {"--MORE"}
 }
@@ -46,8 +46,8 @@ local mode_map = {
 --   ["s"] = {"", colors.bright_orange, colors.faded_orange},
 --   ["S"] = {"", colors.bright_orange, colors.faded_orange},
 --   ["t"] = {"", colors.bright_aqua, colors.faded_aqua},
---   [""] = {"", colors.bright_orange, colors.faded_orange},
---   [""] = {"", colors.bright_orange, colors.faded_orange},
+--   ["\22"] = {"", colors.bright_orange, colors.faded_orange},
+--   ["\19"] = {"", colors.bright_orange, colors.faded_orange},
 --   ["rm"] = {""}
 -- }
 
@@ -67,12 +67,7 @@ local sep = {
 }
 
 local function mode_hl()
-  local mode = mode_map[vim.fn.mode()]
-  if mode == nil then
-    mode = mode_map["v"]
-    return {"V-BLOCK", mode[2], mode[3]}
-  end
-  return mode
+  return mode_map[vim.fn.mode()]
 end
 
 local function highlight(group, fg, bg, gui)

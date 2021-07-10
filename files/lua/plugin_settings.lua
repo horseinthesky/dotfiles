@@ -91,9 +91,9 @@ map("n", "<leader>fC", [[<cmd>lua require('telescope.builtin').colorscheme()<CR>
 map("n", "<leader>fS", [[<cmd>lua require('telescope.builtin').symbols()<CR>]])
 
 -- git search mappings
-map("n", "<leader>fgb", [[<cmd>lua require('telescope.builtin').git_branches()<CR>]])
-map("n", "<leader>fgc", [[<cmd>lua require('telescope.builtin').git_commits()<CR>]])
-map("n", "<leader>fgs", [[<cmd>lua require('telescope.builtin').git_status()<CR>]])
+map("n", "<leader>gb", [[<cmd>lua require('telescope.builtin').git_branches()<CR>]])
+map("n", "<leader>gc", [[<cmd>lua require('telescope.builtin').git_commits()<CR>]])
+map("n", "<leader>gs", [[<cmd>lua require('telescope.builtin').git_status()<CR>]])
 
 -- lsp search mappings
 map("n", "<leader>fld", [[<cmd>lua require('telescope.builtin').lsp_document_diagnostics()<CR>]])
@@ -403,6 +403,11 @@ require "gitsigns".setup {
     delete = {hl = "DiffDelete", text = " "},
     topdelete = {hl = "DiffDelete", text = " "},
     changedelete = {hl = "DiffChange", text = " "}
+  },
+  keymaps = {
+    ["n ]h"] = {expr = true, '&diff ? \']c\' : \'<cmd>lua require"gitsigns.actions".next_hunk()<CR>\''},
+    ["n [h"] = {expr = true, '&diff ? \'[c\' : \'<cmd>lua require"gitsigns.actions".prev_hunk()<CR>\''},
+    ['n <leader>gh'] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
   }
 }
 

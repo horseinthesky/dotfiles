@@ -39,6 +39,10 @@
   reflog = delta
   show = delta
 
+[stash]
+  showStat = false
+  showPatch = true
+
 [delta]
   features = side-by-side line-numbers navigate
   syntax-theme = Monokai Extended

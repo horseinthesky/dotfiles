@@ -6,6 +6,7 @@ packages=(
   htop
   tree
   jq
+  bc
   mtr
 )
 
