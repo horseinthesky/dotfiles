@@ -4,6 +4,7 @@ source scripts/helper.sh
 
 pyenv_versions=(
   3.9.5
+  3.10-dev
 )
 
 echo -e "\n${LIGHTMAGENTA}Installing pyenv deps...${NORMAL}"
@@ -56,6 +57,6 @@ PATH=$PATH:$HOME/.pyenv/bin
 for version in ${pyenv_versions[@]}; do
   pyenv install $version --skip-existing
   symlink $HOME/.pyenv/versions/$version/bin/python \
-    $HOME/.local/bin/python$(echo 3.9.5 | awk -F- '{print $1}' | awk -F. '{print $1"."$2}')
+    $HOME/.local/bin/python$(echo $version | awk -F- '{print $1}' | awk -F. '{print $1"."$2}')
 done
 echo -e "${GREEN}Done${NORMAL}"
