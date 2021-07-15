@@ -6,7 +6,7 @@ M.luafmt = {
 }
 
 M.flake8 = {
-  lintCommand = "flake8 --ignore=E501 --stdin-display-name ${INPUT} -",
+  lintCommand = "flake8 --ignore=E501,W503 --stdin-display-name ${INPUT} -",
   lintStdin = true,
   lintIgnoreExitCode = true,
   lintFormats = {"%f:%l:%c: %m"}

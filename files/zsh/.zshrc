@@ -24,6 +24,7 @@ plugins=(
 source $HOME/.ohmyzsh/oh-my-zsh.sh
 source $ZDOTDIR/functions.zsh
 source $ZDOTDIR/fzf-functions.zsh
+source $ZDOTDIR/fzf-git-functions.zsh
 source $ZDOTDIR/network-functions.zsh
 source $ZDOTDIR/tools.zsh
 source $ZDOTDIR/aliases.zsh

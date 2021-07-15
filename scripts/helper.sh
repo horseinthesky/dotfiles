@@ -71,8 +71,6 @@ clone () {
 }
 
 cargo_install () {
-  echo -e "\n${LIGHTMAGENTA}Installing ${1}...${NORMAL}"
-
   if [[ ! -d $HOME/.cargo ]]; then
     echo -e "${LIGHTRED}Cargo is not found. Can't procced.${NORMAL}"
     return 0
@@ -80,26 +78,24 @@ cargo_install () {
 
   PATH=$HOME/.cargo/bin:$PATH
 
-  # Name mappping
-  case ${1} in
-    ripgrep) BINARY_NAME=rg ;;
-    fd-find) BINARY_NAME=fd ;;
-    du-dust) BINARY_NAME=dust ;;
-    bottom) BINARY_NAME=btm ;;
-    tealdeer) BINARY_NAME=tldr ;;
-    git-delta) BINARY_NAME=delta ;;
-    *) BINARY_NAME=${1} ;;
-  esac
+  local tool binary
+  IFS=, read -r tool binary <<< ${1}
 
-  if [[ -z $(which $BINARY_NAME) ]]; then
-    cargo install ${1}
+  if [[ -z $binary ]]; then
+    binary=$tool
+  fi
+
+  echo -e "\n${LIGHTMAGENTA}Installing $tool...${NORMAL}"
+
+  if [[ -z $(which $binary) ]]; then
+    cargo install $tool
     echo -e "${GREEN}Done${NORMAL}"
   else
-    CURRENT_VERSION=$($BINARY_NAME --version 2> /dev/null | awk '{print $2}')
-    LATEST_VERSION=$(cargo search ${1} | head -n 1 | awk '{print $3}' | tr -d '"')
+    CURRENT_VERSION=$($binary --version 2> /dev/null | grep -P -o "\d+\.\d+\.\d+")
+    LATEST_VERSION=$(cargo search $tool | head -n 1 | awk '{print $3}' | tr -d '"')
 
     if [[ $CURRENT_VERSION < $LATEST_VERSION ]]; then
-      cargo install ${1} --force
+      cargo install $tool --force
       echo -e "${YELLOW}Updated to latest ($LATEST_VERSION) version.${NORMAL}"
     else
       echo -e "${YELLOW}Latest ($LATEST_VERSION) version is already installed${NORMAL}"

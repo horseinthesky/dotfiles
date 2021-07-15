@@ -1,4 +1,3 @@
-# ==== ALIASES ====
 alias sr='sudo -E -s'
 
 alias vi=$(which nvim)
@@ -16,12 +15,16 @@ alias t="btm"
 alias p="procs"
 alias du="dust"
 
-# lsd aliases
+# lsd
 alias ll='lsd -lA --group-dirs first'
 alias ls='lsd --group-dirs first'
 alias lr='lsd -lAR --group-dirs first'
 
-# tmux aliases
+# exa
+alias ex='exa --group-directories-first -la --icons --header'
+alias et='ex --tree --level'
+
+# tmux
 alias tn='tmux new -s '
 alias ta='tmux a -t '
 alias tk='tmux kill-session -t '

@@ -3,17 +3,20 @@
 source scripts/helper.sh
 
 tools=(
-  ripgrep
-  fd-find
+  ripgrep,rg
+  fd-find,fd
+  gping
   lsd
+  exa
   bat
+  xh
   procs
-  du-dust
+  du-dust,dust
   bandwhich
-  bottom
-  tealdeer
+  bottom,btm
+  tealdeer,tldr
   zoxide
-  git-delta
+  git-delta,delta
 )
 
 echo -e "\n${LIGHTMAGENTA}Installing cli tools deps...${NORMAL}"
