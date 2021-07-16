@@ -19,6 +19,9 @@ _viewGitDiff="$_gdToFilename | xargs -I % git diff % | $_pager"
 fgd () {
   is_in_git_repo || return
 
+  # Diff files if passed as arguments
+  [[ $# -ne 0 ]] && git diff $@ && return
+
   eval $_gd |
   fzf-down --no-sort --no-multi \
     --header 'enter to view' \
@@ -27,22 +30,88 @@ fgd () {
     --bind "enter:execute:$_viewGitDiff | less -R" \
 }
 
-# fuzzy git branch checkout
-_glGraph='git log -n 50 --graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr% C(auto)%an" "$(sed s/^..// <<< {} | cut -d" " -f1)"'
-
-fgc() {
+# fuzzy git add selector
+fga() {
   is_in_git_repo || return 1
 
-  local branch=$(
-    git branch --sort=-committerdate |
-    fzf-down --no-multi \
-      --header 'enter to checkout' \
-      --preview-window right:70% --preview $_glGraph \
+  # Add files if passed as arguments
+  [[ $# -ne 0 ]] && git add $@ && return
+
+  local changed unmerged untracked files opts preview extract
+  changed=$(git config --get-color color.status.changed red)
+  unmerged=$(git config --get-color color.status.unmerged red)
+  untracked=$(git config --get-color color.status.untracked red)
+
+  # NOTE: paths listed by 'git status -su' mixed with quoted and unquoted style
+  # remove indicators | remove original path for rename case | remove surrounding quotes
+  extract="
+    sed 's/^.*]  //' |
+    sed 's/.* -> //' |
+    sed -e 's/^\\\"//' -e 's/\\\"\$//'"
+
+  preview="
+    file=\$(echo {} | $extract)
+    if (git status -s -- \$file | grep '^??') &>/dev/null; then  # diff with /dev/null for untracked files
+      git diff --color=always --no-index -- /dev/null \$file | $_pager | sed '2 s/added:/untracked:/'
+    else
+      git diff --color=always -- \$file | $_pager
+    fi"
+
+  files=$(git -c color.status=always -c status.relativePaths=true status -su |
+    sed -E 's/^(..[^[:space:]]*)[[:space:]]+(.*)$/[\1]  \2/' |
+    fzf-down -0 --multi \
+      --header 'enter to add' \
+      --preview $preview --preview-window right:70% |
+    sh -c $extract)
+
+  [[ -n $files ]] && echo $files | tr '\n' '\0' | xargs -0 -I % git add % && return
+
+  echo 'Nothing to add.'
+}
+
+
+# fuzzy git reset HEAD (unstage) selector
+_gdCached="git diff --cached"
+_gdCachedDiff="$_gdCached --color=always -- {} | $_pager"
+
+fgr () {
+  is_in_git_repo || return 1
+
+  # Reset files if passed as arguments
+  [[ $# -ne 0 ]] && git reset -q HEAD $@ && return
+
+  files=$(eval "$_gdCached --name-only --relative" |
+    fzf-down -0 --multi \
+      --header 'enter to reset' \
+      --preview $_gdCachedDiff --preview-window right:70%
   )
 
-  [[ -z $branch ]] && return
+  [[ -n $files ]] && echo $files | tr '\n' '\0' | xargs -0 -I % git reset -q HEAD % && return
 
-  git checkout $(echo "$branch" | sed "s/.* //")
+  echo 'Nothing to unstage.'
+}
+
+# fuzzy git cherry pick
+fgp () {
+  is_in_git_repo || return 1
+
+  [[ -z $1 ]] && echo "Please specify target branch" && return 1
+
+  # Cherry pick if commit hash is passed
+  if [[ -n $2 ]]; then
+    git cherry-pick $2 ; return $?
+  fi
+
+  local base target preview
+  base=$(git branch --show-current)
+  target=$1
+  preview="echo {1} | xargs -I % git show --color=always % | $_pager"
+
+  git cherry $base $target --abbrev -v | cut -d ' ' -f2- |
+    fzf-down -0 --multi \
+      --header 'enter to cherry pick' \
+      --preview $preview --preview-window right:70% |
+    cut -d' ' -f1 | xargs -I % git cherry-pick %
 }
 
 # fuzzy git branch delete
@@ -60,11 +129,11 @@ fgD () {
     xargs --no-run-if-empty git branch --delete --force
 }
 
-# git commit browser with previews and vim integration
+# fuzzy git commit browser with previews and vim integration
 _glNoGraph='git log --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr% C(auto)%an"'
 _gitLogLineToHash="echo {} | grep -o '[a-f0-9]\{7\}' | head -1"
-_viewGitLogLine="$_gitLogLineToHash | xargs -I % git show % | $_pager"
-_viewGitLogLineUnfancy="$_gitLogLineToHash | xargs -I % sh -c 'git show %'"
+_viewGitLogLine="$_gitLogLineToHash | xargs -I % git show --color=always % | $_pager"
+_viewGitLogLineUnfancy="$_gitLogLineToHash | xargs -I % git show %"
 
 fgl() {
   is_in_git_repo || return 1
@@ -115,3 +184,22 @@ fgs() {
     ctrl-x) git stash drop $reflog ;;
   esac
 }
+
+# fuzzy git branch checkout
+_glGraph='git log -n 50 --graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr% C(auto)%an" "$(sed s/^..// <<< {} | cut -d" " -f1)"'
+
+fgc() {
+  is_in_git_repo || return 1
+
+  local branch=$(
+    git branch --sort=-committerdate |
+    fzf-down --no-multi \
+      --header 'enter to checkout' \
+      --preview-window right:70% --preview $_glGraph \
+  )
+
+  [[ -z $branch ]] && return
+
+  git checkout $(echo $branch | sed "s/.* //")
+}
+

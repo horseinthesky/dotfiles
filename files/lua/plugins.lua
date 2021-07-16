@@ -72,8 +72,12 @@ packer.startup(function(use)
   use "sunjon/Shade.nvim"
   use "ntpeters/vim-better-whitespace"
   use {"nvim-treesitter/nvim-treesitter", run = ":TSUpdate"}
-  use "nvim-treesitter/playground"
-  use "nvim-treesitter/nvim-treesitter-textobjects"
+  use {
+    "nvim-treesitter/playground",
+    requires = {
+      "nvim-treesitter/nvim-treesitter-textobjects",
+    }
+  }
 
   -- Statusine
   use {

@@ -314,9 +314,12 @@ map("n", "[w", "<cmd>PrevTrailingWhitespace<CR>")
 local swap_next, swap_prev =
   (function()
   local swap_objects = {
-    p = "@parameter.inner",
+    c = "@class.outer",
     f = "@function.outer",
-    c = "@class.outer"
+    b = "@block.outer",
+    s = "@statement.outer",
+    p = "@parameter.inner",
+    m = "@call.outer"
   }
 
   local n, p = {}, {}
@@ -340,10 +343,9 @@ require "nvim-treesitter.configs".setup {
   incremental_selection = {
     enable = true,
     keymaps = {
-      init_selection = "gis",
-      node_incremental = "gni",
-      node_decremental = "gnd",
-      scope_incremental = "gsi"
+      init_selection = "<enter>",
+      node_incremental = "<enter>",
+      node_decremental = "<bs>"
     }
   },
   textobjects = {
@@ -353,12 +355,20 @@ require "nvim-treesitter.configs".setup {
       lookahead = true,
       keymaps = {
         -- You can use the capture groups defined in textobjects.scm
-        ["of"] = "@function.outer",
-        ["if"] = "@function.inner",
         ["oc"] = "@class.outer",
         ["ic"] = "@class.inner",
+        ["of"] = "@function.outer",
+        ["if"] = "@function.inner",
+        ['ob'] = '@block.outer',
+        ['ib'] = '@block.inner',
         ["ol"] = "@loop.outer",
-        ["il"] = "@loop.inner"
+        ["il"] = "@loop.inner",
+        ['os'] = '@statement.outer',
+        ['is'] = '@statement.inner',
+        ['oC'] = '@comment.outer',
+        ['iC'] = '@comment.inner',
+        ['om'] = '@call.outer',
+        ['im'] = '@call.inner'
       }
     },
     swap = {

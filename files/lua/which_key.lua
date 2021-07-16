@@ -148,15 +148,6 @@ local g_map = {
     d = "session delete",
     l = "session load",
     s = "session save"
-  },
-  i = {
-    name = "init selection",
-    s = "init selection"
-  },
-  n = {
-    name = "node selection",
-    i = "node incremental",
-    d = "node decremental"
   }
 }
 
