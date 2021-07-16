@@ -98,8 +98,8 @@ fgp () {
   [[ -z $1 ]] && echo "Please specify target branch" && return 1
 
   # Cherry pick if commit hash is passed
-  if [[ -n $2 ]]; then
-    git cherry-pick $2 ; return $?
+  if [[ $# > 1 ]]; then
+    git cherry-pick ${@:2} ; return $?
   fi
 
   local base target preview
