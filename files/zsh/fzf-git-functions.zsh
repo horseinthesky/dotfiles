@@ -93,7 +93,7 @@ function gr () {
 }
 
 # fuzzy git cherry pick
-function gp () {
+function gcp () {
   is_in_git_repo || return 1
 
   [[ -z $1 ]] && echo "Please specify target branch" && return 1
@@ -250,7 +250,7 @@ function gcb () {
 alias gd="gd"
 alias ga="ga"
 alias gr="gr"
-alias gp="gp"
+alias gcp="gcp"
 alias gD="gD"
 alias gl="gl"
 alias gs="gs"
