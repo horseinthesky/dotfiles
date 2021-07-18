@@ -25,8 +25,23 @@ if has('nvim-0.5')
   lua require 'setup'
 endif
 
+" ==== Abbreviations ====
+" adds a shebang taken from the filetype
+inoreabbrev <expr> #!! "#!/usr/bin/env" . (empty(&filetype) ? '' : ' '.&filetype)
+
+cnoreabbrev Q! q!
+cnoreabbrev Qall! qall!
+cnoreabbrev Wq wq
+cnoreabbrev Wa wa
+cnoreabbrev wQ wq
+cnoreabbrev WQ wq
+cnoreabbrev Q q
+cnoreabbrev Qall qall
+
 " ======== Commands ========
 " Allow files to be saved as root when forgetting to start Vim using sudo.
+" https://www.youtube.com/watch?v=AcvxrF2MrrI
+" https://www.youtube.com/watch?v=u1HgODpoijc
 command W :execute ':silent w !sudo tee % > /dev/null' | :edit!
 
 " ======== Autocommands ========
@@ -81,16 +96,3 @@ function! s:RestoreCursor()
   endif
 endfunction
 autocmd BufReadPost * call s:RestoreCursor()
-
-" ==== Abbreviations ====
-" adds a shebang taken from the filetype
-inoreabbrev <expr> #!! "#!/usr/bin/env" . (empty(&filetype) ? '' : ' '.&filetype)
-
-cnoreabbrev Q! q!
-cnoreabbrev Qall! qall!
-cnoreabbrev Wq wq
-cnoreabbrev Wa wa
-cnoreabbrev wQ wq
-cnoreabbrev WQ wq
-cnoreabbrev Q q
-cnoreabbrev Qall qall
