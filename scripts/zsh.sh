@@ -8,7 +8,6 @@ FONT=DejaVu\ Sans\ Mono\ Nerd\ Font\ Complete.ttf
 
 plugins=(
   zsh-users/zsh-autosuggestions
-  wfxr/forgit
   djui/alias-tips
 )
 
