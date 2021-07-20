@@ -27,6 +27,7 @@ source $ZDOTDIR/fzf-git-functions.zsh
 source $ZDOTDIR/network-functions.zsh
 source $ZDOTDIR/tools.zsh
 source $ZDOTDIR/aliases.zsh
+source $ZDOTDIR/completion.zsh
 
 # ==== Theme ====
 if [[ $ZSH_THEME == "powerlevel10k/powerlevel10k" ]]; then
