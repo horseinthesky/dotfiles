@@ -42,6 +42,8 @@ done
 
 echo -e "\n${LIGHTMAGENTA}Symlink .zshenv and ZDOTDIR${NORMAL}"
 symlink $DOTFILES_HOME/zsh/.zshenv $HOME/.zshenv
+
+[[ ! -d $HOME/.config ]] && mkdir $HOME/.config
 symlink $DOTFILES_HOME/zsh $HOME/.config/zsh
 echo -e "${GREEN}Done${NORMAL}"
 
