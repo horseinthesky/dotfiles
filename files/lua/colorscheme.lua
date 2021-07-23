@@ -1,14 +1,15 @@
 local utils = require("utils")
 
 -- Colors
-utils.opt("termguicolors", true)
+vim.opt.termguicolors = true
+
 vim.api.nvim_exec([[
   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 ]], false)
 
 -- Colorscheme
-utils.opt("background", "dark")
+vim.opt.background = "dark"
 vim.g.gruvbox_contrast_dark = "medium"
 vim.g.gruvbox_invert_selection = 0
 

@@ -35,7 +35,7 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 local on_attach = function(client, _)
-  utils.opt("omnifunc", "v:lua.vim.lsp.omnifunc")
+  vim.opt.omnifunc = "v:lua.vim.lsp.omnifunc"
 
   require "lsp_signature".on_attach()
 

@@ -1,15 +1,5 @@
 local M = {}
 
-local scopes = {o = vim.o, b = vim.bo, w = vim.wo}
-
-function M.opt(key, value, scope)
-  scope = scope or "o"
-  scopes[scope][key] = value
-  if scope == "b" then
-    scopes["o"][key] = value
-  end
-end
-
 function M.map(mode, key, action, opts)
   local options = {noremap = true}
   if opts then
