@@ -2,8 +2,9 @@
 
 source scripts/helper.sh
 
-OHMYZSH_CUSTOM_PLUGINS=$HOME/.ohmyzsh/custom/plugins
-OHMYZSH_CUSTOM_THEMES=$HOME/.ohmyzsh/custom/themes
+XDG_DATA_HOME=$HOME/.local/share
+PLUGINS_DIR=$XDG_DATA_HOME/zsh/plugins
+THEMES_DIR=$XDG_DATA_HOME/zsh/themes
 FONT=DejaVu\ Sans\ Mono\ Nerd\ Font\ Complete.ttf
 
 plugins=(
@@ -30,14 +31,14 @@ fi
 echo -e "\n${LIGHTMAGENTA}Installing zsh...${NORMAL}"
 install zsh
 
-clone ohmyzsh/ohmyzsh $HOME .
-
+[[ ! -d $PLUGINS_DIR ]] && mkdir -p $PLUGINS_DIR
 for plugin in ${plugins[@]}; do
-  clone $plugin $OHMYZSH_CUSTOM_PLUGINS
+  clone $plugin $PLUGINS_DIR
 done
 
+[[ ! -d $THEMES_DIR ]] && mkdir -p $THEMES_DIR
 for theme in ${themes[@]}; do
-  clone $theme $OHMYZSH_CUSTOM_THEMES
+  clone $theme $THEMES_DIR
 done
 
 echo -e "\n${LIGHTMAGENTA}Symlink .zshenv and ZDOTDIR${NORMAL}"

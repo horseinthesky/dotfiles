@@ -8,6 +8,7 @@ __pycache__/
 
 # Zsh compdump
 *.zcompdump*
+*.zsh_history
 
 # Distribution / packaging
 .Python

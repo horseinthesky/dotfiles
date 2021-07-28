@@ -116,7 +116,7 @@ function gcp () {
 # fuzzy git branch delete
 _glGraphDelete="git log -n 50 --graph --color=always --format=\"$_format\" {}"
 
-function gD () {
+function gbd () {
   is_in_git_repo || return 1
 
   git branch |
@@ -251,7 +251,7 @@ alias gd="gd"
 alias ga="ga"
 alias gr="gr"
 alias gcp="gcp"
-alias gD="gD"
+alias gbd="gbd"
 alias gl="gl"
 alias gs="gs"
 alias gcf="gcf"

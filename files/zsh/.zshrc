@@ -1,41 +1,46 @@
 # ==== Settings ====
-zle_highlight=('paste:none')
 export ZSH_DISABLE_COMPFIX=true
 
-# ==== ohmyzsh ====
-# Set name of the theme to load. Optionally, if you set this to "random"
-# it'll load a random theme each time that oh-my-zsh is loaded.
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME=powerlevel10k/powerlevel10k
+# Disable CTRL-s from freezing your terminal's output.
+stty stop undef
 
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
+zle_highlight=('paste:none')
+
+# ==== Options ====
+setopt INTERACTIVE_COMMENTS  # Enable in-line comments
+
+# ==== Plugins ====
+source $ZDOTDIR/utils.zsh
+
 plugins=(
-  git
   zsh-autosuggestions
-  sudo
   alias-tips
 )
 
-# ==== Sources ====
-source $HOME/.ohmyzsh/oh-my-zsh.sh
-source $ZDOTDIR/functions.zsh
-source $ZDOTDIR/fzf-functions.zsh
-source $ZDOTDIR/fzf-git-functions.zsh
-source $ZDOTDIR/network-functions.zsh
-source $ZDOTDIR/tools.zsh
-source $ZDOTDIR/aliases.zsh
-source $ZDOTDIR/completion.zsh
+for plugin in ${plugins[@]}; do
+  add_plugin $plugin
+done
+
+# ==== Addons ====
+source_file history.zsh
+source_file aliases.zsh
+source_file key-bindings.zsh
+source_file completion.zsh
+source_file functions.zsh
+source_file fzf-functions.zsh
+source_file fzf-git-functions.zsh
+source_file network-functions.zsh
+source_file tools.zsh
 
 # ==== Theme ====
-if [[ $ZSH_THEME == "powerlevel10k/powerlevel10k" ]]; then
-  P10K_THEME=lean
-  # P10K_THEME=rainbow
+ZSH_THEME=powerlevel10k
 
-  source $ZDOTDIR/p10k.zsh
-fi
+load_theme $ZSH_THEME
+
+P10K_THEME=lean
+# P10K_THEME=rainbow
+
+source_file p10k.zsh
 
 # ==== WSL ====
 # WSL 2 specific settings.

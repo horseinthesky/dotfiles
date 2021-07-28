@@ -29,10 +29,13 @@ bindkey -M menuselect '^xh' accept-and-hold                # Hold
 bindkey -M menuselect '^xn' accept-and-infer-next-history  # Next
 bindkey -M menuselect '^xu' undo                           # Undo
 
-autoload -U compinit; compinit
+autoload -U compinit; compinit -d $XDG_DATA_HOME/zsh/.zcompdump
 
 # Show hidden files in completion menu
 _comp_options+=(globdots)
+
+# Allow C-w to delete words separated by /
+WORDCHARS=''
 
 # +---------+
 # | Options |
@@ -41,7 +44,7 @@ _comp_options+=(globdots)
 setopt GLOB_COMPLETE        # Show autocompletion menu with globs
 setopt AUTO_CD              # No need to type cd to cd
 setopt LIST_PACKED          # More compact completion menu
-setopt MENU_COMPLETE        # Automatically highlight first element of completion menu
+# setopt MENU_COMPLETE        # Automatically highlight first element of completion menu
 setopt AUTO_LIST            # Automatically list choices on ambiguous completion.
 setopt COMPLETE_IN_WORD     # Complete from both ends of a word.
 
@@ -57,6 +60,9 @@ zstyle ':completion:*' completer _extensions _complete _approximate
 
 # Comletion menu on <TAB> for every completer
 zstyle ':completion:*' menu select
+
+# Disable "Display all possibilities?" message
+zstyle ':completion:*' list-prompt ''
 
 # Required for completion to be in good groups (named after the tags)
 zstyle ':completion:*' group-name ''

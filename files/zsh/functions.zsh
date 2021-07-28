@@ -1,3 +1,30 @@
+takedir () {
+  mkdir -p $@ && cd ${@:$#}
+}
+
+takegit () {
+  git clone $1
+  cd $(basename ${1%%.git})
+}
+
+take () {
+  if [[ $1 =~ ^([A-Za-z0-9]\+@|https?|git|ssh|ftps?|rsync).*\.git/?$ ]]; then
+    takegit $1
+  else
+    takedir $1
+  fi
+}
+
+hstat() {
+  fc -l 1 |
+  awk '{ CMD[$2]++; count++; } END { for (a in CMD) print CMD[a] " " CMD[a]*100/count "% " a }' |
+  grep -v "./" | sort -nr | head -20 | column -c3 -s " " -t | nl
+}
+
+calc() {
+  bc -l <<< $@
+}
+
 panes () {
   bash $ZDOTDIR/panes.sh
 }
@@ -26,14 +53,6 @@ crate () {
 cht () {
   local options=${2:-Q}
   curl cht.sh/${1}\?${options}
-}
-
-hstat() {
-  history 0 | awk '{print $2}' | sort | uniq -c | sort -n -r | head
-}
-
-calc() {
-  bc -l <<< $@
 }
 
 matrix () {
