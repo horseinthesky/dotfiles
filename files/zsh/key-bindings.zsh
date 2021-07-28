@@ -132,7 +132,7 @@ sudo-command-line () {
   fi
 
   if [[ $BUFFER = sudo\ * ]]; then
-    LBUFFER=$BUFFER
+    LBUFFER=${BUFFER:5}
   else
     LBUFFER="sudo $LBUFFER"
   fi
