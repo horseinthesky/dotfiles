@@ -134,7 +134,7 @@ _gitLogLineToHash="echo {} | grep -o '[a-f0-9]\{7\}' | head -1"
 _viewGitLogLine="$_gitLogLineToHash | xargs -I % git show --color=always % | $_pager"
 _viewGitLogLineUnfancy="$_gitLogLineToHash | xargs -I % git show %"
 
-function gl() {
+function glog() {
   is_in_git_repo || return 1
 
   eval $_glNoGraph |
@@ -252,7 +252,7 @@ alias ga="ga"
 alias gr="gr"
 alias gcp="gcp"
 alias gbd="gbd"
-alias gl="gl"
+alias glog="glog"
 alias gs="gs"
 alias gcf="gcf"
 alias gco="gco"
