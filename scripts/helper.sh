@@ -104,8 +104,6 @@ cargo_install () {
 }
 
 go_get () {
-  echo -e "\n${LIGHTMAGENTA}Installing ${1}...${NORMAL}"
-
   PATH=$HOME/.local/bin:$PATH
 
   if [[ -z $(which go) ]]; then
@@ -113,7 +111,13 @@ go_get () {
     return 0
   fi
 
-  go get github.com/${1}
+  local TOOL_NAME=$(echo ${1} | awk -F/ '{print $NF}')
+  echo -e "\n${LIGHTMAGENTA}Installing $TOOL_NAME...${NORMAL}"
 
-  echo -e "${GREEN}Done${NORMAL}"
+  if [[ -z $(which $TOOL_NAME) ]]; then
+    go get github.com/${1}
+    echo -e "${GREEN}Done${NORMAL}"
+  else
+    echo -e "${YELLOW}$TOOL_NAME already exists.${NORMAL}"
+  fi
 }

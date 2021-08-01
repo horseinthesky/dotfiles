@@ -84,8 +84,27 @@ local on_attach = function(client, _)
   end
 end
 
-lspconfig.jedi_language_server.setup {
+local servers = {
+  "gopls",
+  "jedi_language_server",
+  "yamlls",
+  "vimls"
+}
+
+for _, server in ipairs(servers) do
+  lspconfig[server].setup {
+    capabilities = capabilities,
+    on_attach = on_attach
+  }
+end
+
+lspconfig.jsonls.setup {
+  cmd = {"vscode-json-languageserver", "--stdio"},
+  filetypes = {"json", "jsonc"},
   capabilities = capabilities,
+  init_options = {
+    provideFormatter = true
+  },
   on_attach = on_attach
 }
 
@@ -116,26 +135,6 @@ lspconfig.sumneko_lua.setup {
       }
     }
   },
-  on_attach = on_attach
-}
-
-lspconfig.jsonls.setup {
-  cmd = {"vscode-json-languageserver", "--stdio"},
-  filetypes = {"json", "jsonc"},
-  capabilities = capabilities,
-  init_options = {
-    provideFormatter = true
-  },
-  on_attach = on_attach
-}
-
-lspconfig.yamlls.setup {
-  capabilities = capabilities,
-  on_attach = on_attach
-}
-
-lspconfig.vimls.setup {
-  capabilities = capabilities,
   on_attach = on_attach
 }
 

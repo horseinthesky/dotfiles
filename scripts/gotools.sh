@@ -11,3 +11,7 @@ tools=(
 for tool in ${tools[@]}; do
   go_get $tool
 done
+
+echo -e "\n${LIGHTMAGENTA}Installing gopls...${NORMAL}"
+GO111MODULE=on go get golang.org/x/tools/gopls@latest
+echo -e "${GREEN}Done${NORMAL}"
