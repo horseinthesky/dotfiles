@@ -17,5 +17,5 @@ if [[ ! -d $HOME/.fnm ]]; then
 else
   PATH=$PATH:$HOME/.fnm && eval "$(fnm env)"
 
-  yarn global add ${packages[@]} | grep -E "Installed"
+  XDG_DATA_HOME=$XDG_DATA_HOME yarn global add ${packages[@]} | grep -E "Installed"
 fi
