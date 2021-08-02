@@ -15,6 +15,10 @@ LIGHTGREY="\e[37m"
 WHITE="\e[97m"
 NORMAL="\e[0m"
 
+XDG_CONFIG_HOME=$HOME/.config
+XDG_DATA_HOME=$HOME/.local/share
+XDG_CACHE_HOME=$HOME/.cache
+
 DOTFILES_HOME=$HOME/dotfiles/files
 
 source /etc/os-release

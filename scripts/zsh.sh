@@ -2,9 +2,9 @@
 
 source scripts/helper.sh
 
-XDG_DATA_HOME=$HOME/.local/share
 PLUGINS_DIR=$XDG_DATA_HOME/zsh/plugins
 THEMES_DIR=$XDG_DATA_HOME/zsh/themes
+
 FONT=DejaVu\ Sans\ Mono\ Nerd\ Font\ Complete.ttf
 
 plugins=(

@@ -16,7 +16,7 @@ vim.g.loaded_python_provider = 0
 vim.g.loaded_ruby_provider = 0
 vim.g.loaded_perl_provider = 0
 vim.g.python3_host_prog = "~/.python/bin/python"
-vim.g.node_host_prog = "~/.config/yarn/global/node_modules/neovim/bin/cli.js"
+vim.g.node_host_prog = "~/.local/share/yarn/global/node_modules/neovim/bin/cli.js"
 
 vim.cmd [[syntax enable]]
 

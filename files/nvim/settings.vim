@@ -4,7 +4,7 @@ let g:loaded_python_provider = 0
 let g:loaded_ruby_provider = 0
 let g:loaded_perl_provider = 0
 let g:python3_host_prog = '~/.python/bin/python'
-let g:node_host_prog = '~/.config/yarn/global/node_modules/neovim/bin/cli.js'
+let g:node_host_prog = '~/.local/share/yarn/global/node_modules/neovim/bin/cli.js'
 
 syntax on
 
