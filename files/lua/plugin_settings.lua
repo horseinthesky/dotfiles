@@ -1,17 +1,17 @@
-local map = require "utils".map
+local map = require("utils").map
 
 -- ==== LSP and completion plugin settings ====
 -- lspsaga
-require "lspsaga".init_lsp_saga {
+require("lspsaga").init_lsp_saga {
   rename_prompt_prefix = "",
-  rename_action_keys = {quit = "<ESC>", exec = "<CR>"},
-  code_action_keys = {quit = "<ESC>", exec = "<CR>"}
+  rename_action_keys = { quit = "<ESC>", exec = "<CR>" },
+  code_action_keys = { quit = "<ESC>", exec = "<CR>" },
 }
-map("n", "<leader>ca", "<cmd>lua require('lspsaga.codeaction').code_action()<CR>", {silent = true})
-map("n", "<leader>cr", "<cmd>lua require('lspsaga.rename').rename()<CR>", {silent = true})
-map("n", "<leader>ch", "<cmd>lua require('lspsaga.hover').render_hover_doc()<CR>", {silent = true})
-map("n", "<leader>cs", "<cmd>lua require('lspsaga.signaturehelp').signature_help()<CR>", {silent = true})
-map("n", "<leader>cD", "<cmd>lua require'lspsaga.diagnostic'.show_line_diagnostics()<CR>", {silent = true})
+map("n", "<leader>ca", "<cmd>lua require('lspsaga.codeaction').code_action()<CR>", { silent = true })
+map("n", "<leader>cr", "<cmd>lua require('lspsaga.rename').rename()<CR>", { silent = true })
+map("n", "<leader>ch", "<cmd>lua require('lspsaga.hover').render_hover_doc()<CR>", { silent = true })
+map("n", "<leader>cs", "<cmd>lua require('lspsaga.signaturehelp').signature_help()<CR>", { silent = true })
+map("n", "<leader>cD", "<cmd>lua require'lspsaga.diagnostic'.show_line_diagnostics()<CR>", { silent = true })
 -- map("n", "]d", "<cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_next()<CR>", {silent = true})
 -- map("n", "[d", "<cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()<CR>", {silent = true})
 vim.api.nvim_exec(
@@ -29,22 +29,22 @@ vim.api.nvim_exec(
 -- lspkind
 require("lspkind").init {
   symbol_map = {
-    Class = ""
-  }
+    Class = "",
+  },
 }
 
 -- ==== Feature plugin settings ====
 -- telescope
-local actions = require("telescope.actions")
+local actions = require "telescope.actions"
 
-require "telescope".setup {
+require("telescope").setup {
   defaults = {
     mappings = {
       i = {
         ["<esc>"] = actions.close,
         ["<C-J>"] = actions.move_selection_next,
-        ["<C-K>"] = actions.move_selection_previous
-      }
+        ["<C-K>"] = actions.move_selection_previous,
+      },
     },
     sorting_strategy = "ascending",
     scroll_strategy = "cycle",
@@ -57,11 +57,11 @@ require "telescope".setup {
       horizontal = {
         -- width_padding = 10,
         -- height_padding = 7,
-        preview_width = 0.6
-      }
+        preview_width = 0.6,
+      },
     },
-    winblend = 10
-  }
+    winblend = 10,
+  },
 }
 
 require("telescope").load_extension "fzf"
@@ -114,23 +114,23 @@ vim.api.nvim_exec(
 
 -- fzf
 vim.g.fzf_colors = {
-  ["hl"] = {"fg", "Search"},
-  ["hl+"] = {"fg", "Search"},
-  ["info"] = {"fg", "PreProc"},
-  ["pointer"] = {"fg", "Exception"},
-  ["marker"] = {"fg", "Tag"}
+  ["hl"] = { "fg", "Search" },
+  ["hl+"] = { "fg", "Search" },
+  ["info"] = { "fg", "PreProc" },
+  ["pointer"] = { "fg", "Exception" },
+  ["marker"] = { "fg", "Tag" },
 }
 vim.g.fzf_action = {
   ["ctrl-t"] = "tab split",
   ["ctrl-s"] = "split",
-  ["ctrl-v"] = "vsplit"
+  ["ctrl-v"] = "vsplit",
 }
 vim.g.fzf_layout = {
   ["window"] = {
     ["width"] = 1,
     ["height"] = 0.5,
-    ["yoffset"] = 1
-  }
+    ["yoffset"] = 1,
+  },
 }
 vim.g.fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
 
@@ -156,13 +156,13 @@ map("n", "<C-p>", "<cmd>Rg<CR>")
 require("todo-comments").setup {
   signs = true,
   keywords = {
-    PERF = {color = "perf"},
-    HACK = {color = "hack"}
+    PERF = { color = "perf" },
+    HACK = { color = "hack" },
   },
   colors = {
     perf = "Number",
-    hack = "Special"
-  }
+    hack = "Special",
+  },
 }
 
 map("n", "<leader>ft", [[<cmd>TodoTelescope<CR>]])
@@ -186,22 +186,21 @@ require("FTerm").setup {
     width = 1,
     height = 0.5,
     x = 0,
-    y = 1
-  }
+    y = 1,
+  },
 }
 
 map("n", "<F3>", '<CMD>lua require("FTerm").toggle()<CR>')
 map("t", "<F3>", '<CMD>lua require("FTerm").toggle()<CR>')
 
-local ptpython =
-  require("FTerm.terminal"):new():setup {
+local ptpython = require("FTerm.terminal"):new():setup {
   cmd = "ptpython",
   dimensions = {
     width = 1,
     height = 0.5,
     x = 0,
-    y = 1
-  }
+    y = 1,
+  },
 }
 
 function _G.__fterm_ptpython()
@@ -250,13 +249,13 @@ map("n", "<leader>lr", "<cmd>LinediffReset<CR>")
 vim.g.startify_files_number = 10
 vim.g.startify_session_persistence = 1
 vim.g.startify_bookmarks = {
-  {v = "~/.config/nvim/init.vim"},
-  {z = "~/.zshrc"}
+  { v = "~/.config/nvim/init.vim" },
+  { z = "~/.zshrc" },
 }
 vim.g.startify_lists = {
-  {type = "bookmarks", header = {"   Bookmarks"}},
-  {type = "dir", header = {"   Recent files"}},
-  {type = "sessions", header = {"   Saved sessions"}}
+  { type = "bookmarks", header = { "   Bookmarks" } },
+  { type = "dir", header = { "   Recent files" } },
+  { type = "sessions", header = { "   Saved sessions" } },
 }
 
 map("n", "gss", "<cmd>SSave!<CR>")
@@ -276,12 +275,12 @@ vim.g.indent_blankline_filetype_exclude = {
   "json",
   "peek",
   "packer",
-  "dashboard"
+  "dashboard",
 }
 vim.g.indent_blankline_use_treesitter = true
 vim.g.indent_blankline_show_first_indent_level = false
 vim.g.indent_blankline_show_trailing_blankline_indent = false
-vim.g.indent_blankline_char_list = {"|", "¦", "┆", "┊"}
+vim.g.indent_blankline_char_list = { "|", "¦", "┆", "┊" }
 vim.g.indent_blankline_space_char = " "
 vim.api.nvim_exec(
   [[
@@ -305,21 +304,20 @@ map("n", "<leader>I", "<cmd>IndentBlanklineToggle<CR>")
 
 -- vim-better-whitespace
 vim.g.better_whitespace_guicolor = "#fb4934"
-vim.g.better_whitespace_filetypes_blacklist = {"dashboard", "packer"}
+vim.g.better_whitespace_filetypes_blacklist = { "dashboard", "packer" }
 
 map("n", "]w", "<cmd>NextTrailingWhitespace<CR>")
 map("n", "[w", "<cmd>PrevTrailingWhitespace<CR>")
 
 -- nvim-treesitter
-local swap_next, swap_prev =
-  (function()
+local swap_next, swap_prev = (function()
   local swap_objects = {
     c = "@class.outer",
     f = "@function.outer",
     b = "@block.outer",
     s = "@statement.outer",
     p = "@parameter.inner",
-    m = "@call.outer"
+    m = "@call.outer",
   }
 
   local n, p = {}, {}
@@ -331,22 +329,22 @@ local swap_next, swap_prev =
   return n, p
 end)()
 
-require "nvim-treesitter.configs".setup {
+require("nvim-treesitter.configs").setup {
   ensure_installed = "maintained",
   highlight = {
-    enable = true
+    enable = true,
   },
   indent = {
     enable = true,
-    disable = {"yaml"}
+    disable = { "yaml" },
   },
   incremental_selection = {
     enable = true,
     keymaps = {
       init_selection = "<enter>",
       node_incremental = "<enter>",
-      node_decremental = "<bs>"
-    }
+      node_decremental = "<bs>",
+    },
   },
   textobjects = {
     select = {
@@ -359,66 +357,66 @@ require "nvim-treesitter.configs".setup {
         ["ic"] = "@class.inner",
         ["of"] = "@function.outer",
         ["if"] = "@function.inner",
-        ['ob'] = '@block.outer',
-        ['ib'] = '@block.inner',
+        ["ob"] = "@block.outer",
+        ["ib"] = "@block.inner",
         ["ol"] = "@loop.outer",
         ["il"] = "@loop.inner",
-        ['os'] = '@statement.outer',
-        ['is'] = '@statement.inner',
-        ['oC'] = '@comment.outer',
-        ['iC'] = '@comment.inner',
-        ['om'] = '@call.outer',
-        ['im'] = '@call.inner'
-      }
+        ["os"] = "@statement.outer",
+        ["is"] = "@statement.inner",
+        ["oC"] = "@comment.outer",
+        ["iC"] = "@comment.inner",
+        ["om"] = "@call.outer",
+        ["im"] = "@call.inner",
+      },
     },
     swap = {
       enable = true,
       swap_next = swap_next,
-      swap_previous = swap_prev
+      swap_previous = swap_prev,
     },
     move = {
       enable = true,
       set_jumps = true, -- whether to set jumps in the jumplist
       goto_next_start = {
         ["]m"] = "@function.outer",
-        ["]]"] = "@class.outer"
+        ["]]"] = "@class.outer",
       },
       goto_next_end = {
         ["]M"] = "@function.outer",
-        ["]["] = "@class.outer"
+        ["]["] = "@class.outer",
       },
       goto_previous_start = {
         ["[m"] = "@function.outer",
-        ["[["] = "@class.outer"
+        ["[["] = "@class.outer",
       },
       goto_previous_end = {
         ["[M"] = "@function.outer",
-        ["[]"] = "@class.outer"
-      }
-    }
+        ["[]"] = "@class.outer",
+      },
+    },
   },
   playground = {
     enable = true,
     disable = {},
     updatetime = 25,
-    persist_queries = false
-  }
+    persist_queries = false,
+  },
 }
 
 -- gitsigns.nvim
-require "gitsigns".setup {
+require("gitsigns").setup {
   signs = {
-    add = {hl = "DiffAdd", text = " "},
-    change = {hl = "DiffChange", text = " "},
-    delete = {hl = "DiffDelete", text = " "},
-    topdelete = {hl = "DiffDelete", text = " "},
-    changedelete = {hl = "DiffChange", text = " "}
+    add = { hl = "DiffAdd", text = " " },
+    change = { hl = "DiffChange", text = " " },
+    delete = { hl = "DiffDelete", text = " " },
+    topdelete = { hl = "DiffDelete", text = " " },
+    changedelete = { hl = "DiffChange", text = " " },
   },
   keymaps = {
-    ["n ]h"] = {expr = true, '&diff ? \']c\' : \'<cmd>lua require"gitsigns.actions".next_hunk()<CR>\''},
-    ["n [h"] = {expr = true, '&diff ? \'[c\' : \'<cmd>lua require"gitsigns.actions".prev_hunk()<CR>\''},
-    ['n <leader>gh'] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
-  }
+    ["n ]h"] = { expr = true, "&diff ? ']c' : '<cmd>lua require\"gitsigns.actions\".next_hunk()<CR>'" },
+    ["n [h"] = { expr = true, "&diff ? '[c' : '<cmd>lua require\"gitsigns.actions\".prev_hunk()<CR>'" },
+    ["n <leader>gh"] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
+  },
 }
 
 -- barbar
@@ -430,7 +428,7 @@ vim.g.bufferline = {
   tabpages = false,
   maximum_padding = 1,
   icon_separator_active = "",
-  icon_separator_inactive = "▎"
+  icon_separator_inactive = "▎",
 }
 
 map("n", "<leader>bp", "<cmd>BufferPick<CR>")

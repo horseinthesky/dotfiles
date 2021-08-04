@@ -22,8 +22,8 @@ local leader_map = {
     ["\\"] = "add cursor at position",
     A = "select all",
     g = {
-      S = "reselect last"
-    }
+      S = "reselect last",
+    },
   },
   d = "doge generate",
   D = "dim inactive toggle",
@@ -39,19 +39,19 @@ local leader_map = {
     ["<space>"] = "which_key_ignore",
     p = "inner parameter",
     f = "outer function",
-    c = "outer class"
+    c = "outer class",
   },
   S = {
     name = "swap previous",
     ["<space>"] = "which_key_ignore",
     p = "inner parameter",
     f = "outer function",
-    c = "outer class"
+    c = "outer class",
   },
   b = {
     name = "buffers",
     d = "delete buffer",
-    p = "pick buffer"
+    p = "pick buffer",
   },
   t = {
     name = "tabs",
@@ -65,24 +65,24 @@ local leader_map = {
     H = "tab move left",
     L = "tab move right",
     J = "tab move first",
-    K = "tab move last"
+    K = "tab move last",
   },
   q = {
     name = "quicklist",
     o = "open quicklist",
-    c = "close quicklist"
+    c = "close quicklist",
   },
   l = {
     name = "loclist",
     o = "open loclist",
     c = "close loclist",
-    r = "which_key_ignore"
+    r = "which_key_ignore",
   },
   r = {
     name = "replace",
     r = "replace all entries",
     c = "replace with confirmation",
-    s = "replace one entry"
+    s = "replace one entry",
   },
   c = {
     name = "code",
@@ -94,7 +94,7 @@ local leader_map = {
     s = "sinature help",
     D = "line diagnistics",
     l = "diagnostics to loclist",
-    t = "which_key_ignore"
+    t = "which_key_ignore",
   },
   g = {
     name = "git",
@@ -102,7 +102,7 @@ local leader_map = {
     b = "branches",
     c = "cimmits",
     s = "status",
-    h = "hunk"
+    h = "hunk",
   },
   f = {
     name = "find",
@@ -130,9 +130,9 @@ local leader_map = {
       d = "document diagnostics",
       D = "workspace diagnostics",
       s = "document symbols",
-      S = "workspace symbols"
-    }
-  }
+      S = "workspace symbols",
+    },
+  },
 }
 
 local g_map = {
@@ -140,15 +140,15 @@ local g_map = {
   d = {
     name = "diff",
     h = "diff from (left)",
-    l = "diff to (right)"
+    l = "diff to (right)",
   },
   s = {
     name = "sessions",
     c = "session close",
     d = "session delete",
     l = "session load",
-    s = "session save"
-  }
+    s = "session save",
+  },
 }
 
 local open_square_bracket_map = {
@@ -179,7 +179,7 @@ local close_square_bracket_map = {
   ["]"] = "class end",
 }
 
-wk.register(leader_map, {prefix = "<leader>"})
-wk.register(g_map, {prefix = "g"})
-wk.register(open_square_bracket_map, {prefix = "]"})
-wk.register(close_square_bracket_map, {prefix = "["})
+wk.register(leader_map, { prefix = "<leader>" })
+wk.register(g_map, { prefix = "g" })
+wk.register(open_square_bracket_map, { prefix = "]" })
+wk.register(close_square_bracket_map, { prefix = "[" })

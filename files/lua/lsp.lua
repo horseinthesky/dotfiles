@@ -143,12 +143,12 @@ local flake8 = efm.flake8
 local isort = efm.isort
 local black = efm.black
 local mypy = efm.mypy
-local luafmt = efm.luafmt
+local stylua = efm.stylua
 local prettier = efm.prettier
 
 local languages = {
   python = {isort, flake8, black, mypy},
-  lua = {luafmt},
+  lua = {stylua},
   yaml = {prettier},
   json = {prettier},
   html = {prettier},

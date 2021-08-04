@@ -8,7 +8,6 @@ packages=(
   vscode-json-languageserver
   yaml-language-server
   vim-language-server
-  lua-fmt
 )
 
 echo -e "\n${LIGHTMAGENTA}Installing yarn packages...${NORMAL}"

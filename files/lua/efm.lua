@@ -5,6 +5,11 @@ M.luafmt = {
   formatStdin = true
 }
 
+M.stylua = {
+  formatCommand = "stylua --config-path $HOME/.config/stylua/stylua.toml -",
+  formatStdin = true
+}
+
 M.flake8 = {
   lintCommand = "flake8 --ignore=E501,W503 --stdin-display-name ${INPUT} -",
   lintStdin = true,
