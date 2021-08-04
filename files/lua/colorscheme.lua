@@ -15,8 +15,10 @@ vim.api.nvim_exec(
 vim.opt.background = "dark"
 vim.g.gruvbox_contrast_dark = "medium"
 vim.g.gruvbox_invert_selection = 0
-
+vim.g.tokyonight_style = "storm"
 vim.cmd "colorscheme gruvbox"
+-- vim.cmd "colorscheme tokyonight"
+
 vim.cmd [[highlight PmenuSel blend=0]]
 vim.cmd [[highlight SignColumn guibg=NONE]]
 vim.cmd [[highlight link NormalFloat Normal]]

@@ -3,30 +3,30 @@ local utils = require "utils"
 local lspconfig = require "lspconfig"
 
 -- compe
-require "compe".setup {
+require("compe").setup {
   preselect = "disable",
   source_timeout = 100,
   source = {
-    path = {kind = ""},
-    buffer = {kind = ""},
-    calc = {kind = ""},
-    nvim_lsp = {kind = ""},
-    nvim_lua = {kind = ""},
+    path = { kind = "" },
+    buffer = { kind = "" },
+    calc = { kind = "" },
+    nvim_lsp = { kind = "" },
+    nvim_lua = { kind = "" },
     spell = {
       kind = "",
-      priority = 45
+      priority = 45,
     },
-    ultisnips = {kind = ""},
+    ultisnips = { kind = "" },
     tabnine = {
       kind = "",
       priority = 50,
-      ignore_pattern = "[(|,]"
+      ignore_pattern = "[(|,]",
     },
-    emoji = {kind = "ﲃ", filetypes = {"markdown"}}
-  }
+    emoji = { kind = "ﲃ", filetypes = { "markdown" } },
+  },
 }
 
-utils.map("i", "<CR>", 'compe#confirm("<CR>")', {expr = true})
+utils.map("i", "<CR>", 'compe#confirm("<CR>")', { expr = true })
 
 vim.cmd [[highlight link CompeDocumentation Pmenu]]
 
@@ -37,23 +37,23 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 local on_attach = function(client, _)
   vim.opt.omnifunc = "v:lua.vim.lsp.omnifunc"
 
-  require "lsp_signature".on_attach()
+  require("lsp_signature").on_attach()
 
   local lsp_keymappings = {
-    {"n", "<leader>i", "<cmd>LspInfo<CR>"},
-    {"n", "]d", "<cmd>lua vim.lsp.diagnostic.goto_next({enable_popup = false})<CR>"},
-    {"n", "[d", "<cmd>lua vim.lsp.diagnostic.goto_prev({enable_popup = false})<CR>"},
-    {"n", "<leader>cd", "<cmd>lua vim.lsp.buf.definition()<CR>"},
+    { "n", "<leader>i", "<cmd>LspInfo<CR>" },
+    { "n", "]d", "<cmd>lua vim.lsp.diagnostic.goto_next({enable_popup = false})<CR>" },
+    { "n", "[d", "<cmd>lua vim.lsp.diagnostic.goto_prev({enable_popup = false})<CR>" },
+    { "n", "<leader>cd", "<cmd>lua vim.lsp.buf.definition()<CR>" },
     -- {"n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>"},
-    {"n", "<leader>ci", "<cmd>lua vim.lsp.buf.implementation()<CR>"},
+    { "n", "<leader>ci", "<cmd>lua vim.lsp.buf.implementation()<CR>" },
     -- {"n", "<leader>ch", "<cmd>lua vim.lsp.buf.hover()<CR>"},
     -- {"n", "<leader>cr", "<cmd>lua vim.lsp.buf.rename()<CR>"},
-    {"n", "<leader>F", "<cmd>lua vim.lsp.buf.formatting()<CR>"},
+    { "n", "<leader>F", "<cmd>lua vim.lsp.buf.formatting()<CR>" },
     -- {"n", "<leader>td", "<cmd>lua vim.lsp.buf.type_definition()<CR>"},
     -- {"n", "<leader>rf", "<cmd>lua vim.lsp.buf.references()<CR>"},
     -- {"n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action({ source = { organizeImports = true } })<CR>"},
     -- {"n", "<leader>cD", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>"},
-    {"n", "<leader>cl", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>"}
+    { "n", "<leader>cl", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>" },
   }
 
   for _, map in ipairs(lsp_keymappings) do
@@ -88,30 +88,30 @@ local servers = {
   "gopls",
   "jedi_language_server",
   "yamlls",
-  "vimls"
+  "vimls",
 }
 
 for _, server in ipairs(servers) do
   lspconfig[server].setup {
     capabilities = capabilities,
-    on_attach = on_attach
+    on_attach = on_attach,
   }
 end
 
 lspconfig.jsonls.setup {
-  cmd = {"vscode-json-languageserver", "--stdio"},
-  filetypes = {"json", "jsonc"},
+  cmd = { "vscode-json-languageserver", "--stdio" },
+  filetypes = { "json", "jsonc" },
   capabilities = capabilities,
   init_options = {
-    provideFormatter = true
+    provideFormatter = true,
   },
-  on_attach = on_attach
+  on_attach = on_attach,
 }
 
-local sumneko_root_path = vim.fn.expand("~") .. "/lua-language-server"
+local sumneko_root_path = vim.fn.expand "~" .. "/lua-language-server"
 local sumneko_binary = sumneko_root_path .. "/bin/Linux/lua-language-server"
 lspconfig.sumneko_lua.setup {
-  cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"},
+  cmd = { sumneko_binary, "-E", sumneko_root_path .. "/main.lua" },
   capabilities = capabilities,
   settings = {
     Lua = {
@@ -120,22 +120,22 @@ lspconfig.sumneko_lua.setup {
         -- (most likely LuaJIT in the case of Neovim)
         version = "LuaJIT",
         -- Setup your lua path
-        path = vim.split(package.path, ";")
+        path = vim.split(package.path, ";"),
       },
       diagnostics = {
         -- Get the language server to recognize the `vim` global
-        globals = {"vim"}
+        globals = { "vim" },
       },
       workspace = {
         library = {
           -- Make the server aware of Neovim runtime files
           [vim.fn.expand "$VIMRUNTIME/lua"] = true,
-          [vim.fn.expand "$VIMRUNTIME/lua/vim/lsp"] = true
-        }
-      }
-    }
+          [vim.fn.expand "$VIMRUNTIME/lua/vim/lsp"] = true,
+        },
+      },
+    },
   },
-  on_attach = on_attach
+  on_attach = on_attach,
 }
 
 local efm = require "efm"
@@ -147,45 +147,40 @@ local stylua = efm.stylua
 local prettier = efm.prettier
 
 local languages = {
-  python = {isort, flake8, black, mypy},
-  lua = {stylua},
-  yaml = {prettier},
-  json = {prettier},
-  html = {prettier},
-  css = {prettier},
-  markdown = {prettier}
+  python = { isort, flake8, black, mypy },
+  lua = { stylua },
+  yaml = { prettier },
+  json = { prettier },
+  html = { prettier },
+  css = { prettier },
+  markdown = { prettier },
 }
 
 lspconfig.efm.setup {
   root_dir = lspconfig.util.root_pattern(".git", "."),
   filetypes = vim.tbl_keys(languages),
-  init_options = {documentFormatting = true, codeAction = true},
-  settings = {languages = languages, log_level = 1, log_file = "~/efm.log"},
-  on_attach = on_attach
+  init_options = { documentFormatting = true, codeAction = true },
+  settings = { languages = languages, log_level = 1, log_file = "~/efm.log" },
+  on_attach = on_attach,
 }
 
 -- Diagnostic
-vim.lsp.handlers["textDocument/publishDiagnostics"] =
-  vim.lsp.with(
-  vim.lsp.diagnostic.on_publish_diagnostics,
-  {
-    -- Enable/diable virtual text
-    virtual_text = {
-      spacing = 4,
-      prefix = " "
-    },
-    -- Enable/diable diagnistic in Insert mode
-    update_in_insert = true
-  }
-)
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+  -- Enable/diable virtual text
+  virtual_text = {
+    spacing = 4,
+    prefix = " ",
+  },
+  -- Enable/diable diagnistic in Insert mode
+  update_in_insert = true,
+})
 
 -- Diagnostic highligths & signs
-local hl_cmds =
-  [[
-  highlight LspDiagnosticsDefaultInformation ctermfg=109 guifg=#83a598
-  highlight LspDiagnosticsDefaultHint ctermfg=108 guifg=#8ec07c
-  highlight LspDiagnosticsDefaultWarning ctermfg=214 guifg=#fabd2f
-  highlight LspDiagnosticsDefaultError ctermfg=167 guifg=#fb4934
+local hl_cmds = [[
+  highlight! link LspDiagnosticsDefaultInformation Identifier
+  highlight! link LspDiagnosticsDefaultHint PreProc
+  highlight! link LspDiagnosticsDefaultWarning Type
+  highlight! link LspDiagnosticsDefaultError Statement
 ]]
 
 vim.api.nvim_exec(hl_cmds, false)
@@ -194,23 +189,23 @@ local lsp_signs = {
   LspDiagnosticsSignHint = {
     -- text = icons.hint,
     text = "",
-    texthl = "LspDiagnosticsSignHint"
+    texthl = "LspDiagnosticsSignHint",
   },
   LspDiagnosticsSignInformation = {
     -- text = icons.info,
     text = "",
-    texthl = "LspDiagnosticsSignInformation"
+    texthl = "LspDiagnosticsSignInformation",
   },
   LspDiagnosticsSignWarning = {
     -- text = icons.warning,
     text = "",
-    texthl = "LspDiagnosticsSignWarning"
+    texthl = "LspDiagnosticsSignWarning",
   },
   LspDiagnosticsSignError = {
     -- text = icons.error,
     text = "",
-    texthl = "LspDiagnosticsSignError"
-  }
+    texthl = "LspDiagnosticsSignError",
+  },
 }
 for hl_group, config in pairs(lsp_signs) do
   vim.fn.sign_define(hl_group, config)

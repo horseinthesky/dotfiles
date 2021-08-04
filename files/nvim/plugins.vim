@@ -111,8 +111,8 @@ let g:fzf_colors = {
   \ 'hl':      ['fg', 'Search'],
   \ 'hl+':     ['fg', 'Search'],
   \ 'info':    ['fg', 'PreProc'],
-  \ 'pointer': ['fg', 'Exception'],
-  \ 'marker':  ['fg', 'Tag'],
+  \ 'pointer': ['fg', 'Statement'],
+  \ 'marker':  ['fg', 'Special'],
 \ }
 
 let g:fzf_action = {

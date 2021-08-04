@@ -16,7 +16,7 @@ map("n", "<leader>cD", "<cmd>lua require'lspsaga.diagnostic'.show_line_diagnosti
 -- map("n", "[d", "<cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()<CR>", {silent = true})
 vim.api.nvim_exec(
   [[
-    highlight LspSagaHoverBorder guifg=#fe8019
+    highlight link LspSagaHoverBorder Normal
     highlight link LspSagaDiagnosticBorder LspSagaHoverBorder
     highlight link LspSagaDiagnosticTruncateLine LspSagaHoverBorder
     highlight link LspSagaRenameBorder LspSagaHoverBorder
@@ -103,11 +103,11 @@ map("n", "<leader>flS", [[<cmd>lua require('telescope.builtin').lsp_workspace_sy
 
 vim.api.nvim_exec(
   [[
-    highlight TelescopeSelection guifg=#d3869b gui=bold
+    highlight link TelescopeSelection Constant
     highlight link TelescopeSelectionCaret TelescopeSelection
     highlight link TelescopeMultiSelection TelescopeSelection
-    highlight TelescopeMatching guifg=#fabd2f
-    highlight TelescopePromptPrefix guifg=#fabd2f
+    highlight link TelescopeMatching Type
+    highlight link TelescopePromptPrefix Type
   ]],
   false
 )
@@ -117,8 +117,8 @@ vim.g.fzf_colors = {
   ["hl"] = { "fg", "Search" },
   ["hl+"] = { "fg", "Search" },
   ["info"] = { "fg", "PreProc" },
-  ["pointer"] = { "fg", "Exception" },
-  ["marker"] = { "fg", "Tag" },
+  ["pointer"] = { "fg", "Statement" },
+  ["marker"] = { "fg", "Special" },
 }
 vim.g.fzf_action = {
   ["ctrl-t"] = "tab split",
@@ -214,8 +214,10 @@ map("t", "<F4>", "<CMD>lua __fterm_ptpython()<CR>")
 vim.g.startuptime_tries = 5
 
 -- hop.nvim
+vim.cmd [[highlight link HopNextKey Type]]
 map("n", "f", "<cmd>HopChar1<CR>")
-vim.cmd [[highlight HopNextKey guifg=#fabd2f]]
+
+require("hop").setup()
 
 -- visual-multi
 map("n", "<S-Up>", ":<C-U>call vm#commands#add_cursor_up(0, v:count1)<CR>")
@@ -282,14 +284,6 @@ vim.g.indent_blankline_show_first_indent_level = false
 vim.g.indent_blankline_show_trailing_blankline_indent = false
 vim.g.indent_blankline_char_list = { "|", "¦", "┆", "┊" }
 vim.g.indent_blankline_space_char = " "
-vim.api.nvim_exec(
-  [[
-    highlight IndentBlanklineChar guifg=#504945 gui=nocombine
-    highlight link IndentBlanklineSpaceChar IndentBlanklineChar
-    highlight link IndentBlanklineSpaceCharBlankline IndentBlanklineChar
-  ]],
-  false
-)
 
 map("n", "<leader>I", "<cmd>IndentBlanklineToggle<CR>")
 
@@ -433,19 +427,21 @@ vim.g.bufferline = {
 
 map("n", "<leader>bp", "<cmd>BufferPick<CR>")
 
-vim.api.nvim_exec(
-  [[
-    highlight BufferCurrent guifg=#504945 guibg=#bdae93
-    highlight BufferCurrentIndex guifg=#fe8019 guibg=#bdae93
-    highlight BufferCurrentTarget guifg=#fb4934 guibg=#bdae93
-    highlight BufferInactive guifg=#bdae93 guibg=#504945
-    highlight BufferInactiveIndex guifg=#fe8019 guibg=#504945
-    highlight BufferInactiveTarget guifg=#fb4934 guibg=#504945
-    highlight link BufferCurrentSign BufferCurrent
-    highlight link BufferCurrentMod BufferCurrent
-    highlight link BufferInactiveSign BufferInactive
-    highlight link BufferInactiveMod BufferInactive
-    highlight BufferTabpageFill guifg=#bdae93 guibg=None
-  ]],
-  false
-)
+if vim.g.colors_name == "gruvbox" then
+  vim.api.nvim_exec(
+    [[
+      highlight BufferCurrent guifg=#504945 guibg=#bdae93
+      highlight BufferCurrentIndex guifg=#fe8019 guibg=#bdae93
+      highlight BufferCurrentTarget guifg=#fb4934 guibg=#bdae93
+      highlight BufferInactive guifg=#bdae93 guibg=#504945
+      highlight BufferInactiveIndex guifg=#fe8019 guibg=#504945
+      highlight BufferInactiveTarget guifg=#fb4934 guibg=#504945
+      highlight link BufferCurrentSign BufferCurrent
+      highlight link BufferCurrentMod BufferCurrent
+      highlight link BufferInactiveSign BufferInactive
+      highlight link BufferInactiveMod BufferInactive
+      highlight BufferTabpageFill guifg=#bdae93 guibg=None
+    ]],
+    false
+  )
+end

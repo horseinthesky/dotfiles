@@ -65,6 +65,7 @@ packer.startup(function(use)
   -- Visuals
   use "mhinz/vim-startify"
   use "morhetz/gruvbox"
+  use "folke/tokyonight.nvim"
   use "lifepillar/vim-solarized8"
   use "Glench/Vim-Jinja2-Syntax"
   use "chrisbra/Colorizer"
