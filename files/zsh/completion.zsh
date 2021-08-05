@@ -29,13 +29,19 @@ bindkey -M menuselect '^xh' accept-and-hold                # Hold
 bindkey -M menuselect '^xn' accept-and-infer-next-history  # Next
 bindkey -M menuselect '^xu' undo                           # Undo
 
+# Completions
+fpath=(
+  $ZDOTDIR/complete
+  $XDG_DATA_HOME/zsh/plugins/zsh-completions/src
+  $fpath
+)
 autoload -U compinit; compinit -d $XDG_DATA_HOME/zsh/.zcompdump
 
 # Show hidden files in completion menu
 _comp_options+=(globdots)
 
-# Allow C-w to delete words separated by /
-WORDCHARS=''
+# Allow C-w to delete words separated by | or - or .
+WORDCHARS='|-.'
 
 # +---------+
 # | Options |

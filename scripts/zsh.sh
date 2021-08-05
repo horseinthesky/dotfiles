@@ -8,6 +8,7 @@ THEMES_DIR=$XDG_DATA_HOME/zsh/themes
 FONT=DejaVu\ Sans\ Mono\ Nerd\ Font\ Complete.ttf
 
 plugins=(
+  zsh-users/zsh-completions
   zsh-users/zsh-autosuggestions
   djui/alias-tips
 )
