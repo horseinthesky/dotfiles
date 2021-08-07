@@ -24,6 +24,7 @@ alias d='deactivate'
 
 alias grep='grep --color=auto --line-buffered'
 alias diff='diff --color -u'
+alias pp='ptpython'
 alias ra='ranger'
 alias bw="sudo $HOME/.cargo/bin/bandwhich -d 1.1.1.1"
 alias t="btm"

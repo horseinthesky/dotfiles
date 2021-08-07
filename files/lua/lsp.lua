@@ -1,5 +1,5 @@
 local utils = require "utils"
--- local icons = utils.icons
+-- local icons = appearance.icons
 local lspconfig = require "lspconfig"
 
 -- compe
@@ -187,22 +187,22 @@ vim.api.nvim_exec(hl_cmds, false)
 
 local lsp_signs = {
   LspDiagnosticsSignHint = {
-    -- text = icons.hint,
+    -- text = icons.diagnostic.hint,
     text = "",
     texthl = "LspDiagnosticsSignHint",
   },
   LspDiagnosticsSignInformation = {
-    -- text = icons.info,
+    -- text = icons.diagnostic.info,
     text = "",
     texthl = "LspDiagnosticsSignInformation",
   },
   LspDiagnosticsSignWarning = {
-    -- text = icons.warning,
+    -- text = icons.diagnostic.warning,
     text = "",
     texthl = "LspDiagnosticsSignWarning",
   },
   LspDiagnosticsSignError = {
-    -- text = icons.error,
+    -- text = icons.diagnostic.error,
     text = "",
     texthl = "LspDiagnosticsSignError",
   },

@@ -209,8 +209,10 @@ _glGraph='git log -n 50 --graph --color=always --format="%C(auto)%h%d %s %C(blac
 function gco() {
   is_in_git_repo || return 1
 
+  [[ $# -ne 0 ]] && { git checkout $@; return $?; }
+
   local branch=$(
-    git branch --sort=-committerdate |
+    git branch --all --sort=-committerdate | grep -v HEAD |
     fzf-down --no-multi \
       --header 'enter to checkout' \
       --preview-window right:70% --preview $_glGraph
