@@ -9,8 +9,6 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 local on_attach = function(client, _)
   vim.opt.omnifunc = "v:lua.vim.lsp.omnifunc"
 
-  require("lsp_signature").on_attach()
-
   local lsp_keymappings = {
     { "n", "<leader>i", "<cmd>LspInfo<CR>" },
     { "n", "]d", "<cmd>lua vim.lsp.diagnostic.goto_next({enable_popup = false})<CR>" },
