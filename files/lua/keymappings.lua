@@ -1,9 +1,6 @@
 local map = require "utils".map
 
 local mappings = {
-  -- Use <Tab> and <S-Tab> to navigate through popup menu
-  {"i", "<Tab>", 'pumvisible() ? "\\<C-n>" : "\\<Tab>"', {expr = true}},
-  {"i", "<S-Tab>", 'pumvisible() ? "\\<C-p>" : "\\<Tab>"', {expr = true}},
   -- Splits
   {"n", "<leader>;", "<cmd>vsplit n<CR>"},
   {"n", "<leader>'", "<cmd>split n<CR>"},

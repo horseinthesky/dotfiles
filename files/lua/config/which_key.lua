@@ -32,6 +32,7 @@ local leader_map = {
   W = "strip whitespaces",
   v = "reselect pasted text",
   R = "reload buffer",
+  M = "startup time",
   F = "format",
   i = "lsp info",
   s = {
@@ -40,6 +41,9 @@ local leader_map = {
     p = "inner parameter",
     f = "outer function",
     c = "outer class",
+    b = "outer block",
+    s = "outer statement",
+    m = "outer call",
   },
   S = {
     name = "swap previous",

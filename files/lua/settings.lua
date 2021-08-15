@@ -18,6 +18,19 @@ vim.g.loaded_perl_provider = 0
 vim.g.python3_host_prog = "~/.python/bin/python"
 vim.g.node_host_prog = "~/.local/share/yarn/global/node_modules/neovim/bin/cli.js"
 
+-- Disable loading builtin plugins
+vim.g.loaded_gzip = 1
+vim.g.loaded_tar = 1
+vim.g.loaded_tarPlugin = 1
+vim.g.loaded_zipPlugin = 1
+vim.g.loaded_2html_plugin = 1
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+vim.g.loaded_matchit = 1
+vim.g.loaded_matchparen = 1
+vim.g.loaded_spec = 1
+
+-- Options
 vim.cmd [[syntax enable]]
 
 local settings = {
@@ -26,14 +39,14 @@ local settings = {
   laststatus = 2, -- Always show statusline
   showmode = false, -- No to duplicate statusline
   backup = false, -- Don't create annoying backup files
-  iskeyword = {"@", "48-57", "_", "192-255", "-"}, -- Treat dash separated words as a word text object
+  iskeyword = { "@", "48-57", "_", "192-255", "-" }, -- Treat dash separated words as a word text object
   mouse = "v", -- Diable mouse (if enabled temp. disable with holding Shift)
   winblend = 10, -- Transparency for floating windows
   pumblend = 10, -- Transparency for popup-menu
   scrolloff = 10, -- Start scrolling 10 lines before edge of viewpoint
   pastetoggle = "<F2>", -- Paste mode toggle to paste code properly
   guicursor = "", -- Fix for mysterious 'q' letters
-  completeopt = {"menu", "menuone", "noselect"}, -- Set completeopt to have a better completion experience
+  completeopt = { "menu", "menuone", "noselect" }, -- Set completeopt to have a better completion experience
   shortmess = "filnxtToOFcI", -- Don't give |ins-completion-menu| messages
   guifont = "DejavuSansMono NF:h16", -- Font
   updatetime = 300, -- Faster completion (default is 4000)
@@ -55,13 +68,13 @@ local settings = {
     precedes = "←",
     space = "·",
     tab = "\\",
-    trail = "·"
+    trail = "·",
   },
   -- list = true,
 
   -- Cursor
   cursorline = true, -- Highlight cursorline
-  colorcolumn = {"80", "100"}, -- Add vertical lines on columns
+  colorcolumn = { "80", "100" }, -- Add vertical lines on columns
   linebreak = true, -- Word wrap
   -- signcolumn = "yes",               -- Always show signcolumns (left row)
 
@@ -74,7 +87,7 @@ local settings = {
   history = 100,
   undolevels = 100,
   undofile = true,
-  undodir = vim.fn.stdpath("config") .. "/undo",
+  undodir = vim.fn.stdpath "config" .. "/undo",
   -- Splits
   splitbelow = true, -- new horizontal split to appear below
   splitright = true, -- new vertical split to appear on the right
@@ -86,7 +99,7 @@ local settings = {
   smarttab = true, -- Set tabs for a shifttabs logic
   expandtab = true, -- Expand tabs into spaces
   smartindent = true,
-  shiftround = true -- When shifting lines, round the indentation to the nearest multiple of “shiftwidth.”
+  shiftround = true, -- When shifting lines, round the indentation to the nearest multiple of “shiftwidth.”
 }
 
 for option, value in pairs(settings) do

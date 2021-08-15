@@ -21,8 +21,8 @@ endif
 
 " ==== Nightly config ====
 if has('nvim-0.5')
-  runtime! packer/packer_compiled.vim
   lua require 'setup'
+  runtime! packer/packer_compiled.vim
 endif
 
 " ==== Abbreviations ====

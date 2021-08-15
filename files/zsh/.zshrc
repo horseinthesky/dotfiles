@@ -68,3 +68,5 @@ fi
 
 # The next line updates PATH for Yandex Cloud CLI.
 [[ -f '/home/horseinthesky/yandex-cloud/path.bash.inc' ]] && source '/home/horseinthesky/yandex-cloud/path.bash.inc'
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

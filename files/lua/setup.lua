@@ -1,26 +1,20 @@
--- Install plugins
-require "plugins"
+-- Set colorscheme
+require "colorscheme"
 
 -- Sensible defaults
 require "settings"
 
+-- Install plugins
+-- no need to load this immediately, since we have packer_compiled
+vim.defer_fn(function()
+  require "plugins"
+end, 0)
+
 -- Key mappings
 require "keymappings"
 
--- Set colorscheme
-require "colorscheme"
-
 -- Plugin settings
 require "plugin_settings"
-
--- Which-key
-require "which_key"
-
--- Setup Lua language server using submodule
-require "lsp"
-
--- Statusline
-require "statusline"
 
 -- For debugging purpose
 function _G.dump(...)

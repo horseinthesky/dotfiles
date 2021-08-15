@@ -1,34 +1,6 @@
-local utils = require "utils"
+local map = require "utils".map
 -- local icons = appearance.icons
 local lspconfig = require "lspconfig"
-
--- compe
-require("compe").setup {
-  preselect = "disable",
-  source_timeout = 100,
-  source = {
-    path = { kind = "" },
-    buffer = { kind = "" },
-    calc = { kind = "" },
-    nvim_lsp = { kind = "" },
-    nvim_lua = { kind = "" },
-    spell = {
-      kind = "",
-      priority = 45,
-    },
-    ultisnips = { kind = "" },
-    tabnine = {
-      kind = "",
-      priority = 50,
-      ignore_pattern = "[(|,]",
-    },
-    emoji = { kind = "ﲃ", filetypes = { "markdown" } },
-  },
-}
-
-utils.map("i", "<CR>", 'compe#confirm("<CR>")', { expr = true })
-
-vim.cmd [[highlight link CompeDocumentation Pmenu]]
 
 -- Servers setup
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -56,9 +28,9 @@ local on_attach = function(client, _)
     { "n", "<leader>cl", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>" },
   }
 
-  for _, map in ipairs(lsp_keymappings) do
-    local mode, lhs, rhs, opts = unpack(map)
-    utils.map(mode, lhs, rhs, opts)
+  for _, binds in ipairs(lsp_keymappings) do
+    local mode, lhs, rhs, opts = unpack(binds)
+    map(mode, lhs, rhs, opts)
   end
 
   -- Format on save
