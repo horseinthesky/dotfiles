@@ -1,5 +1,5 @@
 local map = require "utils".map
--- local icons = appearance.icons
+local icons = require "appearance".icons
 local lspconfig = require "lspconfig"
 
 -- Servers setup
@@ -139,7 +139,8 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagn
   -- Enable/diable virtual text
   virtual_text = {
     spacing = 4,
-    prefix = " ",
+    -- prefix = icons.circle .. " ",
+    prefix = icons.duck,
   },
   -- Enable/diable diagnistic in Insert mode
   update_in_insert = true,
@@ -177,6 +178,7 @@ local lsp_signs = {
     texthl = "LspDiagnosticsSignError",
   },
 }
+
 for hl_group, config in pairs(lsp_signs) do
   vim.fn.sign_define(hl_group, config)
 end

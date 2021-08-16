@@ -1,6 +1,7 @@
 local map = require("utils").map
 
 require("lspsaga").init_lsp_saga {
+  use_saga_diagnostic_sign = false,
   rename_prompt_prefix = "",
   rename_action_keys = { quit = "<ESC>", exec = "<CR>" },
   code_action_keys = { quit = "<ESC>", exec = "<CR>" },

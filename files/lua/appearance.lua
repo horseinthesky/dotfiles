@@ -7,6 +7,7 @@ M.icons = {
   code = "", -- e000
   paste = "", -- f691
   circle = "", -- f62e
+  duck = " ", -- f6e4
   page = "☰", -- 2630
   line_number = "", -- e0a1
   connected = "", -- f817
