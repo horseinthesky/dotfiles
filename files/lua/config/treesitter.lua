@@ -1,3 +1,5 @@
+local map = require "utils".map
+
 local swap_next, swap_prev = (function()
   local swap_objects = {
     c = "@class.outer",
@@ -92,3 +94,5 @@ require("nvim-treesitter.configs").setup {
     persist_queries = false,
   },
 }
+
+map("n", "<leader>p", "<cmd>TSPlaygroundToggle<CR>")

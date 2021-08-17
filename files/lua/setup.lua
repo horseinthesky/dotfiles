@@ -16,8 +16,5 @@ require "keymappings"
 -- Plugin settings
 require "plugin_settings"
 
--- For debugging purpose
-function _G.dump(...)
-	local objects = vim.tbl_map(vim.inspect, {...})
-	print(unpack(objects))
-end
+-- Global functions
+require "globals"

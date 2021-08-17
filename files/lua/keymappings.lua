@@ -78,12 +78,12 @@ local mappings = {
   {"i", "!", "!<C-g>u"},
   {"i", "?", "?<C-g>u"},
   -- Move text
-  {"v", "J", ":m '>+1<CR>gv=gv"},
-  {"v", "K", ":m '<-2<CR>gv=gv"},
-  {"i", "<C-j>", "<esc>:m .+1<CR>==i"},
-  {"i", "<C-k>", "<esc>:m .-2<CR>==i"},
-  {"n", "<leader>j", ":m .+1<CR>=="},
-  {"n", "<leader>k", ":m .-2<CR>=="},
+  {"v", "<A-j>", ":m '>+1<CR>gv=gv"},
+  {"v", "<A-k>", ":m '<-2<CR>gv=gv"},
+  {"i", "<A-j>", "<esc>:m .+1<CR>==i"},
+  {"i", "<A-k>", "<esc>:m .-2<CR>==i"},
+  {"n", "<A-j>", ":m .+1<CR>=="},
+  {"n", "<A-k>", ":m .-2<CR>=="},
   -- Press * to search for the term under the cursor and then press a key below
   -- to replace all instances of it in the current file.
   -- Second binding is for comfirmation.

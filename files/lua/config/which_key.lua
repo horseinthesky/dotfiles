@@ -35,6 +35,7 @@ local leader_map = {
   M = "startup time",
   F = "format",
   i = "lsp info",
+  p = "TS playground",
   s = {
     name = "swap next",
     ["<space>"] = "which_key_ignore",
