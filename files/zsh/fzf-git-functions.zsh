@@ -119,7 +119,7 @@ _glGraphDelete="git log -n 50 --graph --color=always --format=\"$_format\" {}"
 function gbd () {
   is_in_git_repo || return 1
 
-  git branch |
+  git branch --sort=-committerdate |
     grep --invert-match '\*' |
     cut -c 3- |
     fzf-down --multi \
@@ -223,15 +223,15 @@ function gco() {
   git checkout $(echo $branch | sed "s/.* //")
 }
 
-# fuzzy git checkout (new) branch
+# fuzzy git checkout branch
 function gcb () {
   is_in_git_repo || return 1
 
   [[ $# -ne 0 ]] && { git checkout -b $@; return $?; }
 
   local cmd preview branch
-  cmd="git branch --color=always --all"
-  preview="git log {1} --graph --pretty=format:'$_format' --color=always --abbrev-commit --date=relative"
+  cmd="git branch --all --sort=-committerdate | grep -v HEAD"
+  preview="git log {1} -n 50 --graph --pretty=format:'$_format' --color=always --abbrev-commit --date=relative"
 
   branch=$(
     eval $cmd |
