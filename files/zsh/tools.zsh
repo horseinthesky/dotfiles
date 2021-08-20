@@ -3,7 +3,7 @@
 export DISABLE_AUTO_TITLE="true"
 
 # fzf
-if [[ -f "$HOME/.fzf.zsh" ]]; then
+if [[ -f $HOME/.fzf.zsh ]]; then
   source ~/.fzf.zsh
 
   FD_OPTIONS="--hidden --follow --exclude .git"

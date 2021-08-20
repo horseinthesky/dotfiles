@@ -59,6 +59,7 @@ local servers = {
   "jedi_language_server",
   "yamlls",
   "vimls",
+  "terraformls",
 }
 
 for _, server in ipairs(servers) do

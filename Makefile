@@ -21,6 +21,7 @@ targets = \
 	nvim \
 	nvimn \
 	docker \
+	terraform \
 	pyenv \
 
 .PHONY: all $(targets)
