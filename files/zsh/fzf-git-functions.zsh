@@ -13,9 +13,8 @@ _pager='delta --side-by-side -w ${FZF_PREVIEW_COLUMNS:-$COLUMNS}'
 _format='%C(auto)%h%d %s %C(black)%C(bold)%cr% C(auto)%an'
 
 # fuzzy git diff
-_gd="git diff --name-status | sed -E 's/^(.)[[:space:]]+(.*)$/[\1]  \2/'"
+_gdNames="git diff --name-status | sed -E 's/^(.)[[:space:]]+(.*)$/[\1]  \2/'"
 _gdToFilename="echo {} | sed 's/.*]  //'"
-_viewGitDiff="$_gdToFilename | xargs -I % git diff % | $_pager"
 
 function gd () {
   is_in_git_repo || return
@@ -23,12 +22,16 @@ function gd () {
   # Diff files if passed as arguments
   [[ $# -ne 0 ]] && git diff $@ && return
 
-  eval $_gd |
+  local repo preview
+  repo=$(git rev-parse --show-toplevel)
+  preview="$_gdToFilename | xargs -I % git diff $repo/% | $_pager"
+
+  eval $_gdNames |
   fzf-down --no-sort --no-multi \
     --header 'enter to view' \
     --preview-window right:70% \
-    --preview $_viewGitDiff \
-    --bind "enter:execute:$_viewGitDiff | less -R" \
+    --preview $preview \
+    --bind "enter:execute:$preview | less -R" \
 }
 
 # fuzzy git add selector
