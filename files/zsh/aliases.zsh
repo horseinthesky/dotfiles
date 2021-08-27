@@ -38,8 +38,15 @@ alias lr='lsd -lAR --group-dirs first'
 
 # exa
 alias ex='exa --group-directories-first -la --icons --header'
-alias et='ex --tree --level'
+et () {
+  local depth="${1:-2}"
+  ex --tree --level $depth
+}
 
+weather () {
+  local options="${2:-1}"
+  curl https://wttr.in/"${1}"\?"${options}"
+}
 # tmux
 alias tn='tmux new -s '
 alias ta='tmux a -t '

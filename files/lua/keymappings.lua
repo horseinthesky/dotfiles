@@ -66,7 +66,7 @@ local mappings = {
   {"n", "<leader>R", "(&filetype == 'lua') ? '<cmd>luafile %<CR>' : '<cmd>source %<CR>'", {expr = true}},
   -- Alternate way to save
   {"n", "<C-s>", "<cmd>w<CR>"},
-  -- gp selects code that was just pasted in the visual mode last used
+  -- \v selects code that was just pasted in the visual mode last used
   {"n", "<leader>v", "'`[' . strpart(getregtype(), 0, 1) . '`]'", {expr = true}},
   -- Make Y behave like other "big" letters (D, C)
   {"n", "Y", "y$"},
