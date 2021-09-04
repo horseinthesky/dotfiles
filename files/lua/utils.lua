@@ -16,15 +16,31 @@ function M.get_current_mode()
   return vim.api.nvim_get_mode().mode
 end
 
+function M.diagnostic_exists()
+  return not vim.tbl_isempty(vim.lsp.buf_get_clients(0))
+end
+
+function M.get_lsp_clients()
+  local buf_client_names = {}
+
+  local clients = vim.lsp.get_active_clients()
+  if next(clients) == nil then
+    return ""
+  end
+
+  for _, client in ipairs(clients) do
+    local client_name = string.match(client.name, "(.-)_.*") or client.name
+    table.insert(buf_client_names, client_name)
+  end
+
+  return table.concat(buf_client_names, ", ")
+end
+
 function M.wide_enough(width)
   if vim.fn.winwidth(0) > width then
     return true
   end
   return false
-end
-
-function M.diagnostic_exists()
-  return not vim.tbl_isempty(vim.lsp.buf_get_clients(0))
 end
 
 function M.buffer_not_empty()

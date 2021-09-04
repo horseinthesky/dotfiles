@@ -1,6 +1,5 @@
 local gl = require "galaxyline"
 local vcs = require "galaxyline.provider_vcs"
-local lspclient = require "galaxyline.provider_lsp"
 local condition = require "galaxyline.condition"
 local devicons = require "nvim-web-devicons"
 
@@ -218,12 +217,8 @@ gls.right[2] = {
   LspServer = {
     provider = function()
       if utils.diagnostic_exists() then
-        local client = lspclient.get_lsp_client()
-        local client_short = string.match(client, "(.-)_.*")
-        if client_short then
-          return client_short .. " "
-        end
-        return client .. " "
+        local clients = utils.get_lsp_clients()
+        return clients .. " "
       end
     end,
     highlight = { colors.lsp_name, colors.substrate },
