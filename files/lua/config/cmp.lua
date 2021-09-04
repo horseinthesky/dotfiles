@@ -75,6 +75,11 @@ cmp.setup {
   -- documentation = {
   --   border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
   -- },
+  snippet = {
+    expand = function(args)
+      vim.fn["UltiSnips#Anon"](args.body)
+    end,
+  },
   sources = {
     { name = "nvim_lsp" },
     { name = "buffer" },

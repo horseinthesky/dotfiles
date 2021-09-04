@@ -60,6 +60,7 @@ local servers = {
   "yamlls",
   "vimls",
   "terraformls",
+  "dockerls",
 }
 
 for _, server in ipairs(servers) do

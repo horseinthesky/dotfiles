@@ -6,6 +6,7 @@ packages=(
   prettier
   neovim
   vscode-json-languageserver
+  dockerfile-language-server-nodejs
   yaml-language-server
   vim-language-server
 )
