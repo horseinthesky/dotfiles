@@ -68,8 +68,8 @@ packer.startup(function(use)
     requires = {
       {
         "junegunn/fzf",
-        run="./install --all",
-        opt = true
+        run = "./install --all",
+        opt = true,
       },
     },
     wants = "fzf",
@@ -87,17 +87,6 @@ packer.startup(function(use)
           require "config.lspsaga"
         end,
       },
-      {
-        "onsails/lspkind-nvim",
-        after = "nvim-lspconfig",
-        config = function()
-          require("lspkind").init {
-            symbol_map = {
-              Class = "",
-            },
-          }
-        end,
-      },
     },
     event = "BufReadPre",
     config = function()
@@ -105,12 +94,20 @@ packer.startup(function(use)
     end,
   }
   use {
-    "hrsh7th/nvim-compe",
+    "hrsh7th/nvim-cmp",
     requires = {
+      { "onsails/lspkind-nvim", module = "lspkind" },
+      { "hrsh7th/cmp-buffer", module = "cmp_buffer" },
+      { "hrsh7th/cmp-path", module = "cmp_path" },
+      { "hrsh7th/cmp-nvim-lsp", module = "cmp_nvim_lsp" },
+      { "hrsh7th/cmp-nvim-lua", module = "cmp_nvim_lua" },
+      { "hrsh7th/cmp-calc", module = "cmp_calc" },
+      { "hrsh7th/cmp-emoji", module = "cmp_emoji" },
+      { "quangnguyen30192/cmp-nvim-ultisnips", module = "cmp_nvim_ultisnips" },
       {
-        "tzachar/compe-tabnine",
+        "tzachar/cmp-tabnine",
         run = "./install.sh",
-        module = "compe_tabnine",
+        module = "cmp_tabnine",
       },
       { "honza/vim-snippets", opt = true },
       {
@@ -122,7 +119,7 @@ packer.startup(function(use)
     event = "InsertEnter",
     wants = "ultisnips",
     config = function()
-      require "config.compe"
+      require "config.cmp"
     end,
   }
 

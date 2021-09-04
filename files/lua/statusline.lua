@@ -360,7 +360,9 @@ gls.short_line_left[1] = {
       utils.highlight("GalaxyViModeInv", fg, nested_fg)
       utils.highlight("GalaxyViModeInvNested", nested_fg, colors.substrate)
 
-      local name = short_map[vim.bo.filetype] or "Editor"
+      local name = short_map[vim.bo.filetype]
+      if name == nil then return "" end
+
       return string.format("  %s ", name)
     end,
     highlight = "GalaxyViMode",

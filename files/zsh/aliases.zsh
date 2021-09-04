@@ -39,7 +39,7 @@ alias lr='lsd -lAR --group-dirs first'
 # exa
 alias ex='exa --group-directories-first -la --icons --header'
 et () {
-  local depth="${1:-2}"
+  local depth="${2:-2}"
   ex --tree --level $depth
 }
 
