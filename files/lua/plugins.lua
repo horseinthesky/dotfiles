@@ -96,7 +96,6 @@ packer.startup(function(use)
   use {
     "hrsh7th/nvim-cmp",
     requires = {
-      { "onsails/lspkind-nvim", module = "lspkind" },
       { "hrsh7th/cmp-buffer", module = "cmp_buffer" },
       { "hrsh7th/cmp-path", module = "cmp_path" },
       { "hrsh7th/cmp-nvim-lsp", module = "cmp_nvim_lsp" },

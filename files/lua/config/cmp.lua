@@ -2,7 +2,7 @@ local cmp = require "cmp"
 
 require "cmp_nvim_lsp"
 require "cmp_buffer"
-require "cmp_nvim_lsp"
+require "cmp_path"
 require "cmp_nvim_lua"
 require "cmp_calc"
 require "cmp_emoji"
@@ -15,6 +15,34 @@ tabnine:setup {
   sort = true,
 }
 
+local kind_icons = {
+	Text = "",
+	Method = "",
+	Function = "",
+	Constructor = "",
+	Field = "ﰠ",
+	Variable = "",
+	Class = "",
+	Interface = "",
+	Module = "",
+	Property = "ﰠ",
+	Unit = "塞",
+	Value = "",
+	Enum = "",
+	Keyword = "",
+	Snippet = "",
+	Color = "",
+	File = "",
+	Reference = "",
+	Folder = "",
+	EnumMember = "",
+	Constant = "",
+	Struct = "פּ",
+	Event = "",
+	Operator = "",
+	TypeParameter = "",
+}
+
 local t = function(str)
   return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
@@ -23,7 +51,7 @@ cmp.setup {
   formatting = {
     format = function(entry, vim_item)
       -- fancy icons and a name of kind
-      vim_item.kind = require("lspkind").presets.default[vim_item.kind] .. " " .. vim_item.kind
+      vim_item.kind = kind_icons[vim_item.kind] .. " " .. vim_item.kind
 
       -- set a name for each source
       vim_item.menu = ({
@@ -82,10 +110,10 @@ cmp.setup {
   },
   sources = {
     { name = "nvim_lsp" },
+    { name = "nvim_lua", ft = "lua" },
     { name = "buffer" },
     { name = "ultisnips" },
     { name = "cmp_tabnine" },
-    { name = "nvim_lua" },
     { name = "path" },
     { name = "calc" },
     { name = "emoji" },
