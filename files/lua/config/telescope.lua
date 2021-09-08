@@ -37,7 +37,7 @@ map("n", "<leader>fh", [[<cmd>lua require('telescope.builtin').help_tags()<CR>]]
 map("n", "<leader>fb", [[<cmd>lua require('telescope.builtin').buffers()<CR>]])
 map("n", "<leader>fL", [[<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>]])
 map("n", "<leader>fB", [[<cmd>lua require('telescope.builtin').builtin()<CR>]])
-map("n", "<leader>fG", [[<cmd>lua require('telescope.builtin').live_grep()<CR>]])
+map("n", "<leader>fg", [[<cmd>lua require('telescope.builtin').live_grep()<CR>]])
 map("n", "<leader>fw", [[<cmd>lua require('telescope.builtin').grep_string { search = vim.fn.expand("<cword>") }<CR>]])
 map(
   "n",
