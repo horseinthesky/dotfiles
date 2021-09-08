@@ -39,8 +39,9 @@ alias lr='lsd -lAR --group-dirs first'
 # exa
 alias ex='exa --group-directories-first -la --icons --header'
 et () {
-  local depth="${2:-2}"
-  ex --tree --level $depth
+  local depth=${2:-2}
+  local dir=${1:-.}
+  ex --tree --level $depth $dir
 }
 
 weather () {
