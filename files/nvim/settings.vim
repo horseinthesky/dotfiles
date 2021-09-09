@@ -77,6 +77,7 @@ augroup TabSettings
   autocmd BufRead,BufNewFile *.conf,*.cfg setlocal filetype=config
   autocmd FileType config       setlocal commentstring=#\ %s
   autocmd FileType toml         setlocal commentstring=#\ %s
+  autocmd FileType terraform    setlocal commentstring=#\ %s
 
   autocmd FileType python       setlocal sw=4 ts=4
   autocmd FileType make         setlocal sw=4 ts=4 noet
