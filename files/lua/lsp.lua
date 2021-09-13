@@ -1,5 +1,5 @@
-local map = require "utils".map
-local icons = require "appearance".icons
+local map = require("utils").map
+local icons = require("appearance").icons
 local lspconfig = require "lspconfig"
 
 -- Servers setup
@@ -110,30 +110,16 @@ lspconfig.sumneko_lua.setup {
   on_attach = on_attach,
 }
 
-local efm = require "efm"
-local flake8 = efm.flake8
-local isort = efm.isort
-local black = efm.black
-local mypy = efm.mypy
-local stylua = efm.stylua
-local prettier = efm.prettier
-
-local languages = {
-  python = { isort, flake8, black, mypy },
-  lua = { stylua },
-  yaml = { prettier },
-  json = { prettier },
-  html = { prettier },
-  css = { prettier },
-  markdown = { prettier },
-}
+local languages = require "efm".languages
 
 lspconfig.efm.setup {
-  root_dir = lspconfig.util.root_pattern(".git", "."),
   filetypes = vim.tbl_keys(languages),
-  init_options = { documentFormatting = true, codeAction = true },
-  settings = { languages = languages, log_level = 1, log_file = "~/efm.log" },
-  on_attach = on_attach,
+  init_options = {
+    documentFormatting = true,
+  },
+  settings = {
+    languages = languages,
+  },
 }
 
 -- Diagnostic
