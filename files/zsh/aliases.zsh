@@ -27,21 +27,19 @@ alias diff='diff --color -u'
 alias pp='ptpython'
 alias ra='ranger'
 alias bw="sudo $HOME/.cargo/bin/bandwhich -d 1.1.1.1"
-alias t="btm"
+alias b="btm"
 alias p="procs"
 alias du="dust"
 
 # lsd
 alias ll='lsd -lA --group-dirs first'
-alias ls='lsd --group-dirs first'
-alias lr='lsd -lAR --group-dirs first'
 
 # exa
-alias ex='exa --group-directories-first -la --icons --header'
-et () {
+alias l='exa --group-directories-first -la --icons --header'
+t () {
   local depth=${2:-2}
   local dir=${1:-.}
-  ex --tree --level $depth $dir
+  l --tree --level $depth $dir
 }
 
 weather () {

@@ -55,6 +55,30 @@ cht () {
   curl cht.sh/${1}\?${options}
 }
 
+c () {
+  local languages=(
+    python
+    go
+    lua
+  )
+  local utils=(
+    tar
+    xargs
+    awk
+  )
+
+  local selected=$(printf "$(echo $languages | tr ' ' '\n')\n$(echo $utils | tr ' ' '\n')" | fzf)
+
+  echo -n "query: "
+  read query
+
+  if printf $languages | grep -qs $selected; then
+    curl cht.sh/$selected/$(echo $query | tr ' ' '+')\?Q
+  else
+    curl cht.sh/$selected~$query\?Q
+  fi
+}
+
 matrix () {
   local lines=$(tput lines)
   cols=$(tput cols)
