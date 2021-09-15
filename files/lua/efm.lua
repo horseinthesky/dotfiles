@@ -13,14 +13,9 @@ local stylua = {
 local flake8 = {
   lintCommand = "flake8 --ignore=E501,W503 --stdin-display-name ${INPUT} -",
   lintStdin = true,
+  prefix = "flake8",
   lintIgnoreExitCode = true,
-  lintFormats = { "%f:%l:%c: %m" },
-  -- lintCategoryMap = {
-  --   W = "W",
-  --   E = "E",
-  --   F = "E",
-  --   C = "E",
-  -- },
+  lintFormats = { "%f:%l:%c: %t%n %m" },
 }
 
 local isort = {
@@ -46,6 +41,7 @@ local black = {
 local mypy = {
   lintCommand = "mypy --show-column-numbers --ignore-missing-imports --disable-error-code name-defined --cache-dir=/dev/null",
   lintFormats = { "%f:%l:%c: %trror: %m", "%f:%l:%c: %tarning: %m", "%f:%l:%c: %tote: %m" },
+  prefix = "mypy",
 }
 
 local prettier = {
