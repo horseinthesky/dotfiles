@@ -47,7 +47,7 @@ packer.startup(function(use)
     "nvim-telescope/telescope.nvim",
     requires = {
       { "nvim-lua/popup.nvim", opt = true },
-      { "nvim-lua/plenary.nvim", opt = true },
+      { "nvim-lua/plenary.nvim", module = "plenary", opt = true },
       { "nvim-telescope/telescope-fzf-native.nvim", run = "make", opt = true },
       { "nvim-telescope/telescope-symbols.nvim", opt = true },
     },
@@ -84,8 +84,12 @@ packer.startup(function(use)
         "glepnir/lspsaga.nvim",
         after = "nvim-lspconfig",
         config = function()
-          require "config.lspsaga"
+          require "lsp.lspsaga"
         end,
+      },
+      {
+        "jose-elias-alvarez/null-ls.nvim",
+        module = "null-ls",
       },
     },
     event = "BufReadPre",
@@ -118,7 +122,7 @@ packer.startup(function(use)
     event = "InsertEnter",
     wants = "ultisnips",
     config = function()
-      require "config.cmp"
+      require "lsp.cmp"
     end,
   }
 
@@ -241,12 +245,6 @@ packer.startup(function(use)
       },
       {
         "lewis6991/gitsigns.nvim",
-        requires = {
-          {
-            "nvim-lua/plenary.nvim",
-            opt = true,
-          },
-        },
         wants = "plenary.nvim",
         module = "gitsigns",
         config = function()

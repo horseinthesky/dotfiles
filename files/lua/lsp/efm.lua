@@ -64,4 +64,14 @@ M.languages = {
   markdown = { prettier },
 }
 
+M.config = {
+  filetypes = vim.tbl_keys(M.languages),
+  init_options = {
+    documentFormatting = true,
+  },
+  settings = {
+    languages = M.languages,
+  },
+}
+
 return M

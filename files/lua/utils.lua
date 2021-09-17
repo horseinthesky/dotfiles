@@ -17,9 +17,7 @@ function M.get_current_mode()
 end
 
 function M.diagnostic_exists()
-  return not vim.tbl_isempty(
-    vim.lsp.buf_get_clients(vim.api.nvim_get_current_buf())
-  )
+  return not vim.tbl_isempty(vim.lsp.buf_get_clients(vim.api.nvim_get_current_buf()))
 end
 
 function M.get_lsp_clients()
@@ -32,7 +30,10 @@ function M.get_lsp_clients()
 
   for _, client in ipairs(clients) do
     if vim.lsp.buf_is_attached(vim.api.nvim_get_current_buf(), client.id) then
-      local client_name = string.match(client.name, "(.-)_.*") or client.name
+      local client_name = string.match(client.name, "(.-)_.*")
+        or string.match(client.name, "(.-)-.*")
+        or client.name
+
       table.insert(buf_client_names, client_name)
     end
   end

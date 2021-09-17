@@ -5,6 +5,9 @@ local lspconfig = require "lspconfig"
 -- Servers setup
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
+capabilities.textDocument.completion.completionItem.resolveSupport = {
+  properties = { "documentation", "detail", "additionalTextEdits" },
+}
 
 local on_attach = function(client, _)
   vim.opt.omnifunc = "v:lua.vim.lsp.omnifunc"
@@ -55,72 +58,28 @@ local on_attach = function(client, _)
 end
 
 local servers = {
-  "gopls",
-  "jedi_language_server",
-  "yamlls",
-  "vimls",
-  "terraformls",
-  "dockerls",
+  gopls = {},
+  jedi_language_server = {},
+  yamlls = {},
+  jsonls = { cmd = { "vscode-json-languageserver", "--stdio" } },
+  vimls = {},
+  terraformls = {},
+  dockerls = {},
+  sumneko_lua = require "lsp.sumneko".config,
+  ["null-ls"] = require "lsp.null",
+  -- efm = require "lsp.efm".config,
 }
 
-for _, server in ipairs(servers) do
-  lspconfig[server].setup {
-    capabilities = capabilities,
-    on_attach = on_attach,
-  }
+for server, config in pairs(servers) do
+  lspconfig[server].setup(
+    vim.tbl_deep_extend("force", {
+      capabilities = capabilities,
+      on_attach = on_attach,
+      flags = {
+        debounce_text_changes = 250,
+      },
+    }, config))
 end
-
-lspconfig.jsonls.setup {
-  cmd = { "vscode-json-languageserver", "--stdio" },
-  filetypes = { "json", "jsonc" },
-  capabilities = capabilities,
-  init_options = {
-    provideFormatter = true,
-  },
-  on_attach = on_attach,
-}
-
-local sumneko_root_path = vim.fn.expand "~" .. "/lua-language-server"
-local sumneko_binary = sumneko_root_path .. "/bin/Linux/lua-language-server"
-lspconfig.sumneko_lua.setup {
-  cmd = { sumneko_binary, "-E", sumneko_root_path .. "/main.lua" },
-  capabilities = capabilities,
-  settings = {
-    Lua = {
-      runtime = {
-        -- Tell the language server which version of Lua you're using
-        -- (most likely LuaJIT in the case of Neovim)
-        version = "LuaJIT",
-        -- Setup your lua path
-        path = vim.split(package.path, ";"),
-      },
-      diagnostics = {
-        -- Get the language server to recognize the `vim` global
-        globals = { "vim" },
-      },
-      workspace = {
-        library = {
-          -- Make the server aware of Neovim runtime files
-          [vim.fn.expand "$VIMRUNTIME/lua"] = true,
-          [vim.fn.expand "$VIMRUNTIME/lua/vim/lsp"] = true,
-        },
-      },
-    },
-  },
-  on_attach = on_attach,
-}
-
-local languages = require "efm".languages
-
-lspconfig.efm.setup {
-  filetypes = vim.tbl_keys(languages),
-  init_options = {
-    documentFormatting = true,
-  },
-  settings = {
-    languages = languages,
-  },
-}
 
 -- Diagnostic
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
