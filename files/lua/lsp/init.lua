@@ -72,13 +72,18 @@ local servers = {
 
 for server, config in pairs(servers) do
   lspconfig[server].setup(
-    vim.tbl_deep_extend("force", {
-      capabilities = capabilities,
-      on_attach = on_attach,
-      flags = {
-        debounce_text_changes = 250,
+    vim.tbl_deep_extend(
+      "force",
+      {
+        capabilities = capabilities,
+        on_attach = on_attach,
+        flags = {
+          debounce_text_changes = 250,
+        },
       },
-    }, config))
+      config
+    )
+  )
 end
 
 -- Diagnostic
