@@ -1,8 +1,9 @@
 local nls = require "null-ls"
+
 nls.config {
   diagnostics_format = "[#{s}] #{c}: #{m}",
   sources = {
-    nls.builtins.code_actions.gitsigns,
+    -- nls.builtins.code_actions.gitsigns,
     nls.builtins.formatting.prettier,
     nls.builtins.formatting.stylua.with {
       extra_args = { "--config-path", vim.fn.expand "~/.config/stylua/stylua.toml" },
