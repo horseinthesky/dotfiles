@@ -9,6 +9,7 @@ M.icons = {
   circle = "", -- f62e
   duck = " ", -- f6e4
   page = "☰", -- 2630
+  buffer = "﬘", -- fb18
   line_number = "", -- e0a1
   connected = "", -- f817
   disconnected = "", -- f818

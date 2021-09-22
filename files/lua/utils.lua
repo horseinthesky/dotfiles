@@ -55,6 +55,14 @@ function M.buffer_not_empty()
   return false
 end
 
+function M.has_filetype()
+  local f_type = vim.bo.filetype
+  if not f_type or f_type == "" then
+    return false
+  end
+  return true
+end
+
 function M.highlight(group, fg, bg, gui)
   local cmd = string.format("highlight %s guifg=%s guibg=%s", group, fg, bg)
   if gui ~= nil then

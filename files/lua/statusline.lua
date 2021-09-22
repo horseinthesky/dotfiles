@@ -102,7 +102,7 @@ gls.left[3] = {
       end
 
       local fname
-      if utils.wide_enough(120) then
+      if utils.wide_enough(140) then
         fname = vim.fn.fnamemodify(vim.fn.expand "%", ":~:.")
         if #fname > 35 then
           fname = vim.fn.expand "%:t"
@@ -143,7 +143,7 @@ gls.left[5] = {
     provider = function()
       local branch = vcs.get_git_branch()
 
-      if utils.wide_enough(85) and branch ~= nil then
+      if utils.wide_enough(95) and branch ~= nil then
         return "  " .. icons.git.logo .. " "
       end
 
@@ -157,7 +157,7 @@ gls.left[6] = {
     provider = function()
       local branch = vcs.get_git_branch()
 
-      if utils.wide_enough(85) and branch ~= nil then
+      if utils.wide_enough(95) and branch ~= nil then
         return branch .. " "
       end
 
@@ -169,7 +169,7 @@ gls.left[6] = {
 gls.left[7] = {
   DiffAdd = {
     provider = function()
-      if condition.check_git_workspace() and utils.wide_enough(100) then
+      if condition.check_git_workspace() and utils.wide_enough(120) then
         return vcs.diff_add()
       end
       return ""
@@ -181,7 +181,7 @@ gls.left[7] = {
 gls.left[8] = {
   DiffModified = {
     provider = function()
-      if condition.check_git_workspace() and utils.wide_enough(100) then
+      if condition.check_git_workspace() and utils.wide_enough(120) then
         return vcs.diff_modified()
       end
       return ""
@@ -193,7 +193,7 @@ gls.left[8] = {
 gls.left[9] = {
   DiffRemove = {
     provider = function()
-      if condition.check_git_workspace() and utils.wide_enough(100) then
+      if condition.check_git_workspace() and utils.wide_enough(120) then
         return vcs.diff_remove()
       end
       return ""
@@ -206,7 +206,7 @@ gls.left[9] = {
 gls.right[1] = {
   LspIcon = {
     provider = function()
-      if utils.diagnostic_exists() then
+      if utils.wide_enough(85) and utils.diagnostic_exists() then
         return icons.gears .. " "
       end
     end,
@@ -216,7 +216,7 @@ gls.right[1] = {
 gls.right[2] = {
   LspServer = {
     provider = function()
-      if utils.diagnostic_exists() then
+      if utils.wide_enough(85) and utils.diagnostic_exists() then
         local clients = utils.get_lsp_clients()
         return clients .. " "
       end
@@ -227,9 +227,10 @@ gls.right[2] = {
 gls.right[3] = {
   DiagnosticOk = {
     provider = function()
-      if not utils.diagnostic_exists() then
+      if not utils.wide_enough(85) or not utils.diagnostic_exists() then
         return ""
       end
+
       local w = vim.lsp.diagnostic.get_count(0, "Warning")
       local e = vim.lsp.diagnostic.get_count(0, "Error")
       local i = vim.lsp.diagnostic.get_count(0, "Information")
@@ -285,7 +286,7 @@ gls.right[8] = {
 gls.right[9] = {
   FileFormat = {
     provider = function()
-      if not utils.buffer_not_empty() or not utils.wide_enough(70) then
+      if not utils.buffer_not_empty() or not utils.wide_enough(80) then
         return ""
       end
       local icon = icons[vim.bo.fileformat] or ""
@@ -305,7 +306,7 @@ gls.right[10] = {
 gls.right[11] = {
   PositionInfo = {
     provider = function()
-      if not utils.buffer_not_empty() or not utils.wide_enough(60) then
+      if not utils.buffer_not_empty() or not utils.wide_enough(70) then
         return ""
       end
       return string.format("  %s %s:%s ", icons.line_number, vim.fn.line ".", vim.fn.col ".")
@@ -316,7 +317,7 @@ gls.right[11] = {
 gls.right[12] = {
   PercentInfo = {
     provider = function()
-      if not utils.buffer_not_empty() or not utils.wide_enough(65) then
+      if not utils.buffer_not_empty() or not utils.wide_enough(75) then
         return ""
       end
       local percent = math.floor(100 * vim.fn.line "." / vim.fn.line "$")
@@ -331,21 +332,13 @@ gls.right[12] = {
 local short_map = {
   ["vim-plug"] = "Plugins",
   ["coc-explorer"] = "Explorer",
-  ["startify"] = "Starfity",
-  ["tagbar"] = "Tagbar",
-  ["packer"] = "Packer",
-  ["Outline"] = "Outline",
-  ["Mundo"] = "History",
-  ["MundoDiff"] = "Diff",
+  startify = "Starfity",
+  tagbar = "Tagbar",
+  packer = "Packer",
+  Outline = "Outline",
+  Mundo = "History",
+  MundoDiff = "Diff",
 }
-
-local function has_file_type()
-  local f_type = vim.bo.filetype
-  if not f_type or f_type == "" then
-    return false
-  end
-  return true
-end
 
 gls.short_line_left[1] = {
   BufferType = {
@@ -356,12 +349,14 @@ gls.short_line_left[1] = {
       utils.highlight("GalaxyViModeInvNested", nested_fg, colors.substrate)
 
       local name = short_map[vim.bo.filetype]
-      if name == nil then return "" end
+      if name == nil then
+        return string.format("  %s %s ", icons.buffer, vim.api.nvim_get_current_buf())
+      end
 
       return string.format("  %s ", name)
     end,
     highlight = "GalaxyViMode",
-    condition = has_file_type,
+    condition = utils.has_filetype,
     separator = icons.sep.left_filled,
     separator_highlight = "GalaxyViModeInv",
   },

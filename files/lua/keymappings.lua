@@ -21,6 +21,7 @@ local mappings = {
   -- Buffers
   {"n", "]b", "<cmd>bnext<CR>"},
   {"n", "[b", "<cmd>bprev<CR>"},
+  {"n", "<leader>B", ":ls<CR>:b<Space>"},
   {"n", "<leader>bd", "<cmd>bdelete<CR>"},
   -- Tabs
   {"n", "]t", "<cmd>tabn<CR>"},
@@ -70,6 +71,8 @@ local mappings = {
   {"n", "<leader>v", "'`[' . strpart(getregtype(), 0, 1) . '`]'", {expr = true}},
   -- Make Y behave like other "big" letters (D, C)
   {"n", "Y", "y$"},
+  -- Yank all buffer
+  {"n", "<leader>a", "<cmd>%y<CR>"},
   -- Keep cursor position
   {"n", "J", "mzJ'z"},
   -- Make undo stop on these symbols
