@@ -68,7 +68,7 @@ packer.startup(function(use)
     requires = {
       {
         "junegunn/fzf",
-        run = "./install --all",
+        run = "./install --all --no-update-rc",
         opt = true,
       },
     },

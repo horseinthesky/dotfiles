@@ -7,6 +7,10 @@ require("todo-comments").setup {
     HACK = { color = "hack" },
   },
   colors = {
+    error = "Statement",
+    warning = "Type",
+    info = "Identifier",
+    hint = "PreProc",
     perf = "Number",
     hack = "Special",
   },

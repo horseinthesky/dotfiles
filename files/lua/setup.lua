@@ -1,14 +1,14 @@
--- Set colorscheme
-require "colorscheme"
-
--- Sensible defaults
-require "settings"
-
 -- Install plugins
 -- no need to load this immediately, since we have packer_compiled
 vim.defer_fn(function()
   require "plugins"
 end, 0)
+
+-- Set colorscheme
+require "colorscheme"
+
+-- Sensible defaults
+require "settings"
 
 -- Key mappings
 require "keymappings"

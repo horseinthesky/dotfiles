@@ -25,7 +25,7 @@ local on_attach = function(client, _)
     -- {"n", "<leader>td", "<cmd>lua vim.lsp.buf.type_definition()<CR>"},
     -- {"n", "<leader>rf", "<cmd>lua vim.lsp.buf.references()<CR>"},
     -- {"n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action({ source = { organizeImports = true } })<CR>"},
-    -- {"n", "<leader>cD", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>"},
+    {"n", "<leader>cD", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>"},
     { "n", "<leader>cl", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>" },
   }
 
@@ -100,34 +100,34 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagn
 
 -- Diagnostic highligths & signs
 local hl_cmds = [[
-  highlight! link LspDiagnosticsDefaultInformation Identifier
-  highlight! link LspDiagnosticsDefaultHint PreProc
-  highlight! link LspDiagnosticsDefaultWarning Type
-  highlight! link LspDiagnosticsDefaultError Statement
+  highlight! link DiagnosticInfo Identifier
+  highlight! link DiagnosticHint PreProc
+  highlight! link DiagnosticWarn Type
+  highlight! link DiagnosticError Statement
 ]]
 
 vim.api.nvim_exec(hl_cmds, false)
 
 local lsp_signs = {
-  LspDiagnosticsSignHint = {
+  DiagnosticSignHint = {
     -- text = icons.diagnostic.hint,
     text = "",
-    texthl = "LspDiagnosticsSignHint",
+    texthl = "DiagnosticSignHint",
   },
-  LspDiagnosticsSignInformation = {
+  DiagnosticSignInfo = {
     -- text = icons.diagnostic.info,
     text = "",
-    texthl = "LspDiagnosticsSignInformation",
+    texthl = "DiagnosticSignInfo",
   },
-  LspDiagnosticsSignWarning = {
+  DiagnosticSignWarn = {
     -- text = icons.diagnostic.warning,
     text = "",
-    texthl = "LspDiagnosticsSignWarning",
+    texthl = "DiagnosticSignWarn",
   },
-  LspDiagnosticsSignError = {
+  DiagnosticSignError = {
     -- text = icons.diagnostic.error,
     text = "",
-    texthl = "LspDiagnosticsSignError",
+    texthl = "DiagnosticSignError",
   },
 }
 

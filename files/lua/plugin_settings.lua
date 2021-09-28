@@ -53,6 +53,9 @@ vim.g.UltiSnipsEditSplit = "vertical"
 map("n", "<F5>", "<cmd>SymbolsOutline<CR>")
 
 vim.cmd [[highlight link FocusedSymbol Search]]
+vim.g.symbols_outline = {
+  preview_bg_highlight = "NormalFloat",
+}
 
 -- startuptime
 vim.g.startuptime_tries = 5
