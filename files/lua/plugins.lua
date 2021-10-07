@@ -236,7 +236,7 @@ packer.startup(function(use)
 
   -- Statusine
   use {
-    "glepnir/galaxyline.nvim",
+    "NTBBloodbath/galaxyline.nvim",
     branch = "main",
     requires = {
       {

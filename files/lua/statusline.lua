@@ -1,5 +1,5 @@
 local gl = require "galaxyline"
-local vcs = require "galaxyline.provider_vcs"
+local vcs = require "galaxyline.providers.vcs"
 local condition = require "galaxyline.condition"
 local devicons = require "nvim-web-devicons"
 
