@@ -40,6 +40,8 @@ case $ID in
 esac
 install ${deps[@]}
 
+update_rust
+
 for tool in ${tools[@]}; do
   cargo_install $tool
 done

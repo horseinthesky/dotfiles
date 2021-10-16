@@ -74,6 +74,41 @@ clone () {
   fi
 }
 
+update_rust () {
+  if [[ ! -d $HOME/.cargo ]]; then
+    echo -e "${LIGHTRED}Cargo is not found. Can't procced.${NORMAL}"
+    return 0
+  fi
+
+  PATH=$HOME/.cargo/bin:$PATH
+
+  echo -e "\n${LIGHTMAGENTA}Checking for Rust updates...${NORMAL}"
+
+  local current_toolchain_version=$(
+    rustup show | \
+    grep -P -o "rustc \d+\.\d+\.\d+" | \
+    awk '{print $NF}'
+  )
+  local latest_toolchain_version=$(
+    rustup check | \
+    grep -P -o "Update available : \d+\.\d+\.\d+" | \
+    awk '{print $NF}'
+  )
+
+  if [[ -z $latest_toolchain_version ]]; then
+    echo -e "${GREEN}Latest ($current_toolchain_version) version is already installed${NORMAL}"
+  else
+    echo -e "${GREY}Newer version ($latest_toolchain_version) found. Updating...${NORMAL}"
+    rustup update stable
+
+    if [[ $? -ne 0 ]]; then
+      echo -e "${LIGHTRED}Failed to update Rust to the latest ($latest_toolchain_version) version${NORMAL}"
+    else
+      echo -e "${YELLOW}Rust updated to the latest ($latest_toolchain_version) version${NORMAL}"
+    fi
+  fi
+}
+
 cargo_install () {
   if [[ ! -d $HOME/.cargo ]]; then
     echo -e "${LIGHTRED}Cargo is not found. Can't procced.${NORMAL}"
@@ -93,16 +128,27 @@ cargo_install () {
 
   if [[ -z $(which $binary) ]]; then
     cargo install $tool
-    echo -e "${GREEN}Done${NORMAL}"
+
+    if [[ $? -ne 0 ]]; then
+      echo -e "${LIGHTRED}Failed to install $tool.${NORMAL}"
+    else
+      echo -e "${GREEN}Done${NORMAL}"
+    fi
   else
     CURRENT_VERSION=$($binary --version 2> /dev/null | grep -P -o "\d+\.\d+\.\d+")
     LATEST_VERSION=$(cargo search $tool | head -n 1 | awk '{print $3}' | tr -d '"')
 
     if [[ $CURRENT_VERSION < $LATEST_VERSION ]]; then
+      echo -e "${GREY}Newer version ($LATEST_VERSION) found. Updating...${NORMAL}"
       cargo install $tool --force
-      echo -e "${YELLOW}Updated to latest ($LATEST_VERSION) version.${NORMAL}"
+
+      if [[ $? -ne 0 ]]; then
+        echo -e "${LIGHTRED}Failed to update $tool to the latest ($LATEST_VERSION) version${NORMAL}"
+      else
+        echo -e "${YELLOW}$tool updated to the latest ($LATEST_VERSION) version${NORMAL}"
+      fi
     else
-      echo -e "${YELLOW}Latest ($LATEST_VERSION) version is already installed${NORMAL}"
+      echo -e "${GREEN}Latest ($LATEST_VERSION) version is already installed${NORMAL}"
     fi
   fi
 }
