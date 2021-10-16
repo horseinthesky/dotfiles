@@ -16,17 +16,17 @@ local on_attach = function(client, _)
     { "n", "<leader>i", "<cmd>LspInfo<CR>" },
     { "n", "]d", "<cmd>lua vim.lsp.diagnostic.goto_next({enable_popup = false})<CR>" },
     { "n", "[d", "<cmd>lua vim.lsp.diagnostic.goto_prev({enable_popup = false})<CR>" },
-    { "n", "<leader>cd", "<cmd>lua vim.lsp.buf.definition()<CR>" },
-    -- {"n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>"},
-    { "n", "<leader>ci", "<cmd>lua vim.lsp.buf.implementation()<CR>" },
-    -- {"n", "<leader>ch", "<cmd>lua vim.lsp.buf.hover()<CR>"},
-    -- {"n", "<leader>cr", "<cmd>lua vim.lsp.buf.rename()<CR>"},
-    { "n", "<leader>F", "<cmd>lua vim.lsp.buf.formatting()<CR>" },
-    -- {"n", "<leader>td", "<cmd>lua vim.lsp.buf.type_definition()<CR>"},
-    -- {"n", "<leader>rf", "<cmd>lua vim.lsp.buf.references()<CR>"},
-    -- {"n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action({ source = { organizeImports = true } })<CR>"},
-    {"n", "<leader>cD", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>"},
+    { "n", "<leader>cd", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>" },
+    { "n", "<leader>ch", "<cmd>lua vim.lsp.buf.hover()<CR>" },
+    { "n", "<leader>cD", "<cmd>lua vim.lsp.buf.definition()<CR>" },
+    { "n", "<leader>cr", "<cmd>lua vim.lsp.buf.rename()<CR>" },
     { "n", "<leader>cl", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>" },
+    { "n", "<leader>ci", "<cmd>lua vim.lsp.buf.implementation()<CR>" },
+    { "n", "<leader>cs", "<cmd>lua vim.lsp.buf.signature_help()<CR>" },
+    { "n", "<leader>F", "<cmd>lua vim.lsp.buf.formatting()<CR>" },
+    -- { "n", "<leader>td", "<cmd>lua vim.lsp.buf.type_definition()<CR>" },
+    -- { "n", "<leader>rf", "<cmd>lua vim.lsp.buf.references()<CR>" },
+    -- { "n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action({ source = { organizeImports = true } })<CR>" },
   }
 
   for _, binds in ipairs(lsp_keymappings) do
@@ -65,25 +65,19 @@ local servers = {
   vimls = {},
   terraformls = {},
   dockerls = {},
-  sumneko_lua = require "lsp.sumneko".config,
+  sumneko_lua = require("lsp.sumneko").config,
   ["null-ls"] = require "lsp.null",
   -- efm = require "lsp.efm".config,
 }
 
 for server, config in pairs(servers) do
-  lspconfig[server].setup(
-    vim.tbl_deep_extend(
-      "force",
-      {
-        capabilities = capabilities,
-        on_attach = on_attach,
-        flags = {
-          debounce_text_changes = 250,
-        },
-      },
-      config
-    )
-  )
+  lspconfig[server].setup(vim.tbl_deep_extend("force", {
+    capabilities = capabilities,
+    on_attach = on_attach,
+    flags = {
+      debounce_text_changes = 250,
+    },
+  }, config))
 end
 
 -- Diagnostic

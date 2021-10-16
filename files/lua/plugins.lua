@@ -81,13 +81,6 @@ packer.startup(function(use)
     "neovim/nvim-lspconfig",
     requires = {
       {
-        "glepnir/lspsaga.nvim",
-        after = "nvim-lspconfig",
-        config = function()
-          require "lsp.lspsaga"
-        end,
-      },
-      {
         "jose-elias-alvarez/null-ls.nvim",
         module = "null-ls",
       },
