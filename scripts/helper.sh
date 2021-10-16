@@ -99,7 +99,7 @@ update_rust () {
     echo -e "${GREEN}Latest ($current_toolchain_version) version is already installed${NORMAL}"
   else
     echo -e "${GREY}Newer version ($latest_toolchain_version) found. Updating...${NORMAL}"
-    rustup update stable
+    rustup update stable &> /dev/null
 
     if [[ $? -ne 0 ]]; then
       echo -e "${LIGHTRED}Failed to update Rust to the latest ($latest_toolchain_version) version${NORMAL}"
