@@ -6,7 +6,7 @@ M.icons = {
   mac = "", -- f179
   code = "", -- e000
   paste = "", -- f691
-  circle = "", -- f62e
+  dot = "", -- f62e
   duck = " ", -- f6e4
   page = "☰", -- 2630
   buffer = "﬘", -- fb18
@@ -15,12 +15,20 @@ M.icons = {
   disconnected = "", -- f818
   gears = "", -- f085
   poop = "💩", -- 1f4a9
+  question = "", -- f128
   git = {
     logo = "", -- f7a1
     branch = "", -- f418
-    added = "", -- f457
-    removed = "", --f458
-    modified = "", --f459
+  },
+  square = {
+    plus = "", -- f0fe
+    minus = "", --f146
+    dot = "", --f264
+  },
+  circle = {
+    plus = "", -- f055
+    minus = "", --f056
+    dot = "", -- f192
   },
   file = {
     locked = "", -- f023
@@ -30,7 +38,7 @@ M.icons = {
   },
   diagnostic = {
     ok = "", -- f058
-    error = "", -- f658
+    error = "", -- f057
     warning = "", -- f06a
     info = "", -- f05a
     -- hint = "", -- f834
@@ -49,7 +57,7 @@ M.icons = {
     -- left = "", -- e0b5
     right = "", -- e621
     left = "", -- e621
-  }
+  },
 }
 
 -- Gruvbox
@@ -158,10 +166,11 @@ M.color_map = {
       s = { gruvbox.bright_orange, gruvbox.faded_orange },
       S = { gruvbox.bright_orange, gruvbox.faded_orange },
       t = { gruvbox.bright_aqua, gruvbox.faded_aqua },
+      nt = { gruvbox.dark.fg3, gruvbox.dark.bg2 },
       ["\22"] = { gruvbox.bright_orange, gruvbox.faded_orange },
       ["\19"] = { gruvbox.bright_orange, gruvbox.faded_orange },
       substrate = gruvbox.dark.bg1,
-      git_icon = gruvbox.bright_red,
+      git_icon = gruvbox.bright_orange,
       git_branch = gruvbox.dark.fg2,
       diff_add = gruvbox.bright_green,
       diff_modified = gruvbox.bright_orange,
@@ -185,10 +194,11 @@ M.color_map = {
       s = { gruvbox.bright_orange, gruvbox.neutral_orange },
       S = { gruvbox.bright_orange, gruvbox.neutral_orange },
       t = { gruvbox.bright_aqua, gruvbox.neutral_aqua },
+      nt = { gruvbox.light.fg3, gruvbox.light.bg2 },
       ["\22"] = { gruvbox.bright_orange, gruvbox.neutral_orange },
       ["\19"] = { gruvbox.bright_orange, gruvbox.neutral_orange },
       substrate = gruvbox.light.bg1,
-      git_icon = gruvbox.neutral_red,
+      git_icon = gruvbox.neutral_orange,
       git_branch = gruvbox.light.fg2,
       diff_add = gruvbox.neutral_green,
       diff_modified = gruvbox.neutral_orange,
@@ -214,10 +224,11 @@ M.color_map = {
       s = { tokyonight.dark.orange, tokyonight.dark.bg },
       S = { tokyonight.dark.orange, tokyonight.dark.bg },
       t = { tokyonight.blue7, tokyonight.dark.bg },
+      nt = { tokyonight.dark.blue, tokyonight.dark.bg },
       ["\22"] = { tokyonight.dark.orange, tokyonight.dark.bg },
       ["\19"] = { tokyonight.dark.blue, tokyonight.dark.bg },
       substrate = tokyonight.dark.bg0,
-      git_icon = tokyonight.dark.red,
+      git_icon = tokyonight.dark.orange,
       git_branch = tokyonight.dark.fg,
       diff_add = tokyonight.dark.green,
       diff_modified = tokyonight.dark.orange,
@@ -241,10 +252,11 @@ M.color_map = {
       s = { tokyonight.light.orange, tokyonight.light.bg },
       S = { tokyonight.light.orange, tokyonight.light.bg },
       t = { tokyonight.light.blue, tokyonight.light.bg },
+      nt = { tokyonight.light.blue, tokyonight.light.bg },
       ["\22"] = { tokyonight.light.orange, tokyonight.light.bg },
       ["\19"] = { tokyonight.light.blue, tokyonight.light.bg },
       substrate = tokyonight.light.bg0,
-      git_icon = tokyonight.light.red,
+      git_icon = tokyonight.light.orange,
       git_branch = tokyonight.light.fg,
       diff_add = tokyonight.light.green,
       diff_modified = tokyonight.light.orange,
@@ -259,5 +271,15 @@ M.color_map = {
     },
   },
 }
+
+for _, table in pairs(M.color_map) do
+  for _, subtable in pairs(table) do
+    setmetatable(subtable, {
+      __index = function()
+        return subtable.n
+      end,
+    })
+  end
+end
 
 return M

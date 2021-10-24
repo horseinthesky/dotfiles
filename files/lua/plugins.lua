@@ -44,10 +44,14 @@ packer.startup(function(use)
     end,
   }
   use {
+    "nvim-lua/plenary.nvim",
+     module = "plenary",
+     opt = true,
+  }
+  use {
     "nvim-telescope/telescope.nvim",
     requires = {
       { "nvim-lua/popup.nvim", opt = true },
-      { "nvim-lua/plenary.nvim", module = "plenary", opt = true },
       { "nvim-telescope/telescope-fzf-native.nvim", run = "make", opt = true },
       { "nvim-telescope/telescope-symbols.nvim", opt = true },
     },
@@ -227,31 +231,22 @@ packer.startup(function(use)
     event = "BufRead",
   }
 
-  -- Statusine
   use {
-    "NTBBloodbath/galaxyline.nvim",
-    branch = "main",
-    requires = {
-      {
-        "kyazdani42/nvim-web-devicons",
-        module = "nvim-web-devicons",
-      },
-      {
-        "lewis6991/gitsigns.nvim",
-        wants = "plenary.nvim",
-        module = "gitsigns",
-        config = function()
-          require "config.gitsigns"
-        end,
-      },
-    },
+    "lewis6991/gitsigns.nvim",
     event = "BufRead",
-    wants = {
-      "nvim-web-devicons",
-      "gitsigns.nvim",
-    },
+    wants = "plenary.nvim",
+    module = "gitsigns",
     config = function()
-      require "statusline"
+      require "config.gitsigns"
+    end,
+  }
+
+  -- Statusline
+  use {
+    "famiu/feline.nvim",
+    event = "BufRead",
+    config = function()
+      require "config.feline"
     end,
   }
   use {

@@ -43,10 +43,6 @@ local kind_icons = {
   TypeParameter = "",
 }
 
-local t = function(str)
-  return vim.api.nvim_replace_termcodes(str, true, true, true)
-end
-
 cmp.setup {
   formatting = {
     format = function(entry, vim_item)
@@ -79,26 +75,20 @@ cmp.setup {
       behavior = cmp.ConfirmBehavior.Insert,
       select = true,
     },
-    ["<Tab>"] = cmp.mapping(function(fallback)
-      if vim.fn.pumvisible() == 1 then
-        vim.fn.feedkeys(t "<C-n>", "n")
+    ["<Tab>"] = function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
       else
         fallback()
       end
-    end, {
-      "i",
-      "s",
-    }),
-    ["<S-Tab>"] = cmp.mapping(function(fallback)
-      if vim.fn.pumvisible() == 1 then
-        vim.fn.feedkeys(t "<C-p>", "n")
+    end,
+    ["<S-Tab>"] = function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item()
       else
         fallback()
       end
-    end, {
-      "i",
-      "s",
-    }),
+    end,
   },
   documentation = {
     border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
@@ -110,13 +100,16 @@ cmp.setup {
   },
   sources = {
     { name = "nvim_lsp" },
-    { name = "nvim_lua", ft = "lua" },
+    { name = "nvim_lua" },
     { name = "buffer" },
     { name = "ultisnips" },
     { name = "cmp_tabnine" },
     { name = "path" },
     { name = "calc" },
     { name = "emoji" },
+  },
+  completion = {
+    keyword_length = 2,
   },
 }
 

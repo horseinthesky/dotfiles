@@ -19,7 +19,6 @@ vim.g.tokyonight_style = "storm"
 vim.cmd "colorscheme gruvbox"
 -- vim.cmd "colorscheme tokyonight"
 
-vim.cmd [[highlight PmenuSel blend=0]]
 vim.cmd [[highlight SignColumn guibg=NONE]]
 vim.cmd [[highlight link NormalFloat Normal]]
 

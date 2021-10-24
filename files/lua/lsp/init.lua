@@ -14,10 +14,10 @@ local on_attach = function(client, _)
 
   local lsp_keymappings = {
     { "n", "<leader>i", "<cmd>LspInfo<CR>" },
-    { "n", "]d", "<cmd>lua vim.lsp.diagnostic.goto_next({enable_popup = false})<CR>" },
-    { "n", "[d", "<cmd>lua vim.lsp.diagnostic.goto_prev({enable_popup = false})<CR>" },
-    { "n", "<leader>cd", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>" },
-    { "n", "<leader>ch", "<cmd>lua vim.lsp.buf.hover()<CR>" },
+    { "n", "]d", "<cmd>lua vim.diagnostic.goto_next({ float = false })<CR>" },
+    { "n", "[d", "<cmd>lua vim.diagnostic.goto_prev({ float = false })<CR>" },
+    { "n", "<leader>cd", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics({ border = 'single' })<CR>" },
+    { "n", "<leader>ch", "<cmd>lua vim.lsp.buf.hover({ border = 'single' })<CR>" },
     { "n", "<leader>cD", "<cmd>lua vim.lsp.buf.definition()<CR>" },
     { "n", "<leader>cr", "<cmd>lua vim.lsp.buf.rename()<CR>" },
     { "n", "<leader>cl", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>" },
@@ -85,11 +85,15 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagn
   -- Enable/diable virtual text
   virtual_text = {
     spacing = 4,
-    -- prefix = icons.circle .. " ",
+    -- prefix = icons.dot .. " ",
     prefix = icons.duck,
   },
   -- Enable/diable diagnistic in Insert mode
   update_in_insert = true,
+})
+
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+  border = "single",
 })
 
 -- Diagnostic highligths & signs
