@@ -130,15 +130,6 @@ vim.g.indent_blankline_space_char = " "
 
 map("n", "<leader>I", "<cmd>IndentBlanklineToggle<CR>")
 
--- shade
--- require "shade".setup {
---   overlay_opacity = 50,
---   opacity_step = 1,
---   keys = {
---     toggle = "<leader>D"
---   }
--- }
-
 -- vim-better-whitespace
 vim.g.better_whitespace_guicolor = "#fb4934"
 vim.g.better_whitespace_filetypes_blacklist = { "dashboard", "packer" }

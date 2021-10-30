@@ -45,8 +45,8 @@ packer.startup(function(use)
   }
   use {
     "nvim-lua/plenary.nvim",
-     module = "plenary",
-     opt = true,
+    module = "plenary",
+    opt = true,
   }
   use {
     "nvim-telescope/telescope.nvim",
@@ -126,6 +126,7 @@ packer.startup(function(use)
   -- Features
   use {
     "rcarriga/nvim-notify",
+    event = "BufRead",
     module = "notify",
     config = function()
       require "config.notify"
@@ -232,6 +233,9 @@ packer.startup(function(use)
   -- use {
   --   "sunjon/Shade.nvim",
   --   event = "BufRead",
+  --   config = function()
+  --     require "config.shade"
+  --   end,
   -- }
   use {
     "ntpeters/vim-better-whitespace",
