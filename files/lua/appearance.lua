@@ -16,6 +16,7 @@ M.icons = {
   gears = "", -- f085
   poop = "💩", -- 1f4a9
   question = "", -- f128
+  bug = "", -- f188
   git = {
     logo = "", -- f7a1
     branch = "", -- f418

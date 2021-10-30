@@ -147,6 +147,7 @@ local g_map = {
     h = "diff from (left)",
     l = "diff to (right)",
   },
+  n = "show filename",
   s = {
     name = "sessions",
     c = "session close",

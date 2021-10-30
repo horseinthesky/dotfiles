@@ -125,6 +125,13 @@ packer.startup(function(use)
 
   -- Features
   use {
+    "rcarriga/nvim-notify",
+    module = "notify",
+    config = function()
+      require "config.notify"
+    end,
+  }
+  use {
     "folke/todo-comments.nvim",
     cmd = "TodoTelescope",
     event = "BufRead",

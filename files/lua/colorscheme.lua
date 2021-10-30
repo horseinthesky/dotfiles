@@ -1,4 +1,4 @@
-local utils = require "utils"
+local map = require("utils").map
 
 -- Colors
 vim.opt.termguicolors = true
@@ -41,4 +41,4 @@ vim.api.nvim_exec(
   false
 )
 
-utils.map("n", "<C-t>", "<cmd>call ToggleTransparent()<CR>", { silent = true })
+map("n", "<C-t>", "<cmd>call ToggleTransparent()<CR>", { silent = true })
