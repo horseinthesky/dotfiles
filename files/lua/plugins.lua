@@ -254,6 +254,10 @@ packer.startup(function(use)
 
   -- Statusline
   use {
+    "kyazdani42/nvim-web-devicons",
+    module = "nvim-web-devicons",
+  }
+  use {
     "famiu/feline.nvim",
     event = "BufRead",
     config = function()
@@ -262,12 +266,7 @@ packer.startup(function(use)
   }
   use {
     "romgrk/barbar.nvim",
-    requires = {
-      "kyazdani42/nvim-web-devicons",
-      module = "nvim-web-devicons",
-    },
     -- event = "BufReadPre",
-    wants = "nvim-web-devicons",
     config = function()
       require "config.barbar"
     end,
