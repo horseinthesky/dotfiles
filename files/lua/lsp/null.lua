@@ -17,16 +17,16 @@ nls.config {
     nls.builtins.diagnostics.flake8.with {
       extra_args = { "--ignore", "E501,W503" },
     },
-    -- nls.builtins.diagnostics.mypy.with {
-    --   extra_args = {
-    --     "--show-column-numbers",
-    --     "--ignore-missing-imports",
-    --     "--disable-error-code",
-    --     "name-defined",
-    --     "--cache-dir",
-    --     "/dev/null",
-    --   },
-    -- },
+    nls.builtins.diagnostics.mypy.with {
+      extra_args = {
+        "--show-column-numbers",
+        "--ignore-missing-imports",
+        "--disable-error-code",
+        "name-defined",
+        "--cache-dir",
+        "/dev/null",
+      },
+    },
   },
 }
 
