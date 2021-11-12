@@ -22,8 +22,16 @@ require("notify").setup {
   },
 }
 
+require("telescope").load_extension("notify")
+
 map(
   "n",
   "gn",
   "<cmd>lua require('notify')(vim.api.nvim_buf_get_name(0), 'info', { title = 'Filename' })<CR>"
+)
+
+map(
+  "n",
+  "<leader>fn",
+  "<cmd>lua require('telescope').extensions.notify.notify()<CR>"
 )

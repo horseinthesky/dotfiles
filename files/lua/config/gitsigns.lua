@@ -10,6 +10,7 @@ require("gitsigns").setup {
     ["n ]h"] = { expr = true, "&diff ? ']c' : '<cmd>lua require\"gitsigns.actions\".next_hunk()<CR>'" },
     ["n [h"] = { expr = true, "&diff ? '[c' : '<cmd>lua require\"gitsigns.actions\".prev_hunk()<CR>'" },
     ["n <leader>gh"] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
+    ["n <leader>gw"] = '<cmd>lua require"gitsigns".blame_line()<CR>',
   },
 }
 
