@@ -15,7 +15,7 @@ nls.config {
       extra_args = { "-l", "100" },
     },
     nls.builtins.diagnostics.flake8.with {
-      extra_args = { "--ignore", "E501,W503" },
+      extra_args = { "--ignore", "E501,W503,E999" },
     },
     nls.builtins.diagnostics.mypy.with {
       extra_args = {
