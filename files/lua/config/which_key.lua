@@ -122,7 +122,6 @@ local leader_map = {
     L = "line",
     m = "marks",
     M = "keymaps",
-    n = "notifications",
     o = "options",
     O = "oldfiles",
     c = "commands",
