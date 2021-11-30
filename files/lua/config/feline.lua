@@ -39,6 +39,23 @@ setmetatable(mode_map, {
   end,
 })
 
+local function diag(severity)
+  local count = vim.diagnostic.get(0, { severity = severity } )
+
+  if #count == 0 then
+    return ""
+  end
+
+  local diag_mapping = {
+    [vim.diagnostic.severity.WARN] = icons.diagnostic.warning,
+    [vim.diagnostic.severity.ERROR] = icons.diagnostic.error,
+    [vim.diagnostic.severity.INFO]  = icons.diagnostic.info,
+    [vim.diagnostic.severity.HINT] = icons.diagnostic.hint,
+  }
+
+  return string.format(" %s %d", diag_mapping[severity], #count)
+end
+
 local function get_highlight(position)
   local fg, bg = unpack(colors[utils.get_current_mode()])
 
@@ -296,11 +313,11 @@ local comps = {
     },
     ok = {
       provider = function()
-        local w = vim.lsp.diagnostic.get_count(0, "Warning")
-        local e = vim.lsp.diagnostic.get_count(0, "Error")
-        local i = vim.lsp.diagnostic.get_count(0, "Information")
-        local h = vim.lsp.diagnostic.get_count(0, "Hint")
-        if w ~= 0 or e ~= 0 or i ~= 0 or h ~= 0 then
+        local e = vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR } )
+        local w = vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
+        local i = vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO } )
+        local h = vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT } )
+        if #w ~= 0 or #e ~= 0 or #i ~= 0 or #h ~= 0 then
           return ""
         end
         return " " .. icons.diagnostic.ok .. " "
@@ -314,8 +331,9 @@ local comps = {
       enabled = utils.diagnostic_exists,
     },
     errors = {
-      provider = "diagnostic_errors",
-      icon = " " .. icons.diagnostic.error .. " ",
+      provider = function()
+        return diag(vim.diagnostic.severity.ERROR)
+      end,
       hl = {
         fg = colors.error,
         bg = colors.substrate,
@@ -324,8 +342,9 @@ local comps = {
       priority = 25,
     },
     warnings = {
-      provider = "diagnostic_warnings",
-      icon = " " .. icons.diagnostic.warning .. " ",
+      provider = function()
+        return diag(vim.diagnostic.severity.WARN)
+      end,
       hl = {
         fg = colors.warn,
         bg = colors.substrate,
@@ -334,8 +353,9 @@ local comps = {
       priority = 25,
     },
     hints = {
-      provider = "diagnostic_hints",
-      icon = " " .. icons.diagnostic.hint .. " ",
+      provider = function()
+        return diag(vim.diagnostic.severity.HINT)
+      end,
       hl = {
         fg = colors.hint,
         bg = colors.substrate,
@@ -344,8 +364,9 @@ local comps = {
       priority = 24,
     },
     info = {
-      provider = "diagnostic_info",
-      icon = " " .. icons.diagnostic.info .. " ",
+      provider = function()
+        return diag(vim.diagnostic.severity.INFO)
+      end,
       hl = {
         fg = colors.info,
         bg = colors.substrate,
