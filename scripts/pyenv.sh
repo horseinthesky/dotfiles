@@ -3,8 +3,9 @@
 source scripts/helper.sh
 
 pyenv_versions=(
-  3.9.5
-  3.10-dev
+  3.7.12
+  3.9.9
+  3.10.0
 )
 
 echo -e "\n${LIGHTMAGENTA}Installing pyenv deps...${NORMAL}"
