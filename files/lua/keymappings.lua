@@ -69,8 +69,6 @@ local mappings = {
   {"n", "<C-s>", "<cmd>w<CR>"},
   -- \v selects code that was just pasted in the visual mode last used
   {"n", "<leader>v", "'`[' . strpart(getregtype(), 0, 1) . '`]'", {expr = true}},
-  -- Make Y behave like other "big" letters (D, C)
-  {"n", "Y", "y$"},
   -- Yank all buffer
   {"n", "<leader>a", "<cmd>%y<CR>"},
   -- Keep cursor position

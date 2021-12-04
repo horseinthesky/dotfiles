@@ -70,19 +70,6 @@ map("n", "<leader>gd", "<cmd>Gvdiffsplit!<CR>")
 map("n", "gdh", "<cmd>diffget //2<CR>")
 map("n", "gdl", "<cmd>diffget //3<CR>")
 
--- vim-mundo
-map("n", "<F7>", "<cmd>MundoToggle<CR>")
-vim.g.mundo_prefer_python3 = 1
-vim.g.mundo_width = 25
-vim.g.mundo_preview_bottom = 1
-vim.g.mundo_close_on_revert = 1
--- vim.g.mundo_preview_height = 1
--- vim.g.mundo_right = 1
-
--- vim-doge
--- Runs on <leader>d and TAB/S-TAB for jumping TODOs
-vim.g.doge_doc_standard_python = "google"
-
 -- linediff
 -- map("n", "<leader>ld", ":Linediff<CR>")
 map("x", "<leader>ld", ":Linediff<CR>")

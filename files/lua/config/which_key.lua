@@ -25,7 +25,6 @@ local leader_map = {
       S = "reselect last",
     },
   },
-  d = "doge generate",
   D = "dim inactive toggle",
   I = "indentline toggle",
   T = "replace tabs",

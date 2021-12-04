@@ -171,6 +171,13 @@ packer.startup(function(use)
     end,
   }
   use {
+    'numToStr/Comment.nvim',
+    config = function()
+        require('Comment').setup()
+    end,
+    event = "BufRead",
+  }
+  use {
     "mg979/vim-visual-multi",
     branch = "master",
     event = "BufRead",
@@ -180,25 +187,8 @@ packer.startup(function(use)
     event = "BufRead",
   }
   use {
-    "tpope/vim-commentary",
-    event = "BufRead",
-  }
-  use {
-    "tpope/vim-repeat",
-    event = "BufRead",
-  }
-  use {
     "tpope/vim-fugitive",
     cmd = "Gvdiffsplit",
-  }
-  use {
-    "simnalamburt/vim-mundo",
-    cmd = "MundoToggle",
-  }
-  use {
-    "kkoomen/vim-doge",
-    run = ":call doge#install()",
-    keys = "<leader>d",
   }
   use {
     "AndrewRadev/linediff.vim",

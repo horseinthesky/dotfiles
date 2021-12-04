@@ -110,12 +110,6 @@ vim.api.nvim_exec(
   [[
   augroup TabSettings
     autocmd!
-    " vim-commentary help
-    autocmd BufRead,BufNewFile *.conf,*.cfg        setlocal filetype=config
-    autocmd FileType config                        setlocal commentstring=#\ %s
-    autocmd FileType toml                          setlocal commentstring=#\ %s
-    autocmd FileType terraform                     setlocal commentstring=#\ %s
-
     autocmd FileType python                        setlocal sw=4 ts=4
     autocmd FileType make                          setlocal sw=4 ts=4 noet
     autocmd FileType vim,config,json,yaml,lua      setlocal sw=2 ts=2
