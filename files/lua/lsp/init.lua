@@ -16,7 +16,7 @@ local on_attach = function(client, _)
     { "n", "<leader>i", "<cmd>LspInfo<CR>" },
     { "n", "]d", "<cmd>lua vim.diagnostic.goto_next({ float = false })<CR>" },
     { "n", "[d", "<cmd>lua vim.diagnostic.goto_prev({ float = false })<CR>" },
-    { "n", "<leader>cd", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics({ border = 'single' })<CR>" },
+    { "n", "<leader>cd", "<cmd>lua vim.diagnostic.open_float(0, { border = 'single' })<CR>" },
     { "n", "<leader>ch", "<cmd>lua vim.lsp.buf.hover({ border = 'single' })<CR>" },
     { "n", "<leader>cD", "<cmd>lua vim.lsp.buf.definition()<CR>" },
     { "n", "<leader>cr", "<cmd>lua vim.lsp.buf.rename()<CR>" },
@@ -108,29 +108,23 @@ local hl_cmds = [[
 
 vim.api.nvim_exec(hl_cmds, false)
 
-local lsp_signs = {
-  DiagnosticSignHint = {
-    -- text = icons.diagnostic.hint,
-    text = "",
-    texthl = "DiagnosticSignHint",
-  },
-  DiagnosticSignInfo = {
-    -- text = icons.diagnostic.info,
-    text = "",
-    texthl = "DiagnosticSignInfo",
-  },
-  DiagnosticSignWarn = {
-    -- text = icons.diagnostic.warning,
-    text = "",
-    texthl = "DiagnosticSignWarn",
-  },
-  DiagnosticSignError = {
-    -- text = icons.diagnostic.error,
-    text = "",
-    texthl = "DiagnosticSignError",
-  },
+local signs = {
+  -- Error = icons.diagnistic.error,
+  -- Warn = icons.diagnistic.warning,
+  -- Hint = icons.diagnistic.hint,
+  -- Info = icons.diagnistic.info,
+  Error = "",
+  Warn = "",
+  Hint = "",
+  Info = "",
 }
 
-for hl_group, config in pairs(lsp_signs) do
-  vim.fn.sign_define(hl_group, config)
+for type, icon in pairs(signs) do
+  local hl = "DiagnosticSign" .. type
+
+  vim.fn.sign_define(hl, {
+    text = icon,
+    texthl = hl,
+    numhl = "",
+  })
 end
