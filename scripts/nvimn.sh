@@ -39,7 +39,7 @@ clone neovim/neovim $HOME
 echo -e "\n${LIGHTMAGENTA}Building neovim from source...${NORMAL}"
 cd $HOME/neovim
 make \
-  CMAKE_BUILD_TYPE=RelWithDebInfo \
+  CMAKE_BUILD_TYPE=Release \
   CMAKE_INSTALL_PREFIX=$HOME/.local install 1> /dev/null
 echo -e "${GREEN}Done${NORMAL}"
 
