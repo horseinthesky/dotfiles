@@ -25,7 +25,7 @@ local on_attach = function(client, _)
     { "n", "<leader>cs", "<cmd>lua vim.lsp.buf.signature_help()<CR>" },
     { "n", "<leader>F", "<cmd>lua vim.lsp.buf.formatting()<CR>" },
     -- { "n", "<leader>td", "<cmd>lua vim.lsp.buf.type_definition()<CR>" },
-    { "n", "<leader>rf", "<cmd>lua vim.lsp.buf.references()<CR>" },
+    -- { "n", "<leader>rf", "<cmd>lua vim.lsp.buf.references()<CR>" },
     -- { "n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action({ source = { organizeImports = true } })<CR>" },
   }
 

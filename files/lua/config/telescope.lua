@@ -61,10 +61,11 @@ map("n", "<leader>gc", [[<cmd>lua require('telescope.builtin').git_commits()<CR>
 map("n", "<leader>gs", [[<cmd>lua require('telescope.builtin').git_status()<CR>]])
 
 -- lsp search mappings
-map("n", "<leader>fld", [[<cmd>Telescope diagnostics bufnr=0<CR>]])
-map("n", "<leader>flD", [[<cmd>Telescope diagnostics<CR>]])
+map("n", "<leader>fld", [[<cmd>lua require('telescope.builtin').diagnostics( { bufnr = 0 } )<CR>]])
+map("n", "<leader>flD", [[<cmd>lua require('telescope.builtin').diagnostics()<CR>]])
 map("n", "<leader>fls", [[<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]])
 map("n", "<leader>flS", [[<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<CR>]])
+map("n", "<leader>flr", [[<cmd>lua require('telescope.builtin').lsp_references()<CR>]])
 
 vim.api.nvim_exec(
   [[
@@ -76,4 +77,3 @@ vim.api.nvim_exec(
   ]],
   false
 )
-
