@@ -83,16 +83,14 @@ for server, config in pairs(servers) do
 end
 
 -- Diagnostic
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-  -- Enable/diable virtual text
+vim.diagnostic.config {
   virtual_text = {
     spacing = 4,
-    -- prefix = icons.dot .. " ",
     prefix = icons.duck,
   },
-  -- Enable/diable diagnistic in Insert mode
-  update_in_insert = true,
-})
+  signs = false,
+  update_in_insert = false,
+}
 
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
   border = "single",
@@ -109,14 +107,10 @@ local hl_cmds = [[
 vim.api.nvim_exec(hl_cmds, false)
 
 local signs = {
-  -- Error = icons.diagnistic.error,
-  -- Warn = icons.diagnistic.warning,
-  -- Hint = icons.diagnistic.hint,
-  -- Info = icons.diagnistic.info,
-  Error = "",
-  Warn = "",
-  Hint = "",
-  Info = "",
+  Error = icons.diagnostic.error,
+  Warn = icons.diagnostic.warning,
+  Hint = icons.diagnostic.hint,
+  Info = icons.diagnostic.info,
 }
 
 for type, icon in pairs(signs) do
