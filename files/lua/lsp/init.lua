@@ -16,8 +16,8 @@ local on_attach = function(client, _)
     { "n", "<leader>i", "<cmd>LspInfo<CR>" },
     { "n", "]d", "<cmd>lua vim.diagnostic.goto_next({ float = false })<CR>" },
     { "n", "[d", "<cmd>lua vim.diagnostic.goto_prev({ float = false })<CR>" },
-    { "n", "<leader>cd", "<cmd>lua vim.diagnostic.open_float(0, { border = 'single' })<CR>" },
-    { "n", "<leader>ch", "<cmd>lua vim.lsp.buf.hover({ border = 'single' })<CR>" },
+    { "n", "<leader>cd", "<cmd>lua vim.diagnostic.open_float()<CR>" },
+    { "n", "<leader>ch", "<cmd>lua vim.lsp.buf.hover()<CR>" },
     { "n", "<leader>cD", "<cmd>lua vim.lsp.buf.definition()<CR>" },
     { "n", "<leader>cr", "<cmd>lua vim.lsp.buf.rename()<CR>" },
     { "n", "<leader>cl", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>" },
@@ -68,7 +68,6 @@ local servers = {
   terraformls = {},
   dockerls = {},
   sumneko_lua = require("lsp.sumneko").config,
-  ["null-ls"] = require "lsp.null",
   -- efm = require "lsp.efm".config,
 }
 
@@ -82,6 +81,8 @@ for server, config in pairs(servers) do
   }, config))
 end
 
+require "lsp.null"
+
 -- Diagnostic
 vim.diagnostic.config {
   virtual_text = {
@@ -89,6 +90,9 @@ vim.diagnostic.config {
     prefix = icons.duck,
   },
   signs = false,
+  float = {
+    border = "single",
+  },
   update_in_insert = false,
 }
 

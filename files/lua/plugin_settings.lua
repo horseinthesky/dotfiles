@@ -50,12 +50,13 @@ vim.g.UltiSnipsJumpBackwardTrigger = "<S-Tab>"
 vim.g.UltiSnipsEditSplit = "vertical"
 
 -- symbols-outline
+vim.g.symbols_outline = {
+  width = 50,
+  preview_bg_highlight = "NormalFloat",
+}
 map("n", "<F5>", "<cmd>SymbolsOutline<CR>")
 
 vim.cmd [[highlight link FocusedSymbol Search]]
-vim.g.symbols_outline = {
-  preview_bg_highlight = "NormalFloat",
-}
 
 -- startuptime
 vim.g.startuptime_tries = 5

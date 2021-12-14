@@ -1,6 +1,6 @@
 local nls = require "null-ls"
 
-nls.config {
+nls.setup({
   diagnostics_format = "[#{s}] #{c}: #{m}",
   sources = {
     -- nls.builtins.code_actions.gitsigns,
@@ -28,6 +28,4 @@ nls.config {
       },
     },
   },
-}
-
-return {}
+})
