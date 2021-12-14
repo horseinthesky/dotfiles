@@ -134,6 +134,7 @@ local leader_map = {
       name = "lsp",
       d = "document diagnostics",
       D = "workspace diagnostics",
+      r = "references",
       s = "document symbols",
       S = "workspace symbols",
     },
