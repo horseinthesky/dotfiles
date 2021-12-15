@@ -49,32 +49,9 @@ vim.g.UltiSnipsJumpBackwardTrigger = "<S-Tab>"
 -- If you want :UltiSnipsEdit to split your window.
 vim.g.UltiSnipsEditSplit = "vertical"
 
--- symbols-outline
-vim.g.symbols_outline = {
-  width = 50,
-  preview_bg_highlight = "NormalFloat",
-}
-map("n", "<F5>", "<cmd>SymbolsOutline<CR>")
-
-vim.cmd [[highlight link FocusedSymbol Search]]
-
 -- startuptime
 vim.g.startuptime_tries = 5
 map("n", "<leader>M", "<cmd>StartupTime<CR>")
-
--- visual-multi
-map("n", "<S-Up>", ":<C-U>call vm#commands#add_cursor_up(0, v:count1)<CR>")
-map("n", "<S-Down>", ":<C-U>call vm#commands#add_cursor_down(0, v:count1)<CR>")
-
--- vim-fugitive
-map("n", "<leader>gd", "<cmd>Gvdiffsplit!<CR>")
-map("n", "gdh", "<cmd>diffget //2<CR>")
-map("n", "gdl", "<cmd>diffget //3<CR>")
-
--- linediff
--- map("n", "<leader>ld", ":Linediff<CR>")
-map("x", "<leader>ld", ":Linediff<CR>")
-map("n", "<leader>lr", "<cmd>LinediffReset<CR>")
 
 -- ==== Visuals plugin settings ====
 -- vim-startify
@@ -95,10 +72,6 @@ map("n", "gss", "<cmd>SSave!<CR>")
 map("n", "gsl", "<cmd>SLoad!<CR>")
 map("n", "gsc", "<cmd>SClose!<CR>")
 map("n", "gsd", "<cmd>SDelete!<CR>")
-
--- Colorizer
-map("n", "<leader>ct", "<cmd>ColorToggle<CR>")
-map("n", "<leader>cs", "<cmd>ColorSwapFgBg<CR>")
 
 -- indentline
 vim.g.indent_blankline_filetype_exclude = {

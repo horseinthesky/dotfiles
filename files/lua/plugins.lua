@@ -142,10 +142,6 @@ packer.startup(function(use)
     end,
   }
   use {
-    "simrat39/symbols-outline.nvim",
-    cmd = "SymbolsOutline",
-  }
-  use {
     "numToStr/FTerm.nvim",
     event = "BufRead",
     config = function()
@@ -171,27 +167,14 @@ packer.startup(function(use)
     end,
   }
   use {
-    'numToStr/Comment.nvim',
+    "numToStr/Comment.nvim",
     config = function()
-        require('Comment').setup()
+      require("Comment").setup()
     end,
     event = "BufRead",
   }
   use {
-    "mg979/vim-visual-multi",
-    branch = "master",
-    event = "BufRead",
-  }
-  use {
     "tpope/vim-surround",
-    event = "BufRead",
-  }
-  use {
-    "tpope/vim-fugitive",
-    cmd = "Gvdiffsplit",
-  }
-  use {
-    "AndrewRadev/linediff.vim",
     event = "BufRead",
   }
 
@@ -207,15 +190,8 @@ packer.startup(function(use)
     "folke/tokyonight.nvim",
   }
   use {
-    "lifepillar/vim-solarized8",
-  }
-  use {
     "Glench/Vim-Jinja2-Syntax",
     ft = "jinja",
-  }
-  use {
-    "chrisbra/Colorizer",
-    event = "BufRead",
   }
   use {
     "lukas-reineke/indent-blankline.nvim",
@@ -233,6 +209,7 @@ packer.startup(function(use)
     event = "BufRead",
   }
 
+  -- Statusline
   use {
     "lewis6991/gitsigns.nvim",
     event = "BufRead",
@@ -242,8 +219,6 @@ packer.startup(function(use)
       require "config.gitsigns"
     end,
   }
-
-  -- Statusline
   use {
     "kyazdani42/nvim-web-devicons",
     module = "nvim-web-devicons",
