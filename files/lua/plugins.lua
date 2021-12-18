@@ -85,6 +85,9 @@ packer.startup(function(use)
   use {
     "stevearc/dressing.nvim",
     event = "BufRead",
+    config = function()
+      vim.cmd [[highlight link FloatTitle Normal]]
+    end,
   }
 
   -- LSP and completion
