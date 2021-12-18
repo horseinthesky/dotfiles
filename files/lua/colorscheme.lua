@@ -21,6 +21,7 @@ vim.cmd "colorscheme gruvbox"
 
 vim.cmd [[highlight SignColumn guibg=NONE]]
 vim.cmd [[highlight link NormalFloat Normal]]
+vim.cmd [[highlight link FloatBorder Normal]]
 
 -- Transparency toggle
 vim.g.original_normal_bg = vim.fn.synIDattr(vim.fn.hlID "Normal", "bg")

@@ -81,6 +81,12 @@ packer.startup(function(use)
     event = "BufRead",
   }
 
+  -- UI
+  use {
+    "stevearc/dressing.nvim",
+    event = "BufRead",
+  }
+
   -- LSP and completion
   use {
     "neovim/nvim-lspconfig",
