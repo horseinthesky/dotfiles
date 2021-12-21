@@ -16,8 +16,14 @@ vim.opt.background = "dark"
 vim.g.gruvbox_contrast_dark = "medium"
 vim.g.gruvbox_invert_selection = 0
 vim.g.tokyonight_style = "storm"
-vim.cmd "colorscheme gruvbox"
--- vim.cmd "colorscheme tokyonight"
+
+local colorscheme = "gruvbox"
+
+local ok, _ = pcall(vim.cmd, "colorscheme " .. colorscheme)
+if not ok then
+  vim.cmd [[highlight Normal guibg=#282828]]
+  error("colorscheme: " .. colorscheme .. " not found")
+end
 
 vim.cmd [[highlight SignColumn guibg=NONE]]
 vim.cmd [[highlight link NormalFloat Normal]]

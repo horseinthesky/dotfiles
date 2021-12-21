@@ -4,6 +4,9 @@ vim.defer_fn(function()
   require "plugins"
 end, 0)
 
+-- Global functions
+require "globals"
+
 -- Set colorscheme
 require "colorscheme"
 
@@ -15,6 +18,3 @@ require "keymappings"
 
 -- Plugin settings
 require "plugin_settings"
-
--- Global functions
-require "globals"

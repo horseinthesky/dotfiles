@@ -44,6 +44,14 @@ local kind_icons = {
 }
 
 cmp.setup {
+  snippet = {
+    expand = function(args)
+      vim.fn["UltiSnips#Anon"](args.body)
+    end,
+  },
+  documentation = {
+    border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+  },
   formatting = {
     format = function(entry, vim_item)
       -- fancy icons and a name of kind
@@ -65,14 +73,12 @@ cmp.setup {
     end,
   },
   mapping = {
-    ["<C-p>"] = cmp.mapping.select_prev_item(),
-    ["<C-n>"] = cmp.mapping.select_next_item(),
     ["<C-u>"] = cmp.mapping.scroll_docs(-4),
     ["<C-d>"] = cmp.mapping.scroll_docs(4),
     ["<C-Space>"] = cmp.mapping.complete(),
     ["<C-e>"] = cmp.mapping.close(),
     ["<CR>"] = cmp.mapping.confirm {
-      behavior = cmp.ConfirmBehavior.Insert,
+      behavior = cmp.ConfirmBehavior.Replace,
       select = true,
     },
     ["<Tab>"] = function(fallback)
@@ -88,14 +94,6 @@ cmp.setup {
       else
         fallback()
       end
-    end,
-  },
-  documentation = {
-    border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
-  },
-  snippet = {
-    expand = function(args)
-      vim.fn["UltiSnips#Anon"](args.body)
     end,
   },
   sources = {

@@ -40,7 +40,7 @@ setmetatable(mode_map, {
 })
 
 local function diag(severity)
-  local count = vim.diagnostic.get(0, { severity = severity } )
+  local count = vim.diagnostic.get(0, { severity = severity })
 
   if #count == 0 then
     return ""
@@ -49,7 +49,7 @@ local function diag(severity)
   local diag_mapping = {
     [vim.diagnostic.severity.WARN] = icons.diagnostic.warning,
     [vim.diagnostic.severity.ERROR] = icons.diagnostic.error,
-    [vim.diagnostic.severity.INFO]  = icons.diagnostic.info,
+    [vim.diagnostic.severity.INFO] = icons.diagnostic.info,
     [vim.diagnostic.severity.HINT] = icons.diagnostic.hint,
   }
 
@@ -313,10 +313,10 @@ local comps = {
     },
     ok = {
       provider = function()
-        local e = vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR } )
+        local e = vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
         local w = vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
-        local i = vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO } )
-        local h = vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT } )
+        local i = vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
+        local h = vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT })
         if #w ~= 0 or #e ~= 0 or #i ~= 0 or #h ~= 0 then
           return ""
         end
