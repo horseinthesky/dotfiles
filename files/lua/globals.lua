@@ -1,4 +1,4 @@
-local log = require "utils".log
+local utils = require "utils"
 
 -- For debugging purposes
 _G.dump = function(...)
@@ -6,14 +6,15 @@ _G.dump = function(...)
 end
 
 _G.warn= function(msg, name)
-  log(msg, name, "DiagnosticWarn")
+  utils.log(msg, name, "DiagnosticWarn")
 end
 
 _G.error = function(msg, name)
-  log(msg, name, "DiagnosticError")
+  utils.log(msg, name, "DiagnosticError")
 end
 
 _G.info = function(msg, name)
-  log(msg, name, "DiagnosticInfo")
+  utils.log(msg, name, "DiagnosticInfo")
 end
 
+utils.map("n", "gn", "<cmd>lua info(vim.api.nvim_buf_get_name(0), 'Filename')<CR>")
