@@ -55,8 +55,6 @@ packer.startup(function(use)
       { "nvim-telescope/telescope-fzf-native.nvim", run = "make", opt = true },
       { "nvim-telescope/telescope-symbols.nvim", opt = true },
     },
-    module = "telescope",
-    cmd = "Telescope",
     keys = { "<leader>f", "<leader>g" },
     wants = {
       "popup.nvim",
@@ -77,8 +75,8 @@ packer.startup(function(use)
         opt = true,
       },
     },
+    cmd = { "Files", "Rg" },
     wants = "fzf",
-    event = "BufRead",
   }
 
   -- UI
