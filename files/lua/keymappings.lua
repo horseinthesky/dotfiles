@@ -23,6 +23,7 @@ local mappings = {
   {"n", "[b", "<cmd>bprev<CR>"},
   {"n", "<leader>B", ":ls<CR>:b<Space>"},
   {"n", "<leader>bd", "<cmd>bdelete<CR>"},
+  {"n", "<C-w>d", "<cmd>bdelete<CR>"},
   -- Tabs
   {"n", "]t", "<cmd>tabn<CR>"},
   {"n", "[t", "<cmd>tabp<CR>"},

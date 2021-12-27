@@ -1,15 +1,28 @@
-local install_path = vim.fn.stdpath "data" .. "/site/pack/packer/start/packer.nvim"
-if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-  vim.api.nvim_command("!git clone https://github.com/wbthomason/packer.nvim " .. install_path)
+-- Indicate first time installation
+local packer_bootstrap = false
+
+-- Check if packer.nvim is installed
+-- Run PackerCompile if there are changes in this file
+local fn = vim.fn
+local install_path = fn.stdpath "data" .. "/site/pack/packer/opt/packer.nvim"
+
+if fn.empty(fn.glob(install_path)) > 0 then
+  packer_bootstrap = fn.system {
+    "git",
+    "clone",
+    "--depth",
+    "1",
+    "https://github.com/wbthomason/packer.nvim",
+    install_path,
+  }
 end
--- vim.cmd [[packadd packer.nvim]]
--- vim.cmd "autocmd BufWritePost plugins.lua PackerCompile" -- Auto compile when there are changes in plugins.lua
 
-local packer = require "packer"
-local util = require "packer.util"
+vim.cmd [[packadd packer.nvim]]
+vim.cmd [[autocmd BufWritePost plugins.lua source <afile> | PackerCompile]]
 
-packer.init {
-  compile_path = util.join_paths(vim.fn.stdpath "config", "packer", "packer_compiled.vim"),
+-- packer.nvim configuration
+local config = {
+  compile_path = require("packer.util").join_paths(vim.fn.stdpath "config", "packer", "packer_compiled.vim"),
   profile = {
     enable = true,
     threshold = 0, -- the amount in ms that a plugins load time must be over for it to be included in the profile
@@ -21,8 +34,11 @@ packer.init {
   },
 }
 
-packer.startup(function(use)
-  use "wbthomason/packer.nvim"
+local function plugins(use)
+  use {
+    "wbthomason/packer.nvim",
+    opt = true,
+  }
 
   use {
     "nvim-treesitter/nvim-treesitter",
@@ -55,13 +71,13 @@ packer.startup(function(use)
       { "nvim-telescope/telescope-fzf-native.nvim", run = "make", opt = true },
       { "nvim-telescope/telescope-symbols.nvim", opt = true },
     },
-    keys = { "<leader>f", "<leader>g" },
     wants = {
       "popup.nvim",
       "plenary.nvim",
       "telescope-fzf-native.nvim",
       "telescope-symbols.nvim",
     },
+    keys = { "<leader>f", "<leader>g" },
     config = function()
       require "config.telescope"
     end,
@@ -134,7 +150,6 @@ packer.startup(function(use)
   -- Features
   use {
     "folke/todo-comments.nvim",
-    cmd = "TodoTelescope",
     event = "BufRead",
     config = function()
       require "config.todo"
@@ -196,13 +211,6 @@ packer.startup(function(use)
     "lukas-reineke/indent-blankline.nvim",
     event = "BufRead",
   }
-  -- use {
-  --   "sunjon/Shade.nvim",
-  --   event = "BufRead",
-  --   config = function()
-  --     require "config.shade"
-  --   end,
-  -- }
   use {
     "ntpeters/vim-better-whitespace",
     event = "BufRead",
@@ -230,10 +238,19 @@ packer.startup(function(use)
     end,
   }
   use {
-    "romgrk/barbar.nvim",
-    -- event = "BufReadPre",
+    "akinsho/bufferline.nvim",
+    wants = "nvim-web-devicons",
+    event = "BufReadPre",
     config = function()
-      require "config.barbar"
+      require "config.bufferline"
     end,
   }
-end)
+
+  if packer_bootstrap then
+    require("packer").sync()
+  end
+end
+
+local packer = require "packer"
+packer.init(config)
+packer.startup(plugins)

@@ -330,7 +330,7 @@ local comps = {
       priority = 24,
       enabled = utils.diagnostic_exists,
     },
-    errors = {
+    error = {
       provider = function()
         return diag(vim.diagnostic.severity.ERROR)
       end,
@@ -341,7 +341,7 @@ local comps = {
       truncate_hide = true,
       priority = 25,
     },
-    warnings = {
+    warning = {
       provider = function()
         return diag(vim.diagnostic.severity.WARN)
       end,
@@ -352,7 +352,7 @@ local comps = {
       truncate_hide = true,
       priority = 25,
     },
-    hints = {
+    hint = {
       provider = function()
         return diag(vim.diagnostic.severity.HINT)
       end,
@@ -395,9 +395,9 @@ local components = {
       comps.lsp.icon,
       comps.lsp.server,
       comps.lsp.ok,
-      comps.lsp.errors,
-      comps.lsp.warnings,
-      comps.lsp.hints,
+      comps.lsp.error,
+      comps.lsp.warning,
+      comps.lsp.hint,
       comps.lsp.info,
       comps.sep.right_nested,
       comps.file.format,

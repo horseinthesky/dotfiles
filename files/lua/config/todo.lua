@@ -16,4 +16,4 @@ require("todo-comments").setup {
   },
 }
 
-map("n", "<leader>ft", [[<cmd>TodoTelescope<CR>]])
+map("n", "<leader>ft", "<cmd>TodoTelescope<CR>")
