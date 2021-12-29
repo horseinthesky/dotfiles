@@ -41,6 +41,10 @@ vim.api.nvim_exec(
 map("n", ";", "<cmd>Files<CR>")
 map("n", "<C-p>", "<cmd>Rg<CR>")
 
+-- hop
+vim.cmd [[highlight link HopNextKey Type]]
+map("n", "f", "<cmd>HopChar1<CR>")
+
 -- ultisnips
 vim.g.UltiSnipsExpandTrigger = "<C-s>"
 vim.g.UltiSnipsJumpForwardTrigger = "<Tab>"

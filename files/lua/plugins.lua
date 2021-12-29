@@ -1,3 +1,19 @@
+local map = require("utils").map
+
+-- Packer keymappings
+local mappings = {
+  { "n", "<leader>pi", "<cmd>PackerInstall<cr>" },
+  { "n", "<leader>pc", "<cmd>PackerCompile<cr>" },
+  { "n", "<leader>pu", "<cmd>PackerUpdate<cr>" },
+  { "n", "<leader>ps", "<cmd>PackerSync<cr>" },
+  { "n", "<leader>pt", "<cmd>PackerStatus<cr>" },
+}
+
+for _, keymap in ipairs(mappings) do
+  local mode, lhs, rhs, opts = unpack(keymap)
+  map(mode, lhs, rhs, opts)
+end
+
 -- Indicate first time installation
 local packer_bootstrap = false
 
@@ -175,17 +191,17 @@ local function plugins(use)
   }
   use {
     "phaazon/hop.nvim",
-    event = "BufRead",
+    cmd = "HopChar1",
     config = function()
-      require "config.hop"
+      require("hop").setup()
     end,
   }
   use {
     "numToStr/Comment.nvim",
+    keys = { "gc", "gcc", "gbc" },
     config = function()
       require("Comment").setup()
     end,
-    event = "BufRead",
   }
   use {
     "tpope/vim-surround",
@@ -195,7 +211,9 @@ local function plugins(use)
   -- Visuals
   use {
     "mhinz/vim-startify",
-    event = "BufEnter",
+    cond = function()
+      return vim.api.nvim_buf_get_name(0) == ""
+    end,
   }
   use {
     "morhetz/gruvbox",
@@ -229,6 +247,9 @@ local function plugins(use)
   use {
     "kyazdani42/nvim-web-devicons",
     module = "nvim-web-devicons",
+    config = function()
+      require("nvim-web-devicons").setup { default = true }
+    end,
   }
   use {
     "famiu/feline.nvim",

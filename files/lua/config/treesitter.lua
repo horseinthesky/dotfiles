@@ -97,4 +97,4 @@ require("nvim-treesitter.configs").setup {
   },
 }
 
-map("n", "<leader>p", "<cmd>TSPlaygroundToggle<CR>")
+map("n", "<leader>P", "<cmd>TSPlaygroundToggle<CR>")

@@ -34,7 +34,15 @@ local leader_map = {
   M = "startup time",
   F = "format",
   i = "lsp info",
-  p = "TS playground",
+  P = "TS playground",
+  p = {
+    name = "packer",
+    i = "install",
+    c = "compile",
+    u = "update",
+    s = "sync",
+    t = "status",
+  },
   s = {
     name = "swap next",
     ["<space>"] = "which_key_ignore",
@@ -186,6 +194,14 @@ local close_square_bracket_map = {
   ["]"] = "class end",
 }
 
+local conf = {
+  window = {
+    border = "single", -- none, single, double, shadow
+    position = "bottom", -- bottom, top
+  },
+}
+
+wk.setup(conf)
 wk.register(leader_map, { prefix = "<leader>" })
 wk.register(g_map, { prefix = "g" })
 wk.register(open_square_bracket_map, { prefix = "]" })
