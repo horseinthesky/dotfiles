@@ -74,7 +74,7 @@ local mappings = {
   -- \v selects code that was just pasted in the visual mode last used
   { "n", "<leader>v", "'`[' . strpart(getregtype(), 0, 1) . '`]'", { expr = true } },
   -- Yank all buffer
-  { "n", "<leader>a", "<cmd>%y<CR>" },
+  { "n", "<leader>A", "<cmd>%y<CR>" },
   -- Keep cursor position
   { "n", "J", "mzJ'z" },
   -- Make undo stop on these symbols

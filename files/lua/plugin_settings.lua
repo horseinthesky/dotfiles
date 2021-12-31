@@ -41,6 +41,11 @@ vim.api.nvim_exec(
 map("n", ";", "<cmd>Files<CR>")
 map("n", "<C-p>", "<cmd>Rg<CR>")
 
+-- neogen
+map("n", "<leader>af", "<cmd>lua require('neogen').generate({ type = 'func' })<CR>")
+map("n", "<leader>ac", "<cmd>lua require('neogen').generate({ type = 'class' })<CR>")
+map("n", "<leader>at", "<cmd>lua require('neogen').generate({ type = 'type' })<CR>")
+
 -- hop
 vim.cmd [[highlight link HopNextKey Type]]
 map("n", "f", "<cmd>HopChar1<CR>")

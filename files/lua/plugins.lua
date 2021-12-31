@@ -165,6 +165,16 @@ local function plugins(use)
 
   -- Features
   use {
+    "danymat/neogen",
+    wants = "nvim-treesitter",
+    module = "neogen",
+    config = function()
+      require("neogen").setup {
+        enabled = true,
+      }
+    end,
+  }
+  use {
     "folke/todo-comments.nvim",
     event = "BufRead",
     config = function()
