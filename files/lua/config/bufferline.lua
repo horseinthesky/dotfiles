@@ -16,6 +16,7 @@ require("bufferline").setup {
     show_tab_indicators = false,
     tab_size = 5,
     numbers = function(opts)
+      if vim.api.nvim_get_current_buf() == opts.id then return "" end
       return opts.ordinal
     end,
   },
