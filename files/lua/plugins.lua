@@ -56,6 +56,19 @@ local function plugins(use)
     opt = true,
   }
 
+  -- Helpers
+  use {
+    "kyazdani42/nvim-web-devicons",
+    module = "nvim-web-devicons",
+    config = function()
+      require("nvim-web-devicons").setup { default = true }
+    end,
+  }
+  use {
+    "nvim-lua/plenary.nvim",
+    module = "plenary",
+    opt = true,
+  }
   use {
     "nvim-treesitter/nvim-treesitter",
     run = ":TSUpdate",
@@ -75,11 +88,19 @@ local function plugins(use)
       require "config.treesitter"
     end,
   }
+
+  -- Git
   use {
-    "nvim-lua/plenary.nvim",
-    module = "plenary",
-    opt = true,
+    "lewis6991/gitsigns.nvim",
+    event = "BufRead",
+    wants = "plenary.nvim",
+    module = "gitsigns",
+    config = function()
+      require "config.gitsigns"
+    end,
   }
+
+  -- Fuzzy search
   use {
     "nvim-telescope/telescope.nvim",
     requires = {
@@ -99,16 +120,12 @@ local function plugins(use)
     end,
   }
   use {
-    "junegunn/fzf.vim",
-    requires = {
-      {
-        "junegunn/fzf",
-        run = "./install --all --no-update-rc",
-        opt = true,
-      },
-    },
-    cmd = { "Files", "Rg" },
-    wants = "fzf",
+    "ibhagwan/fzf-lua",
+    cmd = { "FzfLua" },
+    wants = "nvim-web-devicons",
+    config = function ()
+      require "config.fzf"
+    end,
   }
 
   -- UI
@@ -245,22 +262,6 @@ local function plugins(use)
   }
 
   -- Statusline
-  use {
-    "lewis6991/gitsigns.nvim",
-    event = "BufRead",
-    wants = "plenary.nvim",
-    module = "gitsigns",
-    config = function()
-      require "config.gitsigns"
-    end,
-  }
-  use {
-    "kyazdani42/nvim-web-devicons",
-    module = "nvim-web-devicons",
-    config = function()
-      require("nvim-web-devicons").setup { default = true }
-    end,
-  }
   use {
     "famiu/feline.nvim",
     event = "BufRead",

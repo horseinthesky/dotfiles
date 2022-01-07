@@ -1,45 +1,12 @@
 local map = require("utils").map
 
 -- ==== Feature plugin settings ====
--- fzf
-vim.g.fzf_colors = {
-  ["hl"] = { "fg", "Search" },
-  ["hl+"] = { "fg", "Search" },
-  ["info"] = { "fg", "PreProc" },
-  ["pointer"] = { "fg", "Statement" },
-  ["marker"] = { "fg", "Special" },
-}
-vim.g.fzf_action = {
-  ["ctrl-t"] = "tab split",
-  ["ctrl-s"] = "split",
-  ["ctrl-v"] = "vsplit",
-}
-vim.g.fzf_layout = {
-  ["window"] = {
-    ["width"] = 1,
-    ["height"] = 0.5,
-    ["yoffset"] = 1,
-  },
-}
-vim.g.fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
-
-vim.api.nvim_exec(
-  [[
-    function! RipgrepFzf(query, fullscreen)
-      let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
-      let initial_command = printf(command_fmt, shellescape(a:query))
-      let reload_command = printf(command_fmt, '{q}')
-      let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
-      call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
-    endfunction
-
-    command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
-  ]],
-  false
-)
-
-map("n", ";", "<cmd>Files<CR>")
-map("n", "<C-p>", "<cmd>Rg<CR>")
+-- fzf-lua
+map("n", ";", "<cmd>FzfLua files<CR>")
+map("n", "<C-p>", "<cmd>FzfLua live_grep<CR>")
+map("n", "<C-b>", "<cmd>FzfLua buffers<CR>")
+map("n", "<C-l>", "<cmd>FzfLua blines<CR>")
+map("n", "<C-L>", "<cmd>FzfLua lines<CR>")
 
 -- neogen
 map("n", "<leader>af", "<cmd>lua require('neogen').generate({ type = 'func' })<CR>")
