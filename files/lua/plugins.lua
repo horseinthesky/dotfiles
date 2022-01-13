@@ -114,7 +114,7 @@ local function plugins(use)
       "telescope-fzf-native.nvim",
       "telescope-symbols.nvim",
     },
-    keys = { "<leader>f", "<leader>g" },
+    cmd = { "Telescope" },
     config = function()
       require "config.telescope"
     end,
