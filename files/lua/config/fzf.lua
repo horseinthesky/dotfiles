@@ -1,9 +1,9 @@
 require("fzf-lua").setup {
   winopts = {
-    row = 100,
-    col = 0,
-    height = 0.5,
-    width = 1,
+    -- row = 100,
+    -- col = 0,
+    -- height = 0.5,
+    -- width = 1,
     preview = {
       layout = "horizontal",
       horizontal = "right:60%",

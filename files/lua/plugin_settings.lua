@@ -55,7 +55,6 @@ map("n", "<leader>gs", "<cmd>FzfLua git_status<CR>")
 
 -- lsp search mappings
 map("n", "<leader>flr", "<cmd>FzfLua lsp_references<CR>")
-
 map("n", "<leader>fld", "<cmd>FzfLua lsp_document_diagnostics<CR>")
 map("n", "<leader>flD", "<cmd>FzfLua lsp_workspace_diagnostics<CR>")
 map("n", "<leader>fls", "<cmd>FzfLua lsp_document_symbols<CR>")
