@@ -2,63 +2,77 @@ local map = require("utils").map
 
 -- ==== Feature plugin settings ====
 -- Telescope
--- regular search mappings
-map("n", "<leader>ff", "<cmd>Telescope find_files hidden=true<CR>")
--- map("n", "<leader>fB", "<cmd>Telescope builtin previewer=false<CR>")
--- map("n", "<leader>fb", "<cmd>Telescope buffers<CR>")
--- map("n", "<leader>fe", "<cmd>Telescope current_buffer_fuzzy_find<CR>")
--- map("n", "<leader>fh", "<cmd>Telescope help_tags<CR>")
--- map("n", "<leader>fg", "<cmd>Telescope live_grep<CR>")
--- map("n", "<leader>fw", "<cmd>Telescope grep_string<CR>")
--- map("n", "<leader>fr", "<cmd>Telescope register<CR>")
--- map("n", "<leader>fm", "<cmd>Telescope marks<CR>")
--- map("n", "<leader>fM", "<cmd>Telescope keymaps<CR>")
--- map("n", "<leader>fO", "<cmd>Telescope oldfiles<CR>")
--- map("n", "<leader>fc", "<cmd>Telescope commands<CR>")
-map("n", "<leader>fo", "<cmd>Telescope vim_options<CR>")
-map("n", "<leader>fa", "<cmd>Telescope autocommands<CR>")
-map("n", "<leader>fH", "<cmd>Telescope highlights<CR>")
-map("n", "<leader>fC", "<cmd>Telescope colorscheme<CR>")
-map("n", "<leader>fS", "<cmd>Telescope symbols<CR>")
+local telescope_mappings = {
+  -- regular search mappings
+  {"n", "<leader>ff", "<cmd>Telescope find_files hidden=true<CR>"},
+  -- {"n", "<leader>fB", "<cmd>Telescope builtin previewer=false<CR>"},
+  -- {"n", "<leader>fb", "<cmd>Telescope buffers<CR>"},
+  -- {"n", "<leader>fe", "<cmd>Telescope current_buffer_fuzzy_find<CR>"},
+  -- {"n", "<leader>fh", "<cmd>Telescope help_tags<CR>"},
+  -- {"n", "<leader>fg", "<cmd>Telescope live_grep<CR>"},
+  -- {"n", "<leader>fw", "<cmd>Telescope grep_string<CR>"},
+  -- {"n", "<leader>fr", "<cmd>Telescope register<CR>"},
+  -- {"n", "<leader>fm", "<cmd>Telescope marks<CR>"},
+  -- {"n", "<leader>fM", "<cmd>Telescope keymaps<CR>"},
+  -- {"n", "<leader>fO", "<cmd>Telescope oldfiles<CR>"},
+  -- {"n", "<leader>fc", "<cmd>Telescope commands<CR>"},
+  {"n", "<leader>fo", "<cmd>Telescope vim_options<CR>"},
+  {"n", "<leader>fa", "<cmd>Telescope autocommands<CR>"},
+  {"n", "<leader>fH", "<cmd>Telescope highlights<CR>"},
+  {"n", "<leader>fC", "<cmd>Telescope colorscheme<CR>"},
+  {"n", "<leader>fS", "<cmd>Telescope symbols<CR>"},
 
--- git search mappings
--- map("n", "<leader>gb", "<cmd>Telescope git_branches<CR>")
--- map("n", "<leader>gc", "<cmd>Telescope git_commits<CR>")
--- map("n", "<leader>gs", "<cmd>Telescope git_status<CR>")
+  -- git search mappings
+  -- {"n", "<leader>gb", "<cmd>Telescope git_branches<CR>"},
+  -- {"n", "<leader>gc", "<cmd>Telescope git_commits<CR>"},
+  -- {"n", "<leader>gs", "<cmd>Telescope git_status<CR>"},
 
--- lsp search mappings
--- map("n", "<leader>fld", "<cmd>Telescope diagnostics bufnr=0<CR>")
--- map("n", "<leader>flD", "<cmd>Telescope diagnostics<CR>")
--- map("n", "<leader>fls", "<cmd>Telescope lsp_document_symbols<CR>")
--- map("n", "<leader>flS", "<cmd>Telescope lsp_workspace_symbols<CR>")
--- map("n", "<leader>flr", "<cmd>Telescope lsp_references<CR>")
+  -- lsp search mappings
+  -- {"n", "<leader>fld", "<cmd>Telescope diagnostics bufnr=0<CR>"},
+  -- {"n", "<leader>flD", "<cmd>Telescope diagnostics<CR>"},
+  -- {"n", "<leader>fls", "<cmd>Telescope lsp_document_symbols<CR>"},
+  -- {"n", "<leader>flS", "<cmd>Telescope lsp_workspace_symbols<CR>"},
+  -- {"n", "<leader>flr", "<cmd>Telescope lsp_references<CR>"},
+}
+
+for _, keymap in ipairs(telescope_mappings) do
+  local mode, lhs, rhs, opts = unpack(keymap)
+  map(mode, lhs, rhs, opts)
+end
 
 -- fzf-lua
-map("n", ";", "<cmd>FzfLua files<CR>")
-map("n", "<leader>fg", "<cmd>FzfLua live_grep<CR>")
-map("n", "<leader>fw", "<cmd>FzfLua grep_cword<CR>")
-map("n", "<leader>fh", "<cmd>FzfLua help_tags<CR>")
-map("n", "<leader>fb", "<cmd>FzfLua buffers<CR>")
-map("n", "<leader>fB", "<cmd>FzfLua builtin<CR>")
-map("n", "<leader>fe", "<cmd>FzfLua blines<CR>")
-map("n", "<leader>fE", "<cmd>FzfLua lines<CR>")
-map("n", "<leader>fr", "<cmd>FzfLua registers<CR>")
-map("n", "<leader>fm", "<cmd>FzfLua marks<CR>")
-map("n", "<leader>fM", "<cmd>FzfLua keymaps<CR>")
-map("n", "<leader>fc", "<cmd>FzfLua commands<CR>")
-map("n", "<leader>fO", "<cmd>FzfLua oldfiles<CR>")
+local fzf_mappings = {
+  {"n", ";", "<cmd>FzfLua files<CR>"},
+  {"n", "<leader>fg", "<cmd>FzfLua live_grep<CR>"},
+  {"n", "<leader>fw", "<cmd>FzfLua grep_cword<CR>"},
+  {"n", "<leader>fh", "<cmd>FzfLua help_tags<CR>"},
+  {"n", "<leader>fb", "<cmd>FzfLua buffers<CR>"},
+  {"n", "<leader>fB", "<cmd>FzfLua builtin<CR>"},
+  {"n", "<leader>fe", "<cmd>FzfLua blines<CR>"},
+  {"n", "<leader>fE", "<cmd>FzfLua lines<CR>"},
+  {"n", "<leader>fr", "<cmd>FzfLua registers<CR>"},
+  {"n", "<leader>fm", "<cmd>FzfLua marks<CR>"},
+  {"n", "<leader>fM", "<cmd>FzfLua keymaps<CR>"},
+  {"n", "<leader>fc", "<cmd>FzfLua commands<CR>"},
+  {"n", "<leader>fO", "<cmd>FzfLua oldfiles<CR>"},
 
--- git search mappings
-map("n", "<leader>gb", "<cmd>FzfLua git_branches<CR>")
-map("n", "<leader>gc", "<cmd>FzfLua git_commits<CR>")
-map("n", "<leader>gs", "<cmd>FzfLua git_status<CR>")
+  -- git search mappings
+  {"n", "<leader>gb", "<cmd>FzfLua git_branches<CR>"},
+  {"n", "<leader>gc", "<cmd>FzfLua git_commits<CR>"},
+  {"n", "<leader>gs", "<cmd>FzfLua git_status<CR>"},
 
--- lsp search mappings
-map("n", "<leader>flr", "<cmd>FzfLua lsp_references<CR>")
-map("n", "<leader>fld", "<cmd>FzfLua lsp_document_diagnostics<CR>")
-map("n", "<leader>flD", "<cmd>FzfLua lsp_workspace_diagnostics<CR>")
-map("n", "<leader>fls", "<cmd>FzfLua lsp_document_symbols<CR>")
-map("n", "<leader>flS", "<cmd>FzfLua lsp_workspace_symbols<CR>")
+  -- lsp search mappings
+  {"n", "<leader>flr", "<cmd>FzfLua lsp_references<CR>"},
+  {"n", "<leader>fld", "<cmd>FzfLua lsp_document_diagnostics<CR>"},
+  {"n", "<leader>flD", "<cmd>FzfLua lsp_workspace_diagnostics<CR>"},
+  {"n", "<leader>fls", "<cmd>FzfLua lsp_document_symbols<CR>"},
+  {"n", "<leader>flS", "<cmd>FzfLua lsp_workspace_symbols<CR>"},
+}
+
+for _, keymap in ipairs(fzf_mappings) do
+  local mode, lhs, rhs, opts = unpack(keymap)
+  map(mode, lhs, rhs, opts)
+end
 
 -- neogen
 map("n", "<leader>af", "<cmd>lua require('neogen').generate({ type = 'func' })<CR>")
