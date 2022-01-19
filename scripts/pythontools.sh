@@ -3,6 +3,7 @@
 source scripts/helper.sh
 
 packages=(
+  virtualenv
   httpie
   ptpython
   jedi
