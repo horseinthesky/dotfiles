@@ -1,7 +1,7 @@
 M = {}
 
 local sumneko_root_path = vim.fn.expand "~" .. "/lua-language-server"
-local sumneko_binary = sumneko_root_path .. "/bin/Linux/lua-language-server"
+local sumneko_binary = sumneko_root_path .. "/bin/lua-language-server"
 
 M.config = {
   cmd = { sumneko_binary, "-E", sumneko_root_path .. "/main.lua" },

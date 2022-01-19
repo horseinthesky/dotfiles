@@ -20,3 +20,29 @@ fapt () {
     awk -F/ '{print $1}' |
     xargs -ro sudo apt-get install
 }
+
+c () {
+  local languages=(
+    python
+    go
+    lua
+  )
+  local utils=(
+    tar
+    xargs
+    awk
+  )
+
+  local selected=$(printf "$(echo $languages | tr ' ' '\n')\n$(echo $utils | tr ' ' '\n')" | fzf)
+
+  echo -n "query: "
+  read query
+
+  if printf $languages | grep -qs $selected; then
+    curl cht.sh/$selected/$(echo $query | tr ' ' '+')\?Q
+  else
+    curl cht.sh/$selected~$query\?Q
+  fi
+}
+
+
