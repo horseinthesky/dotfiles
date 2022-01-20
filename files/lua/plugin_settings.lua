@@ -47,6 +47,7 @@ local fzf_mappings = {
   {"n", "<leader>fw", "<cmd>FzfLua grep_cword<CR>"},
   {"n", "<leader>fh", "<cmd>FzfLua help_tags<CR>"},
   {"n", "<leader>fb", "<cmd>FzfLua buffers<CR>"},
+  {"n", "<leader>ft", "<cmd>FzfLua tabs<CR>"},
   {"n", "<leader>fB", "<cmd>FzfLua builtin<CR>"},
   {"n", "<leader>fe", "<cmd>FzfLua blines<CR>"},
   {"n", "<leader>fE", "<cmd>FzfLua lines<CR>"},
