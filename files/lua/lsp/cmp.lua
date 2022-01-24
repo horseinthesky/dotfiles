@@ -4,7 +4,6 @@ require "cmp_nvim_lsp"
 require "cmp_buffer"
 require "cmp_path"
 require "cmp_nvim_lua"
-require "cmp_calc"
 require "cmp_emoji"
 require "cmp_nvim_ultisnips"
 
@@ -63,7 +62,6 @@ cmp.setup {
         path = "[Path]",
         nvim_lsp = "[LSP]",
         nvim_lua = "[Lua]",
-        calc = "[Calc]",
         emoji = "[Emoji]",
         ultisnips = "[UltiSnips]",
         cmp_tabnine = "[TabNine]",
@@ -103,7 +101,6 @@ cmp.setup {
     { name = "ultisnips" },
     { name = "cmp_tabnine" },
     { name = "path" },
-    { name = "calc" },
     { name = "emoji" },
   },
   completion = {

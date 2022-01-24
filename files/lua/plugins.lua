@@ -158,7 +158,6 @@ local function plugins(use)
       { "hrsh7th/cmp-path", module = "cmp_path" },
       { "hrsh7th/cmp-nvim-lsp", module = "cmp_nvim_lsp" },
       { "hrsh7th/cmp-nvim-lua", module = "cmp_nvim_lua" },
-      { "hrsh7th/cmp-calc", module = "cmp_calc" },
       { "hrsh7th/cmp-emoji", module = "cmp_emoji" },
       { "quangnguyen30192/cmp-nvim-ultisnips", module = "cmp_nvim_ultisnips" },
       {
