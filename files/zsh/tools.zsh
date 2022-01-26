@@ -8,7 +8,7 @@ if [[ -f $HOME/.fzf.zsh ]]; then
 
   FD_OPTIONS="--hidden --follow --exclude .git"
   export FZF_DEFAULT_COMMAND="fd --type f --type l $FD_OPTIONS"
-  export FZF_DEFAULT_OPTS="--prompt ' ' --pointer '⯈' --marker=⦁ --height 60% --layout=reverse
+  export FZF_DEFAULT_OPTS="--prompt ' ' --pointer '►' --marker=⦁ --height 60% --layout=reverse
     --color 'fg:#bdae93,fg+:#f9f5d7,hl:#fabd2f,hl+:#fabd2f,info:#8ec07c,pointer:#fb4934,marker:#fe8019,bg+:-1'"
   export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
