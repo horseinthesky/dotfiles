@@ -13,8 +13,8 @@ local opts = {
 
 fterm.setup(opts)
 
-map("n", "<F3>", '<CMD>lua require("FTerm").toggle()<CR>')
-map("t", "<F3>", '<CMD>lua require("FTerm").toggle()<CR>')
+map("n", "<F3>", require("FTerm").toggle)
+map("t", "<F3>", require("FTerm").toggle)
 
 local ptpython = fterm:new(vim.tbl_extend("force", opts, { cmd = "ptpython" }))
 
@@ -22,5 +22,5 @@ function _PTPYTHON()
   ptpython:toggle()
 end
 
-map("n", "<F4>", "<CMD>lua _PTPYTHON()<CR>")
-map("t", "<F4>", "<CMD>lua _PTPYTHON()<CR>")
+map("n", "<F4>", _PTPYTHON)
+map("t", "<F4>", _PTPYTHON)

@@ -1,5 +1,3 @@
-local map = require("utils").map
-
 local actions = require "telescope.actions"
 
 require("telescope").setup {
