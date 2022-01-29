@@ -5,8 +5,6 @@ source scripts/helper.sh
 PLUGINS_DIR=$XDG_DATA_HOME/zsh/plugins
 THEMES_DIR=$XDG_DATA_HOME/zsh/themes
 
-FONT=DejaVu\ Sans\ Mono\ Nerd\ Font\ Complete.ttf
-
 plugins=(
   zsh-users/zsh-completions
   zsh-users/zsh-autosuggestions
@@ -16,18 +14,6 @@ plugins=(
 themes=(
   romkatv/powerlevel10k
 )
-
-echo -e "\n${LIGHTMAGENTA}Downloading font...${NORMAL}"
-if [[ ! -d $HOME/.local/share/fonts ]]; then
-  mkdir -p $HOME/.local/share/fonts
-fi
-
-if [[ ! -f $HOME/.local/share/fonts/"$FONT" ]]; then
-  curl https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/DejaVuSansMono/Regular/complete/DejaVu%20Sans%20Mono%20Nerd%20Font%20Complete.ttf -o $HOME/.local/share/fonts/"$FONT"
-  echo -e "${GREEN}Done${NORMAL}"
-else
-  echo -e "${YELLOW}Already exists${NORMAL}"
-fi
 
 echo -e "\n${LIGHTMAGENTA}Installing zsh...${NORMAL}"
 install zsh

@@ -60,10 +60,10 @@ if grep -qE "(Microsoft|WSL)" /proc/version &>/dev/null; then
 fi
 
 # ==== Yandex ====
-if [[ $(cat /proc/sys/kernel/hostname) == 'i104058879' ]] ; then
-  export PSSH_AUTH_SOCK="/mnt/c/Users/$USER/AppData/Local/Temp/pssh-agent.sock"
-  export SSH_AUTH_SOCK="${PSSH_AUTH_SOCK}"
-  [[ $(ssh-add -l) =~ "$HOME/.ssh/id_rsa" ]] || ssh-add
+if [[ $(cat /proc/sys/kernel/hostname) == 'carbon9' ]] ; then
+  # export PSSH_AUTH_SOCK="/mnt/c/Users/$USER/AppData/Local/Temp/pssh-agent.sock"
+  # export SSH_AUTH_SOCK="${PSSH_AUTH_SOCK}"
+  # [[ $(ssh-add -l) =~ "$HOME/.ssh/id_rsa" ]] || ssh-add
 
   # The next line updates PATH for Yandex Cloud CLI.
   if [[ -d $HOME/yandex-cloud ]] && [[ ! $PATH == *$HOME/yandex-cloud/bin* ]]; then

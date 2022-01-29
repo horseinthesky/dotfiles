@@ -191,7 +191,9 @@
   # typeset -g POWERLEVEL9K_ROOT_ICON='\uF09C' # 
   typeset -g POWERLEVEL9K_SSH_ICON='\uF489' # 
   typeset -g POWERLEVEL9K_HOST_ICON='' # \uF108
-  if [[ -d /sys/class/power_supply/BAT1 ]] && grep -Fxq "1" /sys/class/power_supply/BAT1/present; then
+  if [[ -d /sys/class/power_supply/BAT0 ]] && grep -Fxq "1" /sys/class/power_supply/BAT0/present; then
+    typeset -g POWERLEVEL9K_HOST_ICON='' # \uF109
+  elif [[ -d /sys/class/power_supply/BAT1 ]] && grep -Fxq "1" /sys/class/power_supply/BAT1/present; then
     typeset -g POWERLEVEL9K_HOST_ICON='' # \uF109
   elif [[ -d /sys/class/power_supply/battery ]] && grep -Fxq "1" /sys/class/power_supply/battery/present; then
     typeset -g POWERLEVEL9K_HOST_ICON='' # \uF109

@@ -3,6 +3,7 @@ SCRIPTS_DIR = scripts
 targets = \
 	packages \
 	wsl \
+	desktop \
 	git \
 	zsh \
 	fzf \

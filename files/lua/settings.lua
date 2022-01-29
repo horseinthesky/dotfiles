@@ -35,6 +35,7 @@ vim.cmd [[syntax enable]]
 
 local settings = {
   -- General
+  commentstring="#%s", -- Default comment string
   inccommand = "nosplit", -- Incremental substitution shows substituted text before applying
   laststatus = 2, -- Always show statusline
   showmode = false, -- No to duplicate statusline
