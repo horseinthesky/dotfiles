@@ -5,7 +5,7 @@ function M.map(mode, key, action, opts)
   if opts then
     options = vim.tbl_extend("force", options, opts)
   end
-  vim.api.nvim_set_keymap(mode, key, action, options)
+  vim.keymap.set(mode, key, action, options)
 end
 
 function M.contains(table, key)
