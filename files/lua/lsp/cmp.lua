@@ -4,6 +4,7 @@ require "cmp_nvim_lsp"
 require "cmp_buffer"
 require "cmp_path"
 require "cmp_nvim_lua"
+require "cmp_cmdline"
 require "cmp_emoji"
 require "cmp_nvim_ultisnips"
 
@@ -107,6 +108,21 @@ cmp.setup {
     keyword_length = 2,
   },
 }
+
+cmp.setup.cmdline("/", {
+  sources = {
+    { name = "buffer" },
+  },
+})
+
+-- Use cmdline & path source for ':'
+cmp.setup.cmdline(":", {
+  sources = cmp.config.sources({
+    { name = "path" },
+  }, {
+    { name = "cmdline" },
+  }),
+})
 
 vim.api.nvim_exec(
   [[
