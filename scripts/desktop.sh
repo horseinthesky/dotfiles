@@ -11,6 +11,7 @@ fi
 echo -e "\n${LIGHTMAGENTA}Installing packages...${NORMAL}"
 packages=(
   gnome-tweaks
+  dconf-editor
 )
 install ${packages[@]}
 
