@@ -82,3 +82,41 @@ rpki () {
 
   echo -e "${color}$rpki_status${NORMAL}"
 }
+
+# Tiny DNS resolver
+get_record() {
+  grep -E "\s$1\s" | head -n 1 | awk '{print $5}'
+}
+
+lookup () {
+  echo dig -r "$@" >&2
+  dig -r +norecurse +noall +authority +answer +additional "$@"
+}
+
+resolve() {
+  local DOMAIN=$1
+  [[ -z $DOMAIN ]] && echo "No domain specified" && return 1
+
+  # start with a `.` nameserver. That's easy.
+  local NAMESERVER="198.41.0.4"
+
+  while true
+  do
+    local RESPONSE=$(lookup @$NAMESERVER $DOMAIN)
+    local IP=$(echo $RESPONSE | grep $DOMAIN | get_record "A" )
+    local GLUEIP=$(echo $RESPONSE | get_record "A" | grep -v $DOMAIN)
+    local NS=$(echo $RESPONSE | get_record "NS")
+
+    if [[ -n $IP ]]; then
+      echo $IP && return
+    fi
+
+    if [[ -n $GLUEIP ]]; then
+      NAMESERVER=$GLUEIP
+    elif [[ -n $NS ]]; then
+      NAMESERVER=$(resolve $NS)
+    else
+      echo "No IP found for $DOMAIN" && return 1
+    fi
+  done
+}
