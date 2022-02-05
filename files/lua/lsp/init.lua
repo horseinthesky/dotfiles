@@ -60,7 +60,15 @@ end
 local servers = {
   gopls = {},
   jedi_language_server = {},
-  yamlls = {},
+  yamlls = {
+    settings = {
+      yaml = {
+        schemas = {
+          kubernetes =  "/*.yaml",
+        },
+      },
+    },
+  },
   html = { filetypes = { "html", "jinja.html" } },
   cssls = {},
   jsonls = {},
