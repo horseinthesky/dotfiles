@@ -89,34 +89,40 @@ get_record() {
 }
 
 lookup () {
-  echo dig -r "$@" >&2
-  dig -r +norecurse +noall +authority +answer +additional "$@"
+  echo Querying $2 for $3 >&2
+  dig -t $1 +norecurse +noall +authority +answer +additional @$2 $3
 }
 
 resolve() {
-  local DOMAIN=$1
-  [[ -z $DOMAIN ]] && echo "No domain specified" && return 1
+  local domain=$1
+  [[ -z $domain ]] && echo "No domain specified" && return 1
 
-  # start with a `.` nameserver. That's easy.
-  local NAMESERVER="198.41.0.4"
+  local record nameserver
+
+  # Start with a root (RIPE NCC) nameserver. That's easy.
+  if [[ $2 == "-6" ]]; then
+    record="AAAA" && nameserver="2001:7fd::1"
+  else
+    record="A" && nameserver="193.0.14.129"
+  fi
 
   while true
   do
-    local RESPONSE=$(lookup @$NAMESERVER $DOMAIN)
-    local IP=$(echo $RESPONSE | grep $DOMAIN | get_record "A" )
-    local GLUEIP=$(echo $RESPONSE | get_record "A" | grep -v $DOMAIN)
-    local NS=$(echo $RESPONSE | get_record "NS")
+    local response=$(lookup $record $nameserver $domain)
+    local ip=$(echo $response | grep $domain | get_record $record )
+    local glueip=$(echo $response | get_record $record | grep -v $domain)
+    local ns=$(echo $response | get_record "ns")
 
-    if [[ -n $IP ]]; then
-      echo $IP && return
+    if [[ -n $ip ]]; then
+      echo $ip && return
     fi
 
-    if [[ -n $GLUEIP ]]; then
-      NAMESERVER=$GLUEIP
-    elif [[ -n $NS ]]; then
-      NAMESERVER=$(resolve $NS)
+    if [[ -n $glueip ]]; then
+      nameserver=$glueip
+    elif [[ -n $ns ]]; then
+      nameserver=$(resolve $ns)
     else
-      echo "No IP found for $DOMAIN" && return 1
+      echo "No ip found for $domain" && return 1
     fi
   done
 }
