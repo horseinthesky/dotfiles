@@ -1,4 +1,3 @@
-local map = require("utils").map
 local icons = require("appearance").icons
 local lspconfig = require "lspconfig"
 
@@ -12,27 +11,8 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
 local on_attach = function(client, _)
   vim.opt.omnifunc = "v:lua.vim.lsp.omnifunc"
 
-  local lsp_keymappings = {
-    { "n", "<leader>i", "<cmd>LspInfo<CR>" },
-    { "n", "]d", "<cmd>lua vim.diagnostic.goto_next({ float = false })<CR>" },
-    { "n", "[d", "<cmd>lua vim.diagnostic.goto_prev({ float = false })<CR>" },
-    { "n", "<leader>cd", vim.diagnostic.open_float },
-    { "n", "<leader>ch", vim.lsp.buf.hover },
-    { "n", "<leader>cD", vim.lsp.buf.definition },
-    { "n", "<leader>cr", vim.lsp.buf.rename },
-    { "n", "<leader>cl", vim.lsp.diagnostic.set_loclist },
-    { "n", "<leader>ci", vim.lsp.buf.implementation },
-    { "n", "<leader>cs", vim.lsp.buf.signature_help },
-    { "n", "<leader>F", vim.lsp.buf.formatting },
-    -- { "n", "<leader>td", vim.lsp.buf.type_definition },
-    -- { "n", "<leader>rf", vim.lsp.buf.references },
-    -- { "n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action({ source = { organizeImports = true } })<CR>" },
-  }
-
-  for _, binds in ipairs(lsp_keymappings) do
-    local mode, lhs, rhs, opts = unpack(binds)
-    map(mode, lhs, rhs, opts)
-  end
+  -- Setup LSP keymaps
+  require("lsp.keymaps").setup()
 
   -- Format on save
   -- if client.resolved_capabilities.document_formatting then
@@ -57,6 +37,12 @@ local on_attach = function(client, _)
   end
 end
 
+local no_format_on_attach = function(client, _)
+  client.resolved_capabilities.document_formatting = false
+  client.resolved_capabilities.document_range_formatting = false
+  require("lsp.keymaps").setup()
+end
+
 local servers = {
   gopls = {},
   jedi_language_server = {},
@@ -64,14 +50,17 @@ local servers = {
     settings = {
       yaml = {
         schemas = {
-          kubernetes =  "/*.yaml",
+          kubernetes = "/*.yaml",
         },
       },
     },
   },
-  html = { filetypes = { "html", "jinja.html" } },
+  html = {
+    filetypes = { "html", "jinja.html" },
+    on_attach = no_format_on_attach,
+  },
   cssls = {},
-  jsonls = {},
+  jsonls = { on_attach = no_format_on_attach },
   vimls = {},
   terraformls = {},
   dockerls = {},
@@ -89,7 +78,7 @@ for server, config in pairs(servers) do
   }, config))
 end
 
-require "lsp.null"
+require("lsp.null").setup { on_attach = on_attach }
 
 -- Diagnostic
 vim.diagnostic.config {
