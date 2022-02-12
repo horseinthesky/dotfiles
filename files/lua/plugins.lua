@@ -123,7 +123,7 @@ local function plugins(use)
     "ibhagwan/fzf-lua",
     cmd = { "FzfLua" },
     wants = "nvim-web-devicons",
-    config = function ()
+    config = function()
       require "config.fzf"
     end,
   }
@@ -236,6 +236,13 @@ local function plugins(use)
   }
 
   -- Visuals
+  use {
+    "sunjon/Shade.nvim",
+    event = "BufRead",
+    config = function()
+      require "config.shade"
+    end,
+  }
   use {
     "mhinz/vim-startify",
     cond = function()
