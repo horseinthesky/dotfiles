@@ -237,13 +237,6 @@ local function plugins(use)
 
   -- Visuals
   use {
-    "sunjon/Shade.nvim",
-    event = "BufRead",
-    config = function()
-      require "config.shade"
-    end,
-  }
-  use {
     "mhinz/vim-startify",
     cond = function()
       return vim.api.nvim_buf_get_name(0) == ""
