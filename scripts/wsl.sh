@@ -14,5 +14,6 @@ echo -e "\n${LIGHTMAGENTA}Copying autohotkey.ahk to Windows Startup dir${NORMAL}
 if [[ -f $WINDOWS_STARTUP_DIR/autohotkey.ahk ]]; then
   echo -e "${YELLOW}Already exists. Updating${NORMAL}"
 fi
+
 cp $DOTFILES_HOME/autohotkey.ahk $WINDOWS_STARTUP_DIR
 echo -e "${GREEN}Done${NORMAL}"

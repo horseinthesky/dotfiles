@@ -44,12 +44,13 @@ sudo usermod -aG docker $(whoami)
 echo -e "${GREEN}Done${NORMAL}"
 
 echo -e "\n${LIGHTMAGENTA}Install docker-compose...${NORMAL}"
-if [[ ! -f $HOME/.local/bin/docker-compose ]]; then
-  [[ ! -d $HOME/.local/bin ]] && mkdir -p $HOME/.local/bin
-  curl -sL "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" \
-    -o $HOME/.local/bin/docker-compose
-  chmod +x $HOME/.local/bin/docker-compose
-  echo -e "${GREEN}Done${NORMAL}"
-else
+if [[ -f $HOME/.local/bin/docker-compose ]]; then
   echo -e "${YELLOW}Already installed${NORMAL}"
+  exit 0
 fi
+
+[[ ! -d $HOME/.local/bin ]] && mkdir -p $HOME/.local/bin
+curl -sL "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" \
+  -o $HOME/.local/bin/docker-compose
+chmod +x $HOME/.local/bin/docker-compose
+echo -e "${GREEN}Done${NORMAL}"

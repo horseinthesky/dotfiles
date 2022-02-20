@@ -8,7 +8,6 @@ GIT_EMAIL=pwnedbyspawn@gmail.com
 echo -e "\n${LIGHTMAGENTA}Installing git...${NORMAL}"
 install git
 
-
 echo -e "\n${LIGHTMAGENTA}Deploying git config${NORMAL}"
 if [[ -f $HOME/.gitconfig ]]; then
   cp $HOME/.gitconfig $HOME/gitconfig.bak

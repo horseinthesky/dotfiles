@@ -14,11 +14,12 @@ install ${packages[@]}
 echo -e "\n${LIGHTMAGENTA}Downloading asn...${NORMAL}"
 [[ ! -d $HOME/.local/bin ]] && mkdir -p $HOME/.local/bin
 
-if [[ ! -f $HOME/.local/bin/asn ]]; then
-  curl -s https://raw.githubusercontent.com/nitefood/asn/master/asn > \
-    $HOME/.local/bin/asn && \
-    chmod +x $HOME/.local/bin/asn &&
-  echo -e "${GREEN}Done${NORMAL}"
-else
+if [[ -f $HOME/.local/bin/asn ]]; then
   echo -e "${YELLOW}Already installed${NORMAL}"
+  exit 0
 fi
+
+curl -s https://raw.githubusercontent.com/nitefood/asn/master/asn > \
+  $HOME/.local/bin/asn && \
+  chmod +x $HOME/.local/bin/asn &&
+echo -e "${GREEN}Done${NORMAL}"

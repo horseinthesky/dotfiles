@@ -2,6 +2,14 @@
 
 source scripts/helper.sh
 
+echo -e "\n${LIGHTMAGENTA}Installing cargo/rust...${NORMAL}"
+if [[ -d $HOME/.cargo ]]; then
+  echo -e "${YELLOW}Already exists${NORMAL}"
+else
+  curl https://sh.rustup.rs -sSf | sh -s -- -q -y --no-modify-path | grep -E "installed"
+fi
+
+echo -e "\n${LIGHTMAGENTA}Installing cli tools deps...${NORMAL}"
 tools=(
   ripgrep,rg
   fd-find,fd
@@ -20,7 +28,6 @@ tools=(
   tealdeer,tldr
 )
 
-echo -e "\n${LIGHTMAGENTA}Installing cli tools deps...${NORMAL}"
 case $ID in
   debian|ubuntu)
     deps=(
@@ -38,6 +45,7 @@ case $ID in
     exit 0
     ;;
 esac
+
 install ${deps[@]}
 
 update_rust

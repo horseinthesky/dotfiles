@@ -9,7 +9,6 @@ targets = \
 	fzf \
 	tmux \
 	ranger \
-	cargo \
 	cli \
 	asn \
 	go \

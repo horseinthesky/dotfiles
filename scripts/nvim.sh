@@ -11,13 +11,13 @@ fi
 
 echo -e "\n${LIGHTMAGENTA}Installing vimplug...${NORMAL}"
 VIM_PLUG_PATH=$HOME/.local/share/nvim/site/autoload
-if [[ ! -d $VIM_PLUG_PATH ]]; then
+if [[ -d $VIM_PLUG_PATH ]]; then
+  echo -e "${YELLOW}Already installed${NORMAL}"
+else
   mkdir -p $VIM_PLUG_PATH
   curl -fsLo $VIM_PLUG_PATH/plug.vim \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   echo -e "${GREEN}Done${NORMAL}"
-else
-  echo -e "${YELLOW}Already installed${NORMAL}"
 fi
 
 echo -e "\n${LIGHTMAGENTA}Setting up neovim...${NORMAL}"
