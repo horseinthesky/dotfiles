@@ -36,14 +36,15 @@ install () {
   esac
 }
 
-download (){
+download () {
   FILE_NAME=$(echo $1 | cut -d "/" -f 2)
-  if [[ ! -f ${2}/$FILE_NAME ]]; then
-    curl $FILE_NAME -o ${2}/$FILE_NAME
-    echo $FILE_NAME downloaded
-  else
+  if [[ -f ${2}/$FILE_NAME ]]; then
     echo -e "${YELLOW}$FILE_NAME already exists${NORMAL}"
+    return 0
   fi
+
+  curl $FILE_NAME -o ${2}/$FILE_NAME
+  echo $FILE_NAME downloaded
 }
 
 symlink () {
@@ -97,16 +98,18 @@ update_rust () {
 
   if [[ -z $latest_toolchain_version ]]; then
     echo -e "${GREEN}Latest ($current_toolchain_version) version is already installed${NORMAL}"
-  else
-    echo -e "${GREY}Newer version ($latest_toolchain_version) found. Updating...${NORMAL}"
-    rustup update stable &> /dev/null
-
-    if [[ $? -ne 0 ]]; then
-      echo -e "${LIGHTRED}Failed to update Rust to the latest ($latest_toolchain_version) version${NORMAL}"
-    else
-      echo -e "${YELLOW}Rust updated to the latest ($latest_toolchain_version) version${NORMAL}"
-    fi
+    return 0
   fi
+
+  echo -e "${GREY}Newer version ($latest_toolchain_version) found. Updating...${NORMAL}"
+  rustup update stable &> /dev/null
+
+  if [[ $? -ne 0 ]]; then
+    echo -e "${LIGHTRED}Failed to update Rust to the latest ($latest_toolchain_version) version${NORMAL}"
+    return 0
+  fi
+
+  echo -e "${YELLOW}Rust updated to the latest ($latest_toolchain_version) version${NORMAL}"
 }
 
 cargo_install () {
@@ -131,26 +134,30 @@ cargo_install () {
 
     if [[ $? -ne 0 ]]; then
       echo -e "${LIGHTRED}Failed to install $tool.${NORMAL}"
-    else
-      echo -e "${GREEN}Done${NORMAL}"
+      return 0
     fi
-  else
-    CURRENT_VERSION=$($binary --version 2> /dev/null | grep -P -o "\d+\.\d+\.\d+")
-    LATEST_VERSION=$(cargo search $tool | head -n 1 | awk '{print $3}' | tr -d '"')
 
-    if [[ $CURRENT_VERSION < $LATEST_VERSION ]]; then
-      echo -e "${GREY}Newer version ($LATEST_VERSION) found. Updating...${NORMAL}"
-      cargo install $tool --force
-
-      if [[ $? -ne 0 ]]; then
-        echo -e "${LIGHTRED}Failed to update $tool to the latest ($LATEST_VERSION) version${NORMAL}"
-      else
-        echo -e "${YELLOW}$tool updated to the latest ($LATEST_VERSION) version${NORMAL}"
-      fi
-    else
-      echo -e "${GREEN}Latest ($LATEST_VERSION) version is already installed${NORMAL}"
-    fi
+    echo -e "${GREEN}Done${NORMAL}"
+    return 0
   fi
+
+  CURRENT_VERSION=$($binary --version 2> /dev/null | grep -P -o "\d+\.\d+\.\d+" | head -n 1)
+  LATEST_VERSION=$(cargo search $tool | head -n 1 | awk '{print $3}' | tr -d '"')
+
+  if [[ $CURRENT_VERSION == $LATEST_VERSION ]]; then
+    echo -e "${GREEN}Latest ($LATEST_VERSION) version is already installed${NORMAL}"
+    return 0
+  fi
+
+  echo -e "${GREY}Newer version ($LATEST_VERSION) found. Updating...${NORMAL}"
+  cargo install $tool --force
+
+  if [[ $? -ne 0 ]]; then
+    echo -e "${LIGHTRED}Failed to update $tool to the latest ($LATEST_VERSION) version${NORMAL}"
+    return 0
+  fi
+
+  echo -e "${YELLOW}$tool updated to the latest ($LATEST_VERSION) version${NORMAL}"
 }
 
 go_get () {
@@ -164,10 +171,11 @@ go_get () {
   local TOOL_NAME=$(echo ${1} | awk -F/ '{print $NF}')
   echo -e "\n${LIGHTMAGENTA}Installing $TOOL_NAME...${NORMAL}"
 
-  if [[ -z $(which $TOOL_NAME) ]]; then
-    go get github.com/${1}
-    echo -e "${GREEN}Done${NORMAL}"
-  else
+  if [[ -n $(which $TOOL_NAME) ]]; then
     echo -e "${YELLOW}$TOOL_NAME already exists.${NORMAL}"
+    return 0
   fi
+
+  go get github.com/${1}
+  echo -e "${GREEN}Done${NORMAL}"
 }
