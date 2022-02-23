@@ -3,9 +3,12 @@ fw() {
 }
 
 fenv () {
-  virtualenv .venv -p=$(ll $HOME/.local/bin | grep python | awk '{print $11}' |
+  local version=$(ll $HOME/.local/bin | grep python | awk '{print $11}' |
     fzf --delimiter='python' --with-nth=2
   )
+  [[ -z $version ]] && return
+
+  virtualenv .venv -p=$version
 }
 
 fpac () {
