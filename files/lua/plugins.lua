@@ -107,12 +107,28 @@ local function plugins(use)
       { "nvim-lua/popup.nvim", opt = true },
       { "nvim-telescope/telescope-fzf-native.nvim", run = "make", opt = true },
       { "nvim-telescope/telescope-symbols.nvim", opt = true },
+      {
+        "AckslD/nvim-neoclip.lua",
+        opt = true,
+        config = function()
+          require("neoclip").setup {
+            keys = {
+              telescope = {
+                i = {
+                  paste = "<cr>",
+                },
+              },
+            },
+          }
+        end,
+      },
     },
     wants = {
       "popup.nvim",
       "plenary.nvim",
       "telescope-fzf-native.nvim",
       "telescope-symbols.nvim",
+      "nvim-neoclip.lua",
     },
     cmd = { "Telescope" },
     config = function()

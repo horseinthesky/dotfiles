@@ -57,6 +57,7 @@ local leader_map = {
     g = "live grep",
     w = "word",
     r = "registers",
+    p = "neoclip",
     e = "buffer line",
     E = "workspace line",
     m = "marks",
