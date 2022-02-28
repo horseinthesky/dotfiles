@@ -146,7 +146,7 @@ function glog() {
     --preview-window right:70% \
     --preview $_viewGitLogLine \
     --bind "enter:execute:$_viewGitLogLine | less -R" \
-    --bind "ctrl-v:execute:$_viewGitLogLineUnfancy | $EDITOR_NIGHTLY -"
+    --bind "ctrl-v:execute:$_viewGitLogLineUnfancy | $EDITOR -"
 }
 
 # fgs - easier way to deal with stashes
