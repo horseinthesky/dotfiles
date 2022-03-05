@@ -19,23 +19,40 @@ vim.g.python3_host_prog = "~/.python/bin/python"
 vim.g.node_host_prog = "~/.local/share/yarn/global/node_modules/neovim/bin/cli.js"
 
 -- Disable loading builtin plugins
-vim.g.loaded_gzip = 1
-vim.g.loaded_tar = 1
-vim.g.loaded_tarPlugin = 1
-vim.g.loaded_zipPlugin = 1
-vim.g.loaded_2html_plugin = 1
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
-vim.g.loaded_matchit = 1
-vim.g.loaded_matchparen = 1
-vim.g.loaded_spec = 1
+local disabled_built_ins = {
+  "gzip",
+  "zip",
+  "zipPlugin",
+  "tar",
+  "tarPlugin",
+
+  "2html_plugin",
+  "getscript",
+  "getscriptPlugin",
+  "vimball",
+  "vimballPlugin",
+
+  "matchit",
+  "matchparen",
+  "logipat",
+  "rrhelper",
+
+  "netrw",
+  "netrwPlugin",
+  "netrwSettings",
+  "netrwFileHandlers",
+}
+
+for _, plugin in ipairs(disabled_built_ins) do
+  vim.g["loaded_" .. plugin] = 1
+end
 
 -- Options
 vim.cmd [[syntax enable]]
 
 local settings = {
   -- General
-  commentstring="#%s", -- Default comment string
+  commentstring = "#%s", -- Default comment string
   inccommand = "nosplit", -- Incremental substitution shows substituted text before applying
   laststatus = 2, -- Always show statusline
   showmode = false, -- No to duplicate statusline
