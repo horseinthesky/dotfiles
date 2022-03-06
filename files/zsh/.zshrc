@@ -34,12 +34,10 @@ source_file tools.zsh
 
 # ==== Theme ====
 ZSH_THEME=powerlevel10k
-
-load_theme $ZSH_THEME
-
 P10K_THEME=lean
 # P10K_THEME=rainbow
 
+load_theme $ZSH_THEME
 source_file p10k.zsh
 
 # ==== WSL ====
