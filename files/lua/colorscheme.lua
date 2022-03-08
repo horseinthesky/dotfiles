@@ -32,19 +32,14 @@ vim.cmd [[highlight link NormalFloat Normal]]
 vim.g.original_normal_bg = vim.fn.synIDattr(vim.fn.hlID "Normal", "bg")
 vim.g.is_transparent = 0
 
-vim.api.nvim_exec(
-  [[
-    function! ToggleTransparent()
-      if g:is_transparent == 0
-        highlight Normal guibg=None
-        let g:is_transparent = 1
-      else
-        exe 'highlight Normal guibg=' . g:original_normal_bg
-        let g:is_transparent = 0
-      endif
-    endfunction
-  ]],
-  false
-)
+_G.toggle_transparent = function()
+  if vim.g.is_transparent == 0 then
+    vim.cmd [[highlight Normal guibg=None]]
+    vim.g.is_transparent = 1
+  else
+    vim.cmd("highlight Normal guibg=" .. vim.g.original_normal_bg)
+    vim.g.is_transparent = 0
+  end
+end
 
-map("n", "<C-t>", "<cmd>call ToggleTransparent()<CR>", { silent = true })
+map("n", "<C-t>", toggle_transparent, { silent = true })

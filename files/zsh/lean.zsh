@@ -65,7 +65,8 @@ function my_git_formatter() {
 
   if (( $1 )); then
     # Styling for up-to-date Git status.
-    local       meta='%f'     # default foreground
+    local       meta='%f'           # default foreground
+    local       icon='%F{#fe8019}'  # orange foreground
     local     branch='%F{#d5c4a1}'  # ivory foreground
     local      clean='%F{#b8bb26}'  # green foreground
     local   modified='%F{#fabd2f}'  # yellow foreground
@@ -85,7 +86,7 @@ function my_git_formatter() {
   local res
   local where  # branch or tag
   if [[ -n $VCS_STATUS_LOCAL_BRANCH ]]; then
-    # res+="${branch}${(g::)POWERLEVEL9K_VCS_BRANCH_ICON}"
+    res+="${icon}${(g::)POWERLEVEL9K_VCS_BRANCH_ICON}"
     where=${(V)VCS_STATUS_LOCAL_BRANCH}
   elif [[ -n $VCS_STATUS_TAG ]]; then
     res+="${meta}#"

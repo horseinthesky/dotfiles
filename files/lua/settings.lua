@@ -124,19 +124,28 @@ for option, value in pairs(settings) do
   vim.opt[option] = value
 end
 
-vim.api.nvim_exec(
-  [[
-  augroup TabSettings
-    autocmd!
-    autocmd FileType python                        setlocal sw=4 ts=4
-    autocmd FileType make                          setlocal sw=4 ts=4 noet
-    autocmd FileType vim,config,json,yaml,lua      setlocal sw=2 ts=2
-    autocmd FileType jinja                         setlocal sw=0
-    autocmd FileType go                            setlocal sw=8 ts=8 noet
-  augroup END
-]],
-  false
-)
+-- Shiftwidth, tabstop & expandtab settings based on filetype
+local tab_group = vim.api.nvim_create_augroup("TabSettings", { clear = true })
+
+local ft_settings = {
+  python = "setlocal sw=4 ts=4",
+  make = "setlocal sw=4 ts=4 noet",
+  [{ "vim", "config", "json", "yaml", "lua" }] = "setlocal sw=2 ts=2",
+  jinja = "setlocal sw=0",
+  go = "setlocal sw=8 ts=8 noet",
+}
+
+for ft, cmd in pairs(ft_settings) do
+  vim.api.nvim_create_autocmd("FileType", {
+    pattern = ft,
+    command = cmd,
+    group = tab_group,
+  })
+end
 
 -- Highlight on yank
-vim.cmd [[autocmd TextYankPost * lua vim.highlight.on_yank {on_visual = false, timeout = 100}]]
+vim.api.nvim_create_autocmd("TextYankPost", {
+  callback = function()
+    vim.highlight.on_yank { on_visual = false, timeout = 100 }
+  end,
+})
