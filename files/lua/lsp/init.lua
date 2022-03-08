@@ -21,19 +21,16 @@ local on_attach = function(client, _)
 
   -- Document highlight
   if client.resolved_capabilities.document_highlight then
-    vim.api.nvim_exec(
-      [[
-        hi LspReferenceRead cterm=bold ctermbg=239 guibg=#504945
-        hi LspReferenceText cterm=bold ctermbg=239 guibg=#504945
-        hi LspReferenceWrite cterm=bold ctermbg=243 guibg=#7c6f64
-        augroup lsp_document_highlight
-          autocmd! * <buffer>
-          autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-          autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-        augroup END
-      ]],
-      false
-    )
+    vim.cmd [[
+      hi LspReferenceRead cterm=bold ctermbg=239 guibg=#504945
+      hi LspReferenceText cterm=bold ctermbg=239 guibg=#504945
+      hi LspReferenceWrite cterm=bold ctermbg=243 guibg=#7c6f64
+      augroup lsp_document_highlight
+        autocmd! * <buffer>
+        autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+        autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+      augroup END
+    ]]
   end
 end
 
@@ -97,14 +94,12 @@ vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
 })
 
 -- Diagnostic highligths & signs
-local hl_cmds = [[
+vim.cmd [[
   highlight! link DiagnosticInfo Identifier
   highlight! link DiagnosticHint PreProc
   highlight! link DiagnosticWarn Type
   highlight! link DiagnosticError Statement
 ]]
-
-vim.api.nvim_exec(hl_cmds, false)
 
 local signs = {
   Error = icons.diagnostic.error,

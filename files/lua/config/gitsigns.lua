@@ -14,10 +14,7 @@ require("gitsigns").setup {
   },
 }
 
-vim.api.nvim_exec(
-  [[
-    highlight! link DiffChange IncSearch
-    highlight! link DiffDelete ErrorMsg
-  ]],
-  false
-)
+vim.cmd [[
+  highlight! link DiffChange IncSearch
+  highlight! link DiffDelete ErrorMsg
+]]

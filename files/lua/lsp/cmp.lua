@@ -124,10 +124,7 @@ cmp.setup.cmdline(":", {
   }),
 })
 
-vim.api.nvim_exec(
-  [[
-    highlight link CmpItemMenu Identifier
-    highlight link CmpItemKind Type
-  ]],
-  false
-)
+vim.cmd [[
+  highlight link CmpItemMenu Identifier
+  highlight link CmpItemKind Type
+]]

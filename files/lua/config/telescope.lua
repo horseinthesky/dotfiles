@@ -30,13 +30,10 @@ require("telescope").setup {
 require("telescope").load_extension "fzf"
 require("telescope").load_extension "neoclip"
 
-vim.api.nvim_exec(
-  [[
-    highlight link TelescopeSelection Constant
-    highlight link TelescopeSelectionCaret TelescopeSelection
-    highlight link TelescopeMultiSelection TelescopeSelection
-    highlight link TelescopeMatching Type
-    highlight link TelescopePromptPrefix Type
-  ]],
-  false
-)
+vim.cmd [[
+  highlight link TelescopeSelection Constant
+  highlight link TelescopeSelectionCaret TelescopeSelection
+  highlight link TelescopeMultiSelection TelescopeSelection
+  highlight link TelescopeMatching Type
+  highlight link TelescopePromptPrefix Type
+]]

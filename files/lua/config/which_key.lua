@@ -1,16 +1,13 @@
 local wk = require "which-key"
 
-vim.api.nvim_exec(
-  [[
-    highlight default link WhichKey          Special
-    highlight default link WhichKeySeperator LineNr
-    highlight default link WhichKeyGroup     Number
-    highlight default link WhichKeyDesc      Identifier
-    highlight default link WhichKeyValue     Title
-    highlight default link WhichKeyFloat     Normal
-  ]],
-  false
-)
+vim.cmd [[
+  highlight default link WhichKey          Special
+  highlight default link WhichKeySeperator LineNr
+  highlight default link WhichKeyGroup     Number
+  highlight default link WhichKeyDesc      Identifier
+  highlight default link WhichKeyValue     Title
+  highlight default link WhichKeyFloat     Normal
+]]
 
 local leader_map = {
   ["'"] = "horizontal split",
