@@ -11,7 +11,7 @@ PATH=$PATH:$HOME/.local/bin
 
 if [[ -n $(which lua) ]] && [[ $(lua -v | awk '{print $2}') == $LUA_VERSION ]]; then
   echo -e "${YELLOW}Latest version ($LUA_VERSION) is already installed.${NORMAL}"
-  exit 0
+  exit
 fi
 
 # Remove old ersion

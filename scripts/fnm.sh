@@ -25,7 +25,7 @@ PATH=$PATH:$HOME/.fnm
 
 if [[ -z $(which fnm) ]]; then
   echo -e "${LIGHTRED}fnm is not found. Can't procced.${NORMAL}"
-  exit 0
+  exit
 fi
 
 eval "$(fnm env)"
@@ -40,7 +40,7 @@ install_node () {
 # Install node if missing
 if [[ -z $(which node) ]]; then
   install_node
-  exit 0
+  exit
 fi
 
 # Update node if old
@@ -48,7 +48,7 @@ CURRENT_VERSION=$(node -v | cut -c2-)
 
 if [[ $CURRENT_VERSION == $NODE_VERSION ]]; then
   echo -e "${YELLOW}Latest ($NODE_VERSION) version is already installed${NORMAL}"
-  exit 0
+  exit
 fi
 
 fnm uninstall $CURRENT_VERSION

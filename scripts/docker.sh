@@ -34,7 +34,7 @@ case $ID in
     ;;
   *)
     echo -e "${LIGHTRED}Abort. Distro is not supported"
-    exit 0
+    exit
     ;;
 esac
 echo -e "${GREEN}Done${NORMAL}"
@@ -46,7 +46,7 @@ echo -e "${GREEN}Done${NORMAL}"
 echo -e "\n${LIGHTMAGENTA}Install docker-compose...${NORMAL}"
 if [[ -f $HOME/.local/bin/docker-compose ]]; then
   echo -e "${YELLOW}Already installed${NORMAL}"
-  exit 0
+  exit
 fi
 
 [[ ! -d $HOME/.local/bin ]] && mkdir -p $HOME/.local/bin

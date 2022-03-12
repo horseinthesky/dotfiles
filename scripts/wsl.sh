@@ -7,7 +7,7 @@ WINDOWS_STARTUP_DIR=/mnt/c/Users/$USER/AppData/Roaming/Microsoft/Windows/Start\ 
 echo -e "\n${LIGHTMAGENTA}Setting up WSL...${NORMAL}"
 if [[ -z $WSLENV ]]; then
   echo -e "${YELLOW}Abort. Not a WSL environment${NORMAL}"
-  exit 0
+  exit
 fi
 
 echo -e "\n${LIGHTMAGENTA}Copying autohotkey.ahk to Windows Startup dir${NORMAL}"

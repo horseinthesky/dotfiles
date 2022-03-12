@@ -11,7 +11,7 @@ PATH=$PATH:$HOME/.local/bin
 
 if [[ -n $(which go) ]] && [[ $(go version | awk '{print $3}' | cut -c3-) == $GO_VERSION ]]; then
   echo -e "${YELLOW}Latest version ($GO_VERSION) is already installed.${NORMAL}"
-  exit 0
+  exit
 fi
 
 # Remove old ersion

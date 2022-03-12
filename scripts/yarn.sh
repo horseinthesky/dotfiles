@@ -13,7 +13,7 @@ packages=(
 echo -e "\n${LIGHTMAGENTA}Installing yarn packages...${NORMAL}"
 if [[ ! -d $HOME/.fnm ]]; then
   echo -e "${LIGHTRED}yarn is not found. Can't procced.${NORMAL}"
-  exit 0
+  exit
 fi
 
 PATH=$PATH:$HOME/.fnm && eval "$(fnm env)"

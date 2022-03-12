@@ -16,7 +16,7 @@ echo -e "\n${LIGHTMAGENTA}Downloading asn...${NORMAL}"
 
 if [[ -f $HOME/.local/bin/asn ]]; then
   echo -e "${YELLOW}Already installed${NORMAL}"
-  exit 0
+  exit
 fi
 
 curl -s https://raw.githubusercontent.com/nitefood/asn/master/asn > \

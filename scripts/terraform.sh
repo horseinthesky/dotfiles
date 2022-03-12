@@ -26,7 +26,7 @@ case $ID in
     ;;
   *)
     echo -e "${LIGHTRED}Abort. Distro is not supported"
-    exit 0
+    exit
     ;;
 esac
 echo -e "${GREEN}Done${NORMAL}"

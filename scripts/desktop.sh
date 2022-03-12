@@ -5,7 +5,7 @@ source scripts/helper.sh
 echo -e "\n${LIGHTMAGENTA}Setting up desktop${NORMAL}"
 if [[ -z $(echo $XDG_CURRENT_DESKTOP) ]]; then
   echo -e "${YELLOW}Abort. No GUI found${NORMAL}"
-  exit 0
+  exit
 fi
 
 echo -e "\n${LIGHTMAGENTA}Installing packages...${NORMAL}"

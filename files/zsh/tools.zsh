@@ -52,4 +52,4 @@ if [[ -d $HOME/.cargo ]] && [[ ! $PATH == *$HOME/.cargo/bin* ]]; then
 fi
 
 # zoxide
-[[ ! -z $(which zoxide) ]] && eval "$(zoxide init zsh)"
+[[ -n $(which zoxide) ]] && eval "$(zoxide init zsh)"
