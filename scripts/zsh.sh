@@ -2,39 +2,57 @@
 
 source scripts/helper.sh
 
-PLUGINS_DIR=$XDG_DATA_HOME/zsh/plugins
-THEMES_DIR=$XDG_DATA_HOME/zsh/themes
+install_zsh () {
+  header "Installing zsh..."
+  install zsh
+}
 
-plugins=(
-  zsh-users/zsh-completions
-  zsh-users/zsh-autosuggestions
-  djui/alias-tips
-)
+install_plugins () {
+  header "Installing zsh plugins..."
 
-themes=(
-  romkatv/powerlevel10k
-)
+  PLUGINS_DIR=$XDG_DATA_HOME/zsh/plugins
+  THEMES_DIR=$XDG_DATA_HOME/zsh/themes
 
-echo -e "\n${LIGHTMAGENTA}Installing zsh...${NORMAL}"
-install zsh
+  plugins=(
+    zsh-users/zsh-completions
+    zsh-users/zsh-autosuggestions
+    djui/alias-tips
+  )
 
-[[ ! -d $PLUGINS_DIR ]] && mkdir -p $PLUGINS_DIR
-for plugin in ${plugins[@]}; do
-  clone $plugin $PLUGINS_DIR
-done
+  themes=(
+    romkatv/powerlevel10k
+  )
 
-[[ ! -d $THEMES_DIR ]] && mkdir -p $THEMES_DIR
-for theme in ${themes[@]}; do
-  clone $theme $THEMES_DIR
-done
+  [[ ! -d $PLUGINS_DIR ]] && mkdir -p $PLUGINS_DIR
+  for plugin in ${plugins[@]}; do
+    clone $plugin $PLUGINS_DIR
+  done
 
-echo -e "\n${LIGHTMAGENTA}Symlink .zshenv and ZDOTDIR${NORMAL}"
-symlink $DOTFILES_HOME/zsh/.zshenv $HOME/.zshenv
+  [[ ! -d $THEMES_DIR ]] && mkdir -p $THEMES_DIR
+  for theme in ${themes[@]}; do
+    clone $theme $THEMES_DIR
+  done
+}
 
-[[ ! -d $HOME/.config ]] && mkdir $HOME/.config
-symlink $DOTFILES_HOME/zsh $HOME/.config/zsh
-echo -e "${GREEN}Done${NORMAL}"
+install_symlinks () {
+  header "Symlink .zshenv and ZDOTDIR"
 
-echo -e "\n${LIGHTMAGENTA}Setting shell${NORMAL}"
-sudo chsh -s $(which zsh) $(whoami)
-echo -e "${GREEN}Done${NORMAL}"
+  [[ ! -d $HOME/.config ]] && mkdir $HOME/.config
+  symlink $DOTFILES_HOME/zsh/.zshenv $HOME/.zshenv
+  symlink $DOTFILES_HOME/zsh $HOME/.config/zsh
+}
+
+setup_user_shell () {
+  header "Setting shell"
+  sudo chsh -s $(which zsh) $(whoami)
+  success
+}
+
+main () {
+  install_zsh
+  install_plugins
+  install_symlinks
+  setup_user_shell
+}
+
+main

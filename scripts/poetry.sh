@@ -2,15 +2,35 @@
 
 source scripts/helper.sh
 
-echo -e "\n${LIGHTMAGENTA}Installing poetry...${NORMAL}"
-if [[ -n $(which poetry) ]]; then
-  echo -e "${YELLOW}Already installed${NORMAL}"
-  exit
-fi
+setup_env () {
+  [[ ! -d $HOME/.local/bin ]] && mkdir -p $HOME/.local/bin
+  [[ ! $PATH == *$HOME/.local/bin* ]] && export PATH=$HOME/.local/bin:$PATH
+}
 
-[[ ! $PATH == *$HOME/.python/bin* ]] && export PATH=$HOME/.python/bin:$PATH
-curl -sSL https://install.python-poetry.org | python - 1> /dev/null
-echo -e "${GREEN}Done${NORMAL}"
+install_poetry () {
+  header "Installing poetry..."
 
-echo -e "\n${LIGHTMAGENTA}Symlink poetry config.toml${NORMAL}"
-symlink $DOTFILES_HOME/poetry.toml $XDG_CONFIG_HOME/pypoetry/config.toml
+  if [[ -n $(which poetry) ]]; then
+    warning "Already installed. Updating..."
+    poetry self update
+    return
+  fi
+
+  [[ ! $PATH == *$HOME/.python/bin* ]] && export PATH=$HOME/.python/bin:$PATH
+  curl -sSL https://install.python-poetry.org | python - 1> /dev/null
+  success
+}
+
+symlink_poetry_config () {
+  header "Symlink poetry config.toml"
+  [[ ! -d $XDG_CONFIG_HOME/pypoetry ]] && mkdir -p $XDG_CONFIG_HOME/pypoetry
+  symlink $DOTFILES_HOME/poetry.toml $XDG_CONFIG_HOME/pypoetry/config.toml
+}
+
+main () {
+  setup_env
+  install_poetry
+  symlink_poetry_config
+}
+
+main

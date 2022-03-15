@@ -2,44 +2,65 @@
 
 source scripts/helper.sh
 
-echo -e "\n${LIGHTMAGENTA}Setting up desktop${NORMAL}"
-if [[ -z $(echo $XDG_CURRENT_DESKTOP) ]]; then
-  echo -e "${YELLOW}Abort. No GUI found${NORMAL}"
-  exit
-fi
+install_packages () {
+  header "Installing packages..."
 
-echo -e "\n${LIGHTMAGENTA}Installing packages...${NORMAL}"
-packages=(
-  gnome-tweaks
-  dconf-editor
-)
-install ${packages[@]}
+  packages=(
+    gnome-tweaks
+    dconf-editor
+  )
 
-echo -e "\n${LIGHTMAGENTA}Installing flameshot...${NORMAL}"
-FLAMESHOT=flameshot-11.0.0-1.ubuntu-20.04.amd64.deb
-curl -sL https://github.com/flameshot-org/flameshot/releases/download/v11.0.0/$FLAMESHOT -o $HOME/$FLAMESHOT
-sudo dpkg -i $FLAMESHOT 1> /dev/null
-rm $HOME/$FLAMESHOT
-echo -e "${GREEN}Done${NORMAL}"
+  install ${packages[@]}
+}
 
-echo -e "\n${LIGHTMAGENTA}Installing kitty...${NORMAL}"
-curl -sL https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
-ln -s $HOME/.local/kitty.app/bin/kitty $HOME/.local/bin/kitty
-symlink $DOTFILES_HOME/kitty $HOME/.config
-cp $DOTFILES_HOME/kitty/kitty.desktop $HOME/.local/share/applications/
-sed -i 's|PLACEHOLDER|'"$HOME"'|' .local/share/applications/kitty.desktop
-echo -e "${GREEN}Done${NORMAL}"
+install_flameshot () {
+  header "Installing flameshot..."
+  FLAMESHOT=flameshot-11.0.0-1.ubuntu-20.04.amd64.deb
+  download https://github.com/flameshot-org/flameshot/releases/download/v11.0.0/$FLAMESHOT $HOME
+  sudo dpkg -i $HOME/$FLAMESHOT 1> /dev/null
+  rm $HOME/$FLAMESHOT
+  success
+}
 
-echo -e "\n${LIGHTMAGENTA}Downloading nerd font...${NORMAL}"
-FONT=DejaVu\ Sans\ Mono\ Nerd\ Font\ Complete.ttf
-FONT_DIR=$HOME/.fonts
+install_kitty () {
+  header "Installing kitty..."
 
-if [[ ! -d $FONT_DIR ]]; then
-  mkdir -p $FONT_DIR
-fi
+  curl -sL https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
+  symlink $HOME/.local/kitty.app/bin/kitty $HOME/.local/bin/kitty
+  symlink $DOTFILES_HOME/kitty $HOME/.config
+  cp $DOTFILES_HOME/kitty/kitty.desktop $HOME/.local/share/applications/
+  sed -i 's|PLACEHOLDER|'"$HOME"'|' .local/share/applications/kitty.desktop
 
-if [[ -f $FONT_DIR/"$FONT" ]]; then
-  echo -e "${YELLOW}Already exists${NORMAL}"
-fi
-curl https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/DejaVuSansMono/Regular/complete/DejaVu%20Sans%20Mono%20Nerd%20Font%20Complete.ttf -o $FONT_DIR/$FONT
-echo -e "${GREEN}Done${NORMAL}"
+  success
+}
+
+install_font () {
+  header "Downloading nerd font..."
+  FONT=DejaVu\ Sans\ Mono\ Nerd\ Font\ Complete.ttf
+  FONT_DIR=$HOME/.fonts
+
+  [[ ! -d $FONT_DIR ]] && mkdir -p $FONT_DIR
+
+  if [[ -f $FONT_DIR/$FONT ]]; then
+    warning "Already exists"
+    exit
+  fi
+
+  curl https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/DejaVuSansMono/Regular/complete/DejaVu%20Sans%20Mono%20Nerd%20Font%20Complete.ttf -o $FONT_DIR/$FONT
+  success
+}
+
+main () {
+  header "Setting up desktop"
+  if [[ -z $(echo $XDG_CURRENT_DESKTOP) ]]; then
+    warning "No GUI found. Abort"
+    exit
+  fi
+
+  install_packages
+  install_flameshot
+  install_kitty
+  install_font
+}
+
+main

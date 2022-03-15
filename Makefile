@@ -9,15 +9,13 @@ targets = \
 	fzf \
 	tmux \
 	ranger \
-	cli \
 	asn \
+	rust \
 	go \
-	gotools \
 	lua \
 	poetry \
-	pythontools \
-	fnm \
-	yarn \
+	python \
+	js \
 	nvim \
 	nvimn \
 	docker \

@@ -2,24 +2,40 @@
 
 source scripts/helper.sh
 
-packages=(
-  whois
-  ipcalc
-  mtr
-)
+install_deps () {
+  header "Installing asn deps..."
 
-echo -e "\n${LIGHTMAGENTA}Installing asn deps...${NORMAL}"
-install ${packages[@]}
+  packages=(
+    whois
+    ipcalc
+    mtr
+  )
 
-echo -e "\n${LIGHTMAGENTA}Downloading asn...${NORMAL}"
-[[ ! -d $HOME/.local/bin ]] && mkdir -p $HOME/.local/bin
+  install ${packages[@]}
+}
 
-if [[ -f $HOME/.local/bin/asn ]]; then
-  echo -e "${YELLOW}Already installed${NORMAL}"
-  exit
-fi
+install_asn () {
+  header "Downloading asn..."
 
-curl -s https://raw.githubusercontent.com/nitefood/asn/master/asn > \
-  $HOME/.local/bin/asn && \
-  chmod +x $HOME/.local/bin/asn &&
-echo -e "${GREEN}Done${NORMAL}"
+  [[ ! -d $HOME/.local/bin ]] && mkdir -p $HOME/.local/bin
+
+  ASN_PATH=$HOME/.local/bin/asn
+
+  if [[ -f $ASN_PATH ]]; then
+    success "Already installed"
+    exit
+  fi
+
+  curl -s https://raw.githubusercontent.com/nitefood/asn/master/asn > \
+    $ASN_PATH && \
+    chmod +x $ASN_PATH
+
+  success
+}
+
+main () {
+  install_deps
+  install_asn
+}
+
+main

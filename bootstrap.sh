@@ -2,39 +2,60 @@
 
 source scripts/helper.sh
 
-packages=(
-  curl
-  cmake
-)
+install_deps () {
+  header "Installing base packages..."
 
-setup_env () {
-  curl --silent --output ~/virtualenv.pyz https://bootstrap.pypa.io/virtualenv.pyz
-  python ~/virtualenv.pyz ~/.python --quiet
-  rm ~/virtualenv.pyz
+  packages=(
+    curl
+    cmake
+  )
+
+  case $ID in
+    arch|manjaro)
+      packages+=(
+        base-devel
+        python
+      )
+      ;;
+  esac
+
+  install ${packages[@]}
 }
 
-echo -e "\n${LIGHTMAGENTA}Installing base packages...${NORMAL}"
-case $ID in
-  arch|manjaro)
-    packages+=(
-      base-devel
-      python
-    )
-    ;;
-esac
-install ${packages[@]}
+symlink_python () {
+  header "Creating python symlink..."
 
-echo -e "\n${LIGHTMAGENTA}Creating python symlink...${NORMAL}"
-if [[ ! -f $(which python) ]] || [[ $(python -V) == *"2."* ]]; then
-  sudo ln -s python3 /usr/bin/python
-  echo -e "${GREEN}Done${NORMAL}"
-else
-  echo -e "${YELLOW}Already exists${NORMAL}"
-fi
+  if [[ -n $(which python) ]] && [[ $(python -V) == *"2."* ]]; then
+    success "python3 is already in use"
+    return
+  fi
 
-echo -e "\n${LIGHTMAGENTA}Setting up dev environment...${NORMAL}"
-if [[ ! -d $HOME/.python ]]; then
-  setup_env | grep -E "installed"
-else
-  echo -e "${YELLOW}Already exists${NORMAL}"
-fi
+  sudo ln -snf python3 /usr/bin/python
+  success
+}
+
+setup_env () {
+  header "Setting up dev environment..."
+
+  if [[ -d $HOME/.python ]]; then
+    success "Already exists"
+    return
+  fi
+
+  download https://bootstrap.pypa.io/virtualenv.pyz $HOME
+  [[ $? -ne 0 ]] && exit
+
+  info "Installing venv..."
+  python $HOME/virtualenv.pyz $HOME/.python --quiet
+  rm $HOME/virtualenv.pyz
+
+  success
+}
+
+main () {
+  install_deps
+  symlink_python
+  setup_env
+}
+
+main

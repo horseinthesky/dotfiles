@@ -23,6 +23,28 @@ DOTFILES_HOME=$HOME/dotfiles/files
 
 source /etc/os-release
 
+header () {
+  echo -e "\n${LIGHTMAGENTA}$1${NORMAL}"
+  printf "${LIGHTMAGENTA}%$(($(tput cols) / 4))s${NORMAL}\n" | tr " " "="
+}
+
+info () {
+  echo -e "${GREY}$1${NORMAL}"
+}
+
+success () {
+  local msg=${1:-Done}
+  echo -e "${GREEN}$msg${NORMAL}\n"
+}
+
+error () {
+  echo -e "${LIGHTRED}$1${NORMAL}\n"
+}
+
+warning () {
+  echo -e "${YELLOW}$1${NORMAL}"
+}
+
 install () {
   case $ID in
     debian|ubuntu)
@@ -37,145 +59,130 @@ install () {
 }
 
 download () {
-  FILE_NAME=$(echo $1 | cut -d "/" -f 2)
-  if [[ -f ${2}/$FILE_NAME ]]; then
-    echo -e "${YELLOW}$FILE_NAME already exists${NORMAL}"
+  local filename=$(echo $1 | awk -F/ '{print $NF}')
+
+  info "Downloading $filename..."
+
+  if [[ -f ${2}/$filename ]]; then
+    warning "$filename already exists"
     return
   fi
 
-  curl $FILE_NAME -o ${2}/$FILE_NAME
-  echo $FILE_NAME downloaded
+  curl -fsSL $1 -o ${2}/$filename
+  if [[ $? -ne 0 ]]; then
+    error "Failed to download $filename"
+    return 1
+  fi
+
+  success "$filename downloaded"
 }
 
 symlink () {
-  if [[ -f ${2} ]] && [[ ! -L ${2} ]]; then
-    cp ${2} ${2}.bak
-    echo -e "${YELLOW}${2} backed up${NORMAL}"
-  elif [[ -d ${2} ]] && [[ ! -L ${2} ]]; then
-    cp -R ${2} ${2}.bak
-    echo -e "${YELLOW}${2} backed up${NORMAL}"
+  local link=$2
+  local file=$1
+
+  info "Symlinking $link for $file"
+
+  if [[ -f $link ]] && [[ ! -L $link ]]; then
+    cp $link $link.bak
+    info "$link backed up"
+  elif [[ -d $link ]] && [[ ! -L $link ]]; then
+    cp -R $link $link.bak
+    info "$link backed up"
   fi
 
-  ln -snf ${1} ${2}
+  local symlink_dir=$(dirname $link)
+  [[ ! -d $symlink_dir ]] && mkdir -p $symlink_dir
+
+  ln -snf $file $link
+  success
 }
 
 clone () {
   local path_prefix=${3:-}
-  TOOL_NAME=$(echo ${1} | cut -d "/" -f 2)
+  local tool=$(echo ${1} | cut -d "/" -f 2)
 
-  echo -e "\n${LIGHTMAGENTA}Installing $TOOL_NAME...${NORMAL}"
+  info "Cloning $tool..."
 
-  if [[ ! -d ${2}/$path_prefix$TOOL_NAME ]]; then
-    git clone -q https://github.com/${1}.git ${2}/$path_prefix$TOOL_NAME
-    echo -e "${GREEN}$TOOL_NAME installed${NORMAL}"
-  else
-    echo -e "${YELLOW}$TOOL_NAME already exists. Updating...${NORMAL}"
-    cd ${2}/$path_prefix$TOOL_NAME && git pull 1> /dev/null
-    echo -e "${GREEN}Done${NORMAL}"
-  fi
-}
+  if [[ -d ${2}/$path_prefix$tool ]]; then
+    warning "$tool already exists. Updating..."
+    cd ${2}/$path_prefix$tool && git pull 1> /dev/null
+    success
 
-update_rust () {
-  if [[ ! -d $HOME/.cargo ]]; then
-    echo -e "${LIGHTRED}Cargo is not found. Can't procced.${NORMAL}"
     return
   fi
 
-  PATH=$HOME/.cargo/bin:$PATH
-
-  echo -e "\n${LIGHTMAGENTA}Checking for Rust updates...${NORMAL}"
-
-  local current_toolchain_version=$(
-    rustup show | \
-    grep -P -o "rustc \d+\.\d+\.\d+" | \
-    awk '{print $NF}'
-  )
-  local latest_toolchain_version=$(
-    rustup check | \
-    grep -P -o "Update available : \d+\.\d+\.\d+" | \
-    awk '{print $NF}'
-  )
-
-  if [[ -z $latest_toolchain_version ]]; then
-    echo -e "${GREEN}Latest ($current_toolchain_version) version is already installed${NORMAL}"
-    return
-  fi
-
-  echo -e "${GREY}Newer version ($latest_toolchain_version) found. Updating...${NORMAL}"
-  rustup update stable &> /dev/null
-
-  if [[ $? -ne 0 ]]; then
-    echo -e "${LIGHTRED}Failed to update Rust to the latest ($latest_toolchain_version) version${NORMAL}"
-    return
-  fi
-
-  echo -e "${YELLOW}Rust updated to the latest ($latest_toolchain_version) version${NORMAL}"
+  git clone -q https://github.com/${1}.git ${2}/$path_prefix$tool
+  success "$tool cloned"
 }
 
 cargo_install () {
+  local tool binary
+  IFS=, read -r tool binary <<< ${1}
+
+  info "Installing $tool..."
+
   if [[ ! -d $HOME/.cargo ]]; then
-    echo -e "${LIGHTRED}Cargo is not found. Can't procced.${NORMAL}"
+    error "Cargo is not found. Can't procced"
     return
   fi
 
   PATH=$HOME/.cargo/bin:$PATH
-
-  local tool binary
-  IFS=, read -r tool binary <<< ${1}
 
   if [[ -z $binary ]]; then
     binary=$tool
   fi
 
-  echo -e "\n${LIGHTMAGENTA}Installing $tool...${NORMAL}"
-
+  # Fresh install
   if [[ -z $(which $binary) ]]; then
     cargo install $tool
 
     if [[ $? -ne 0 ]]; then
-      echo -e "${LIGHTRED}Failed to install $tool.${NORMAL}"
+      error "Failed to install $tool"
       return
     fi
 
-    echo -e "${GREEN}Done${NORMAL}"
+    success "$tool installed"
     return
   fi
 
-  CURRENT_VERSION=$($binary --version 2> /dev/null | grep -P -o "\d+\.\d+\.\d+" | head -n 1)
-  LATEST_VERSION=$(cargo search $tool | head -n 1 | awk '{print $3}' | tr -d '"')
+  # Update
+  local current_version=$($binary --version 2> /dev/null | grep -P -o "\d+\.\d+\.\d+" | head -n 1)
+  local latest_version=$(cargo search $tool | head -n 1 | awk '{print $3}' | tr -d '"')
 
-  if [[ $CURRENT_VERSION == $LATEST_VERSION ]]; then
-    echo -e "${GREEN}Latest ($LATEST_VERSION) version is already installed${NORMAL}"
+  if [[ $current_version == $latest_version ]]; then
+    success "Latest ($latest_version) version is already installed"
     return
   fi
 
-  echo -e "${GREY}Newer version ($LATEST_VERSION) found. Updating...${NORMAL}"
+  info "Newer version ($latest_version) found. Updating..."
   cargo install $tool --force
 
   if [[ $? -ne 0 ]]; then
-    echo -e "${LIGHTRED}Failed to update $tool to the latest ($LATEST_VERSION) version${NORMAL}"
+    error "Failed to update $tool to the latest ($latest_version) version"
     return
   fi
 
-  echo -e "${YELLOW}$tool updated to the latest ($LATEST_VERSION) version${NORMAL}"
+  warning "$tool updated to the latest ($latest_version) version"
 }
 
-go_get () {
+go_install () {
+  local tool=$(echo ${1} | awk -F/ '{print $NF}')
+
+  info "Installing $tool..."
+
   PATH=$HOME/.local/bin:$PATH
 
   if [[ -z $(which go) ]]; then
-    echo -e "${LIGHTRED}Go is not found. Can't procced.${NORMAL}"
+    error "Go is not found. Can't procced"
     return
   fi
 
-  local TOOL_NAME=$(echo ${1} | awk -F/ '{print $NF}')
-  echo -e "\n${LIGHTMAGENTA}Installing $TOOL_NAME...${NORMAL}"
-
-  if [[ -n $(which $TOOL_NAME) ]]; then
-    echo -e "${YELLOW}$TOOL_NAME already exists.${NORMAL}"
+  if [[ -n $(which $tool) ]]; then
+    success "$tool already exists"
     return
   fi
 
-  go get github.com/${1}
-  echo -e "${GREEN}Done${NORMAL}"
+  go install github.com/${1}@latest
+  success "$tool installed"
 }

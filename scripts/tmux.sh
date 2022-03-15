@@ -2,11 +2,24 @@
 
 source scripts/helper.sh
 
-echo -e "\n${LIGHTMAGENTA}Installing tmux...${NORMAL}"
-install tmux
+install_tmux () {
+  header "Installing tmux..."
+  install tmux
+}
 
-echo -e "\n${LIGHTMAGENTA}Symlink .tmux.conf${NORMAL}"
-symlink $DOTFILES_HOME/tmux.conf $HOME/.tmux.conf
-echo -e "${GREEN}Done${NORMAL}"
+symlink_tmux_conf () {
+  header "Symlink .tmux.conf"
+  symlink $DOTFILES_HOME/tmux.conf $HOME/.tmux.conf
+}
 
-clone tmux-plugins/tpm $HOME/.tmux/plugins
+install_tpm () {
+  clone tmux-plugins/tpm $HOME/.tmux/plugins
+}
+
+main () {
+  install_tmux
+  symlink_tmux_conf
+  install_tpm
+}
+
+main

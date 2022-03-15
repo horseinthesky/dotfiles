@@ -3,6 +3,8 @@
 source scripts/helper.sh
 
 packages=(
+  curl
+  unzip
   htop
   tree
   jq
@@ -10,5 +12,5 @@ packages=(
   mtr
 )
 
-echo -e "\n${LIGHTMAGENTA}Installing packages...${NORMAL}"
+header "Installing packages..."
 install ${packages[@]}

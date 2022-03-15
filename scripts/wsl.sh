@@ -2,18 +2,26 @@
 
 source scripts/helper.sh
 
-WINDOWS_STARTUP_DIR=/mnt/c/Users/$USER/AppData/Roaming/Microsoft/Windows/Start\ Menu/Programs/Startup
+install_autohotkey () {
+  header "Install autohotkey script"
+  WINDOWS_STARTUP_DIR=/mnt/c/Users/$USER/AppData/Roaming/Microsoft/Windows/Start\ Menu/Programs/Startup
 
-echo -e "\n${LIGHTMAGENTA}Setting up WSL...${NORMAL}"
-if [[ -z $WSLENV ]]; then
-  echo -e "${YELLOW}Abort. Not a WSL environment${NORMAL}"
-  exit
-fi
+  if [[ -f $WINDOWS_STARTUP_DIR/autohotkey.ahk ]]; then
+    warning "Already exists. Updating"
+  fi
 
-echo -e "\n${LIGHTMAGENTA}Copying autohotkey.ahk to Windows Startup dir${NORMAL}"
-if [[ -f $WINDOWS_STARTUP_DIR/autohotkey.ahk ]]; then
-  echo -e "${YELLOW}Already exists. Updating${NORMAL}"
-fi
+  cp $DOTFILES_HOME/autohotkey.ahk "$WINDOWS_STARTUP_DIR"
+  success
+}
 
-cp $DOTFILES_HOME/autohotkey.ahk $WINDOWS_STARTUP_DIR
-echo -e "${GREEN}Done${NORMAL}"
+main () {
+  header "Setting up WSL..."
+  if [[ -z $WSLENV ]]; then
+    warning "Not a WSL environment. Abort"
+    exit
+  fi
+
+  install_autohotkey
+}
+
+main

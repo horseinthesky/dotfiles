@@ -2,22 +2,34 @@
 
 source scripts/helper.sh
 
-GIT_FULLNAME="Kirill 'horseinthesky' Pletnev"
-GIT_EMAIL=pwnedbyspawn@gmail.com
+install_git () {
+  header "Installing git..."
+  install git
+}
 
-echo -e "\n${LIGHTMAGENTA}Installing git...${NORMAL}"
-install git
+install_gitconfig () {
+  header "Deploying git config"
 
-echo -e "\n${LIGHTMAGENTA}Deploying git config${NORMAL}"
-if [[ -f $HOME/.gitconfig ]]; then
-  cp $HOME/.gitconfig $HOME/gitconfig.bak
-  echo -e "${YELLOW}Backed up .gitconfig${NORMAL}"
-fi
+  if [[ -f $HOME/.gitconfig ]]; then
+    cp $HOME/.gitconfig $HOME/gitconfig.bak
+    warning "Backed up .gitconfig"
+  fi
 
-cp files/gitconfig.template $HOME/.gitconfig
-sed -i \
-  -e "s/FULL_NAME/$GIT_FULLNAME/g" \
-  -e "s/GIT_EMAIL/$GIT_EMAIL/g" \
-  $HOME/.gitconfig
+  GIT_FULLNAME="Kirill 'horseinthesky' Pletnev"
+  GIT_EMAIL=pwnedbyspawn@gmail.com
 
-echo -e "${GREEN}Done${NORMAL}"
+  cp $DOTFILES_HOME/gitconfig.template $HOME/.gitconfig
+  sed -i \
+    -e "s|FULL_NAME|$GIT_FULLNAME|g" \
+    -e "s|GIT_EMAIL|$GIT_EMAIL|g" \
+    $HOME/.gitconfig
+
+  success
+}
+
+main () {
+  install_git
+  install_gitconfig
+}
+
+main

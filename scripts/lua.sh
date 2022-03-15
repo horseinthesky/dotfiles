@@ -2,37 +2,48 @@
 
 source scripts/helper.sh
 
-LUA_VERSION=5.4.3
+install_lua () {
+  header "Installing lua..."
 
-echo -e "\n${LIGHTMAGENTA}Installing lua...${NORMAL}"
-[[ ! -d $HOME/.local/bin ]] && mkdir -p $HOME/.local/bin
-[[ ! -d $HOME/.local/lib ]] && mkdir -p $HOME/.local/lib
-PATH=$PATH:$HOME/.local/bin
+  local version=5.4.3
+  local tarball=lua-${version}.tar.gz
 
-if [[ -n $(which lua) ]] && [[ $(lua -v | awk '{print $2}') == $LUA_VERSION ]]; then
-  echo -e "${YELLOW}Latest version ($LUA_VERSION) is already installed.${NORMAL}"
-  exit
-fi
+  [[ ! -d $HOME/.local/bin ]] && mkdir -p $HOME/.local/bin
+  [[ ! -d $HOME/.local/lib ]] && mkdir -p $HOME/.local/lib
 
-# Remove old ersion
-[[ -d $HOME/.local/lib/lua ]] && rm -rf $HOME/.local/lib/lua
+  PATH=$PATH:$HOME/.local/bin
 
-echo -e "${GREY}Downloading new version tarball...${NORMAL}"
-curl -s http://www.lua.org/ftp/lua-$LUA_VERSION.tar.gz -o $HOME/lua-$LUA_VERSION.tar.gz
+  if [[ -n $(which lua) ]] && [[ $(lua -v | awk '{print $2}') == $version ]]; then
+    success "Latest version ($version) is already installed."
+    return
+  fi
 
-echo -e "${GREY}Extracting archive...${NORMAL}"
+  # Remove old ersion
+  [[ -d $HOME/.local/lib/lua ]] && rm -rf $HOME/.local/lib/lua
 
-# Extract archive
-tar -C $HOME/.local/lib -xzf $HOME/lua-$LUA_VERSION.tar.gz
-mv $HOME/.local/lib/lua-$LUA_VERSION $HOME/.local/lib/lua
+  download http://www.lua.org/ftp/$tarball $HOME
+  [[ $? -ne 0 ]] && exit
 
-echo -e "${GREY}Compiling...${NORMAL}"
-cd $HOME/.local/lib/lua/src && make all &> /dev/null
+  info "Extracting archive..."
+  tar -C $HOME/.local/lib -xzf $HOME/$tarball
+  mv $HOME/.local/lib/lua-$version $HOME/.local/lib/lua
 
-# Remove tarball
-rm $HOME/lua-$LUA_VERSION.tar.gz
+  info "Compiling..."
+  cd $HOME/.local/lib/lua/src && make all &> /dev/null
 
-# Create or update a symlink to binary
-ln -snf $HOME/.local/lib/lua/src/lua $HOME/.local/bin/lua
+  rm $HOME/$tarball
 
-echo -e "${GREEN}Done${NORMAL}"
+  success
+}
+
+symlink_lua () {
+  header "Symlink Lua"
+  symlink $HOME/.local/lib/lua/src/lua $HOME/.local/bin/lua
+}
+
+main () {
+  install_lua
+  symlink_lua
+}
+
+main

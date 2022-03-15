@@ -2,31 +2,64 @@
 
 source scripts/helper.sh
 
-GO_VERSION=1.17.7
+install_go () {
+  header "Installing go..."
 
-echo -e "\n${LIGHTMAGENTA}Installing go...${NORMAL}"
-[[ ! -d $HOME/.local/bin ]] && mkdir -p $HOME/.local/bin
-[[ ! -d $HOME/.local/lib ]] && mkdir -p $HOME/.local/lib
-PATH=$PATH:$HOME/.local/bin
+  local version=1.17.8
+  local tarball=go${version}.linux-amd64.tar.gz
 
-if [[ -n $(which go) ]] && [[ $(go version | awk '{print $3}' | cut -c3-) == $GO_VERSION ]]; then
-  echo -e "${YELLOW}Latest version ($GO_VERSION) is already installed.${NORMAL}"
-  exit
-fi
+  [[ ! -d $HOME/.local/bin ]] && mkdir -p $HOME/.local/bin
+  [[ ! -d $HOME/.local/lib ]] && mkdir -p $HOME/.local/lib
+  [[ ! $PATH == *$HOME/.local/bin* ]] && export PATH=$HOME/.local/bin:$PATH
 
-# Remove old ersion
-[[ -d $HOME/.local/lib/go ]] && rm -rf $HOME/.local/lib/go
+  if [[ -n $(which go) ]] && [[ $(go version | awk '{print $3}' | cut -c3-) == $version ]]; then
+    success "Latest version ($version) is already installed."
+    return
+  fi
 
-echo -e "${GREY}Downloading go tarball...${NORMAL}"
-curl -s https://dl.google.com/go/go$GO_VERSION.linux-amd64.tar.gz -o $HOME/go$GO_VERSION.linux-amd64.tar.gz
+  # Remove old ersion
+  [[ -d $HOME/.local/lib/go ]] && rm -rf $HOME/.local/lib/go
 
-echo -e "${GREY}Extracting archive...${NORMAL}"
-tar -C $HOME/.local/lib -xzf $HOME/go$GO_VERSION.linux-amd64.tar.gz
+  # Install a new one
+  download https://dl.google.com/go/$tarball $HOME
+  [[ $? -ne 0 ]] && exit
 
-# Remove tarball
-rm $HOME/go$GO_VERSION.linux-amd64.tar.gz
+  info "Extracting archive..."
+  tar -C $HOME/.local/lib -xzf $HOME/$tarball
 
-# Create or update a symlink to binary
-ln -snf $HOME/.local/lib/go/bin/go $HOME/.local/bin/go
+  # Remove tarball
+  rm $HOME/$tarball
 
-echo -e "${GREEN}Done${NORMAL}"
+  success
+}
+
+symlink_go () {
+  header "Symlink go"
+  symlink $HOME/.local/lib/go/bin/go $HOME/.local/bin/go
+}
+
+install_go_tools () {
+  header "Installing go tools..."
+
+  tools=(
+    mattn/efm-langserver
+    muesli/duf
+    charmbracelet/glow
+  )
+
+  for tool in ${tools[@]}; do
+    go_install $tool
+  done
+
+  info "Installing gopls..."
+  GO111MODULE=on go install golang.org/x/tools/gopls@latest
+  success
+}
+
+main () {
+  install_go
+  symlink_go
+  install_go_tools
+}
+
+main

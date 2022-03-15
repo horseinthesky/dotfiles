@@ -2,34 +2,58 @@
 
 source scripts/helper.sh
 
-echo -e "\n${LIGHTMAGENTA}Installing neovim...${NORMAL}"
-if [[ -z $(which nvim) ]]; then
+install_neovim () {
+  header "Installing neovim..."
+
+  if [[ -n $(which nvim) ]]; then
+    success "Already installed"
+    return
+  fi
+
   install neovim
-else
-  echo -e "${YELLOW}Already installed${NORMAL}"
-fi
+}
 
-echo -e "\n${LIGHTMAGENTA}Installing vimplug...${NORMAL}"
-VIM_PLUG_PATH=$HOME/.local/share/nvim/site/autoload
-if [[ -d $VIM_PLUG_PATH ]]; then
-  echo -e "${YELLOW}Already installed${NORMAL}"
-else
-  mkdir -p $VIM_PLUG_PATH
-  curl -fsLo $VIM_PLUG_PATH/plug.vim \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  echo -e "${GREEN}Done${NORMAL}"
-fi
+setup_neovim_env () {
+  header "Setting up neovim..."
 
-echo -e "\n${LIGHTMAGENTA}Setting up neovim...${NORMAL}"
-[[ ! -d $HOME/.config/nvim ]] && mkdir -p $HOME/.config/nvim
-symlink $DOTFILES_HOME/init.vim $HOME/.config/nvim/init.vim
-symlink $DOTFILES_HOME/coc-settings.json $HOME/.config/nvim/coc-settings.json
-symlink $DOTFILES_HOME/lua $HOME/.config/nvim/lua
-symlink $DOTFILES_HOME/UltiSnips $HOME/.config/nvim/UltiSnips
-echo -e "${GREEN}Done${NORMAL}"
+  [[ ! -d $HOME/.config/nvim ]] && mkdir -p $HOME/.config/nvim
+  symlink $DOTFILES_HOME/init.vim $XDG_CONFIG_HOME/nvim/init.vim
+  symlink $DOTFILES_HOME/coc-settings.json $XDG_CONFIG_HOME/nvim/coc-settings.json
+  symlink $DOTFILES_HOME/lua $XDG_CONFIG_HOME/nvim/lua
+  symlink $DOTFILES_HOME/UltiSnips $XDG_CONFIG_HOME/nvim/UltiSnips
+}
 
-echo -e "\n${LIGHTMAGENTA}Setup neovim plugins...${NORMAL}"
-if [[ $(nvim --version | head -n 1 | cut -c7-11) < 0.5.0 ]]; then
-  nvim +':silent PlugInstall' +qa
-fi
-echo -e "${GREEN}Done${NORMAL}"
+install_vimplug () {
+  header "Installing vimplug..."
+
+  VIM_PLUG_PATH=$HOME/.local/share/nvim/site/autoload/plug.vim
+
+  if [[ -f $VIM_PLUG_PATH ]]; then
+    success "Already installed"
+    return
+  fi
+
+  mkdir -p $(dirname $VIM_PLUG_PATH)
+  download https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim $VIM_PLUG_PATH
+
+  success
+}
+
+install_neovim_plugins () {
+  header "Setup neovim plugins..."
+
+  if [[ $(nvim --version | head -n 1 | cut -c7-11) < 0.5.0 ]]; then
+    nvim +':silent PlugInstall' +qa
+  fi
+
+  success
+}
+
+main () {
+  install_neovim
+  setup_neovim_env
+  install_vimplug
+  install_neovim_plugins
+}
+
+main

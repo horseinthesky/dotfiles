@@ -2,11 +2,23 @@
 
 source scripts/helper.sh
 
-echo -e "\n${LIGHTMAGENTA}Installing ranger...${NORMAL}"
-[[ ! $PATH == *$HOME/.python/bin* ]] && export PATH=$HOME/.python/bin:$PATH
-pip install ranger-fm | grep -E "installed|satisfied"
+install_ranger () {
+  header "Installing ranger..."
 
-echo -e "\n${LIGHTMAGENTA}Symlink ranger dir${NORMAL}"
-[[ ! -d $HOME/.config ]] && mkdir $HOME/.config
-symlink $DOTFILES_HOME/ranger/ $HOME/.config/ranger
-echo -e "${GREEN}Done${NORMAL}"
+  [[ ! $PATH == *$HOME/.python/bin* ]] && export PATH=$HOME/.python/bin:$PATH
+  pip install ranger-fm | grep -E "installed|satisfied"
+}
+
+symlink_ranger_config () {
+  header "Symlink ranger dir"
+
+  [[ ! -d $HOME/.config ]] && mkdir $HOME/.config
+  symlink $DOTFILES_HOME/ranger/ $HOME/.config/ranger
+}
+
+main () {
+  install_ranger
+  symlink_ranger_config
+}
+
+main
