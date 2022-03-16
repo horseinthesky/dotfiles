@@ -1,15 +1,11 @@
 local M = {}
 
 function M.map(mode, key, action, opts)
-  local options = { noremap = true }
+  local options = { noremap = true, silent = true }
   if opts then
     options = vim.tbl_extend("force", options, opts)
   end
   vim.keymap.set(mode, key, action, options)
-end
-
-function M.contains(table, key)
-  return table[key] ~= nil
 end
 
 function M.has_value(table, val)
@@ -72,23 +68,6 @@ function M.log(msg, name, hl)
   name = name or "Neovim"
   hl = hl or "Comment"
   vim.api.nvim_echo({ { name .. ": ", hl }, { msg } }, true, {})
-end
-
-function M.toggle(option, silent)
-  local info = vim.api.nvim_get_option_info(option)
-  local scopes = { buf = "bo", win = "wo", global = "o" }
-  local scope = scopes[info.scope]
-  local options = vim[scope]
-
-  options[option] = not options[option]
-
-  if silent ~= true then
-    if options[option] then
-      M.info("enabled vim." .. scope .. "." .. option, "Toggle")
-    else
-      M.warn("disabled vim." .. scope .. "." .. option, "Toggle")
-    end
-  end
 end
 
 return M

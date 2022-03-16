@@ -126,3 +126,8 @@ augroup auto_checktime
   autocmd FileChangedShellPost *
     \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
 augroup END
+
+" Allow files to be saved as root when forgetting to start Vim using sudo.
+" https://www.youtube.com/watch?v=AcvxrF2MrrI
+" https://www.youtube.com/watch?v=u1HgODpoijc
+command W :execute ':silent w !sudo tee % > /dev/null' | :edit!

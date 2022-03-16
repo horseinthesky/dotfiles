@@ -133,17 +133,32 @@ end
 local tab_group = vim.api.nvim_create_augroup("TabSettings", { clear = true })
 
 local ft_settings = {
-  python = "setlocal sw=4 ts=4",
-  make = "setlocal sw=4 ts=4 noet",
-  [{ "vim", "config", "json", "yaml", "lua" }] = "setlocal sw=2 ts=2",
-  jinja = "setlocal sw=0",
-  go = "setlocal sw=8 ts=8 noet",
+  python = {
+    shiftwidth = 4,
+    tabstop = 4,
+  },
+  make = {
+    shiftwidth = 4,
+    tabstop = 4,
+    expandtab = false,
+  },
+  jinja = {
+    shiftwidth = 2,
+  },
+  go = {
+    shiftwidth = 8,
+    expandtab = false,
+  },
 }
 
-for ft, cmd in pairs(ft_settings) do
+for ft, opts in pairs(ft_settings) do
   vim.api.nvim_create_autocmd("FileType", {
     pattern = ft,
-    command = cmd,
+    callback = function()
+      for opt, value in pairs(opts) do
+        vim.opt_local[opt] = value
+      end
+    end,
     group = tab_group,
   })
 end
@@ -175,11 +190,9 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 -- Turning number/relativenumer off for terminal windows
 vim.api.nvim_create_autocmd("TermOpen", {
   callback = function()
-    vim.schedule(function()
-      vim.opt.relativenumber = false
-      vim.opt.number = false
-      vim.cmd [[startinsert]]
-    end)
+    vim.opt_local.relativenumber = false
+    vim.opt_local.number = false
+    vim.cmd [[startinsert]]
   end,
 })
 
@@ -212,3 +225,8 @@ vim.api.nvim_create_autocmd("FileChangedShellPost", {
   end,
   group = checktime_group,
 })
+
+-- Allow files to be saved as root when forgetting to start Vim using sudo.
+-- https://www.youtube.com/watch?v=AcvxrF2MrrI
+-- https://www.youtube.com/watch?v=u1HgODpoijc
+vim.cmd [[command W :execute ':silent w !sudo tee % > /dev/null' | :edit!]]

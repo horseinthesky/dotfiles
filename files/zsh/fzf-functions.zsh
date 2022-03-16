@@ -1,5 +1,14 @@
 fw() {
-  cd $HOME/$(fd -t d "netinfra|ni_" --max-depth 1 $HOME | sed 's|.*/||' | fzf)
+  local projects=$HOME/work
+  if [[ ! -d $projects ]]; then
+    echo -e "$projects dir does not exist"
+    return 1
+  fi
+
+  local project=$(fd -t d --max-depth 1 . $projects | sed 's|.*/||' | fzf)
+  [[ -z $project ]] && return
+
+  cd $projects/$project
 }
 
 fenv () {
