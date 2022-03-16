@@ -1,5 +1,17 @@
 " ==== Providers ====
 " let g:loaded_clipboard_provider = 0
+let g:clipboard = {
+  \ 'name': 'void',
+  \ 'copy': {
+  \   '+': {-> v:true},
+  \   '*': {-> v:true}
+  \ },
+  \ 'paste': {
+  \   '+': {-> []},
+  \   '*': {-> []}
+  \ }
+\ }
+
 let g:loaded_python_provider = 0
 let g:loaded_ruby_provider = 0
 let g:loaded_perl_provider = 0
@@ -26,6 +38,9 @@ set guifont=DejavuSansMono\ NF:h16    " Font
 set updatetime=300                    " Faster completion (default is 4000)
 set timeoutlen=500                    " Timeout for a mapped sequence to complete. (1000 ms by default)
 " set cmdheight=2                       " More space for messages
+
+" ==== Clipboard ====
+" set clipboard=unnamedplus
 
 " ==== Search ====
 set incsearch
@@ -83,4 +98,31 @@ augroup TabSettings
   autocmd FileType make         setlocal sw=4 ts=4 noet
   autocmd FileType jinja        setlocal sw=0
   autocmd FileType go           setlocal sw=8 ts=8 noet
+augroup END
+
+" Return to last edit position when opening files (You want this!)
+function! s:RestoreCursor()
+  let l:last_pos = line("'\"")
+  if l:last_pos >= 1 && l:last_pos <= line('$')
+    exe 'normal! g`"'
+  endif
+endfunction
+autocmd BufReadPost * call s:RestoreCursor()
+
+" Turning relativenumber on/off when changing window focus
+autocmd TermOpen * setlocal nonumber norelativenumber | startinsert
+
+" Notify if file is changed outside of vim
+augroup auto_checktime
+  autocmd!
+  " Trigger `checktime` when files changes on disk
+  " https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
+  " https://vi.stackexchange.com/questions/13692/prevent-focusgained-autocmd-running-in-command-line-editing-mode
+  autocmd FocusGained,BufEnter,CursorHold,CursorHoldI *
+    \ if mode() !~ '\v(c|r.?|!|t)' && getcmdwintype() == '' | checktime | endif
+
+  " Notification after file change
+  " https://vi.stackexchange.com/questions/13091/autocmd-event-for-autoread
+  autocmd FileChangedShellPost *
+    \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
 augroup END

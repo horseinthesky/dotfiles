@@ -16,7 +16,7 @@ local telescope_mappings = {
   -- {"n", "<leader>fm", "<cmd>Telescope marks<CR>"},
   -- {"n", "<leader>fM", "<cmd>Telescope keymaps<CR>"},
   -- {"n", "<leader>fO", "<cmd>Telescope oldfiles<CR>"},
-  -- {"n", "<leader>fc", "<cmd>Telescope commands<CR>"},
+  {"n", "<leader>fc", "<cmd>Telescope commands<CR>"},
   {"n", "<leader>fo", "<cmd>Telescope vim_options<CR>"},
   {"n", "<leader>fa", "<cmd>Telescope autocommands<CR>"},
   {"n", "<leader>fH", "<cmd>Telescope highlights<CR>"},
@@ -55,7 +55,7 @@ local fzf_mappings = {
   -- {"n", "<leader>fr", "<cmd>FzfLua registers<CR>"},
   {"n", "<leader>fm", "<cmd>FzfLua marks<CR>"},
   {"n", "<leader>fM", "<cmd>FzfLua keymaps<CR>"},
-  {"n", "<leader>fc", "<cmd>FzfLua commands<CR>"},
+  -- {"n", "<leader>fc", "<cmd>FzfLua commands<CR>"},
   {"n", "<leader>fO", "<cmd>FzfLua oldfiles<CR>"},
 
   -- git search mappings
@@ -96,6 +96,11 @@ vim.g.UltiSnipsEditSplit = "vertical"
 -- startuptime
 vim.g.startuptime_tries = 5
 map("n", "<leader>M", "<cmd>StartupTime<CR>")
+-- Turning relativenumer on/off when changing window focus
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "startuptime",
+  command = "setlocal nonumber norelativenumber",
+})
 
 -- ==== Visuals plugin settings ====
 -- vim-startify

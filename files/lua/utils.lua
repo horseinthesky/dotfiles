@@ -12,8 +12,14 @@ function M.contains(table, key)
   return table[key] ~= nil
 end
 
-function M.get_current_mode()
-  return vim.api.nvim_get_mode().mode
+function M.has_value(table, val)
+  for _, value in ipairs(table) do
+    if value == val then
+      return true
+    end
+  end
+
+  return false
 end
 
 function M.diagnostic_exists()
@@ -24,9 +30,7 @@ function M.get_lsp_clients()
   local buf_client_names = {}
 
   for _, client in pairs(vim.lsp.buf_get_clients(0)) do
-    local client_name = string.match(client.name, "(.-)_.*")
-      or string.match(client.name, "(.-)-.*")
-      or client.name
+    local client_name = string.match(client.name, "(.-)_.*") or string.match(client.name, "(.-)-.*") or client.name
 
     table.insert(buf_client_names, client_name)
   end

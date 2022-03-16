@@ -1,16 +1,18 @@
+local has_value = require("utils").has_value
+
 -- Neovim providers
 -- vim.g.loaded_clipboard_provider = 0
--- vim.g.clipboard = {
---   name = "void",
---   copy = {
---     ["+"] = true,
---     ["*"] = true
---   },
---   paste = {
---     ["+"] = {},
---     ["*"] = {}
---   }
--- }
+vim.g.clipboard = {
+  name = "void",
+  copy = {
+    ["+"] = true,
+    ["*"] = true,
+  },
+  paste = {
+    ["+"] = {},
+    ["*"] = {},
+  },
+}
 
 vim.g.loaded_python_provider = 0
 vim.g.loaded_ruby_provider = 0
@@ -70,6 +72,9 @@ local settings = {
   updatetime = 300, -- Faster completion (default is 4000)
   timeoutlen = 500, -- Timeout for a mapped sequence to complete. (1000 ms by default)
   -- cmdheight = 2,     -- More space for messages
+
+  -- Clipboard
+  -- clipboard = "unnamedplus",
 
   -- Search
   incsearch = true,
@@ -148,4 +153,62 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   callback = function()
     vim.highlight.on_yank { on_visual = false, timeout = 100 }
   end,
+})
+
+-- Return to last edit position when opening files (You want this!)
+vim.api.nvim_create_autocmd("BufReadPost", {
+  callback = function()
+    vim.schedule(function()
+      if vim.opt.filetype:get() == "help" then
+        return
+      end
+
+      local last_pos = vim.fn.line "'\""
+
+      if last_pos >= 1 and last_pos <= vim.fn.line "$" then
+        vim.cmd [[normal! g`"]]
+      end
+    end)
+  end,
+})
+
+-- Turning number/relativenumer off for terminal windows
+vim.api.nvim_create_autocmd("TermOpen", {
+  callback = function()
+    vim.schedule(function()
+      vim.opt.relativenumber = false
+      vim.opt.number = false
+      vim.cmd [[startinsert]]
+    end)
+  end,
+})
+
+-- Notify if file is changed outside of vim
+local checktime_group = vim.api.nvim_create_augroup("auto_checktime", { clear = true })
+
+-- Trigger `checktime` when files changes on disk
+-- https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
+-- https://vi.stackexchange.com/questions/13692/prevent-focusgained-autocmd-running-in-command-line-editing-mode
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, {
+  callback = function()
+    vim.schedule(function()
+      local modes = { "n", "i", "ic" }
+
+      if has_value(modes, vim.api.nvim_get_mode().mode) then
+        vim.cmd [[checktime]]
+      end
+    end)
+  end,
+  group = checktime_group,
+})
+
+-- Notification after file change
+-- https://vi.stackexchange.com/questions/13091/autocmd-event-for-autoread
+vim.api.nvim_create_autocmd("FileChangedShellPost", {
+  callback = function()
+    vim.schedule(function()
+      info "File changed on disk. Buffer reloaded."
+    end)
+  end,
+  group = checktime_group,
 })

@@ -35,7 +35,7 @@ local mode_map = {
 
 setmetatable(mode_map, {
   __index = function()
-    return { icons.question, utils.get_current_mode() }
+    return { icons.question, vim.api.nvim_get_mode().mode }
   end,
 })
 
@@ -57,7 +57,7 @@ local function diag(severity)
 end
 
 local function get_highlight(position)
-  local fg, bg = unpack(colors[utils.get_current_mode()])
+  local fg, bg = unpack(colors[vim.api.nvim_get_mode().mode])
 
   local position_highlight_map = {
     primary = { fg = bg, bg = fg },
@@ -72,7 +72,7 @@ end
 local comps = {
   vi_mode = {
     provider = function()
-      local icon, label = unpack(mode_map[utils.get_current_mode()])
+      local icon, label = unpack(mode_map[vim.api.nvim_get_mode().mode])
 
       local mode = " " .. icon .. " "
 
