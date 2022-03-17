@@ -8,19 +8,17 @@ targets = \
 	zsh \
 	fzf \
 	tmux \
-	ranger \
 	asn \
 	rust \
 	go \
 	lua \
-	poetry \
+	pyenv \
 	python \
 	js \
 	nvim \
 	nvimn \
 	docker \
 	terraform \
-	pyenv \
 
 .PHONY: all $(targets)
 

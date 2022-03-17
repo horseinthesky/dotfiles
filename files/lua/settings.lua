@@ -207,7 +207,7 @@ vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHo
     vim.schedule(function()
       local modes = { "n", "i", "ic" }
 
-      if has_value(modes, vim.api.nvim_get_mode().mode) then
+      if has_value(modes, vim.api.nvim_get_mode().mode) and vim.fn.getcmdwintype() == '' then
         vim.cmd [[checktime]]
       end
     end)
@@ -229,4 +229,4 @@ vim.api.nvim_create_autocmd("FileChangedShellPost", {
 -- Allow files to be saved as root when forgetting to start Vim using sudo.
 -- https://www.youtube.com/watch?v=AcvxrF2MrrI
 -- https://www.youtube.com/watch?v=u1HgODpoijc
-vim.cmd [[command W :execute ':silent w !sudo tee % > /dev/null' | :edit!]]
+vim.api.nvim_add_user_command("W", ":execute ':silent w !sudo tee % > /dev/null' | :edit!", {})

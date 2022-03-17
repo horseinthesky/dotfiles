@@ -42,6 +42,7 @@ install_neovim () {
   header "Installing Neovim nightly..."
 
   clone neovim/neovim $HOME
+  [[ $? -ne 0 ]] && exit
 
   info "Building neovim from source..."
 

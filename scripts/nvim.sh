@@ -33,8 +33,8 @@ install_vimplug () {
     return
   fi
 
-  mkdir -p $(dirname $VIM_PLUG_PATH)
   download https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim $VIM_PLUG_PATH
+  [[ $? -ne 0 ]] && exit
 
   success
 }

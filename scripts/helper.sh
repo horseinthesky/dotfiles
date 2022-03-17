@@ -25,11 +25,7 @@ source /etc/os-release
 
 header () {
   echo -e "\n${LIGHTMAGENTA}$1${NORMAL}"
-  printf "${LIGHTMAGENTA}%$(($(tput cols) / 4))s${NORMAL}\n" | tr " " "="
-}
-
-info () {
-  echo -e "${GREY}$1${NORMAL}"
+  printf "${LIGHTMAGENTA}%$(($(tput cols) / 3))s${NORMAL}\n" | tr " " "="
 }
 
 success () {
@@ -45,6 +41,10 @@ warning () {
   echo -e "${YELLOW}$1${NORMAL}"
 }
 
+info () {
+  echo -e "${GREY}$1${NORMAL}"
+}
+
 install () {
   case $ID in
     debian|ubuntu)
@@ -55,15 +55,23 @@ install () {
       sudo pacman -Sy --noconfirm 1> /dev/null
       sudo pacman -S ${@} --noconfirm --needed
       ;;
+    *)
+      error "Distro $ID is not supported"
+      return 1
+      ;;
   esac
 }
 
 download () {
-  local filename=$(echo $1 | awk -F/ '{print $NF}')
+  local path=$1
+  local dest=$2
+  local filename=$(echo $path | awk -F/ '{print $NF}')
+
+  [[ ! -d $(dirname $dest) ]] && mkdir -p $(dirname $dest)
 
   info "Downloading $filename..."
 
-  if [[ -f ${2}/$filename ]]; then
+  if [[ -f $dest/$filename ]]; then
     warning "$filename already exists"
     return
   fi
@@ -113,6 +121,11 @@ clone () {
   fi
 
   git clone -q https://github.com/${1}.git ${2}/$path_prefix$tool
+  if [[ $? -ne 0 ]]; then
+    error "Failed to clone $tool"
+    return 1
+  fi
+
   success "$tool cloned"
 }
 
@@ -124,7 +137,7 @@ cargo_install () {
 
   if [[ ! -d $HOME/.cargo ]]; then
     error "Cargo is not found. Can't procced"
-    return
+    return 1
   fi
 
   PATH=$HOME/.cargo/bin:$PATH
@@ -139,7 +152,7 @@ cargo_install () {
 
     if [[ $? -ne 0 ]]; then
       error "Failed to install $tool"
-      return
+      return 1
     fi
 
     success "$tool installed"
@@ -160,7 +173,7 @@ cargo_install () {
 
   if [[ $? -ne 0 ]]; then
     error "Failed to update $tool to the latest ($latest_version) version"
-    return
+    return 1
   fi
 
   warning "$tool updated to the latest ($latest_version) version"
@@ -175,7 +188,7 @@ go_install () {
 
   if [[ -z $(which go) ]]; then
     error "Go is not found. Can't procced"
-    return
+    return 1
   fi
 
   if [[ -n $(which $tool) ]]; then

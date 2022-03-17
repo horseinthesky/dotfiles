@@ -99,7 +99,6 @@ install_tools () {
 symlink_stylua_config () {
   header "Symlinking stylua config..."
 
-  [[ ! -d $HOME/.config/stylua ]] && mkdir -p $HOME/.config/stylua
   symlink $DOTFILES_HOME/stylua.toml $HOME/.config/stylua/stylua.toml
 }
 

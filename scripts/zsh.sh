@@ -23,12 +23,10 @@ install_plugins () {
     romkatv/powerlevel10k
   )
 
-  [[ ! -d $PLUGINS_DIR ]] && mkdir -p $PLUGINS_DIR
   for plugin in ${plugins[@]}; do
     clone $plugin $PLUGINS_DIR
   done
 
-  [[ ! -d $THEMES_DIR ]] && mkdir -p $THEMES_DIR
   for theme in ${themes[@]}; do
     clone $theme $THEMES_DIR
   done
@@ -44,7 +42,9 @@ install_symlinks () {
 
 setup_user_shell () {
   header "Setting shell"
+
   sudo chsh -s $(which zsh) $(whoami)
+
   success
 }
 

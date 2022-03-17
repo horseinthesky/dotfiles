@@ -50,7 +50,10 @@ install_pyenv () {
   header "Installing pyenv..."
 
   clone pyenv/pyenv $HOME .
+  [[ $? -ne 0 ]] && exit
+
   clone pyenv/pyenv-update $HOME/.pyenv/plugins
+  [[ $? -ne 0 ]] && exit
 }
 
 install_versions () {
@@ -62,9 +65,8 @@ install_versions () {
     3.10.2
   )
 
-  [[ ! -d $HOME/.local/bin ]] && mkdir -p $HOME/.local/bin
-
   PATH=$PATH:$HOME/.pyenv/bin
+
   for version in ${pyenv_versions[@]}; do
     pyenv install $version --skip-existing
 

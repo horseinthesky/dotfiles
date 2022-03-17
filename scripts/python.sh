@@ -2,6 +2,33 @@
 
 source scripts/helper.sh
 
+devenv=$HOME/.python
+
+setup_env () {
+  header "Setting up dev environment..."
+
+  local devver=3.9
+
+  if [[ -d $devenv ]]; then
+    success "Already exists"
+    return
+  fi
+
+  if [[ ! -L $HOME/.local/bin/python${devver} ]]; then
+    error "Developer environment Python version is not installed"
+    exit
+  fi
+
+  download https://bootstrap.pypa.io/virtualenv.pyz $HOME
+  [[ $? -ne 0 ]] && exit
+
+  info "Installing venv..."
+  $HOME/.local/bin/python${devver} $HOME/virtualenv.pyz $devenv --quiet
+  rm $HOME/virtualenv.pyz
+
+  success
+}
+
 install_python_tools () {
   header "Installing python packages..."
 
@@ -18,26 +45,59 @@ install_python_tools () {
     black
     pynvim
     jedi-language-server
+    ranger-fm
   )
 
-  [[ ! $PATH == *$HOME/.python/bin* ]] && export PATH=$HOME/.python/bin:$PATH
+  if [[ ! -d $devenv ]]; then
+    error "Developer environment is not installed"
+    exit
+  fi
+
+  [[ ! $PATH == *$devenv/bin* ]] && export PATH=$devenv/bin:$PATH
   pip install -U ${packages[@]} | grep -E "installed"
   success
 }
 
 symlink_configs () {
-  header "Setting up ptpython..."
-  [[ ! -d $HOME/.config/ptpython ]] && mkdir -p $HOME/.config/ptpython
-  symlink $DOTFILES_HOME/ptpython.py $HOME/.config/ptpython/config.py
+  header "Setting up python tools configs..."
 
-  header "Setting up yapf..."
-  [[ ! -d $HOME/.config/yapf ]] && mkdir -p $HOME/.config/yapf
-  symlink $DOTFILES_HOME/style.yapf $HOME/.config/yapf/style
+  symlink $DOTFILES_HOME/ptpython.py $XDG_CONFIG_HOME/ptpython/config.py
+  symlink $DOTFILES_HOME/style.yapf $XDG_CONFIG_HOME/yapf/style
+  symlink $DOTFILES_HOME/ranger $HOME/.config/ranger
+}
+
+install_poetry () {
+  header "Installing poetry..."
+
+  if [[ -n $(which poetry) ]]; then
+    warning "Already installed. Updating..."
+    poetry self update
+
+    success
+    return
+  fi
+
+  curl -sSL https://install.python-poetry.org | python - 1> /dev/null
+
+  if [[ $? -ne 0 ]]; then
+    error "Failed to install poetry"
+    return
+  fi
+
+  success
+}
+
+symlink_poetry () {
+  header "Symlink poetry config.toml"
+  symlink $DOTFILES_HOME/poetry.toml $XDG_CONFIG_HOME/pypoetry/config.toml
 }
 
 main () {
+  setup_env
   install_python_tools
   symlink_configs
+  install_poetry
+  symlink_poetry
 }
 
 main
