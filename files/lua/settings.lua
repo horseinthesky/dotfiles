@@ -173,17 +173,15 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 -- Return to last edit position when opening files (You want this!)
 vim.api.nvim_create_autocmd("BufReadPost", {
   callback = function()
-    vim.schedule(function()
-      if vim.opt.filetype:get() == "help" then
-        return
-      end
+    if vim.opt.filetype:get() == "help" then
+      return
+    end
 
-      local last_pos = vim.fn.line "'\""
+    local last_pos = vim.fn.line "'\""
 
-      if last_pos >= 1 and last_pos <= vim.fn.line "$" then
-        vim.cmd [[normal! g`"]]
-      end
-    end)
+    if last_pos >= 1 and last_pos <= vim.fn.line "$" then
+      vim.cmd [[normal! g`"]]
+    end
   end,
 })
 
