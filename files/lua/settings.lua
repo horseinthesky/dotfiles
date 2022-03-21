@@ -173,10 +173,6 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 -- Return to last edit position when opening files (You want this!)
 vim.api.nvim_create_autocmd("BufReadPost", {
   callback = function()
-    if vim.opt.filetype:get() == "help" then
-      return
-    end
-
     local last_pos = vim.fn.line "'\""
 
     if last_pos >= 1 and last_pos <= vim.fn.line "$" then
