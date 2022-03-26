@@ -2,58 +2,72 @@
 
 source scripts/helper.sh
 
+install_deps () {
+  header "Installing neovim build deps..."
+
+  case $ID in
+    debian|ubuntu)
+      deps=(
+        ninja-build
+        gettext
+        libtool
+        libtool-bin
+        autoconf
+        automake
+        cmake
+        g++
+        pkg-config
+        unzip
+      )
+      ;;
+    arch|manjaro)
+      deps=(
+        base-devel
+        cmake
+        unzip
+        ninja
+        tree-sitter
+      )
+      ;;
+    *)
+      error "Distro is not supported. Abort"
+      exit
+      ;;
+  esac
+
+  install ${deps[@]}
+}
+
 install_neovim () {
-  header "Installing neovim..."
+  header "Installing Neovim nightly..."
 
-  if [[ -n $(which nvim) ]]; then
-    success "Already installed"
-    return
-  fi
+  clone neovim/neovim $HOME
+  [[ $? -ne 0 ]] && exit
 
-  install neovim
+  info "Building neovim from source..."
+
+  cd $HOME/neovim
+
+  make \
+    CMAKE_BUILD_TYPE=Release \
+    CMAKE_INSTALL_PREFIX=$HOME/.local install 1> /dev/null
+
+  success
 }
 
 setup_neovim_env () {
   header "Setting up neovim..."
 
   [[ ! -d $HOME/.config/nvim ]] && mkdir -p $HOME/.config/nvim
-  symlink $DOTFILES_HOME/init.vim $XDG_CONFIG_HOME/nvim/init.vim
-  symlink $DOTFILES_HOME/coc-settings.json $XDG_CONFIG_HOME/nvim/coc-settings.json
+  symlink $DOTFILES_HOME/init.lua $XDG_CONFIG_HOME/nvim/init.lua
   symlink $DOTFILES_HOME/lua $XDG_CONFIG_HOME/nvim/lua
   symlink $DOTFILES_HOME/UltiSnips $XDG_CONFIG_HOME/nvim/UltiSnips
 }
 
-install_vimplug () {
-  header "Installing vimplug..."
-
-  VIM_PLUG_PATH=$HOME/.local/share/nvim/site/autoload/plug.vim
-
-  if [[ -f $VIM_PLUG_PATH ]]; then
-    success "Already installed"
-    return
-  fi
-
-  download https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim $VIM_PLUG_PATH
-  [[ $? -ne 0 ]] && exit
-
-  success
-}
-
-install_neovim_plugins () {
-  header "Setup neovim plugins..."
-
-  if [[ $(nvim --version | head -n 1 | cut -c7-11) < 0.5.0 ]]; then
-    nvim +':silent PlugInstall' +qa
-  fi
-
-  success
-}
-
 main () {
+  install_deps
   install_neovim
   setup_neovim_env
-  install_vimplug
-  install_neovim_plugins
 }
 
 main

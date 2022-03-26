@@ -19,11 +19,10 @@ local packer_bootstrap = false
 
 -- Check if packer.nvim is installed
 -- Run PackerCompile if there are changes in this file
-local fn = vim.fn
-local install_path = fn.stdpath "data" .. "/site/pack/packer/opt/packer.nvim"
+local install_path = vim.fn.stdpath "data" .. "/site/pack/packer/opt/packer.nvim"
 
-if fn.empty(fn.glob(install_path)) > 0 then
-  packer_bootstrap = fn.system {
+if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
+  packer_bootstrap = vim.fn.system {
     "git",
     "clone",
     "--depth",
@@ -41,7 +40,7 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 
 -- packer.nvim configuration
 local config = {
-  compile_path = require("packer.util").join_paths(vim.fn.stdpath "config", "packer", "packer_compiled.vim"),
+  compile_path = require("packer.util").join_paths(vim.fn.stdpath "config", "packer", "packer_compiled.lua"),
   profile = {
     enable = true,
     threshold = 0, -- the amount in ms that a plugins load time must be over for it to be included in the profile

@@ -1,4 +1,4 @@
-local map = require "utils".map
+local map = require("utils").map
 
 local swap_next, swap_prev = (function()
   local swap_objects = {

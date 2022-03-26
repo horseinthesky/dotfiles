@@ -40,12 +40,9 @@ install_python_tools () {
     isort
     mypy
     flake8
-    autopep8
-    yapf
     black
     pynvim
     jedi-language-server
-    ranger-fm
   )
 
   if [[ ! -d $devenv ]]; then
@@ -62,8 +59,6 @@ symlink_configs () {
   header "Setting up python tools configs..."
 
   symlink $DOTFILES_HOME/ptpython.py $XDG_CONFIG_HOME/ptpython/config.py
-  symlink $DOTFILES_HOME/style.yapf $XDG_CONFIG_HOME/yapf/style
-  symlink $DOTFILES_HOME/ranger $HOME/.config/ranger
 }
 
 install_poetry () {

@@ -16,7 +16,6 @@ targets = \
 	python \
 	js \
 	nvim \
-	nvimn \
 	docker \
 	terraform \
 
