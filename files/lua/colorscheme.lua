@@ -1,24 +1,12 @@
 local map = require("utils").map
 
--- Colors
 vim.opt.termguicolors = true
-
-vim.cmd [[
-  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-]]
-
--- Colorscheme
 vim.opt.background = "dark"
-vim.g.gruvbox_contrast_dark = "medium"
-vim.g.gruvbox_invert_selection = 0
-vim.g.tokyonight_style = "storm"
 
-local colorscheme = "gruvbox"
+local colorscheme = vim.g.theme
 
 local ok, _ = pcall(vim.cmd, "colorscheme " .. colorscheme)
 if not ok then
-  vim.cmd [[highlight Normal guibg=#282828]]
   error("colorscheme: " .. colorscheme .. " not found")
 end
 

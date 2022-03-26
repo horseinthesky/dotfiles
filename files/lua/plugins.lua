@@ -261,10 +261,30 @@ local function plugins(use)
     end,
   }
   use {
-    "morhetz/gruvbox",
+    "ellisonleao/gruvbox.nvim",
+    config = function()
+      vim.g.gruvbox_contrast_dark = "medium"
+      vim.g.gruvbox_italicize_comments = 0
+      vim.g.gruvbox_italic = 0
+      vim.g.gruvbox_invert_selection = 0
+      require "colorscheme"
+    end,
+    cond = function()
+      return vim.g.theme == "gruvbox"
+    end,
   }
   use {
     "folke/tokyonight.nvim",
+    config = function()
+      vim.g.tokyonight_style = "storm"
+      vim.g.tokyonight_italic_comments = false
+      vim.g.tokyonight_italic_keywords = false
+      require("tokyonight").colorscheme()
+      require "colorscheme"
+    end,
+    cond = function()
+      return vim.g.theme == "tokyonight"
+    end,
   }
   use {
     "Glench/Vim-Jinja2-Syntax",

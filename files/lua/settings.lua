@@ -1,4 +1,4 @@
-local has_value = require("utils").has_value
+local utils = require("utils")
 
 -- Neovim providers
 -- vim.g.loaded_clipboard_provider = 0
@@ -19,6 +19,9 @@ vim.g.loaded_ruby_provider = 0
 vim.g.loaded_perl_provider = 0
 vim.g.loaded_node_provider = 0
 vim.g.python3_host_prog = "~/.python/bin/python"
+
+-- Colorscheme
+vim.g.theme = "gruvbox"
 
 -- Disable loading builtin plugins
 local disabled_built_ins = {
@@ -163,6 +166,14 @@ for ft, opts in pairs(ft_settings) do
   })
 end
 
+-- Windows to close with "q"
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "help", "startuptime", "lspinfo" },
+  callback = function()
+    utils.map("n", "q", "<cmd>close<CR>", { buffer = true })
+  end,
+})
+
 -- Highlight on yank
 vim.api.nvim_create_autocmd("TextYankPost", {
   callback = function()
@@ -201,7 +212,7 @@ vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHo
     vim.schedule(function()
       local modes = { "n", "i", "ic" }
 
-      if has_value(modes, vim.api.nvim_get_mode().mode) and vim.fn.getcmdwintype() == '' then
+      if utils.has_value(modes, vim.api.nvim_get_mode().mode) and vim.fn.getcmdwintype() == '' then
         vim.cmd [[checktime]]
       end
     end)
