@@ -26,7 +26,7 @@ install_cargo () {
   )
   local latest_toolchain_version=$(
     rustup check | \
-      grep -P -o "Update available : \d+\.\d+\.\d+" | \
+      grep -P -o "Update available.*\d+\.\d+\.\d+" | \
       awk '{print $NF}'
   )
 

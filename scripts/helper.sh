@@ -176,7 +176,7 @@ cargo_install () {
     return 1
   fi
 
-  warning "$tool updated to the latest ($latest_version) version"
+  warning "$tool updated to the latest ($latest_version) version\n"
 }
 
 go_install () {
