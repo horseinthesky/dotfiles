@@ -1,10 +1,24 @@
+# Basic style options that define the overall look of your prompt. You probably don't want to
+# change them.
+typeset -g POWERLEVEL9K_{LEFT,RIGHT}_{LEFT,RIGHT}_WHITESPACE=  # no surrounding whitespace
+typeset -g POWERLEVEL9K_{LEFT,RIGHT}_SUBSEGMENT_SEPARATOR=' '  # separate segments with a space
+typeset -g POWERLEVEL9K_{LEFT,RIGHT}_SEGMENT_SEPARATOR=        # no end-of-line symbol
+
+# Connect left prompt lines with these symbols.
+typeset -g POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX=
+typeset -g POWERLEVEL9K_MULTILINE_NEWLINE_PROMPT_PREFIX=
+typeset -g POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX=
+# Connect right prompt lines with these symbols.
+typeset -g POWERLEVEL9K_MULTILINE_FIRST_PROMPT_SUFFIX=
+typeset -g POWERLEVEL9K_MULTILINE_NEWLINE_PROMPT_SUFFIX=
+typeset -g POWERLEVEL9K_MULTILINE_LAST_PROMPT_SUFFIX=
+
 # Prefixes
 local DEFAULT_PREFIX_COLOR="#928374"
 typeset -g POWERLEVEL9K_{CUSTOM_HOST,VCS}_PREFIX="%F{$DEFAULT_PREFIX_COLOR}on "
 typeset -g POWERLEVEL9K_DIR_PREFIX="%F{$DEFAULT_PREFIX_COLOR}in "
 typeset -g POWERLEVEL9K_VIRTUALENV_PREFIX="%F{$DEFAULT_PREFIX_COLOR}via "
 typeset -g POWERLEVEL9K_PYENV_PREFIX="%F{$DEFAULT_PREFIX_COLOR}via "
-typeset -g POWERLEVEL9K_BATTERY_PREFIX="%F{$DEFAULT_PREFIX_COLOR}at "
 
 # Host block settings
 case $ID in
@@ -24,8 +38,8 @@ else
 fi
 
 # Dir block settings
-typeset -g POWERLEVEL9K_DIR_FOREGROUND="#3385ff" # dodgerblue1
-typeset -g POWERLEVEL9K_DIR_{DEFAULT,HOME,HOME_SUBFOLDER}_FOREGROUND="#3385ff" # dodgerblue1
+typeset -g POWERLEVEL9K_DIR_FOREGROUND="#3385ff"
+typeset -g POWERLEVEL9K_DIR_{DEFAULT,HOME,HOME_SUBFOLDER}_FOREGROUND="#3385ff"
 typeset -g POWERLEVEL9K_DIR_NOT_WRITABLE_FOREGROUND="#fb4934"
 typeset -g POWERLEVEL9K_DIR_ETC_FOREGROUND="#b8bb26"
 
@@ -35,12 +49,6 @@ typeset -g POWERLEVEL9K_DIR_WRITABLE_FORBIDDEN_ICON=' '
 
 # Virtualenv block settings
 typeset -g POWERLEVEL9K_{VIRTUALENV,PYENV}_FOREGROUND="#fabd2f"
-
-# Battery background color
-typeset -g POWERLEVEL9K_BATTERY_{LOW,CHARGING,CHARGED,DISCONNECTED}_BACKGROUND=
-
-# CPU and RAM
-typeset -g POWERLEVEL9K_{CPU,RAM}_BACKGROUND=
 
 # VCS block settings
 typeset -g POWERLEVEL9K_VCS_CLEAN_FOREGROUND="#b8bb26"
@@ -67,7 +75,7 @@ function my_git_formatter() {
     # Styling for up-to-date Git status.
     local       meta='%f'           # default foreground
     local       icon='%F{#fe8019}'  # orange foreground
-    local     branch='%F{#d5c4a1}'  # ivory foreground
+    local       name='%F{#d5c4a1}'  # ivory foreground
     local      clean='%F{#b8bb26}'  # green foreground
     local   modified='%F{#fabd2f}'  # yellow foreground
     local  untracked='%F{#fe8019}'  # orange foreground
@@ -84,28 +92,37 @@ function my_git_formatter() {
   fi
 
   local res
-  local where  # branch or tag
+
   if [[ -n $VCS_STATUS_LOCAL_BRANCH ]]; then
-    res+="${icon}${(g::)POWERLEVEL9K_VCS_BRANCH_ICON}"
-    where=${(V)VCS_STATUS_LOCAL_BRANCH}
-  elif [[ -n $VCS_STATUS_TAG ]]; then
-    res+="${meta}#"
-    where=${(V)VCS_STATUS_TAG}
+    local branch=${(V)VCS_STATUS_LOCAL_BRANCH}
+    # If local branch name is at most 32 characters long, show it in full.
+    # Otherwise show the first 12 … the last 12.
+    # Tip: To always show local branch name in full without truncation, delete the next line.
+    (( $#branch > 32 )) && branch[13,-13]="…"  # <-- this line
+    res+="${icon}${(g::)POWERLEVEL9K_VCS_BRANCH_ICON}${name}${branch//\%/%%}"
   fi
 
-  # If local branch name or tag is at most 32 characters long, show it in full.
-  # Otherwise show the first 12 … the last 12.
-  # Tip: To always show local branch name in full without truncation, delete the next line.
-  (( $#where > 32 )) && where[13,-13]="…"
-  res+="${branch}${where//\%/%%}"  # escape %
+  if [[ -n $VCS_STATUS_TAG
+    # Show tag only if not on a branch.
+    # Tip: To always show tag, delete the next line.
+    && -z $VCS_STATUS_LOCAL_BRANCH  # <-- this line
+  ]]; then
+    local tag=${(V)VCS_STATUS_TAG}
+    # If tag name is at most 32 characters long, show it in full.
+    # Otherwise show the first 12 … the last 12.
+    # Tip: To always show tag name in full without truncation, delete the next line.
+    (( $#tag > 32 )) && tag[13,-13]="…"  # <-- this line
+    res+="${meta}#${name}${tag//\%/%%}"
+  fi
 
-  # Display the current Git commit if there is no branch or tag.
-  # Tip: To always display the current Git commit, remove `[[ -z $where ]] &&` from the next line.
-  [[ -z $where ]] && res+="${meta}@${branch}${VCS_STATUS_COMMIT[1,8]}"
+  # Display the current Git commit if there is no branch and no tag.
+  # Tip: To always display the current Git commit, delete the next line.
+  [[ -z $VCS_STATUS_LOCAL_BRANCH && -z $VCS_STATUS_TAG ]] &&  # <-- this line
+    res+="${meta}@${name}${VCS_STATUS_COMMIT[1,8]}"
 
   # Show tracking branch name if it differs from local branch.
   if [[ -n ${VCS_STATUS_REMOTE_BRANCH:#$VCS_STATUS_LOCAL_BRANCH} ]]; then
-    res+="${meta}:${branch}${(V)VCS_STATUS_REMOTE_BRANCH//\%/%%}"  # escape %
+    res+="${meta}:${name}${(V)VCS_STATUS_REMOTE_BRANCH//\%/%%}"  # escape %
   fi
 
   #  42 if behind the remote.
