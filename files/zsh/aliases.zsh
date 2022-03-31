@@ -31,6 +31,10 @@ alias b="btm"
 alias p="procs"
 alias du="dust"
 
+# docker
+alias dRc='docker rm $(docker ps -a -q -f status=exited)'
+alias dRi='docker rmi -f $(docker images -qf dangling=true)'
+
 # lsd
 alias ll='lsd -lA --group-dirs first'
 
