@@ -15,7 +15,6 @@ alias md='mkdir -p'
 alias rd=rmdir
 
 # apps
-alias vi=$(which nvim)
 alias nv='~/.local/bin/nvim'
 
 alias v='virtualenv .venv'
