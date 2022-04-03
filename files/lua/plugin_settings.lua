@@ -29,11 +29,11 @@ local telescope_mappings = {
   -- {"n", "<leader>gs", "<cmd>Telescope git_status<CR>"},
 
   -- lsp search mappings
+  -- {"n", "<leader>flr", "<cmd>Telescope lsp_references<CR>"},
   -- {"n", "<leader>fld", "<cmd>Telescope diagnostics bufnr=0<CR>"},
   -- {"n", "<leader>flD", "<cmd>Telescope diagnostics<CR>"},
-  -- {"n", "<leader>fls", "<cmd>Telescope lsp_document_symbols<CR>"},
-  -- {"n", "<leader>flS", "<cmd>Telescope lsp_workspace_symbols<CR>"},
-  -- {"n", "<leader>flr", "<cmd>Telescope lsp_references<CR>"},
+  {"n", "<leader>fls", "<cmd>Telescope lsp_document_symbols<CR>"},
+  {"n", "<leader>flS", "<cmd>Telescope lsp_workspace_symbols<CR>"},
 }
 
 for _, keymap in ipairs(telescope_mappings) do
@@ -67,8 +67,8 @@ local fzf_mappings = {
   {"n", "<leader>flr", "<cmd>FzfLua lsp_references<CR>"},
   {"n", "<leader>fld", "<cmd>FzfLua lsp_document_diagnostics<CR>"},
   {"n", "<leader>flD", "<cmd>FzfLua lsp_workspace_diagnostics<CR>"},
-  {"n", "<leader>fls", "<cmd>FzfLua lsp_document_symbols<CR>"},
-  {"n", "<leader>flS", "<cmd>FzfLua lsp_workspace_symbols<CR>"},
+  -- {"n", "<leader>fls", "<cmd>FzfLua lsp_document_symbols<CR>"},
+  -- {"n", "<leader>flS", "<cmd>FzfLua lsp_workspace_symbols<CR>"},
 }
 
 for _, keymap in ipairs(fzf_mappings) do
@@ -84,14 +84,6 @@ map("n", "<leader>at", "<cmd>lua require('neogen').generate({ type = 'type' })<C
 -- hop
 vim.cmd [[highlight link HopNextKey Type]]
 map("n", "f", "<cmd>HopChar1<CR>")
-
--- ultisnips
-vim.g.UltiSnipsExpandTrigger = "<C-s>"
-vim.g.UltiSnipsJumpForwardTrigger = "<Tab>"
-vim.g.UltiSnipsJumpBackwardTrigger = "<S-Tab>"
-
--- If you want :UltiSnipsEdit to split your window.
-vim.g.UltiSnipsEditSplit = "vertical"
 
 -- startuptime
 vim.g.startuptime_tries = 5

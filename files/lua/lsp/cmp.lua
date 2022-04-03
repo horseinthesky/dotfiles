@@ -6,7 +6,7 @@ require "cmp_path"
 require "cmp_nvim_lua"
 require "cmp_cmdline"
 require "cmp_emoji"
-require "cmp_nvim_ultisnips"
+require "cmp_luasnip"
 
 local tabnine = require "cmp_tabnine"
 tabnine:setup {
@@ -46,7 +46,7 @@ local kind_icons = {
 cmp.setup {
   snippet = {
     expand = function(args)
-      vim.fn["UltiSnips#Anon"](args.body)
+      require("luasnip").lsp_expand(args.body)
     end,
   },
   documentation = {
@@ -64,7 +64,7 @@ cmp.setup {
         nvim_lsp = "[LSP]",
         nvim_lua = "[Lua]",
         emoji = "[Emoji]",
-        ultisnips = "[UltiSnips]",
+        luasnip = "[LuaSnip]",
         cmp_tabnine = "[TabNine]",
       })[entry.source.name]
 
@@ -99,7 +99,7 @@ cmp.setup {
     { name = "nvim_lsp" },
     { name = "nvim_lua" },
     { name = "buffer" },
-    { name = "ultisnips" },
+    { name = "luasnip" },
     { name = "cmp_tabnine" },
     { name = "path" },
     { name = "emoji" },

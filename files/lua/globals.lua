@@ -5,7 +5,7 @@ _G.dump = function(...)
   print(vim.inspect(...))
 end
 
-_G.warn= function(msg, name)
+_G.warn = function(msg, name)
   utils.log(msg, name, "DiagnosticWarn")
 end
 

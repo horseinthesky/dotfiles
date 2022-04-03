@@ -178,21 +178,24 @@ local function plugins(use)
       { "hrsh7th/cmp-nvim-lua", module = "cmp_nvim_lua" },
       { "hrsh7th/cmp-cmdline", module = "cmp_cmdline" },
       { "hrsh7th/cmp-emoji", module = "cmp_emoji" },
-      { "quangnguyen30192/cmp-nvim-ultisnips", module = "cmp_nvim_ultisnips" },
+      { "saadparwaiz1/cmp_luasnip", module = "cmp_luasnip" },
       {
         "tzachar/cmp-tabnine",
         run = "./install.sh",
         module = "cmp_tabnine",
       },
-      { "honza/vim-snippets", opt = true },
+      { "rafamadriz/friendly-snippets", module = "friendly-snippets" },
       {
-        "SirVer/ultisnips",
-        opt = true,
-        wants = "vim-snippets",
+        "L3MON4D3/LuaSnip",
+        wants = "friendly-snippets",
+        module = "luasnip",
+        config = function()
+          require("config.snippets")
+        end,
       },
     },
     event = "InsertEnter",
-    wants = "ultisnips",
+    wants = "LuaSnip",
     config = function()
       require "lsp.cmp"
     end,
