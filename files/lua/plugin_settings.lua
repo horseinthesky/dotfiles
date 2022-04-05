@@ -91,7 +91,10 @@ map("n", "<leader>M", "<cmd>StartupTime<CR>")
 -- Turning relativenumer on/off when changing window focus
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "startuptime",
-  command = "setlocal nonumber norelativenumber",
+  callback = function()
+    vim.opt_local.relativenumber = false
+    vim.opt_local.number = false
+  end,
 })
 
 -- ==== Visuals plugin settings ====
