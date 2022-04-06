@@ -1,7 +1,6 @@
-local utils = require("utils")
+local utils = require "utils"
 
 -- Neovim providers
--- vim.g.loaded_clipboard_provider = 0
 vim.g.clipboard = {
   name = "void",
   copy = {
@@ -13,7 +12,6 @@ vim.g.clipboard = {
     ["*"] = {},
   },
 }
-
 vim.g.loaded_python3_provider = 0
 vim.g.loaded_ruby_provider = 0
 vim.g.loaded_perl_provider = 0
@@ -150,6 +148,9 @@ local ft_settings = {
     shiftwidth = 8,
     expandtab = false,
   },
+  terraform = {
+    commentstring = "# %s",
+  },
 }
 
 for ft, opts in pairs(ft_settings) do
@@ -210,7 +211,7 @@ vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHo
     vim.schedule(function()
       local modes = { "n", "i", "ic" }
 
-      if utils.has_value(modes, vim.api.nvim_get_mode().mode) and vim.fn.getcmdwintype() == '' then
+      if utils.has_value(modes, vim.api.nvim_get_mode().mode) and vim.fn.getcmdwintype() == "" then
         vim.cmd [[checktime]]
       end
     end)
