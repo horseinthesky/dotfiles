@@ -36,12 +36,10 @@ install_python_tools () {
     virtualenv
     httpie
     ptpython
-    jedi
     isort
     mypy
     flake8
     black
-    pynvim
     jedi-language-server
   )
 
