@@ -312,6 +312,7 @@ local function plugins(use)
   }
   use {
     "akinsho/bufferline.nvim",
+    -- branch = "numbers-highlight",
     wants = "nvim-web-devicons",
     event = "BufReadPre",
     config = function()

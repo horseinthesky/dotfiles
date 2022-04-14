@@ -65,7 +65,7 @@ local settings = {
   scrolloff = 10, -- Start scrolling 10 lines before edge of viewpoint
   pastetoggle = "<F2>", -- Paste mode toggle to paste code properly
   guicursor = "", -- Fix for mysterious 'q' letters
-  -- completeopt = { "menu", "menuone", "noselect" }, -- Set completeopt to have a better completion experience
+  completeopt = { "menu", "menuone", "noselect" }, -- Set completeopt to have a better completion experience
   shortmess = "filnxtToOFcI", -- Don't give |ins-completion-menu| messages
   guifont = "DejavuSansMono NF:h16", -- Font
   updatetime = 300, -- Faster completion (default is 4000)
@@ -146,6 +146,7 @@ local ft_settings = {
   },
   go = {
     shiftwidth = 8,
+    tabstop = 8,
     expandtab = false,
   },
   terraform = {
@@ -233,4 +234,4 @@ vim.api.nvim_create_autocmd("FileChangedShellPost", {
 -- Allow files to be saved as root when forgetting to start Vim using sudo.
 -- https://www.youtube.com/watch?v=AcvxrF2MrrI
 -- https://www.youtube.com/watch?v=u1HgODpoijc
-vim.api.nvim_add_user_command("W", ":execute ':silent w !sudo tee % > /dev/null' | :edit!", {})
+vim.api.nvim_create_user_command("W", ":execute ':silent w !sudo tee % > /dev/null' | :edit!", {})
