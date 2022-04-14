@@ -31,12 +31,12 @@ require("bufferline").setup {
           highlight = "Type"
       },
     },
-    numbers= {
-      guifg = {
-          attribute = "fg",
-          highlight = "Type"
-      },
-    },
+    -- numbers= {
+    --   guifg = {
+    --       attribute = "fg",
+    --       highlight = "Type"
+    --   },
+    -- },
     buffer_selected = {
       gui = "NONE",
     },

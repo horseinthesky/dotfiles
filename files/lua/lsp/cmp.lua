@@ -50,8 +50,8 @@ cmp.setup {
       require("luasnip").lsp_expand(args.body)
     end,
   },
-  documentation = {
-    border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+  window = {
+    documentation= cmp.config.window.bordered(),
   },
   formatting = {
     format = function(entry, vim_item)

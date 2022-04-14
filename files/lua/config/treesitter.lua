@@ -22,7 +22,7 @@ end)()
 require "nvim-treesitter-textobjects"
 
 require("nvim-treesitter.configs").setup {
-  ensure_installed = "maintained",
+  ensure_installed = "all",
   highlight = {
     enable = true,
     disable = { "json" },
