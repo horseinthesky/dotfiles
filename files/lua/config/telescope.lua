@@ -1,5 +1,15 @@
 local actions = require "telescope.actions"
 
+local function projects()
+  local work = "~/work/*"
+
+  if vim.fn.empty(vim.fn.glob(work)) == 1 then
+    return {}
+  end
+
+  return vim.split(vim.fn.glob(work), "\n")
+end
+
 require("telescope").setup {
   defaults = {
     mappings = {
@@ -24,7 +34,7 @@ require("telescope").setup {
   },
   extensions = {
     project = {
-      base_dirs = vim.split(vim.fn.glob("~/work/*"), "\n"),
+      base_dirs = projects(),
     },
   },
 }

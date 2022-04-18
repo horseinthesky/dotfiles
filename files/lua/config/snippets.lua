@@ -1,5 +1,8 @@
 local map = require("utils").map
 
+-- Load VS Code snippets
+require("luasnip.loaders.from_vscode").lazy_load()
+
 local ls = require "luasnip"
 
 local s = ls.snippet
@@ -10,13 +13,10 @@ local t = ls.text_node
 local i = ls.insert_node
 local f = ls.function_node
 local c = ls.choice_node
-local d = ls.dynamic_node
-local r = ls.restore_node
 local fmt = require("luasnip.extras.fmt").fmt
 local rep = require("luasnip.extras").rep
-local types = require("luasnip.util.types")
-local events = require("luasnip.util.events")
-local ai = require("luasnip.nodes.absolute_indexer")
+local types = require "luasnip.util.types"
+local events = require "luasnip.util.events"
 
 -- Config
 ls.config.setup {
@@ -28,10 +28,34 @@ ls.config.setup {
   updateevents = "TextChanged,TextChangedI",
 }
 
+-- Keymaps
+-- Expand or jump to next item
+map({ "i", "s" }, "<C-j>", function()
+  if ls.expand_or_jumpable() then
+    ls.expand_or_jump()
+  end
+end)
+
+-- Jump to previous item
+map({ "i", "s" }, "<C-k>", function()
+  if ls.jumpable(-1) then
+    ls.jump(-1)
+  end
+end)
+
+-- Selecting within a list of options.
+map("i", "<c-l>", function()
+  if ls.choice_active() then
+    ls.change_choice(1)
+  end
+end)
+
 -- Helper functions
 local function sha256(msg)
   local tmpfile = os.tmpname()
-  os.execute([[python -c 'import hashlib; print(hashlib.sha256("]] .. msg .. [[".encode()).hexdigest())' > ]] .. tmpfile)
+  os.execute(
+    [[python -c 'import hashlib; print(hashlib.sha256("]] .. msg .. [[".encode()).hexdigest())' > ]] .. tmpfile
+  )
 
   local file = io.open(tmpfile)
   local result = file:read()
@@ -59,7 +83,7 @@ local function comment(notation)
   return string.format("%s %s: (%s) ", entry, notation, os.getenv "USER")
 end
 
--- Snippets
+-- General snippets
 ls.add_snippets("all", {
   s(
     "user",
@@ -72,13 +96,39 @@ ls.add_snippets("all", {
       end),
     })
   ),
-  s("todo", f(function() return comment("TODO") end)),
-  s("note", f(function() return comment("NOTE") end)),
-  s("fix", f(function() return comment("FIX") end)),
-  s("warn", f(function() return comment("WARNING") end)),
-  s("hack", f(function() return comment("HACK") end)),
+  s(
+    "todo",
+    f(function()
+      return comment "TODO"
+    end)
+  ),
+  s(
+    "note",
+    f(function()
+      return comment "NOTE"
+    end)
+  ),
+  s(
+    "fix",
+    f(function()
+      return comment "FIX"
+    end)
+  ),
+  s(
+    "warn",
+    f(function()
+      return comment "WARNING"
+    end)
+  ),
+  s(
+    "hack",
+    f(function()
+      return comment "HACK"
+    end)
+  ),
 })
 
+-- Lua
 ls.add_snippets("lua", {
   s(
     "req",
@@ -92,27 +142,115 @@ ls.add_snippets("lua", {
   ),
 })
 
--- Keymaps
--- Expand or jump to next item
-map({ "i", "s" }, "<C-j>", function()
-  if ls.expand_or_jumpable() then
-    ls.expand_or_jump()
+-- Python
+local function node_with_virtual_text(pos, node, text)
+  local nodes
+  if node.type == types.textNode then
+    node.pos = 2
+    nodes = { i(1), node }
+  else
+    node.pos = 1
+    nodes = { node }
   end
-end)
 
--- Jump to previous item
-map({ "i", "s" }, "<C-k>", function()
-  if ls.jumpable(-1) then
-    ls.jump(-1)
+  return sn(pos, nodes, {
+    callbacks = {
+      -- node has pos 1 inside the snippetNode.
+      [1] = {
+        [events.enter] = function(nd)
+          -- node_pos: {line, column}
+          local node_pos = nd.mark:pos_begin()
+          -- reuse luasnips namespace, column doesn't matter, just 0 it.
+          nd.virt_text_id = vim.api.nvim_buf_set_extmark(0, ls.session.ns_id, node_pos[1], 0, {
+            virt_text = { { text, "GruvboxOrange" } },
+          })
+        end,
+
+        [events.leave] = function(nd)
+          vim.api.nvim_buf_del_extmark(0, ls.session.ns_id, nd.virt_text_id)
+        end,
+      },
+    },
+  })
+end
+
+local function nodes_with_virtual_text(nodes, opts)
+  if opts == nil then
+    opts = {}
   end
-end)
 
--- Selecting within a list of options.
-map("i", "<c-l>", function()
-  if ls.choice_active() then
-    ls.change_choice(1)
+  local new_nodes = {}
+
+  for pos, node in ipairs(nodes) do
+    if opts.texts[pos] ~= nil then
+      node = node_with_virtual_text(pos, node, opts.texts[pos])
+    end
+
+    table.insert(new_nodes, node)
   end
-end)
 
--- Load VS Code snippets
-require("luasnip.loaders.from_vscode").lazy_load()
+  return new_nodes
+end
+
+local function choice_text_node(pos, choices, opts)
+  choices = nodes_with_virtual_text(choices, opts)
+  return c(pos, choices, opts)
+end
+
+local ct = choice_text_node
+
+ls.add_snippets("python", {
+  s(
+    "def",
+    fmt(
+      [[
+      def {func}({args}){ret}:
+          {doc}
+          {body}
+      ]],
+      {
+        func = i(1),
+        args = i(2),
+        ret = c(3, {
+          t "",
+          sn(nil, {
+            t " -> ",
+            i(1),
+          }),
+        }),
+        doc = isn(4, {
+          ct(1, {
+            sn(
+              2,
+              fmt(
+                [[
+                """{desc}
+                Args:
+                    {args}
+                Returns:
+                    {returns}
+                """
+                ]],
+                {
+                  desc = i(1),
+                  args = i(2), -- TODO should read from the args in the function
+                  returns = i(3),
+                }
+              )
+            ),
+            -- NOTE we need to surround the `fmt` with `sn` to make this work
+            sn(1, fmt([["""{desc}"""]], { desc = i(1) })),
+            t "",
+          }, {
+            texts = {
+              "(full docstring)",
+              "(single line docstring)",
+              "(no docstring)",
+            },
+          }),
+        }, "    "),
+        body = i(0),
+      }
+    )
+  ),
+})
