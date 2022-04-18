@@ -4,12 +4,20 @@ local utils = require "utils"
 vim.g.clipboard = {
   name = "void",
   copy = {
-    ["+"] = true,
-    ["*"] = true,
+    ["+"] = function()
+      return true
+    end,
+    ["*"] = function()
+      return true
+    end,
   },
   paste = {
-    ["+"] = {},
-    ["*"] = {},
+    ["+"] = function()
+      return {}
+    end,
+    ["*"] = function()
+      return {}
+    end,
   },
 }
 vim.g.loaded_python3_provider = 0

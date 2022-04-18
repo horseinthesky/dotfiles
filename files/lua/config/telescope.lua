@@ -11,24 +11,27 @@ require("telescope").setup {
     },
     sorting_strategy = "ascending",
     scroll_strategy = "cycle",
-    -- layout_strategy = 'vertical',
     prompt_prefix = " ",
     selection_caret = " ",
     layout_config = {
       prompt_position = "top",
       preview_cutoff = 80,
       horizontal = {
-        -- width_padding = 10,
-        -- height_padding = 7,
         preview_width = 0.6,
       },
     },
     winblend = 10,
   },
+  extensions = {
+    project = {
+      base_dirs = vim.split(vim.fn.glob("~/work/*"), "\n"),
+    },
+  },
 }
 
 require("telescope").load_extension "fzf"
 require("telescope").load_extension "neoclip"
+require("telescope").load_extension "project"
 
 vim.cmd [[
   highlight link TelescopeSelection Constant

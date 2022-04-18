@@ -8,8 +8,7 @@ local force_inactive = {
   filetypes = {
     "packer",
     "Outline",
-    "Mundo",
-    "MundoDiff",
+    "alpha",
     "startify",
     "startuptime",
   },
@@ -95,7 +94,13 @@ local comps = {
     end,
   },
   whitespace = {
-    provider = " ",
+    provider = function()
+      if vim.api.nvim_buf_get_name(0) == "" then
+        return ""
+      end
+
+      return " "
+    end,
     hl = function()
       return get_highlight "primary"
     end,
@@ -410,6 +415,7 @@ local components = {
     {
       comps.whitespace,
       comps.file.info,
+      comps.whitespace,
       comps.sep.left,
       comps.sep.left_nested,
     },

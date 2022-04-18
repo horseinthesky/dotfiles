@@ -109,6 +109,7 @@ local function plugins(use)
       { "nvim-lua/popup.nvim", opt = true },
       { "nvim-telescope/telescope-fzf-native.nvim", run = "make", opt = true },
       { "nvim-telescope/telescope-symbols.nvim", opt = true },
+      { "nvim-telescope/telescope-project.nvim", opt = true },
       {
         "AckslD/nvim-neoclip.lua",
         opt = true,
@@ -130,6 +131,7 @@ local function plugins(use)
       "plenary.nvim",
       "telescope-fzf-native.nvim",
       "telescope-symbols.nvim",
+      "telescope-project.nvim",
       "nvim-neoclip.lua",
     },
     cmd = { "Telescope" },
@@ -190,7 +192,7 @@ local function plugins(use)
         wants = "friendly-snippets",
         module = "luasnip",
         config = function()
-          require("config.snippets")
+          require "config.snippets"
         end,
       },
     },
@@ -258,7 +260,11 @@ local function plugins(use)
 
   -- Visuals
   use {
-    "mhinz/vim-startify",
+    "goolord/alpha-nvim",
+    wants = "nvim-web-devicons",
+    config = function()
+      require "config.alpha"
+    end,
     cond = function()
       return vim.api.nvim_buf_get_name(0) == ""
     end,
@@ -305,7 +311,7 @@ local function plugins(use)
   -- Statusline
   use {
     "famiu/feline.nvim",
-    event = "BufRead",
+    event = "VimEnter",
     config = function()
       require "config.feline"
     end,

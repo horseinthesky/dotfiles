@@ -12,7 +12,6 @@ local telescope_mappings = {
   -- {"n", "<leader>fg", "<cmd>Telescope live_grep<CR>"},
   -- {"n", "<leader>fw", "<cmd>Telescope grep_string<CR>"},
   {"n", "<leader>fr", "<cmd>Telescope registers<CR>"},
-  {"n", "<leader>fp", "<cmd>Telescope neoclip<CR>"},
   -- {"n", "<leader>fm", "<cmd>Telescope marks<CR>"},
   -- {"n", "<leader>fM", "<cmd>Telescope keymaps<CR>"},
   -- {"n", "<leader>fO", "<cmd>Telescope oldfiles<CR>"},
@@ -34,6 +33,10 @@ local telescope_mappings = {
   -- {"n", "<leader>flD", "<cmd>Telescope diagnostics<CR>"},
   {"n", "<leader>fls", "<cmd>Telescope lsp_document_symbols<CR>"},
   {"n", "<leader>flS", "<cmd>Telescope lsp_workspace_symbols<CR>"},
+
+  -- extentions
+  {"n", "<leader>fp", "<cmd>Telescope project<CR>"},
+  {"n", "<leader>fP", "<cmd>Telescope neoclip<CR>"},
 }
 
 for _, keymap in ipairs(telescope_mappings) do
@@ -98,34 +101,11 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- ==== Visuals plugin settings ====
--- vim-startify
-vim.g.startify_files_number = 10
-vim.g.startify_session_persistence = 1
-vim.g.startify_bookmarks = {
-  { v = "~/.config/nvim/init.vim" },
-  { z = "~/dotfiles/files/zsh/.zshrc" },
-  { a = "~/dotfiles/files/zsh/aliases.zsh" },
-}
-vim.g.startify_lists = {
-  { type = "bookmarks", header = { "   Bookmarks" } },
-  { type = "dir", header = { "   Recent files" } },
-  { type = "sessions", header = { "   Saved sessions" } },
-}
-
-map("n", "gss", "<cmd>SSave!<CR>")
-map("n", "gsl", "<cmd>SLoad!<CR>")
-map("n", "gsc", "<cmd>SClose!<CR>")
-map("n", "gsd", "<cmd>SDelete!<CR>")
-
 -- indentline
 vim.g.indent_blankline_filetype_exclude = {
   "help",
-  "markdown",
-  "startify",
-  "json",
-  "peek",
   "packer",
-  "dashboard",
+  "alpha",
 }
 vim.g.indent_blankline_use_treesitter = true
 vim.g.indent_blankline_show_first_indent_level = false
