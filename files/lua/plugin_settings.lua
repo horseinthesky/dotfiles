@@ -44,6 +44,14 @@ for _, keymap in ipairs(telescope_mappings) do
   map(mode, lhs, rhs, opts)
 end
 
+vim.cmd [[
+  highlight! link TelescopeSelection Constant
+  highlight! link TelescopeSelectionCaret TelescopeSelection
+  highlight! link TelescopeMultiSelection TelescopeSelection
+  highlight! link TelescopeMatching Type
+  highlight! link TelescopePromptPrefix Type
+]]
+
 -- fzf-lua
 local fzf_mappings = {
   {"n", ";", "<cmd>FzfLua files<CR>"},
