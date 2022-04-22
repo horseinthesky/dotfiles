@@ -30,6 +30,15 @@ alias b="btm"
 alias p="procs"
 alias du="dust"
 
+# poetry
+alias pr='poetry run python'
+alias pe='poetry env use'
+alias pc='poetry config --list'
+alias pi='poetry install'
+alias pa='poetry add'
+alias ps='poetry show --tree'
+alias pu='poetry update'
+
 # docker
 alias dRc='docker rm $(docker ps -a -q -f status=exited)'
 alias dRi='docker rmi -f $(docker images -qf dangling=true)'
