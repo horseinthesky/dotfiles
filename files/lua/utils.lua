@@ -64,10 +64,22 @@ function M.highlight(group, fg, bg, gui)
   vim.cmd(cmd)
 end
 
-function M.log(msg, name, hl)
+local function log(msg, name, hl)
   name = name or "Neovim"
   hl = hl or "Comment"
   vim.api.nvim_echo({ { name .. ": ", hl }, { msg } }, true, {})
+end
+
+function M.warn(msg, name)
+  log(msg, name, "DiagnosticWarn")
+end
+
+function M.error(msg, name)
+  log(msg, name, "DiagnosticError")
+end
+
+function M.info(msg, name)
+  log(msg, name, "DiagnosticInfo")
 end
 
 return M

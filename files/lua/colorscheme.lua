@@ -1,4 +1,4 @@
-local map = require("utils").map
+local utils = require "utils"
 
 vim.opt.termguicolors = true
 vim.opt.background = "dark"
@@ -7,7 +7,7 @@ local colorscheme = vim.g.theme
 
 local ok, _ = pcall(vim.cmd, "colorscheme " .. colorscheme)
 if not ok then
-  error("colorscheme: " .. colorscheme .. " not found")
+  utils.error("colorscheme: " .. colorscheme .. " not found")
 end
 
 vim.cmd [[highlight SignColumn guibg=NONE]]
@@ -27,4 +27,4 @@ _G.toggle_transparent = function()
   end
 end
 
-map("n", "<C-t>", toggle_transparent, { silent = true })
+utils.map("n", "<C-t>", toggle_transparent, { silent = true })

@@ -1,4 +1,4 @@
-local map = require("utils").map
+local utils = require "utils"
 
 local mappings = {
   -- Splits
@@ -110,5 +110,10 @@ local mappings = {
 
 for _, keymap in ipairs(mappings) do
   local mode, lhs, rhs, opts = unpack(keymap)
-  map(mode, lhs, rhs, opts)
+  utils.map(mode, lhs, rhs, opts)
 end
+
+-- Show filename
+utils.map("n", "gn", function()
+  utils.info(vim.api.nvim_buf_get_name(0), "Filename")
+end)
