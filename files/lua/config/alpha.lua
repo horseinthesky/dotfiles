@@ -110,7 +110,7 @@ local head_quote_padding = 2
 local quote_button_padding = 4
 local occu_height = #header.val + #quote.val + 2 * #buttons.val + head_quote_padding + quote_button_padding
 local header_padding = math.max(0, math.ceil((vim.api.nvim_win_get_height(0) - occu_height) * 0.25))
-local foot_butt_padding = math.max(0, math.ceil(vim.api.nvim_win_get_height(0) - occu_height - header_padding - 4))
+local foot_butt_padding = math.max(0, math.ceil(vim.api.nvim_win_get_height(0) - occu_height - header_padding - 2))
 
 local config = {
   layout = {
