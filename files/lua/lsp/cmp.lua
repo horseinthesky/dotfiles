@@ -51,7 +51,7 @@ cmp.setup {
     end,
   },
   window = {
-    documentation= cmp.config.window.bordered(),
+    documentation = cmp.config.window.bordered(),
   },
   formatting = {
     format = function(entry, vim_item)
@@ -124,8 +124,3 @@ cmp.setup.cmdline(":", {
     { name = "cmdline" },
   }),
 })
-
-vim.cmd [[
-  highlight link CmpItemMenu Identifier
-  highlight link CmpItemKind Type
-]]

@@ -1,8 +1,4 @@
-local status_ok, alpha = pcall(require, "alpha")
-if not status_ok then
-  return
-end
-
+local alpha = require "alpha"
 local dashboard = require "alpha.themes.dashboard"
 
 -- Header

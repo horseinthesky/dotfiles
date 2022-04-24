@@ -56,14 +56,6 @@ function M.has_filetype()
   return true
 end
 
-function M.highlight(group, fg, bg, gui)
-  local cmd = string.format("highlight %s guifg=%s guibg=%s", group, fg, bg)
-  if gui ~= nil then
-    cmd = cmd .. " gui=" .. gui
-  end
-  vim.cmd(cmd)
-end
-
 local function log(msg, name, hl)
   name = name or "Neovim"
   hl = hl or "Comment"

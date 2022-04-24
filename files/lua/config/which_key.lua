@@ -1,13 +1,17 @@
 local wk = require "which-key"
 
-vim.cmd [[
-  highlight default link WhichKey          Special
-  highlight default link WhichKeySeperator LineNr
-  highlight default link WhichKeyGroup     Number
-  highlight default link WhichKeyDesc      Identifier
-  highlight default link WhichKeyValue     Title
-  highlight default link WhichKeyFloat     Normal
-]]
+local hls = {
+  WhichKey = "Special",
+  WhichKeySeperator = "LineNr",
+  WhichKeyGroup = "Number",
+  WhichKeyDesc = "Identifier",
+  WhichKeyValue = "Title",
+  WhichKeyFloat = "Normal",
+}
+
+for group, link in pairs(hls) do
+  vim.api.nvim_set_hl(0, group, { link = link })
+end
 
 local leader_map = {
   ["'"] = "horizontal split",

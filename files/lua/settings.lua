@@ -58,8 +58,6 @@ for _, plugin in ipairs(disabled_built_ins) do
 end
 
 -- Options
-vim.cmd [[syntax enable]]
-
 local settings = {
   -- General
   inccommand = "nosplit", -- Incremental substitution shows substituted text before applying
@@ -233,7 +231,7 @@ vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHo
 vim.api.nvim_create_autocmd("FileChangedShellPost", {
   callback = function()
     vim.schedule(function()
-      info "File changed on disk. Buffer reloaded."
+      utils.info "File changed on disk. Buffer reloaded."
     end)
   end,
   group = checktime_group,

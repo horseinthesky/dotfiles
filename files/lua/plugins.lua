@@ -1,4 +1,4 @@
-local map = require("utils").map
+local map = require "utils".map
 
 -- Packer keymappings
 local mappings = {
@@ -153,7 +153,7 @@ local function plugins(use)
     "stevearc/dressing.nvim",
     event = "BufRead",
     config = function()
-      vim.cmd [[highlight link FloatTitle Normal]]
+      vim.api.nvim_set_hl(0, "FloatTitle", { link = "Normal" })
     end,
   }
 
