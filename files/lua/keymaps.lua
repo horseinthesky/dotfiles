@@ -117,3 +117,14 @@ end
 utils.map("n", "gn", function()
   utils.info(vim.api.nvim_buf_get_name(0), "Filename")
 end)
+
+-- Text-objects
+-- https://thevaluable.dev/vim-create-text-objects/
+local chars = { "_", ".", ":", ",", ";", "|", "/", "\\", "*", "+", "%", "`", "?" }
+
+for _, char in ipairs(chars) do
+  for _, mode in ipairs { "x", "o" } do
+    utils.map(mode, "i" .. char, string.format(":<C-u>silent! normal! f%sF%slvt%s<CR>", char, char, char))
+    utils.map(mode, "a" .. char, string.format(":<C-u>silent! normal! f%sF%svf%s<CR>", char, char, char))
+  end
+end
