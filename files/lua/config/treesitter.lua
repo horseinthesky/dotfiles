@@ -21,8 +21,43 @@ end)()
 
 require "nvim-treesitter-textobjects"
 
+local parsers = {
+  "bash",
+  "cmake",
+  "css",
+  "dockerfile",
+  "go",
+  "gomod",
+  "gowork",
+  "graphql",
+  "hcl",
+  "help",
+  "html",
+  "http",
+  "javascript",
+  "jsdoc",
+  "json",
+  "json5",
+  "jsonc",
+  "latex",
+  "lua",
+  "make",
+  "markdown",
+  "ninja",
+  "python",
+  "rust",
+  "scheme",
+  "scss",
+  "toml",
+  "typescript",
+  "vim",
+  "vue",
+  "yaml",
+  "yang",
+}
+
 require("nvim-treesitter.configs").setup {
-  ensure_installed = "all",
+  ensure_installed = parsers,
   highlight = {
     enable = true,
     disable = { "json" },
