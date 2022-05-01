@@ -1,6 +1,5 @@
 local cmp = require "cmp"
 
-require "cmp_nvim_lsp"
 require "cmp_buffer"
 require "cmp_path"
 require "cmp_nvim_lua"
@@ -110,7 +109,9 @@ cmp.setup {
   },
 }
 
+-- Use buffer source for '/'
 cmp.setup.cmdline("/", {
+  mapping = cmp.mapping.preset.cmdline(),
   sources = {
     { name = "buffer" },
   },
@@ -118,6 +119,7 @@ cmp.setup.cmdline("/", {
 
 -- Use cmdline & path source for ':'
 cmp.setup.cmdline(":", {
+  mapping = cmp.mapping.preset.cmdline(),
   sources = cmp.config.sources({
     { name = "path" },
   }, {

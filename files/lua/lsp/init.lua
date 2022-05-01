@@ -1,13 +1,7 @@
 local icons = require("appearance").icons
 local lspconfig = require "lspconfig"
 
--- Servers setup
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-capabilities.textDocument.completion.completionItem.resolveSupport = {
-  properties = { "documentation", "detail", "additionalTextEdits" },
-}
-
+-- On attach
 local on_attach = function(client, _)
   vim.opt.omnifunc = "v:lua.vim.lsp.omnifunc"
 
@@ -15,14 +9,16 @@ local on_attach = function(client, _)
   require("lsp.keymaps").setup()
 
   -- Format on save
-  -- if client.resolved_capabilities.document_formatting then
+  -- if client.server_capabilities.documentFormattingProvider then
   --   vim.api.nvim_create_autocmd("BufWritePre", {
-  --     callback = vim.lsp.buf.formatting
+  --     callback = function()
+  --       vim.lsp.buf.format { async = true }
+  --     end,
   --   })
   -- end
 
   -- Document highlight
-  if client.resolved_capabilities.document_highlight then
+  if client.server_capabilities.documentHighlightProvider then
     local lsp_highlight_group = vim.api.nvim_create_augroup("LSPHighlight", { clear = true })
 
     vim.api.nvim_create_autocmd("CursorHold", {
@@ -40,11 +36,16 @@ local on_attach = function(client, _)
 end
 
 local no_format_on_attach = function(client, _)
-  client.resolved_capabilities.document_formatting = false
-  client.resolved_capabilities.document_range_formatting = false
+  client.server_capabilities.documentFormattingProvider = false
+  client.server_capabilities.documentRangeFormattingProvider = false
   require("lsp.keymaps").setup()
 end
 
+-- Add additional capabilities supported by nvim-cmp
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
+
+-- Servers setup
 local servers = {
   gopls = {},
   jedi_language_server = {},
