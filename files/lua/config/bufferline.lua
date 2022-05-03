@@ -8,6 +8,7 @@ end
 
 require("bufferline").setup {
   options = {
+    mode = "tabs",
     always_show_bufferline = false,
     show_buffer_icons = false,
     show_buffer_close_icons = false,
@@ -16,7 +17,7 @@ require("bufferline").setup {
     show_tab_indicators = false,
     tab_size = 5,
     numbers = function(opts)
-      if vim.api.nvim_get_current_buf() == opts.id then return "" end
+      if vim.api.nvim_get_current_tabpage() == opts.id then return "" end
       return opts.ordinal
     end,
   },
@@ -38,13 +39,13 @@ require("bufferline").setup {
       },
     },
     buffer_selected = {
-      gui = "NONE",
+      gui = "bold",
     },
     pick = {
-      gui = "NONE",
+      gui = "bold",
     },
     pick_selected = {
-      gui = "NONE",
+      gui = "bold",
     },
   },
 }
