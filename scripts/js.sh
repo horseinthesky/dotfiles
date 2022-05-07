@@ -69,7 +69,6 @@ install_js_packages () {
 
   packages=(
     @fsouza/prettierd
-    neovim
     vscode-langservers-extracted
     dockerfile-language-server-nodejs
     yaml-language-server
