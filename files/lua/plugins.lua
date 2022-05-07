@@ -223,7 +223,8 @@ local function plugins(use)
   }
   use {
     "numToStr/FTerm.nvim",
-    event = "BufRead",
+    -- event = "BufRead",
+    keys = { "<F3>", "<F4>" },
     config = function()
       require "config.fterm"
     end,
