@@ -18,6 +18,8 @@ install_deps () {
         g++
         pkg-config
         unzip
+        curl
+        doxygen
       )
       ;;
     arch|manjaro)
@@ -27,6 +29,7 @@ install_deps () {
         unzip
         ninja
         tree-sitter
+        curl
       )
       ;;
     *)
