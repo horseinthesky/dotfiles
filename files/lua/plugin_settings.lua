@@ -92,9 +92,9 @@ for _, keymap in ipairs(fzf_mappings) do
 end
 
 -- neogen
-map("n", "<leader>af", "<cmd>lua require('neogen').generate({ type = 'func' })<CR>")
-map("n", "<leader>ac", "<cmd>lua require('neogen').generate({ type = 'class' })<CR>")
-map("n", "<leader>at", "<cmd>lua require('neogen').generate({ type = 'type' })<CR>")
+map("n", "<leader>af", function() require('neogen').generate({ type = 'func' }) end)
+map("n", "<leader>ac", function() require('neogen').generate({ type = 'class' }) end)
+map("n", "<leader>at", function() require('neogen').generate({ type = 'type' }) end)
 
 -- hop
 vim.api.nvim_set_hl(0, "HopNextKey", { link = "Type" })
