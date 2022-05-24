@@ -47,6 +47,7 @@ capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 
 -- Servers setup
 local servers = {
+  rust_analyzer = {},
   gopls = {},
   jedi_language_server = {},
   yamlls = {
@@ -116,3 +117,6 @@ for type, icon in pairs(signs) do
     numhl = "",
   })
 end
+
+-- Colors
+vim.api.nvim_set_hl(0, "DiagnosticFloatingWarn", { link = "Type" })
