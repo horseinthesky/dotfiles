@@ -13,7 +13,7 @@ local telescope_mappings = {
   -- {"n", "<leader>fw", "<cmd>Telescope grep_string<CR>"},
   { "n", "<leader>fr", "<cmd>Telescope registers<CR>" },
   -- {"n", "<leader>fm", "<cmd>Telescope marks<CR>"},
-  -- {"n", "<leader>fM", "<cmd>Telescope keymaps<CR>"},
+  {"n", "<leader>fk", "<cmd>Telescope keymaps<CR>"},
   -- {"n", "<leader>fO", "<cmd>Telescope oldfiles<CR>"},
   { "n", "<leader>fc", "<cmd>Telescope commands<CR>" },
   { "n", "<leader>fo", "<cmd>Telescope vim_options<CR>" },
@@ -69,7 +69,7 @@ local fzf_mappings = {
   { "n", "<leader>fE", "<cmd>FzfLua lines<CR>" },
   -- {"n", "<leader>fr", "<cmd>FzfLua registers<CR>"},
   { "n", "<leader>fm", "<cmd>FzfLua marks<CR>" },
-  { "n", "<leader>fM", "<cmd>FzfLua keymaps<CR>" },
+  -- { "n", "<leader>fk", "<cmd>FzfLua keymaps<CR>" },
   -- {"n", "<leader>fc", "<cmd>FzfLua commands<CR>"},
   { "n", "<leader>fO", "<cmd>FzfLua oldfiles<CR>" },
 
