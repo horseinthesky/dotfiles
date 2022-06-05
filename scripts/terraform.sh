@@ -13,7 +13,7 @@ download_package () {
   local package=$(echo $1 | awk -F/ '{print $NF}')
 
   download $url $HOME
-  [[ $? -ne  0 ]] && return
+  [[ $? -ne  0 ]] && return 1
 
   info "Extracting archive..."
   unzip -o $HOME/$package -d $path
@@ -47,10 +47,12 @@ terraform_install () {
 
   info "Newer version ($latest_version) found. Updating..."
   download_package https://releases.hashicorp.com/$name/${latest_version}/$package_name $HOME/.local/bin
+  [[ $? -ne  0 ]] && return
+
   success "Updated to the latest ($latest_version) version"
 }
 
-install_terraform () {
+install_terraform_packages () {
   packages=(
     terraform
     terraform-ls
@@ -63,7 +65,7 @@ install_terraform () {
 
 main () {
   setup_env
-  install_terraform
+  install_terraform_packages
 }
 
 main
