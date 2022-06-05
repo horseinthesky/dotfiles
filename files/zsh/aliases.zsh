@@ -1,3 +1,4 @@
+# root
 alias sr='sudo -E -s'
 
 # dirs
@@ -14,21 +15,14 @@ alias 4='cd -4'
 alias md='mkdir -p'
 alias rd=rmdir
 
-# apps
-alias nv='~/.local/bin/nvim'
-
+# virtualenv
 alias v='virtualenv .venv'
 alias a='source ./.venv/bin/activate'
 alias d='deactivate'
 
-alias grep='grep --color=auto --line-buffered'
-alias diff='diff --color -u'
-alias pp='ptpython'
-alias ra='ranger'
-alias bw="sudo $HOME/.cargo/bin/bandwhich -d 1.1.1.1"
-alias b="btm"
-alias p="procs"
-alias du="dust"
+# docker
+alias dRc='docker rm $(docker ps -a -q -f status=exited)'
+alias dRi='docker rmi -f $(docker images -qf dangling=true)'
 
 # poetry
 alias pr='poetry run python'
@@ -36,28 +30,9 @@ alias pe='poetry env use'
 alias pc='poetry config --list'
 alias pi='poetry install'
 alias pa='poetry add'
-alias ps='poetry show --tree'
+alias pt='poetry show --tree'
 alias pu='poetry update'
 
-# docker
-alias dRc='docker rm $(docker ps -a -q -f status=exited)'
-alias dRi='docker rmi -f $(docker images -qf dangling=true)'
-
-# lsd
-alias ll='lsd -lA --group-dirs first'
-
-# exa
-alias l='exa --group-directories-first -la --icons --header'
-t () {
-  local depth=${2:-2}
-  local dir=${1:-.}
-  l --tree --level $depth $dir
-}
-
-weather () {
-  local options="${2:-1}"
-  curl https://wttr.in/"${1}"\?"${options}"
-}
 # tmux
 alias tn='tmux new -s '
 alias ta='tmux a -t '
@@ -66,9 +41,30 @@ alias tK='tmux kill-server'
 alias tl='tmux ls'
 alias tpl='tmuxp load '
 
+# apps
+alias nv='~/.local/bin/nvim'
+alias pp='ptpython'
+
+alias grep='grep --color=auto --line-buffered'
+alias diff='diff --color -u'
+
+alias bw="sudo $HOME/.cargo/bin/bandwhich -d 8.8.8.8"
+alias b="btm"
+alias p="procs"
+alias du="dust"
+alias ll='lsd -lA --group-dirs first'
+
+alias l='exa --group-directories-first -la --icons --header'
+t () {
+  local depth=${2:-2}
+  local dir=${1:-.}
+  l --tree --level $depth $dir
+}
+
 # git
 git_main_branch () {
   command git rev-parse --git-dir &>/dev/null || return
+
   local branch
   for branch in main trunk; do
     if command git show-ref -q --verify refs/heads/$branch; then
@@ -76,6 +72,7 @@ git_main_branch () {
       return
     fi
   done
+
   echo master
 }
 

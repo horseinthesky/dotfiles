@@ -82,7 +82,6 @@ install_tools () {
     git-delta,delta
     stylua
     gping
-    bat
     xh
     procs
     du-dust,dust
