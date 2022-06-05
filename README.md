@@ -7,10 +7,11 @@
 	<a href="https://github.com/horseinthesky/dotfiles/#install">Install</a>
 </div>
 
+<img src ="https://raw.githubusercontent.com/horseinthesky/dotfiles/master/media/alpha.png"><hr>
 <img src ="https://raw.githubusercontent.com/horseinthesky/dotfiles/master/media/nvim.png"><hr>
-<img src ="https://raw.githubusercontent.com/horseinthesky/dotfiles/master/media/lsp.png"><hr>
+<img src ="https://raw.githubusercontent.com/horseinthesky/dotfiles/master/media/nvim_insert.png"><hr>
 <img src ="https://raw.githubusercontent.com/horseinthesky/dotfiles/master/media/telescope.png"><hr>
-<img src ="https://raw.githubusercontent.com/horseinthesky/dotfiles/master/media/zsh.png"><hr>
+<img src ="https://raw.githubusercontent.com/horseinthesky/dotfiles/master/media/fzf.png"><hr>
 <img src ="https://raw.githubusercontent.com/horseinthesky/dotfiles/master/media/rg.png"><hr>
 <img src ="https://raw.githubusercontent.com/horseinthesky/dotfiles/master/media/fd.png"><hr>
 
@@ -18,27 +19,42 @@
 
 - Autohotkey config for Windows 10/11
 - Git config
-- Zsh plugins and config
-- fzf
+- Zsh config and plugins:
+  - [zsh-completions](https://github.com/zsh-users/zsh-completions)
+  - [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)
+  - [alias-tips](https://github.com/djui/alias-tips)
+  - [powerlevel10k](https://github.com/romkatv/powerlevel10k)
+- [fzf](https://github.com/junegunn/fzf) and a bunch of functions for:
+  - Git (see `files/zsh/fzf-git-functions.zsh`)
+  - `apt` and `pacman` plugin managers and more (see `files/zsh/fzf-functions.zsh`)
 - Tmux & tmuxp
-- ranger file manager
-- cargo package manager
-- cli tools (`rg`, `fd`, `lsd`, `procs`, `bat`, `btm`, `tldr`, `du`, `z`, `delta`)
-- `asn` llokup tool and traceroute server
-- golang
-- go tools (`efm-langserver`, `glow`, `duf`)
-- lua
-- `poetry` Python virtual environment manager
-- Python tools (`flake8`, `yapf`, `black`, `mypy`, `autopepe8`, `ptpython`, `httpie`, `isort`, `jedi-langiage-server`)
-- `fnm` node manager
-- TS tools (`prettier`, `vscode-json-languageserver`, `yaml-language-server`, `lua-fmt`)
-- Neovim plugins and configs
-- Docker
-- `pyenv` Python version manager
+- [asn](https://github.com/nitefood/asn) lookup tool and traceroute server
+- [Terraform](https://www.terraform.io/) and `terrafrom-ls`
+- [Docker](https://www.docker.com/) and `docker-ls`
+- [Neovim](https://neovim.io/) (Lua based configuration). You can find old VimScript version (with CoC) in [this repo](https://github.com/horseinthesky/vimscript)
+- [Rust](https://www.rust-lang.org/):
+  - [cargo](https://crates.io/) package manager
+  - Tools (`ripgrep`, `fd-find`, `zoxide`, `exa`, `xh`, `btm`, `tldr`, `delta`, etc.)
+  - [Rust analyzer](https://rust-analyzer.github.io/)
+- [Golang](https://go.dev/):
+  - Tools (`glow`, `duf`)
+  - [gopls](https://github.com/golang/tools/tree/master/gopls) language server
+- [Lua](https://www.lua.org/):
+- [Python](https://www.python.org/):
+  - Tools (`ptpython`, `httpie`)
+  - Linters, formatters and static type checkers (`flake8`, `isort`, `black`, `mypy`)
+  - [jedi-langiage-server](https://github.com/pappasam/jedi-language-server)
+  - [pyenv](https://github.com/pyenv/pyenv) Python version manager
+  - [poetry](https://python-poetry.org/) Python virtual environment manager
+- [fnm](https://github.com/Schniz/fnm). Installs language servers:
+  - [prettierd](https://github.com/fsouza/prettierd)
+  - [vscode-langservers-extracted](https://github.com/hrsh7th/vscode-langservers-extracted)
+  - [yaml-language-server](https://github.com/redhat-developer/yaml-language-server)
+  - [dockerfile-language-server-nodejs](https://github.com/rcjsuen/dockerfile-language-server-nodejs)
 
 ## Install
 
-Make sure you have the newest version of Neovim (0.5).
+Make sure you have the newest version of Neovim (0.7).
 
 ### Clone the repo
 

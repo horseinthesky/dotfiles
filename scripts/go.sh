@@ -42,7 +42,6 @@ install_go_tools () {
   header "Installing go tools..."
 
   tools=(
-    mattn/efm-langserver
     muesli/duf
     charmbracelet/glow
   )

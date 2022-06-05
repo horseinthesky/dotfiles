@@ -68,7 +68,6 @@ local servers = {
   terraformls = {},
   dockerls = {},
   sumneko_lua = require("lsp.sumneko").config,
-  -- efm = require "lsp.efm".config,
 }
 
 for server, config in pairs(servers) do
