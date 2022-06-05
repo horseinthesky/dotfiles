@@ -29,8 +29,8 @@
   - `apt` and `pacman` plugin managers and more (see `files/zsh/fzf-functions.zsh`)
 - Tmux & tmuxp
 - [asn](https://github.com/nitefood/asn) lookup tool and traceroute server
-- [Terraform](https://www.terraform.io/) and `terrafrom-ls`
-- [Docker](https://www.docker.com/) and `docker-ls`
+- [Terraform](https://www.terraform.io/) with [terraform-ls](https://github.com/hashicorp/terraform-ls)
+- [Docker](https://www.docker.com/)
 - [Neovim](https://neovim.io/) (Lua based configuration). You can find old VimScript version (with CoC) in [this repo](https://github.com/horseinthesky/vimscript)
 - [Rust](https://www.rust-lang.org/):
   - [cargo](https://crates.io/) package manager
@@ -39,14 +39,14 @@
 - [Golang](https://go.dev/):
   - Tools (`glow`, `duf`)
   - [gopls](https://github.com/golang/tools/tree/master/gopls) language server
-- [Lua](https://www.lua.org/):
+- [Lua](https://www.lua.org/)
 - [Python](https://www.python.org/):
   - Tools (`ptpython`, `httpie`)
   - Linters, formatters and static type checkers (`flake8`, `isort`, `black`, `mypy`)
   - [jedi-langiage-server](https://github.com/pappasam/jedi-language-server)
-  - [pyenv](https://github.com/pyenv/pyenv) Python version manager
-  - [poetry](https://python-poetry.org/) Python virtual environment manager
-- [fnm](https://github.com/Schniz/fnm). Installs language servers:
+  - [pyenv](https://github.com/pyenv/pyenv)
+  - [poetry](https://python-poetry.org/)
+- [fnm](https://github.com/Schniz/fnm). Language servers:
   - [prettierd](https://github.com/fsouza/prettierd)
   - [vscode-langservers-extracted](https://github.com/hrsh7th/vscode-langservers-extracted)
   - [yaml-language-server](https://github.com/redhat-developer/yaml-language-server)
