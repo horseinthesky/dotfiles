@@ -60,6 +60,13 @@ local function plugins(use)
 
   -- Helpers
   use {
+    "stevearc/dressing.nvim",
+    event = "BufRead",
+    config = function()
+      vim.api.nvim_set_hl(0, "FloatTitle", { link = "Normal" })
+    end,
+  }
+  use {
     "kyazdani42/nvim-web-devicons",
     module = "nvim-web-devicons",
     config = function()
@@ -76,13 +83,16 @@ local function plugins(use)
     run = ":TSUpdate",
     requires = {
       {
-        "nvim-treesitter/playground",
-        after = "nvim-treesitter",
-        cmd = { "TSPlaygroundToggle", "TSHighlightCapturesUnderCursor" },
-      },
-      {
         "nvim-treesitter/nvim-treesitter-textobjects",
         module = "nvim-treesitter-textobjects",
+      },
+      {
+        "nvim-treesitter/playground",
+        after = "nvim-treesitter",
+      },
+      {
+        "nvim-treesitter/nvim-treesitter-context",
+        after = "nvim-treesitter",
       },
     },
     event = "BufRead",
@@ -145,15 +155,6 @@ local function plugins(use)
     wants = "nvim-web-devicons",
     config = function()
       require "config.fzf"
-    end,
-  }
-
-  -- UI
-  use {
-    "stevearc/dressing.nvim",
-    event = "BufRead",
-    config = function()
-      vim.api.nvim_set_hl(0, "FloatTitle", { link = "Normal" })
     end,
   }
 
