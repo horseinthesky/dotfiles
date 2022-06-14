@@ -110,7 +110,7 @@ install_rust_analyzer () {
   [[ $? -ne 0 ]] && exit
 
   info "Extracting archive..."
-  local out = $HOME/.local/bin/rust-analyzer
+  local out=$HOME/.local/bin/rust-analyzer
   gunzip --stdout $HOME/$tarball > $out
   chmod +x $out
 
