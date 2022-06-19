@@ -111,6 +111,17 @@ local function plugins(use)
       require "config.gitsigns"
     end,
   }
+  use {
+    "akinsho/git-conflict.nvim",
+    config = function()
+      require("git-conflict").setup {
+        disable_diagnostics = true,
+      }
+    end,
+    cond = function()
+      return vim.fn.empty(vim.fn.glob "./.git") == 0
+    end,
+  }
 
   -- Fuzzy search
   use {
