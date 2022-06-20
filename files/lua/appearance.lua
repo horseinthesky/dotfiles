@@ -10,6 +10,8 @@ M.icons = {
   duck = " ", -- f6e4
   page = "☰", -- 2630
   buffer = "﬘", -- fb18
+  arrow = "", -- e285
+  play_arrow = "", -- e602
   line_number = "", -- e0a1
   connected = "", -- f817
   disconnected = "", -- f818
@@ -158,7 +160,7 @@ local tokyonight = {
   },
 }
 
-M.color_map = {
+local color_map = {
   gruvbox = {
     dark = {
       n = { gruvbox.dark.fg3, gruvbox.dark.bg2 },
@@ -277,7 +279,7 @@ M.color_map = {
   },
 }
 
-for _, table in pairs(M.color_map) do
+for _, table in pairs(color_map) do
   for _, subtable in pairs(table) do
     setmetatable(subtable, {
       __index = function()
@@ -286,5 +288,9 @@ for _, table in pairs(M.color_map) do
     })
   end
 end
+
+local theme_map = color_map[vim.g.colors_name] or color_map["gruvbox"]
+
+M.colors = theme_map[vim.opt.background:get()] or theme_map["dark"]
 
 return M

@@ -1,8 +1,7 @@
 local utils = require "utils"
 local appearance = require "appearance"
 local icons = appearance.icons
-local theme_map = appearance.color_map[vim.g.colors_name] or appearance.color_map["gruvbox"]
-local colors = theme_map[vim.opt.background:get()] or theme_map["dark"]
+local colors = appearance.colors
 
 local force_inactive = {
   filetypes = {
