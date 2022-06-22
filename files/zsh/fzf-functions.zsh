@@ -6,7 +6,7 @@ fw() {
     return 1
   fi
 
-  local project=$(fd -t d --max-depth 1 . $projects | rev | cut -c 2- | rev | sed 's|.*/||' | fzf)
+  local project=$(fd -t d --max-depth 1 . $projects | awk -F/ '{print $(NF-1)}' | fzf)
 
   [[ -z $project ]] && return
 
