@@ -43,6 +43,7 @@ local parsers = {
   "lua",
   "make",
   "markdown",
+  "markdown_inline",
   "ninja",
   "python",
   "rust",
