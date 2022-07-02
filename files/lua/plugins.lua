@@ -287,10 +287,9 @@ local function plugins(use)
   use {
     "ellisonleao/gruvbox.nvim",
     config = function()
-      vim.g.gruvbox_contrast_dark = "medium"
-      vim.g.gruvbox_italicize_comments = 0
-      vim.g.gruvbox_italic = 0
-      vim.g.gruvbox_invert_selection = 0
+      require("gruvbox").setup {
+        italic = false,
+      }
       require "colorscheme"
     end,
     cond = function()

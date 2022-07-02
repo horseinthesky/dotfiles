@@ -13,7 +13,6 @@ if not ok then
 end
 
 -- Colors fix
--- vim.g.original_normal_bg = string.format("#%06x", vim.api.nvim_get_hl_by_name("Normal", true)["background"])
 vim.api.nvim_set_hl(0, "NormalFloat", { link = "Normal" })
 vim.api.nvim_set_hl(0, "SignColumn", {})
 
