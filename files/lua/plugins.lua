@@ -315,7 +315,7 @@ local function plugins(use)
   }
   use {
     "lukas-reineke/indent-blankline.nvim",
-    event = "BufRead",
+    after = "nvim-treesitter",
   }
   use {
     "ntpeters/vim-better-whitespace",
