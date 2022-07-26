@@ -135,8 +135,6 @@ for option, value in pairs(settings) do
 end
 
 -- Shiftwidth, tabstop & expandtab settings based on filetype
-local tab_group = vim.api.nvim_create_augroup("TabSettings", { clear = true })
-
 local ft_settings = {
   python = {
     shiftwidth = 4,
@@ -159,6 +157,8 @@ local ft_settings = {
     commentstring = "# %s",
   },
 }
+
+local tab_group = vim.api.nvim_create_augroup("TabSettings", { clear = true })
 
 for ft, opts in pairs(ft_settings) do
   vim.api.nvim_create_autocmd("FileType", {
