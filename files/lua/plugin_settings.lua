@@ -92,13 +92,18 @@ for _, keymap in ipairs(fzf_mappings) do
 end
 
 -- neogen
-map("n", "<leader>af", function() require('neogen').generate({ type = 'func' }) end)
-map("n", "<leader>ac", function() require('neogen').generate({ type = 'class' }) end)
-map("n", "<leader>at", function() require('neogen').generate({ type = 'type' }) end)
+map("n", "<leader>af", function() require("neogen").generate({ type = "func" }) end)
+map("n", "<leader>ac", function() require("neogen").generate({ type = "class" }) end)
+map("n", "<leader>at", function() require("neogen").generate({ type = "type" }) end)
 
 -- hop
 vim.api.nvim_set_hl(0, "HopNextKey", { link = "Type" })
 map("n", "f", "<cmd>HopChar1<CR>")
+
+-- osc52
+map("n", "<leader>C", require("osc52").copy_operator, { expr = true })
+map("n", "<leader>CC", "<leader>C_", { remap = true })
+map("x", "<leader>C", require("osc52").copy_visual)
 
 -- startuptime
 vim.g.startuptime_tries = 5

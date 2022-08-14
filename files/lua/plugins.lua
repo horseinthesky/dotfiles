@@ -267,9 +267,14 @@ local function plugins(use)
   }
   use {
     "kylechui/nvim-surround",
+    event = "BufRead",
     config = function()
       require("nvim-surround").setup()
     end,
+  }
+  use {
+    "ojroques/nvim-osc52",
+    module = "osc52",
   }
 
   -- Visuals
