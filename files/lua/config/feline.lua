@@ -124,7 +124,7 @@ local comps = {
       end,
     },
     right_nested = {
-      provider = icons.sep.right_filled,
+      provider = " " .. icons.sep.right_filled,
       hl = function()
         return get_highlight "nested_inv"
       end,
