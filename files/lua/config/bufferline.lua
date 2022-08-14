@@ -23,29 +23,29 @@ require("bufferline").setup {
   },
   highlights = {
     indicator_selected = {
-      guifg = {
+      fg = {
           attribute = "fg",
           highlight = "Type"
       },
-      guibg = {
+      bg = {
           attribute = "bg",
           highlight = "Type"
       },
     },
     numbers= {
-      guifg = {
+      fg = {
           attribute = "fg",
           highlight = "Type"
       },
     },
     buffer_selected = {
-      gui = "bold",
+      italic = false,
     },
     pick = {
-      gui = "bold",
+      italic = false,
     },
     pick_selected = {
-      gui = "bold",
+      italic = false,
     },
   },
 }
