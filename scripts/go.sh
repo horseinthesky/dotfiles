@@ -5,7 +5,7 @@ source scripts/helper.sh
 install_go () {
   header "Installing go..."
 
-  local version=1.18.4
+  local version=1.19
   local tarball=go${version}.linux-amd64.tar.gz
 
   [[ ! -d $HOME/.local/bin ]] && mkdir -p $HOME/.local/bin
@@ -44,6 +44,8 @@ install_go_tools () {
   tools=(
     muesli/duf
     charmbracelet/glow
+    fatih/gomodifytags
+    cweill/gotests/...
   )
 
   for tool in ${tools[@]}; do

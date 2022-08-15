@@ -54,7 +54,21 @@ local leader_map = {
     l = "Diagnostics to loclist",
     r = "Rename",
     s = "Sinature help",
-    t = "Which_key_ignore",
+    t = {
+      name = "Tags",
+      a = {
+        name = "Add",
+        j = "JSON",
+        y = "YAML",
+        x = "XML",
+      },
+      r = {
+        name = "Remove",
+        j = "JSON",
+        y = "YAML",
+        x = "XML",
+      },
+    },
   },
   f = {
     name = "Find",

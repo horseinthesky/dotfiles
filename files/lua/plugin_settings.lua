@@ -105,6 +105,18 @@ map("n", "<leader>C", require("osc52").copy_operator, { expr = true })
 map("n", "<leader>CC", "<leader>C_", { remap = true })
 map("x", "<leader>C", require("osc52").copy_visual)
 
+-- gopher
+map("n", "<leader>ctaj", "<cmd>GoTagAdd json<CR>")
+map("n", "<leader>ctrj", "<cmd>GoTagRm json<CR>")
+map("n", "<leader>ctay", "<cmd>GoTagAdd yaml<CR>")
+map("n", "<leader>ctry", "<cmd>GoTagRm yaml<CR>")
+map("n", "<leader>ctax", "<cmd>GoTagAdd xml<CR>")
+map("n", "<leader>ctrx", "<cmd>GoTagRm xml<CR>")
+
+map("n", "<leader>cgta", "<cmd>GoTestAdd<CR>")
+map("n", "<leader>cgte", "<cmd>GoTestExp<CR>")
+map("n", "<leader>cgtA", "<cmd>GoTestAll<CR>")
+
 -- startuptime
 vim.g.startuptime_tries = 5
 map("n", "<leader>M", "<cmd>StartupTime<CR>")
