@@ -49,6 +49,15 @@ local leader_map = {
     D = "Definition",
     a = "Code action",
     d = "Line diagnistics",
+    g = {
+      name = "Go",
+      t = {
+        name = "Tests",
+        a = "Add",
+        e = "Exported only",
+        A = "All",
+      },
+    },
     h = "Hover",
     i = "Implementation",
     l = "Diagnostics to loclist",
