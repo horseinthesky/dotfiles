@@ -149,8 +149,8 @@ local ft_settings = {
     shiftwidth = 2,
   },
   go = {
-    shiftwidth = 8,
-    tabstop = 8,
+    shiftwidth = 4,
+    tabstop = 4,
     expandtab = false,
   },
   terraform = {

@@ -48,7 +48,15 @@ capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 -- Servers setup
 local servers = {
   rust_analyzer = {},
-  gopls = {},
+  -- gopls = {},
+  gopls = {
+    root_dir = lspconfig.util.root_pattern("YAOWNERS", "ya.make", "go.work", "go.mod", ".git"),
+    settings = {
+      gopls = {
+        expandWorkspaceToModule = false,
+      },
+    },
+  },
   jedi_language_server = {},
   yamlls = {
     settings = {
