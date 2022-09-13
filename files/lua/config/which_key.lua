@@ -184,6 +184,29 @@ local g_map = {
   n = "Show filename",
 }
 
+local v_map = {
+  i = {
+    name = "inside",
+    b = "Block",
+    c = "Class",
+    f = "Function",
+    l = "Loop",
+    m = "Call",
+    s = "Statement",
+    C = "Comment",
+  },
+  o = {
+    name = "outside",
+    b = "Block",
+    c = "Class",
+    f = "Function",
+    l = "Loop",
+    m = "Call",
+    s = "Statement",
+    C = "Comment",
+  },
+}
+
 local open_square_bracket_map = {
   b = "Buffer",
   l = "Loclist entry",
@@ -222,10 +245,12 @@ local conf = {
     separator = "ﰲ",
     group = " ",
   },
+  ignore_missing = true,
 }
 
 wk.setup(conf)
 wk.register(leader_map, { prefix = "<leader>" })
 wk.register(g_map, { prefix = "g" })
+wk.register(v_map, { prefix = "v" })
 wk.register(open_square_bracket_map, { prefix = "]" })
 wk.register(close_square_bracket_map, { prefix = "[" })
