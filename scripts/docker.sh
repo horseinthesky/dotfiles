@@ -8,10 +8,10 @@ install_docker () {
   case $ID in
     debian|ubuntu)
       packages=(
-        apt-transport-https
         ca-certificates
         curl
-        software-properties-common
+        gnupg
+        lsb-release
       )
       install ${packages[@]}
 
@@ -28,8 +28,12 @@ install_docker () {
           $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
       fi
 
-      info "Installing docker-ce..."
-      install docker-ce docker-ce-cli containerd.io
+      info "Installing docker packages..."
+      install \
+        docker-ce \
+        docker-ce-cli \
+        containerd.io \
+        docker-compose-plugin
       ;;
     arch|manjaro)
       install docker
@@ -70,7 +74,7 @@ install_docker_compose () {
 main () {
   install_docker
   setup_docker_group
-  install_docker_compose
+  # install_docker_compose
 }
 
 main
