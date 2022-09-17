@@ -84,6 +84,7 @@ install_tools () {
     stylua
     gping
     xh
+    so
     procs
     du-dust,dust
     bandwhich
