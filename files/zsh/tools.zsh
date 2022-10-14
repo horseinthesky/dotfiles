@@ -1,6 +1,12 @@
 # ======== Tools ========
 # Disable tmupx autotitle
-export DISABLE_AUTO_TITLE="true"
+export DISABLE_AUTO_TITLE=true
+
+# snaps
+export SNAPPATH=/snap/bin
+if [[ -d $SNAPPATH ]] && [[ ! $PATH == *$SNAPPATH* ]]; then
+  export PATH=$PATH:$SNAPPATH
+fi
 
 # fzf
 if [[ -f $HOME/.fzf.zsh ]]; then
@@ -23,7 +29,7 @@ if [[ -d $HOME/.pyenv ]] && [[ ! $PATH == *$HOME/.pyenv/bin* ]]; then
 fi
 
 # Add ~/go/bin to PATH
-export GOPATH="$HOME/go"
+export GOPATH=$HOME/go
 if [[ -d $GOPATH ]] && [[ ! $PATH == *$GOPATH/bin* ]]; then
   export PATH=$GOPATH/bin:$PATH
 fi
