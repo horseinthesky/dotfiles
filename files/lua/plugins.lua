@@ -276,6 +276,18 @@ local function plugins(use)
     "ojroques/nvim-osc52",
     module = "osc52",
   }
+  use {
+    "nat-418/boole.nvim",
+    event = "BufRead",
+    config = function()
+      require("boole").setup {
+        mappings = {
+          increment = "<C-a>",
+          decrement = "<C-x>",
+        },
+      }
+    end,
+  }
 
   -- Languages support
   use {
