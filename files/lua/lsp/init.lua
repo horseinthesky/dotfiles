@@ -57,7 +57,7 @@ local servers = {
       },
     },
   },
-  jedi_language_server = {},
+  pylsp = {},
   yamlls = {
     settings = {
       yaml = {

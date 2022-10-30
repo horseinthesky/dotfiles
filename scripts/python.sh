@@ -40,7 +40,7 @@ install_python_tools () {
     mypy
     flake8
     black
-    jedi-language-server
+    python-lsp-server
   )
 
   if [[ ! -d $devenv ]]; then
