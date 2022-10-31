@@ -5,9 +5,9 @@ local b = nls.builtins
 
 local sources = {
   -- Linting
-  b.diagnostics.flake8.with {
-    extra_args = { "--ignore", "E501,W503,E999" },
-  },
+  -- b.diagnostics.flake8.with {
+  --   extra_args = { "--ignore", "E501,W503,E999" },
+  -- },
   b.diagnostics.mypy.with {
     extra_args = {
       "--show-column-numbers",

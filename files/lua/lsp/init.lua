@@ -57,7 +57,24 @@ local servers = {
       },
     },
   },
-  pylsp = {},
+  pylsp = {
+    settings = {
+      pylsp = {
+        configurationSources = { "flake8" },
+        plugins = {
+          pycodestyle = {
+            enabled = false,
+          },
+          flake8 = {
+            maxLineLength = 100,
+          },
+          mccabe = {
+            enabled = false,
+          },
+        },
+      },
+    },
+  },
   yamlls = {
     settings = {
       yaml = {
