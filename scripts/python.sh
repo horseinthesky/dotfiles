@@ -7,7 +7,7 @@ devenv=$HOME/.python
 setup_env () {
   header "Setting up dev environment..."
 
-  local devver=3.10
+  local devver=3.11
 
   if [[ -d $devenv ]]; then
     success "Already exists"
