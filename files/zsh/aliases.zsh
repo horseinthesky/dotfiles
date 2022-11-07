@@ -64,6 +64,14 @@ t () {
   l --tree --level $depth $dir
 }
 
+# arc
+alias acm='arc checkout trunk'
+alias al='arc pull'
+alias ap='arc push'
+alias arh='arc reset --hard'
+alias aco='arc checkout'
+alias acb='arc checkout -b'
+
 # git
 git_main_branch () {
   command git rev-parse --git-dir &>/dev/null || return
