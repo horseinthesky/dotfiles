@@ -46,6 +46,7 @@ install_go_tools () {
     charmbracelet/glow
     fatih/gomodifytags
     cweill/gotests/...
+    natesales/q
   )
 
   for tool in ${tools[@]}; do
