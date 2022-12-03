@@ -65,6 +65,7 @@ t () {
 }
 
 # arc
+alias ast='arc status'
 alias acm='arc checkout trunk'
 alias al='arc pull'
 alias ap='arc push'
