@@ -5,6 +5,7 @@ require("gitsigns").setup {
     delete = { hl = "DiffDelete", text = " " },
     topdelete = { hl = "DiffDelete", text = " " },
     changedelete = { hl = "DiffChange", text = " " },
+    untracked = { hl = "DiffAdd", text = " " },
   },
   keymaps = {
     ["n ]h"] = { expr = true, "&diff ? ']c' : '<cmd>lua require\"gitsigns.actions\".next_hunk()<CR>'" },

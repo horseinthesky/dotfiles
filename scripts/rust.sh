@@ -85,6 +85,7 @@ install_tools () {
     gping
     xh
     so
+    hyperfine
     procs
     du-dust,dust
     bandwhich
