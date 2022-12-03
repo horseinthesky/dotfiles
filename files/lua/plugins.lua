@@ -184,6 +184,21 @@ local function plugins(use)
     end,
   }
   use {
+    "simrat39/rust-tools.nvim",
+    config = function()
+      require("rust-tools").setup {
+        tools = {
+          inlay_hints = {
+            show_parameter_hints = false,
+            parameter_hints_prefix = "",
+            other_hints_prefix = "",
+          },
+        },
+      }
+    end,
+    ft = "rust",
+  }
+  use {
     "hrsh7th/nvim-cmp",
     requires = {
       { "hrsh7th/cmp-buffer", module = "cmp_buffer" },
