@@ -62,8 +62,18 @@ local servers = {
       pylsp = {
         plugins = {
           pycodestyle = {
+            -- enabled = false,
             maxLineLength = 100,
+            ignore = {
+              "E501",
+            },
           },
+          -- mccabe = {
+          --   enabled = false,
+          -- },
+          -- pyflakes = {
+          --   enabled = false,
+          -- },
         },
       },
     },

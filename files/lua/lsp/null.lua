@@ -8,6 +8,14 @@ local sources = {
   -- b.diagnostics.flake8.with {
   --   extra_args = { "--ignore", "E501,W503,E999" },
   -- },
+  -- b.diagnostics.ruff.with {
+  --   extra_args = {
+  --     "--line-length", "100",
+  --     "--select", "I,F,W,E,B,A,C,RET",
+  --     "--ignore", "E501",
+  --     "--target-version", "py311",
+  --   },
+  -- },
   b.diagnostics.mypy.with {
     extra_args = {
       "--show-column-numbers",
@@ -30,12 +38,6 @@ local sources = {
   b.formatting.black.with {
     extra_args = { "--fast", "-l", "100" },
   },
-
-  -- Code actions
-  b.code_actions.gitsigns,
-
-  -- Hover
-  b.hover.dictionary,
 }
 
 function M.setup(opts)
