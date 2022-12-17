@@ -45,7 +45,7 @@ terraform_install () {
     return
   fi
 
-  info "Newer version ($latest_version) found. Updating..."
+  info "Newer version found. Updating $current_version -> $latest_version..."
   download_package https://releases.hashicorp.com/$name/${latest_version}/$package_name $HOME/.local/bin
   [[ $? -ne  0 ]] && return
 

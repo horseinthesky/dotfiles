@@ -168,7 +168,7 @@ cargo_install () {
     return
   fi
 
-  info "Newer version ($latest_version) found. Updating..."
+  info "Newer version found. Updating $current_version -> $latest_version..."
   cargo install $tool --force
 
   if [[ $? -ne 0 ]]; then
