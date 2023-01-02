@@ -2,11 +2,11 @@
 <div align="center">Always a WIP :)</div>
 
 <div align="center">
-    <a href="https://github.com/horseinthesky/dotfiles/#requirements">Requirements</a>
+    <a href="https://github.com/horseinthesky/dotfiles/#%EF%B8%8F-requirements">Requirements</a>
   <span> • </span>
-	<a href="https://github.com/horseinthesky/dotfiles/#features">Features</a>
+	<a href="https://github.com/horseinthesky/dotfiles/#-features">Features</a>
   <span> • </span>
-	<a href="https://github.com/horseinthesky/dotfiles/#installation">Installattion</a>
+	<a href="https://github.com/horseinthesky/dotfiles/#-installation">Installattion</a>
 </div>
 
 <img src ="https://raw.githubusercontent.com/horseinthesky/dotfiles/master/media/alpha.png"><hr>
