@@ -6,7 +6,7 @@
   <span> • </span>
 	<a href="https://github.com/horseinthesky/dotfiles/#-features">Features</a>
   <span> • </span>
-	<a href="https://github.com/horseinthesky/dotfiles/#-installation">Installattion</a>
+	<a href="https://github.com/horseinthesky/dotfiles/#-installation">Installation</a>
 </div>
 
 <img src ="https://raw.githubusercontent.com/horseinthesky/dotfiles/master/media/alpha.png"><hr>
