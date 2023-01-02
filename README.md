@@ -2,9 +2,11 @@
 <div align="center">Always a WIP :)</div>
 
 <div align="center">
+    <a href="https://github.com/horseinthesky/dotfiles/#requirements">Requirements</a>
+  <span> • </span>
 	<a href="https://github.com/horseinthesky/dotfiles/#features">Features</a>
   <span> • </span>
-	<a href="https://github.com/horseinthesky/dotfiles/#install">Install</a>
+	<a href="https://github.com/horseinthesky/dotfiles/#installation">Installattion</a>
 </div>
 
 <img src ="https://raw.githubusercontent.com/horseinthesky/dotfiles/master/media/alpha.png"><hr>
@@ -15,7 +17,13 @@
 <img src ="https://raw.githubusercontent.com/horseinthesky/dotfiles/master/media/rg.png"><hr>
 <img src ="https://raw.githubusercontent.com/horseinthesky/dotfiles/master/media/fd.png"><hr>
 
-## Features
+## ⚡️ Requirements
+
+- Neovim >= **0.8.0** (needs to be built with **LuaJIT**)
+- Git >= **2.19.0** (for partial clones support)
+- a [Nerd Font](https://www.nerdfonts.com/) **_(optional)_**
+
+## ✨ Features
 
 - Autohotkey config for Windows 10/11
 - Git config
@@ -52,9 +60,7 @@
   - [yaml-language-server](https://github.com/redhat-developer/yaml-language-server)
   - [dockerfile-language-server-nodejs](https://github.com/rcjsuen/dockerfile-language-server-nodejs)
 
-## Install
-
-Make sure you have the newest version of Neovim (0.7).
+## 📦 Installation
 
 ### Clone the repo
 
