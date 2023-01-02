@@ -1,19 +1,5 @@
 local cmp = require "cmp"
 
-require "cmp_buffer"
-require "cmp_path"
-require "cmp_nvim_lua"
-require "cmp_cmdline"
-require "cmp_emoji"
-require "cmp_luasnip"
-
-local tabnine = require "cmp_tabnine"
-tabnine:setup {
-  max_lines = 100,
-  max_num_results = 5,
-  sort = true,
-}
-
 local kind_icons = {
   Text = "",
   Method = "",

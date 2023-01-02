@@ -1,5 +1,3 @@
-local map = require("utils").map
-
 require("todo-comments").setup {
   signs = true,
   keywords = {
@@ -16,4 +14,4 @@ require("todo-comments").setup {
   },
 }
 
-map("n", "<leader>fT", "<cmd>TodoTelescope<CR>")
+vim.keymap.set("n", "<leader>fT", "<cmd>TodoTelescope<CR>")

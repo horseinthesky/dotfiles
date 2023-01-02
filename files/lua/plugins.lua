@@ -1,118 +1,60 @@
-local map = require("utils").map
+local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
 
--- Packer keymappings
-local mappings = {
-  { "n", "<leader>pi", "<cmd>PackerInstall<cr>" },
-  { "n", "<leader>pc", "<cmd>PackerCompile<cr>" },
-  { "n", "<leader>pu", "<cmd>PackerUpdate<cr>" },
-  { "n", "<leader>ps", "<cmd>PackerSync<cr>" },
-  { "n", "<leader>pt", "<cmd>PackerStatus<cr>" },
-}
-
-for _, keymap in ipairs(mappings) do
-  local mode, lhs, rhs, opts = unpack(keymap)
-  map(mode, lhs, rhs, opts)
-end
-
--- Indicate first time installation
-local packer_bootstrap = false
-
--- Check if packer.nvim is installed
--- Run PackerCompile if there are changes in this file
-local install_path = vim.fn.stdpath "data" .. "/site/pack/packer/opt/packer.nvim"
-
-if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-  packer_bootstrap = vim.fn.system {
+-- Lazy bootstrap
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system {
     "git",
     "clone",
-    "--depth",
-    "1",
-    "https://github.com/wbthomason/packer.nvim",
-    install_path,
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
   }
 end
 
-vim.cmd [[packadd packer.nvim]]
-vim.api.nvim_create_autocmd("BufWritePost", {
-  pattern = "plugins.lua",
-  command = "source <afile> | PackerCompile",
-})
+vim.opt.rtp:prepend(lazypath)
 
--- packer.nvim configuration
-local config = {
-  compile_path = require("packer.util").join_paths(vim.fn.stdpath "config", "packer", "packer_compiled.lua"),
-  profile = {
-    enable = true,
-    threshold = 0, -- the amount in ms that a plugins load time must be over for it to be included in the profile
-  },
-  display = {
-    open_fn = function()
-      return require("packer.util").float { border = "single" }
-    end,
-  },
-}
-
-local function plugins(use)
-  use {
-    "wbthomason/packer.nvim",
-    opt = true,
-  }
-
+-- Plugins
+local plugins = {
   -- Helpers
-  use {
+  {
     "stevearc/dressing.nvim",
     event = "BufRead",
     config = function()
       vim.api.nvim_set_hl(0, "FloatTitle", { link = "Normal" })
     end,
-  }
-  use {
+  },
+  {
     "kyazdani42/nvim-web-devicons",
-    module = "nvim-web-devicons",
     config = function()
       require("nvim-web-devicons").setup { default = true }
     end,
-  }
-  use {
-    "nvim-lua/plenary.nvim",
-    module = "plenary",
-    opt = true,
-  }
-  use {
+  },
+  {
     "nvim-treesitter/nvim-treesitter",
-    run = ":TSUpdate",
-    requires = {
-      {
-        "nvim-treesitter/nvim-treesitter-textobjects",
-        module = "nvim-treesitter-textobjects",
-      },
-      {
-        "nvim-treesitter/playground",
-        after = "nvim-treesitter",
-      },
-      {
-        "nvim-treesitter/nvim-treesitter-context",
-        after = "nvim-treesitter",
-      },
+    build = ":TSUpdate",
+    dependencies = {
+      "nvim-treesitter/playground",
+      "nvim-treesitter/nvim-treesitter-textobjects",
+      "nvim-treesitter/nvim-treesitter-context",
     },
     event = "BufRead",
     config = function()
-      require "config.treesitter"
+      require "plugins.treesitter"
     end,
-  }
+  },
 
   -- Git
-  use {
+  {
     "lewis6991/gitsigns.nvim",
     event = "BufRead",
-    wants = "plenary.nvim",
-    module = "gitsigns",
     config = function()
-      require "config.gitsigns"
+      require "plugins.gitsigns"
     end,
-  }
-  use {
+  },
+  {
     "akinsho/git-conflict.nvim",
+    lazy = false,
     config = function()
       require("git-conflict").setup {
         disable_diagnostics = true,
@@ -121,19 +63,18 @@ local function plugins(use)
     cond = function()
       return vim.fn.empty(vim.fn.glob "./.git") == 0
     end,
-  }
+  },
 
   -- Fuzzy search
-  use {
+  {
     "nvim-telescope/telescope.nvim",
-    requires = {
-      { "nvim-lua/popup.nvim", opt = true },
-      { "nvim-telescope/telescope-fzf-native.nvim", run = "make", opt = true },
-      { "nvim-telescope/telescope-symbols.nvim", opt = true },
-      { "nvim-telescope/telescope-project.nvim", opt = true },
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope-symbols.nvim",
+      "nvim-telescope/telescope-project.nvim",
+      { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
       {
         "AckslD/nvim-neoclip.lua",
-        opt = true,
         config = function()
           require("neoclip").setup {
             keys = {
@@ -147,43 +88,31 @@ local function plugins(use)
         end,
       },
     },
-    wants = {
-      "popup.nvim",
-      "plenary.nvim",
-      "telescope-fzf-native.nvim",
-      "telescope-symbols.nvim",
-      "telescope-project.nvim",
-      "nvim-neoclip.lua",
-    },
-    cmd = { "Telescope" },
+    cmd = "Telescope",
     config = function()
-      require "config.telescope"
+      require "plugins.telescope"
     end,
-  }
-  use {
+  },
+  {
     "ibhagwan/fzf-lua",
-    cmd = { "FzfLua" },
-    wants = "nvim-web-devicons",
+    cmd = "FzfLua",
     config = function()
-      require "config.fzf"
+      require "plugins.fzf"
     end,
-  }
+  },
 
   -- LSP and completion
-  use {
+  {
     "neovim/nvim-lspconfig",
-    requires = {
-      {
-        "jose-elias-alvarez/null-ls.nvim",
-        module = "null-ls",
-      },
+    dependencies = {
+      "jose-elias-alvarez/null-ls.nvim",
     },
     event = "BufReadPre",
     config = function()
       require "lsp"
     end,
-  }
-  use {
+  },
+  {
     "simrat39/rust-tools.nvim",
     config = function()
       require("rust-tools").setup {
@@ -197,136 +126,136 @@ local function plugins(use)
       }
     end,
     ft = "rust",
-  }
-  use {
+  },
+  {
     "hrsh7th/nvim-cmp",
-    requires = {
-      { "hrsh7th/cmp-buffer", module = "cmp_buffer" },
-      { "hrsh7th/cmp-path", module = "cmp_path" },
-      { "hrsh7th/cmp-nvim-lsp", module = "cmp_nvim_lsp" },
-      { "hrsh7th/cmp-nvim-lua", module = "cmp_nvim_lua" },
-      { "hrsh7th/cmp-cmdline", module = "cmp_cmdline" },
-      { "hrsh7th/cmp-emoji", module = "cmp_emoji" },
-      { "saadparwaiz1/cmp_luasnip", module = "cmp_luasnip" },
-      {
-        "tzachar/cmp-tabnine",
-        run = "./install.sh",
-        module = "cmp_tabnine",
-      },
-      { "rafamadriz/friendly-snippets", module = "friendly-snippets" },
+    dependencies = {
+      "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-path",
+      "hrsh7th/cmp-emoji",
+      "hrsh7th/cmp-cmdline",
+      "saadparwaiz1/cmp_luasnip",
+      "rafamadriz/friendly-snippets",
       {
         "L3MON4D3/LuaSnip",
-        wants = "friendly-snippets",
-        module = "luasnip",
         config = function()
-          require "config.snippets"
+          require "plugins.snippets"
         end,
       },
     },
     event = "InsertEnter",
-    wants = "LuaSnip",
     config = function()
       require "lsp.cmp"
     end,
-  }
+  },
+  {
+    "tzachar/cmp-tabnine",
+    build = "./install.sh",
+    dependencies = {
+      "hrsh7th/nvim-cmp",
+    },
+    event = "InsertEnter",
+    config = function()
+      local tabnine = require "cmp_tabnine"
+      tabnine:setup {
+        max_lines = 100,
+        max_num_results = 5,
+        sort = true,
+      }
+    end,
+  },
 
   -- Features
-  use {
+  {
     "danymat/neogen",
-    wants = "nvim-treesitter",
-    module = "neogen",
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+    },
     config = function()
       require("neogen").setup {
         enabled = true,
       }
     end,
-  }
-  use {
+  },
+  {
     "folke/todo-comments.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
     event = "BufRead",
     config = function()
-      require "config.todo"
+      require "plugins.todo"
     end,
-  }
-  use {
+  },
+  {
     "numToStr/FTerm.nvim",
     keys = { "<F3>", "<F4>" },
     config = function()
-      require "config.fterm"
+      require "plugins.fterm"
     end,
-  }
-  use {
+  },
+  {
     "folke/which-key.nvim",
     event = "BufRead",
     config = function()
-      require "config.which_key"
+      require "plugins.which_key"
     end,
-  }
-  use {
+  },
+  {
     "dstein64/vim-startuptime",
     cmd = "StartupTime",
-  }
-  use {
+  },
+  {
     "phaazon/hop.nvim",
     cmd = "HopChar1",
     config = function()
       require("hop").setup()
     end,
-  }
-  use {
+  },
+  {
     "numToStr/Comment.nvim",
     keys = { "gc", "gcc", "gbc" },
     config = function()
       require("Comment").setup()
     end,
-  }
-  use {
+  },
+  {
     "kylechui/nvim-surround",
     event = "BufRead",
     config = function()
       require("nvim-surround").setup()
     end,
-  }
-  use {
+  },
+  {
     "ojroques/nvim-osc52",
-    module = "osc52",
-  }
-  use {
-    "nat-418/boole.nvim",
-    event = "BufRead",
-    config = function()
-      require("boole").setup {
-        mappings = {
-          increment = "<C-a>",
-          decrement = "<C-x>",
-        },
-      }
-    end,
-  }
+  },
 
   -- Languages support
-  use {
+  {
     "olexsmir/gopher.nvim",
-    requires = {
+    dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
     },
     ft = "go",
-  }
+  },
 
   -- Visuals
-  use {
+  {
     "goolord/alpha-nvim",
-    wants = "nvim-web-devicons",
+    lazy = false,
     config = function()
-      require "config.alpha"
+      require "plugins.alpha"
     end,
     cond = function()
       return vim.api.nvim_buf_get_name(0) == ""
     end,
-  }
-  use {
+  },
+  {
     "ellisonleao/gruvbox.nvim",
+    lazy = false,
+    priority = 999,
     config = function()
       require("gruvbox").setup {
         italic = false,
@@ -336,9 +265,11 @@ local function plugins(use)
     cond = function()
       return vim.g.theme == "gruvbox"
     end,
-  }
-  use {
+  },
+  {
     "folke/tokyonight.nvim",
+    lazy = false,
+    priority = 999,
     config = function()
       vim.g.tokyonight_style = "storm"
       vim.g.tokyonight_italic_comments = false
@@ -349,42 +280,65 @@ local function plugins(use)
     cond = function()
       return vim.g.theme == "tokyonight"
     end,
-  }
-  use {
+  },
+  {
     "Glench/Vim-Jinja2-Syntax",
     ft = "jinja",
-  }
-  use {
+  },
+  {
     "lukas-reineke/indent-blankline.nvim",
-    after = "nvim-treesitter",
-  }
-  use {
+    event = "BufRead",
+  },
+  {
     "ntpeters/vim-better-whitespace",
     event = "BufRead",
-  }
+  },
 
   -- Statusline
-  use {
+  {
     "famiu/feline.nvim",
     event = "VimEnter",
     config = function()
-      require "config.feline"
+      require "plugins.feline"
     end,
-  }
-  use {
+  },
+  {
     "akinsho/bufferline.nvim",
-    wants = "nvim-web-devicons",
     event = "BufReadPre",
     config = function()
-      require "config.bufferline"
+      require "plugins.bufferline"
     end,
-  }
+  },
+}
 
-  if packer_bootstrap then
-    require("packer").sync()
-  end
-end
+-- Options
+local options = {
+  defaults = { lazy = true },
+  performance = {
+    rtp = {
+      disabled_plugins = {
+        "gzip",
+        "matchit",
+        "matchparen",
+        "netrwPlugin",
+        "tarPlugin",
+        "tohtml",
+        "tutor",
+        "zipPlugin",
+      },
+    },
+  },
+  ui = {
+    border = "rounded",
+    icons = {
+      start = "",
+      event = "",
+      cmd = "",
+      ft = "",
+    },
+  },
+}
 
-local packer = require "packer"
-packer.init(config)
-packer.startup(plugins)
+-- Setup
+require("lazy").setup(plugins, options)
+vim.keymap.set("n", "<leader>L", "<cmd>Lazy<CR>")

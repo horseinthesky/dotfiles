@@ -128,14 +128,6 @@ local leader_map = {
     o = "Open loclist",
     r = "Which_key_ignore",
   },
-  p = {
-    name = "Packer",
-    c = "Compile",
-    i = "Install",
-    s = "Sync",
-    t = "Status",
-    u = "Update",
-  },
   q = {
     name = "Quicklist",
     o = "Open quicklist",

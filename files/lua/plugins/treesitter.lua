@@ -1,5 +1,3 @@
-local map = require("utils").map
-
 local swap_next, swap_prev = (function()
   local swap_objects = {
     c = "@class.outer",
@@ -18,8 +16,6 @@ local swap_next, swap_prev = (function()
 
   return n, p
 end)()
-
-require "nvim-treesitter-textobjects"
 
 local parsers = {
   "bash",
@@ -129,4 +125,4 @@ require("nvim-treesitter.configs").setup {
   },
 }
 
-map("n", "<leader>P", "<cmd>TSPlaygroundToggle<CR>")
+vim.keymap.set("n", "<leader>P", "<cmd>TSPlaygroundToggle<CR>")

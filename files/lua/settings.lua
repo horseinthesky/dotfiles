@@ -78,6 +78,8 @@ local settings = {
   timeoutlen = 500, -- Timeout for a mapped sequence to complete. (1000 ms by default)
   -- cmdheight = 2,     -- More space for messages
 
+  -- Colors
+  termguicolors = true,
   -- Clipboard
   -- clipboard = "unnamedplus",
 
@@ -176,7 +178,7 @@ end
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "help", "startuptime", "lspinfo" },
   callback = function()
-    utils.map("n", "q", "<cmd>close<CR>", { buffer = true })
+    vim.keymap.set("n", "q", "<cmd>close<CR>", { buffer = true })
   end,
 })
 
