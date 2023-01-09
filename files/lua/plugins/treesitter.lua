@@ -44,6 +44,7 @@ local parsers = {
   "scheme",
   "scss",
   "toml",
+  "terraform",
   "typescript",
   "vue",
   "yaml",
