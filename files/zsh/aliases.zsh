@@ -24,8 +24,14 @@ alias d='deactivate'
 alias dRc='docker rm $(docker ps -a -q -f status=exited)'
 alias dRi='docker rmi -f $(docker images -qf dangling=true)'
 
-# microk8s
-alias kubectl='microk8s kubectl'
+# k8s
+k () {
+  if [[ -n $(whence kubectl) ]]; then
+    kubectl $@
+  else
+    microk8s kubectl $@
+  fi
+}
 
 # poetry
 alias pr='poetry run python'
