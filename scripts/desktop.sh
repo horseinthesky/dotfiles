@@ -29,7 +29,9 @@ install_kitty () {
   symlink $HOME/.local/kitty.app/bin/kitty $HOME/.local/bin/kitty
   symlink $DOTFILES_HOME/kitty $HOME/.config
   cp $DOTFILES_HOME/kitty/kitty.desktop $HOME/.local/share/applications/
-  sed -i 's|PLACEHOLDER|'"$HOME"'|' .local/share/applications/kitty.desktop
+  sed -i 's|PLACEHOLDER|'"$HOME"'|' $HOME/.local/share/applications/kitty.desktop
+  sed -i 's|TryExec=kitty|'"TryExec=$HOME/.local/bin/kitty"'|' $HOME/.local/share/applications/kitty.desktop
+  sed -i 's|^Exec=kitty|'"Exec=$HOME/.local/bin/kitty"'|' $HOME/.local/share/applications/kitty.desktop
 
   success
 }
