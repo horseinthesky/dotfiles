@@ -95,7 +95,7 @@ local servers = {
   jsonls = { on_attach = no_format_on_attach },
   terraformls = {},
   dockerls = {},
-  sumneko_lua = require("lsp.sumneko").config,
+  lua_ls = require("lsp.sumneko").config,
 }
 
 for server, config in pairs(servers) do

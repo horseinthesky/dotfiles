@@ -173,6 +173,7 @@ local g_map = {
     h = "Diff from (left)",
     l = "Diff to (right)",
   },
+  j = "split/join",
   n = "Show filename",
 }
 

@@ -16,7 +16,7 @@ vim.opt.rtp:prepend(lazypath)
 
 -- Plugins
 local plugins = {
-  -- Helpers
+  -- Appearance
   {
     "stevearc/dressing.nvim",
     event = "BufRead",
@@ -229,6 +229,16 @@ local plugins = {
   },
   {
     "ojroques/nvim-osc52",
+  },
+  {
+    "Wansmer/treesj",
+    cmd = "TSJToggle",
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+    },
+    config = function()
+      require("treesj").setup()
+    end,
   },
 
   -- Languages support

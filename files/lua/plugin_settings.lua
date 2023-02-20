@@ -129,6 +129,9 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
+-- treesj
+map("n", "gj", "<cmd>TSJToggle<CR>")
+
 -- ==== Visuals plugin settings ====
 -- indentline
 vim.g.indent_blankline_filetype_exclude = {
