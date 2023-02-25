@@ -91,6 +91,7 @@ install_tools () {
     bandwhich
     bottom,btm
     tealdeer,tldr
+    speedtest-rs
   )
 
   for tool in ${tools[@]}; do
