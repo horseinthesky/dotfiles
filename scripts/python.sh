@@ -34,7 +34,6 @@ install_python_tools () {
 
   packages=(
     virtualenv
-    httpie
     ptpython
     ruff
     isort
