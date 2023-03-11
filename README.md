@@ -20,11 +20,11 @@ Neovim experience
 ![nvim](https://raw.githubusercontent.com/horseinthesky/dotfiles/master/media/nvim.png)
 ![nvim_insert](https://raw.githubusercontent.com/horseinthesky/dotfiles/master/media/nvim_insert.png)
 
-Neovim telescope plugin for findig stuff
+Neovim telescope plugin for finding stuff
 
 ![telescope](https://raw.githubusercontent.com/horseinthesky/dotfiles/master/media/telescope.png)
 
-Shell FZF tool
+Shell `fzf` tool
 
 ![fzf](https://raw.githubusercontent.com/horseinthesky/dotfiles/master/media/fzf.png)
 
@@ -60,7 +60,8 @@ Here is a list of what is going to be installed and setup:
 - [asn](https://github.com/nitefood/asn) lookup tool and traceroute server
 - [Terraform](https://www.terraform.io/) with [terraform-ls](https://github.com/hashicorp/terraform-ls) language server
 - [Docker](https://www.docker.com/) comunity edition container runtime
-- [Neovim](https://neovim.io/) with a ton of plugins (Lua based configuration). You can find old VimScript version (with CoC) in [this repo](https://github.com/horseinthesky/vimscript)
+- [Neovim](https://neovim.io/) with a ton of plugins (Lua based configuration)
+  - You can find my **old (deprecated)** VimScript version (with [CoC](https://github.com/neoclide/coc.nvim)) in [this repo](https://github.com/horseinthesky/vimscript)
 - [Rust](https://www.rust-lang.org/):
   - [cargo](https://crates.io/) package manager
   - Tools (`ripgrep`, `fd-find`, `zoxide`, `exa`, `xh`, `btm`, `tldr`, `delta`, etc.)
