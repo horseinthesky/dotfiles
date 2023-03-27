@@ -268,7 +268,12 @@ local plugins = {
     priority = 999,
     config = function()
       require("gruvbox").setup {
-        italic = false,
+        italic = {
+          strings = false,
+          comments = false,
+          operators = false,
+          folds = false,
+        },
       }
       require "colorscheme"
     end,
