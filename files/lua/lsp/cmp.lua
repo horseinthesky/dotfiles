@@ -1,6 +1,7 @@
 local cmp = require "cmp"
 
 local kind_icons = {
+  TabNine = "",
   Text = "",
   Method = "",
   Function = "",
@@ -41,6 +42,9 @@ cmp.setup {
   formatting = {
     format = function(entry, vim_item)
       -- fancy icons and a name of kind
+      if kind_icons[vim_item.kind] == nil then
+        print(vim_item.kind)
+      end
       vim_item.kind = kind_icons[vim_item.kind] .. " " .. vim_item.kind
 
       -- set a name for each source
