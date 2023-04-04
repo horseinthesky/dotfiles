@@ -115,15 +115,7 @@ local plugins = {
   {
     "simrat39/rust-tools.nvim",
     config = function()
-      require("rust-tools").setup {
-        tools = {
-          inlay_hints = {
-            show_parameter_hints = false,
-            parameter_hints_prefix = "",
-            other_hints_prefix = "",
-          },
-        },
-      }
+      require("lsp.rt").setup()
     end,
     ft = "rust",
   },
