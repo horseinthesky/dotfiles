@@ -5,7 +5,7 @@ source scripts/helper.sh
 install_go () {
   header "Installing go..."
 
-  local version=1.19
+  local version=1.20.3
   local tarball=go${version}.linux-amd64.tar.gz
 
   [[ ! -d $HOME/.local/bin ]] && mkdir -p $HOME/.local/bin
