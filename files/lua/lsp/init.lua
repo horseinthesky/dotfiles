@@ -34,15 +34,7 @@ local servers = {
       },
     },
   },
-  yamlls = {
-    settings = {
-      yaml = {
-        schemas = {
-          kubernetes = "/*.yaml",
-        },
-      },
-    },
-  },
+  yamlls = {},
   html = {
     filetypes = { "html", "jinja.html" },
     on_attach = on_attach.no_format,
