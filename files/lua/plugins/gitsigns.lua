@@ -1,3 +1,5 @@
+local map = require("utils").map
+
 require("gitsigns").setup {
   signs = {
     add = { hl = "DiffAdd", text = " " },
@@ -7,12 +9,28 @@ require("gitsigns").setup {
     changedelete = { hl = "DiffChange", text = " " },
     untracked = { hl = "DiffAdd", text = " " },
   },
-  keymaps = {
-    ["n ]h"] = { expr = true, "&diff ? ']c' : '<cmd>lua require\"gitsigns.actions\".next_hunk()<CR>'" },
-    ["n [h"] = { expr = true, "&diff ? '[c' : '<cmd>lua require\"gitsigns.actions\".prev_hunk()<CR>'" },
-    ["n <leader>gh"] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
-    ["n <leader>gw"] = '<cmd>lua require"gitsigns".blame_line()<CR>',
-  },
+  on_attach = function(_)
+    local gs = package.loaded.gitsigns
+
+    -- Navigation
+    map("n", "]h", function()
+      if vim.wo.diff then
+        return "]h"
+      end
+      gs.next_hunk()
+    end)
+
+    map("n", "[h", function()
+      if vim.wo.diff then
+        return "[h"
+      end
+      gs.prev_hunk()
+    end)
+
+    -- Actions
+    map("n", "<leader>gh", gs.preview_hunk)
+    map("n", "<leader>gw", gs.blame_line)
+  end,
 }
 
 vim.api.nvim_set_hl(0, "DiffChange", { link = "IncSearch" })
