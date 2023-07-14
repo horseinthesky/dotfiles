@@ -36,6 +36,7 @@ install_go () {
 symlink_go () {
   header "Symlink go"
   symlink $HOME/.local/lib/go/bin/go $HOME/.local/bin/go
+  symlink $HOME/.local/lib/go/bin/gofmt $HOME/.local/bin/gofmt
 }
 
 install_go_tools () {
