@@ -79,6 +79,9 @@ alias arh='arc reset --hard'
 alias aco='arc checkout'
 alias acb='arc checkout -b'
 
+# vpn fix
+alias vpn='sudo dpkg -i /usr/share/get-cert-tpm/*.deb'
+
 # git
 git_main_branch () {
   command git rev-parse --git-dir &>/dev/null || return
