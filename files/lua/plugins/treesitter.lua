@@ -35,6 +35,7 @@ local parsers = {
   "json5",
   "jsonc",
   "latex",
+  "lua",
   "make",
   "markdown",
   "markdown_inline",

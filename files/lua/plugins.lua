@@ -32,12 +32,12 @@ local plugins = {
   },
   {
     "nvim-treesitter/nvim-treesitter",
-    build = ":TSUpdate",
     dependencies = {
       "nvim-treesitter/playground",
       "nvim-treesitter/nvim-treesitter-textobjects",
       "nvim-treesitter/nvim-treesitter-context",
     },
+    build = ":TSUpdate",
     event = "BufRead",
     config = function()
       require "plugins.treesitter"
@@ -143,10 +143,10 @@ local plugins = {
   },
   {
     "tzachar/cmp-tabnine",
-    build = "./install.sh",
     dependencies = {
       "hrsh7th/nvim-cmp",
     },
+    build = "./install.sh",
     event = "InsertEnter",
     config = function()
       local tabnine = require "cmp_tabnine"
@@ -224,12 +224,44 @@ local plugins = {
   },
   {
     "Wansmer/treesj",
-    cmd = "TSJToggle",
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
     },
+    cmd = "TSJToggle",
     config = function()
       require("treesj").setup()
+    end,
+  },
+  {
+    "luckasRanarison/nvim-devdocs",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope.nvim",
+      "nvim-treesitter/nvim-treesitter",
+    },
+    cmd = {
+      "DevdocsFetch",
+      "DevdocsInstall",
+      "DevdocsUninstall",
+      "DevdocsOpen",
+      "DevdocsOpenFloat",
+      "DevdocsOpenCurrent",
+      "DevdocsOpenCurrentFloat",
+      "DevdocsUpdate",
+      "DevdocsUpdateAll",
+    },
+    config = function()
+      require("nvim-devdocs").setup {
+        ensure_installed = {
+          "python-3.11",
+          "go",
+          "rust",
+        },
+        wrap = true,
+        after_open = function(bufnr)
+          vim.api.nvim_buf_set_keymap(bufnr, "n", "<Esc>", ":close<CR>", {})
+        end,
+      }
     end,
   },
 

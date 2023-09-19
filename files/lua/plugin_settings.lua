@@ -13,7 +13,7 @@ local telescope_mappings = {
   -- {"n", "<leader>fw", "<cmd>Telescope grep_string<CR>"},
   { "n", "<leader>fr", "<cmd>Telescope registers<CR>" },
   -- {"n", "<leader>fm", "<cmd>Telescope marks<CR>"},
-  {"n", "<leader>fk", "<cmd>Telescope keymaps<CR>"},
+  { "n", "<leader>fk", "<cmd>Telescope keymaps<CR>" },
   -- {"n", "<leader>fO", "<cmd>Telescope oldfiles<CR>"},
   { "n", "<leader>fc", "<cmd>Telescope commands<CR>" },
   { "n", "<leader>fo", "<cmd>Telescope vim_options<CR>" },
@@ -131,6 +131,9 @@ vim.api.nvim_create_autocmd("FileType", {
 
 -- treesj
 map("n", "gj", "<cmd>TSJToggle<CR>")
+
+-- devdocs
+map("n", "<leader>fd", "<cmd>DevdocsOpenCurrentFloat<CR>")
 
 -- ==== Visuals plugin settings ====
 -- indentline

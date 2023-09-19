@@ -92,6 +92,7 @@ local leader_map = {
     a = "Autocommands",
     b = "Buffers",
     c = "Commands",
+    d = "Devdocs",
     e = "Buffer line",
     f = "Files",
     h = "Help",
