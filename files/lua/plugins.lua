@@ -105,7 +105,7 @@ local plugins = {
   {
     "neovim/nvim-lspconfig",
     dependencies = {
-      "jose-elias-alvarez/null-ls.nvim",
+      "nvimtools/none-ls.nvim"
     },
     event = "BufReadPre",
     config = function()
