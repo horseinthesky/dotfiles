@@ -13,7 +13,7 @@ alias 3='cd -3'
 alias 4='cd -4'
 
 alias md='mkdir -p'
-alias rd=rmdir
+alias rd='rm -rf'
 
 # virtualenv
 alias v='virtualenv .venv'

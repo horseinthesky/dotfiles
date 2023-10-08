@@ -8,7 +8,8 @@ stty stop undef
 zle_highlight=('paste:none')
 
 # ==== Options ====
-setopt INTERACTIVE_COMMENTS  # Enable in-line comments
+# Enable in-line comments
+setopt INTERACTIVE_COMMENTS
 
 # ==== Plugins ====
 source $ZDOTDIR/utils.zsh
@@ -23,15 +24,21 @@ for plugin in ${plugins[@]}; do
 done
 
 # ==== Addons ====
-source_file history.zsh
-source_file aliases.zsh
-source_file key-bindings.zsh
-source_file completion.zsh
-source_file functions.zsh
-source_file fzf-functions.zsh
-source_file fzf-git-functions.zsh
-source_file network-functions.zsh
-source_file tools.zsh
+addons=(
+  history
+  aliases
+  key-bindings
+  completion
+  functions
+  fzf-functions
+  fzf-git-functions
+  network-functions
+  tools
+)
+
+for addon in ${addons[@]}; do
+  source_file $addon.zsh
+done
 
 # ==== Theme ====
 ZSH_THEME=powerlevel10k
@@ -49,14 +56,14 @@ if grep -q "microsoft" /proc/version &>/dev/null; then
 fi
 
 # WSL 1 specific settings.
-if grep -qE "(Microsoft|WSL)" /proc/version &>/dev/null; then
-  if [ "$(umask)" = "0000" ]; then
-    umask 0022
-  fi
-
-  # Requires: https://sourceforge.net/projects/vcxsrv/ (or alternative)
-  export DISPLAY=:0
-fi
+# if grep -qE "(Microsoft|WSL)" /proc/version &>/dev/null; then
+#   if [ "$(umask)" = "0000" ]; then
+#     umask 0022
+#   fi
+#
+#   # Requires: https://sourceforge.net/projects/vcxsrv/ (or alternative)
+#   export DISPLAY=:0
+# fi
 
 # ==== Yandex ====
 if [[ $(cat /proc/sys/kernel/hostname) == 'carbon9' ]] ; then

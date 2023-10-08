@@ -3,19 +3,23 @@
 export DISABLE_AUTO_TITLE=true
 
 # snaps
-export SNAPPATH=/snap/bin
-if [[ -d $SNAPPATH ]] && [[ ! $PATH == *$SNAPPATH* ]]; then
-  export PATH=$PATH:$SNAPPATH
-fi
+[[ -d /snap/bin && ! $PATH == */snap/bin* ]] && export PATH=$PATH:/snap/bin
 
 # fzf
 if [[ -f $HOME/.fzf.zsh ]]; then
-  source ~/.fzf.zsh
+  source $HOME/.fzf.zsh
 
   FD_OPTIONS="--hidden --follow --exclude .git"
   export FZF_DEFAULT_COMMAND="fd --type f --type l $FD_OPTIONS"
-  export FZF_DEFAULT_OPTS="--prompt ' ' --pointer '►' --marker=⦁ --height 60% --layout=reverse
-    --color 'fg:#bdae93,fg+:#f9f5d7,hl:#fabd2f,hl+:#fabd2f,info:#8ec07c,pointer:#fb4934,marker:#fe8019,bg+:-1'"
+  export FZF_DEFAULT_OPTS="
+    --prompt ' '
+    --pointer '►'
+    --marker=⦁
+    --height 60%
+    --layout=reverse
+    --color
+      'fg:#bdae93,fg+:#f9f5d7,hl:#fabd2f,hl+:#fabd2f,info:#8ec07c,pointer:#fb4934,marker:#fe8019,bg+:-1'
+  "
   export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
   bindkey '^f' fzf-cd-widget
@@ -29,33 +33,25 @@ if [[ -d $HOME/.pyenv ]] && [[ ! $PATH == *$HOME/.pyenv/bin* ]]; then
 fi
 
 # Add ~/go/bin to PATH
-export GOPATH=$HOME/go
-if [[ -d $GOPATH ]] && [[ ! $PATH == *$GOPATH/bin* ]]; then
-  export PATH=$GOPATH/bin:$PATH
-fi
+[[ -d $HOME/go && ! $PATH == *$HOME/go/bin* ]] && export PATH=$HOME/go/bin:$PATH
 
 # Add local bin to path
-if [[ -d $HOME/.local/bin ]] && [[ ! $PATH == *$HOME/.local/bin* ]]; then
-  export PATH=$PATH:$HOME/.local/bin
-fi
+[[ -d $HOME/.local/bin && ! $PATH == *$HOME/.local/bin* ]] && export PATH=$PATH:$HOME/.local/bin
 
 # Add python dev venv to path
-if [[ -d $HOME/.python ]] && [[ ! $PATH == *$HOME/.python/bin* ]]; then
-  export PATH=$HOME/.python/bin:$PATH
-fi
+[[ -d $HOME/.python && ! $PATH == *$HOME/.python/bin* ]] && export PATH=$HOME/.python/bin:$PATH
 
 # fnm
-[[ -d $HOME/.fnm ]] && export PATH=$PATH:$HOME/.fnm && eval "$(fnm env)"
+if [[ -d $HOME/.fnm ]] && [[ ! $PATH == *$HOME/.fnm* ]]; then
+  export PATH=$PATH:$HOME/.fnm
+  eval "$(fnm env)"
+fi
 
 # yarn
-if [[ -d $HOME/.yarn ]] && [[ ! $PATH == *$HOME/.yarn/bin* ]]; then
-  export PATH=$HOME/.yarn/bin:$PATH
-fi
+[[ -d $HOME/.yarn && ! $PATH == *$HOME/.yarn/bin* ]] && export PATH=$HOME/.yarn/bin:$PATH
 
 # cargo
-if [[ -d $HOME/.cargo ]] && [[ ! $PATH == *$HOME/.cargo/bin* ]]; then
-  export PATH=$PATH:$HOME/.cargo/bin
-fi
+[[ -d $HOME/.cargo && ! $PATH == *$HOME/.cargo/bin* ]] && export PATH=$PATH:$HOME/.cargo/bin
 
 # zoxide
-[[ -n $(which zoxide) ]] && eval "$(zoxide init zsh)"
+[[ -z $(whence z) ]] && eval "$(zoxide init zsh)"
