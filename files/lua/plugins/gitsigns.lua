@@ -33,4 +33,6 @@ require("gitsigns").setup {
   end,
 }
 
+vim.api.nvim_set_hl(0, "DiffAdd", { bg = "#b8bb26" })
 vim.api.nvim_set_hl(0, "DiffChange", { link = "IncSearch" })
+vim.api.nvim_set_hl(0, "DiffDelete", { link = "Error" })

@@ -4,6 +4,7 @@ export ZSH_DISABLE_COMPFIX=true
 # Disable CTRL-s from freezing your terminal's output.
 stty stop undef
 
+# Disable highlighting of pasted text
 zle_highlight=('paste:none')
 
 # ==== Options ====
