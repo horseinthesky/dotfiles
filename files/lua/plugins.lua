@@ -56,8 +56,15 @@ local plugins = {
     "akinsho/git-conflict.nvim",
     lazy = false,
     config = function()
+      vim.api.nvim_set_hl(0, "GitConflictCurrent", { bg = "#427b58" })
+      vim.api.nvim_set_hl(0, "GitConflictIncoming", { bg = "#076678" })
+
       require("git-conflict").setup {
         disable_diagnostics = true,
+        highlights = {
+          current = "GitConflictCurrent",
+          incoming = "GitConflictIncoming",
+        },
       }
     end,
     cond = function()
@@ -105,7 +112,7 @@ local plugins = {
   {
     "neovim/nvim-lspconfig",
     dependencies = {
-      "nvimtools/none-ls.nvim"
+      "nvimtools/none-ls.nvim",
     },
     event = "BufReadPre",
     config = function()
