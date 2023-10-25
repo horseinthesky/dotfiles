@@ -12,7 +12,7 @@ download_package () {
   local path=$2
   local package=$(echo $1 | awk -F/ '{print $NF}')
 
-  download $url $HOME
+  download $url
   [[ $? -ne  0 ]] && return 1
 
   info "Extracting archive..."

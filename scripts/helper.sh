@@ -64,19 +64,19 @@ install () {
 
 download () {
   local path=$1
-  local dest=$2
+  local dest=${2:-$HOME}
   local filename=$(echo $path | awk -F/ '{print $NF}')
 
-  [[ ! -d $(dirname $dest) ]] && mkdir -p $(dirname $dest)
-
-  info "Downloading $filename..."
-
   if [[ -f $dest/$filename ]]; then
-    warning "$filename already exists"
+    warning "$dest/$filename already exists"
     return
   fi
 
-  curl -fsSL $1 -o ${2}/$filename
+  info "Downloading $filename..."
+
+  [[ ! -d $dest ]] && mkdir -p $dest
+
+  curl -fsSL $path -o ${dest}/$filename
   if [[ $? -ne 0 ]]; then
     error "Failed to download $filename"
     return 1

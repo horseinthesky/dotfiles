@@ -21,7 +21,7 @@ install_go () {
   [[ -d $HOME/.local/lib/go ]] && rm -rf $HOME/.local/lib/go
 
   # Install a new one
-  download https://dl.google.com/go/$tarball $HOME
+  download https://dl.google.com/go/$tarball
   [[ $? -ne 0 ]] && exit
 
   info "Extracting archive..."

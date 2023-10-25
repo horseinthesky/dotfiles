@@ -16,7 +16,7 @@ install_packages () {
 install_flameshot () {
   header "Installing flameshot..."
   FLAMESHOT=flameshot-11.0.0-1.ubuntu-20.04.amd64.deb
-  download https://github.com/flameshot-org/flameshot/releases/download/v11.0.0/$FLAMESHOT $HOME
+  download https://github.com/flameshot-org/flameshot/releases/download/v11.0.0/$FLAMESHOT
   sudo dpkg -i $HOME/$FLAMESHOT 1> /dev/null
   rm $HOME/$FLAMESHOT
   success

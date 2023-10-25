@@ -11,29 +11,31 @@ install_docker () {
         ca-certificates
         curl
         gnupg
-        lsb-release
       )
       install ${packages[@]}
 
       info "Adding docker gpg key..."
-      if [[ ! -f /usr/share/keyrings/docker-archive-keyring.gpg ]]; then
-        curl -fsSL https://download.docker.com/linux/ubuntu/gpg |\
-          sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+      DOCKER_GPG=/usr/share/keyrings/docker.gpg
+
+      if [[ ! -f $DOCKER_GPG ]]; then
+        curl -fsSL https://download.docker.com/linux/ubuntu/gpg | \
+          sudo gpg --dearmor -o $DOCKER_GPG
       fi
 
       info  "Adding docker repo..."
       if [[ ! -f /etc/apt/sources.list.d/docker.list ]]; then
         echo \
-          "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
-          $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+          "deb [arch="$(dpkg --print-architecture)" signed-by=$DOCKER_GPG] \
+            https://download.docker.com/linux/ubuntu \
+          "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
+          sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
       fi
 
-      info "Installing docker packages..."
+      info "Installing docker..."
       install \
         docker-ce \
         docker-ce-cli \
-        containerd.io \
-        docker-compose-plugin
+        containerd.io
       ;;
     arch|manjaro)
       install docker
@@ -54,19 +56,22 @@ setup_docker_group () {
 }
 
 install_docker_compose () {
-  header "Install docker-compose..."
+  header "Installing docker compose..."
 
-  if [[ -f $HOME/.local/bin/docker-compose ]]; then
+  local version=v2.23.0
+  local plugin_dir=$HOME/.docker/cli-plugins
+
+  if [[ -f $plugin_dir/docker-compose ]]; then
     success "Already installed"
     exit
   fi
 
-  local version=1.29.2
+  download https://github.com/docker/compose/releases/download/${version}/docker-compose-$(uname -s)-$(uname -m)
+  [[ $? -ne 0 ]] && exit
 
-  [[ ! -d $HOME/.local/bin ]] && mkdir -p $HOME/.local/bin
-  curl -sL "https://github.com/docker/compose/releases/download/${version}/docker-compose-$(uname -s)-$(uname -m)" \
-    -o $HOME/.local/bin/docker-compose
-  chmod +x $HOME/.local/bin/docker-compose
+  [[ ! -d $plugin_dir ]] && mkdir -p $plugin_dir
+  mv $HOME/docker-compose-$(uname -s)-$(uname -m) $plugin_dir/docker-compose
+  chmod +x $plugin_dir/docker-compose
 
   success
 }
@@ -74,7 +79,7 @@ install_docker_compose () {
 main () {
   install_docker
   setup_docker_group
-  # install_docker_compose
+  install_docker_compose
 }
 
 main

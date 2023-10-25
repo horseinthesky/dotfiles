@@ -110,7 +110,7 @@ install_rust_analyzer () {
 
   local tarball=rust-analyzer-x86_64-unknown-linux-gnu.gz
 
-  download https://github.com/rust-analyzer/rust-analyzer/releases/latest/download/$tarball $HOME
+  download https://github.com/rust-analyzer/rust-analyzer/releases/latest/download/$tarball
   [[ $? -ne 0 ]] && exit
 
   info "Extracting archive..."

@@ -19,7 +19,7 @@ setup_env () {
     exit
   fi
 
-  download https://bootstrap.pypa.io/virtualenv.pyz $HOME
+  download https://bootstrap.pypa.io/virtualenv.pyz
   [[ $? -ne 0 ]] && exit
 
   info "Installing venv..."
@@ -50,6 +50,7 @@ install_python_tools () {
 
   [[ ! $PATH == *$devenv/bin* ]] && export PATH=$devenv/bin:$PATH
   pip install -U ${packages[@]} | grep -E "installed"
+
   success
 }
 

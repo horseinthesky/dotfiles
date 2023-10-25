@@ -21,7 +21,7 @@ install_lua () {
   # Remove old ersion
   [[ -d $HOME/.local/lib/lua ]] && rm -rf $HOME/.local/lib/lua
 
-  download http://www.lua.org/ftp/$tarball $HOME
+  download http://www.lua.org/ftp/$tarball
   [[ $? -ne 0 ]] && exit
 
   info "Extracting archive..."
