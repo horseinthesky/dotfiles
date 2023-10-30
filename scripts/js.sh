@@ -21,7 +21,7 @@ install_fnm () {
     return
   fi
 
-  curl -fsSL https://fnm.vercel.app/install | bash -s -- --skip-shell
+  curl -fsSL https://fnm.vercel.app/install | bash -s -- --install-dir $HOME/.fnm --skip-shell
 
   success
 }
