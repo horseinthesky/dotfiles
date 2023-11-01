@@ -206,10 +206,11 @@ local plugins = {
     cmd = "StartupTime",
   },
   {
-    "phaazon/hop.nvim",
+    "smoka7/hop.nvim",
     cmd = "HopChar1",
     config = function()
       require("hop").setup()
+      vim.api.nvim_set_hl(0, "HopNextKey", { link = "Type" })
     end,
   },
   {
@@ -334,6 +335,26 @@ local plugins = {
   {
     "lukas-reineke/indent-blankline.nvim",
     event = "BufRead",
+    config = function()
+      local highlight = {
+        "CursorColumn",
+        "Whitespace",
+      }
+      require("ibl").setup {
+        scope = {
+          -- enabled = false,
+          show_start = false,
+          show_end = false,
+        },
+        indent = {
+          char = { "", "¦", "┆", "┊" },
+        },
+        whitespace = {
+          -- highlight = highlight,
+          -- remove_blankline_trail = false,
+        },
+      }
+    end,
   },
   {
     "ntpeters/vim-better-whitespace",

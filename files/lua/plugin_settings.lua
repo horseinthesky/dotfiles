@@ -97,7 +97,6 @@ map("n", "<leader>ac", function() require("neogen").generate({ type = "class" })
 map("n", "<leader>at", function() require("neogen").generate({ type = "type" }) end)
 
 -- hop
-vim.api.nvim_set_hl(0, "HopNextKey", { link = "Type" })
 map("n", "f", "<cmd>HopChar1<CR>")
 
 -- osc52
@@ -137,22 +136,10 @@ map("n", "<leader>fd", "<cmd>DevdocsOpenCurrentFloat<CR>")
 
 -- ==== Visuals plugin settings ====
 -- indentline
-vim.g.indent_blankline_filetype_exclude = {
-  "help",
-  "packer",
-  "alpha",
-}
-vim.g.indent_blankline_use_treesitter = true
-vim.g.indent_blankline_show_first_indent_level = false
-vim.g.indent_blankline_show_trailing_blankline_indent = false
-vim.g.indent_blankline_char_list = { "|", "¦", "┆", "┊" }
-vim.g.indent_blankline_space_char = " "
-
-map("n", "<leader>I", "<cmd>IndentBlanklineToggle<CR>")
+map("n", "<leader>I", "<cmd>IBLToggle<CR>")
 
 -- vim-better-whitespace
 vim.g.better_whitespace_guicolor = "#fb4934"
-vim.g.better_whitespace_filetypes_blacklist = { "dashboard", "packer" }
 
 map("n", "]w", "<cmd>NextTrailingWhitespace<CR>")
 map("n", "[w", "<cmd>PrevTrailingWhitespace<CR>")
