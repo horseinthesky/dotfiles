@@ -21,7 +21,6 @@ local leader_map = {
   B = "List buffers",
   F = "Format",
   I = "Toggle indentline",
-  M = "Startup time",
   S = {
     name = "Swap previous",
     ["<space>"] = "which_key_ignore",

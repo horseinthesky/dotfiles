@@ -116,18 +116,6 @@ map("n", "<leader>cgta", "<cmd>GoTestAdd<CR>")
 map("n", "<leader>cgte", "<cmd>GoTestExp<CR>")
 map("n", "<leader>cgtA", "<cmd>GoTestAll<CR>")
 
--- startuptime
-vim.g.startuptime_tries = 5
-map("n", "<leader>M", "<cmd>StartupTime<CR>")
--- Turning relativenumer on/off when changing window focus
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "startuptime",
-  callback = function()
-    vim.opt_local.relativenumber = false
-    vim.opt_local.number = false
-  end,
-})
-
 -- treesj
 map("n", "gj", "<cmd>TSJToggle<CR>")
 

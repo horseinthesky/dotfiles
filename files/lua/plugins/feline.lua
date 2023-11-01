@@ -5,11 +5,7 @@ local colors = appearance.colors
 
 local force_inactive = {
   filetypes = {
-    "packer",
-    "Outline",
     "alpha",
-    "startify",
-    "startuptime",
   },
   buftypes = {},
   bufnames = {},

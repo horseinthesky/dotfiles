@@ -201,10 +201,6 @@ local plugins = {
     end,
   },
   {
-    "dstein64/vim-startuptime",
-    cmd = "StartupTime",
-  },
-  {
     "smoka7/hop.nvim",
     cmd = "HopChar1",
     config = function()
