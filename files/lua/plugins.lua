@@ -307,7 +307,7 @@ local plugins = {
           folds = false,
         },
       }
-      require "colorscheme"
+      require "highlights"
     end,
     cond = function()
       return vim.g.theme == "gruvbox"
@@ -322,7 +322,7 @@ local plugins = {
       vim.g.tokyonight_italic_comments = false
       vim.g.tokyonight_italic_keywords = false
       require("tokyonight").colorscheme()
-      require "colorscheme"
+      require "highlights"
     end,
     cond = function()
       return vim.g.theme == "tokyonight"
@@ -336,10 +336,6 @@ local plugins = {
     "lukas-reineke/indent-blankline.nvim",
     event = "BufRead",
     config = function()
-      local highlight = {
-        "CursorColumn",
-        "Whitespace",
-      }
       require("ibl").setup {
         scope = {
           -- enabled = false,
@@ -349,16 +345,8 @@ local plugins = {
         indent = {
           char = { "", "¦", "┆", "┊" },
         },
-        whitespace = {
-          -- highlight = highlight,
-          -- remove_blankline_trail = false,
-        },
       }
     end,
-  },
-  {
-    "ntpeters/vim-better-whitespace",
-    event = "BufRead",
   },
 
   -- Statusline

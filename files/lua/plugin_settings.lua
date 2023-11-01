@@ -137,9 +137,3 @@ map("n", "<leader>fd", "<cmd>DevdocsOpenCurrentFloat<CR>")
 -- ==== Visuals plugin settings ====
 -- indentline
 map("n", "<leader>I", "<cmd>IBLToggle<CR>")
-
--- vim-better-whitespace
-vim.g.better_whitespace_guicolor = "#fb4934"
-
-map("n", "]w", "<cmd>NextTrailingWhitespace<CR>")
-map("n", "[w", "<cmd>PrevTrailingWhitespace<CR>")
