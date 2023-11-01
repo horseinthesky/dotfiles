@@ -22,7 +22,6 @@ local leader_map = {
   F = "Format",
   I = "Toggle indentline",
   M = "Startup time",
-  P = "TS playground",
   S = {
     name = "Swap previous",
     ["<space>"] = "which_key_ignore",
