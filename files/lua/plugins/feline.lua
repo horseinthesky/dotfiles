@@ -74,14 +74,6 @@ local comps = {
         mode = mode .. label .. " "
       end
 
-      if vim.o.paste then
-        mode = mode .. icons.sep.left .. " " .. icons.paste .. " "
-
-        if utils.wide_enough(65) then
-          mode = mode .. "Paste "
-        end
-      end
-
       return mode
     end,
     hl = function()

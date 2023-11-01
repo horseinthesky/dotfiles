@@ -69,7 +69,6 @@ local settings = {
   winblend = 10, -- Transparency for floating windows
   pumblend = 10, -- Transparency for popup-menu
   scrolloff = 10, -- Start scrolling 10 lines before edge of viewpoint
-  pastetoggle = "<F2>", -- Paste mode toggle to paste code properly
   guicursor = "", -- Fix for mysterious 'q' letters
   completeopt = { "menu", "menuone", "noselect" }, -- Set completeopt to have a better completion experience
   shortmess = "filnxtToOFcI", -- Don't give |ins-completion-menu| messages

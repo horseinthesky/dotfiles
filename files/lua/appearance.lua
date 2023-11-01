@@ -5,7 +5,6 @@ M.icons = {
   unix = "", -- f17c
   mac = "", -- f179
   code = "", -- e000
-  paste = "", -- f691
   dot = "", -- f62e
   duck = " ", -- f6e4
   page = "☰", -- 2630
