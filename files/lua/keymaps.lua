@@ -4,9 +4,6 @@ local mappings = {
   -- Splits
   { "n", "<leader>;", "<cmd>vsplit n<CR>" },
   { "n", "<leader>'", "<cmd>split n<CR>" },
-  -- Center search results
-  { "n", "n", "nzz" },
-  { "n", "N", "Nzz" },
   -- split navigation
   { "n", "<C-J>", "<C-W><C-J>" },
   { "n", "<C-K>", "<C-W><C-K>" },
@@ -21,6 +18,9 @@ local mappings = {
   { "i", "<C-Right>", "<cmd>vertical resize -3<CR>" },
   { "i", "<C-Up>", "<cmd>resize +3<CR>" },
   { "i", "<C-Down>", "<cmd>resize -3<CR>" },
+  -- Center search results
+  { "n", "n", "nzz" },
+  { "n", "N", "Nzz" },
   -- Buffers
   { "n", "]b", "<cmd>bnext<CR>" },
   { "n", "[b", "<cmd>bprev<CR>" },
@@ -32,33 +32,16 @@ local mappings = {
   { "n", "]t", "<cmd>tabn<CR>" },
   { "n", "[t", "<cmd>tabp<CR>" },
   { "n", "<leader>tt", "<cmd>tabnew<CR>" },
-  { "n", "<leader>tl", "<cmd>tabnext<cr>" },
-  { "n", "<leader>th", "<cmd>tabprevious<cr>" },
-  { "n", "<leader>tj", "<cmd>tablast<CR>" },
-  { "n", "<leader>tk", "<cmd>tabfirst<CR>" },
   { "n", "<leader>tc", "<cmd>tabclose<CR>" },
   { "n", "<leader>to", "<cmd>tabonly<cr>" },
-  { "n", "<leader>tH", "<cmd>-tabmove<CR>" },
-  { "n", "<leader>tL", "<cmd>+tabmove<CR>" },
-  { "n", "<leader>tJ", "<cmd>tabmove 0<CR>" },
-  { "n", "<leader>tK", "<cmd>tabmove $<CR>" },
+  { "n", "<leader>th", "<cmd>-tabmove<CR>" },
+  { "n", "<leader>tl", "<cmd>+tabmove<CR>" },
+  { "n", "<leader>tj", "<cmd>tabmove 0<CR>" },
+  { "n", "<leader>tk", "<cmd>tabmove $<CR>" },
   -- <tab> / <s-tab> | Circular windows navigation
   { "n", "<Tab>", "<cmd>tabn<CR>" },
   { "n", "<S-Tab>", "<cmd>tabp<CR>" },
-  -- Terminal
-  { "t", "<esc>", "(&filetype == 'fzf') ? '<Esc>' : '<c-\\><c-n>'", { expr = true } },
-  { "n", "<leader>`", ":10split <Bar> :terminal<CR>" },
-  -- quickfix list
-  { "n", "<leader>qo", "<cmd>copen<CR>" },
-  { "n", "]q", "<cmd>cnext<CR>" },
-  { "n", "[q", "<cmd>cprev<CR>" },
-  { "n", "<leader>qc", "<cmd>cclose<CR>" },
-  -- location list
-  { "n", "<leader>lo", "<cmd>lopen<CR>" },
-  { "n", "]l", "<cmd>lnext<CR>" },
-  { "n", "[l", "<cmd>lprev<CR>" },
-  { "n", "<leader>lc", "<cmd>lclose<CR>" },
-  -- Replace all tabs with 4 whitespaces
+  -- Replace all <tab>s with 4 whitespaces
   { "n", "<leader>T", "<cmd>%s/\t/    /g<CR>" },
   -- Strip all trailing whitespace in the current file
   { "n", "<leader>W", "<cmd>let _s=@/ <Bar> %s/\\s\\+$//e <Bar> let @/=_s <Bar> unlet _s<CR>" },
@@ -72,17 +55,12 @@ local mappings = {
   { "n", "<leader>R", "(&filetype == 'lua') ? '<cmd>luafile %<CR>' : '<cmd>source %<CR>'", { expr = true } },
   -- Alternate way to save
   { "n", "<C-s>", "<cmd>w<CR>" },
-  -- \v selects code that was just pasted in the visual mode last used
+  -- Selects code that was just pasted in the visual mode last used
   { "n", "<leader>v", "'`[' . strpart(getregtype(), 0, 1) . '`]'", { expr = true } },
   -- Yank all buffer
   { "n", "<leader>A", "<cmd>%y<CR>" },
-  -- Keep cursor position
+  -- Keep cursor position when J
   { "n", "J", "mzJ'z" },
-  -- Make undo stop on these symbols
-  { "i", ",", ",<C-g>u" },
-  { "i", ".", ".<C-g>u" },
-  { "i", "!", "!<C-g>u" },
-  { "i", "?", "?<C-g>u" },
   -- Move text
   { "v", "<A-j>", ":m '>+1<CR>gv=gv" },
   { "v", "<A-k>", ":m '<-2<CR>gv=gv" },

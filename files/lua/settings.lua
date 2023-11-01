@@ -90,6 +90,9 @@ local settings = {
   -- Windows
   number = true,
   relativenumber = true,
+  fillchars = {
+    eob = " ",
+  },
   listchars = {
     eol = "↲",
     extends = "→",
