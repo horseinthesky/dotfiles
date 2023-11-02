@@ -10,7 +10,7 @@ install_autohotkey () {
     warning "Already exists. Updating"
   fi
 
-  cp $DOTFILES_HOME/autohotkey.ahk "$WINDOWS_STARTUP_DIR"
+  cp $DOTFILES_HOME/windows/autohotkey.ahk "$WINDOWS_STARTUP_DIR"
   success
 }
 
@@ -20,7 +20,7 @@ install_wsl_conf () {
     warning "Already exists. Updating"
   fi
 
-  sudo cp $DOTFILES_HOME/wsl.conf /etc/wsl.conf
+  sudo cp $DOTFILES_HOME/windows/wsl.conf /etc/wsl.conf
   success
 }
 
@@ -31,7 +31,7 @@ install_wslconfig () {
     warning "Already exists. Updating"
   fi
 
-  sudo cp $DOTFILES_HOME/.wslconfig $WINDOWS_USER_DIR/.wslconfig
+  sudo cp $DOTFILES_HOME/windows/.wslconfig $WINDOWS_USER_DIR/.wslconfig
   success
 }
 
