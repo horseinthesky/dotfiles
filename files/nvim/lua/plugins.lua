@@ -346,7 +346,7 @@ local plugins = {
 
   -- Statusline
   {
-    "famiu/feline.nvim",
+    "freddiehaddad/feline.nvim",
     event = "VimEnter",
     config = function()
       require "plugins.feline"
