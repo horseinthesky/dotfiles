@@ -97,7 +97,7 @@ install_cargo () {
   success "Rust updated to the latest ($latest_toolchain_version) version"
 }
 
-install_deps () {
+install_cli_tools_deps () {
   header "Installing cli tools deps..."
 
   case $ID in
@@ -147,6 +147,10 @@ install_tools () {
   for tool in ${tools[@]}; do
     cargo_install $tool
   done
+
+  header "Installing rust-analyzer..."
+  rustup component add rust-analyzer
+  success
 }
 
 symlink_stylua_config () {
@@ -155,30 +159,11 @@ symlink_stylua_config () {
   symlink $DOTFILES_HOME/stylua.toml $HOME/.config/stylua/stylua.toml
 }
 
-install_rust_analyzer () {
-  header "Rust analyzer..."
-
-  local tarball=rust-analyzer-x86_64-unknown-linux-gnu.gz
-
-  download https://github.com/rust-analyzer/rust-analyzer/releases/latest/download/$tarball
-  [[ $? -ne 0 ]] && exit
-
-  info "Extracting archive..."
-  local out=$HOME/.local/bin/rust-analyzer
-  gunzip --stdout $HOME/$tarball > $out
-  chmod +x $out
-
-  rm $HOME/$tarball
-
-  success
-}
-
 main () {
   install_cargo
-  install_deps
+  install_cli_tools_deps
   install_tools
   symlink_stylua_config
-  install_rust_analyzer
 }
 
 main

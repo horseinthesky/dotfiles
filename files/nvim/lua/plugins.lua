@@ -242,17 +242,8 @@ local plugins = {
       "nvim-telescope/telescope.nvim",
       "nvim-treesitter/nvim-treesitter",
     },
-    cmd = {
-      "DevdocsFetch",
-      "DevdocsInstall",
-      "DevdocsUninstall",
-      "DevdocsOpen",
-      "DevdocsOpenFloat",
-      "DevdocsOpenCurrent",
-      "DevdocsOpenCurrentFloat",
-      "DevdocsUpdate",
-      "DevdocsUpdateAll",
-    },
+    build = ":DevdocsFetch",
+    cmd = "DevdocsOpenCurrentFloat",
     config = function()
       require("nvim-devdocs").setup {
         ensure_installed = {
@@ -488,9 +479,15 @@ for _, keymap in ipairs(fzf_mappings) do
 end
 
 -- neogen
-map("n", "<leader>af", function() require("neogen").generate({ type = "func" }) end)
-map("n", "<leader>ac", function() require("neogen").generate({ type = "class" }) end)
-map("n", "<leader>at", function() require("neogen").generate({ type = "type" }) end)
+map("n", "<leader>af", function()
+  require("neogen").generate { type = "func" }
+end)
+map("n", "<leader>ac", function()
+  require("neogen").generate { type = "class" }
+end)
+map("n", "<leader>at", function()
+  require("neogen").generate { type = "type" }
+end)
 
 -- hop
 map("n", "f", "<cmd>HopChar1<CR>")
