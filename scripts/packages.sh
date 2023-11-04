@@ -9,7 +9,6 @@ packages=(
   tree
   jq
   bc
-  mtr
 )
 
 header "Installing packages..."

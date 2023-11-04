@@ -25,25 +25,39 @@ install_lua () {
   [[ $? -ne 0 ]] && exit
 
   info "Extracting archive..."
-  tar -C $HOME/.local/lib -xzf $HOME/$tarball
-  mv $HOME/.local/lib/lua-$version $HOME/.local/lib/lua
-
-  info "Compiling..."
-  cd $HOME/.local/lib/lua/src && make all &> /dev/null
-
+  tar -xzf $HOME/$tarball --directory $HOME/.local/lib
   rm $HOME/$tarball
 
-  success
+  info "Compiling..."
+  mv $HOME/.local/lib/lua-$version $HOME/.local/lib/lua
+  cd $HOME/.local/lib/lua/src && make all &> /dev/null
+
+  symlink $HOME/.local/lib/lua/src/lua $HOME/.local/bin/lua
 }
 
-symlink_lua () {
-  header "Symlink Lua"
-  symlink $HOME/.local/lib/lua/src/lua $HOME/.local/bin/lua
+install_lua_ls () {
+  header "Installing lua-ls..."
+
+  local version=3.7.0
+  local tarball=lua-language-server-$version-linux-x64.tar.gz
+
+  download https://github.com/LuaLS/lua-language-server/releases/download/$version/$tarball
+  [[ $? -ne 0 ]] && exit
+
+  info "Extracting archive..."
+  local server_dir=$HOME/.cache/lua-language-server
+  [[ ! -d $server_dir ]] && mkdir -p $server_dir
+
+  tar -zxf $HOME/$tarball --directory $server_dir
+  rm $HOME/$tarball
+
+  local out=$HOME/.local/bin/lua-language-server
+  symlink $server_dir/bin/lua-language-server $out
 }
 
 main () {
   install_lua
-  symlink_lua
+  install_lua_ls
 }
 
 main

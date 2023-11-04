@@ -42,12 +42,13 @@ utils.map("n", "<C-t>", toggle_transparent, { silent = true })
 
 -- Trailing whitespaces
 local config = {
-  highlight = "DiffDelete",
+  highlight = "Error",
   ignored_filetypes = {
+    "help",
+    "lspinfo",
+    "alpha",
     "lazy",
     "TelescopePrompt",
-    "alpha",
-    "help",
   },
   ignore_terminal = true,
 }

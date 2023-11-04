@@ -76,7 +76,7 @@ download () {
 
   [[ ! -d $dest ]] && mkdir -p $dest
 
-  curl -fsSL $path -o ${dest}/$filename
+  curl -fsSL $path --output ${dest}/$filename
   if [[ $? -ne 0 ]]; then
     error "Failed to download $filename"
     return 1
@@ -127,75 +127,4 @@ clone () {
   fi
 
   success "$tool cloned"
-}
-
-cargo_install () {
-  local tool binary
-  IFS=, read -r tool binary <<< ${1}
-
-  info "Installing $tool..."
-
-  if [[ ! -d $HOME/.cargo ]]; then
-    error "Cargo is not found. Can't procced"
-    return 1
-  fi
-
-  PATH=$HOME/.cargo/bin:$PATH
-
-  if [[ -z $binary ]]; then
-    binary=$tool
-  fi
-
-  # Fresh install
-  if [[ -z $(which $binary) ]]; then
-    cargo install $tool
-
-    if [[ $? -ne 0 ]]; then
-      error "Failed to install $tool"
-      return 1
-    fi
-
-    success "$tool installed"
-    return
-  fi
-
-  # Update
-  local current_version=$($binary --version 2> /dev/null | grep -P -o "\d+\.\d+\.\d+" | head -n 1)
-  local latest_version=$(cargo search $tool | head -n 1 | awk '{print $3}' | tr -d '"')
-
-  if [[ $current_version == $latest_version ]]; then
-    success "Latest ($latest_version) version is already installed"
-    return
-  fi
-
-  info "Newer version found. Updating $current_version -> $latest_version..."
-  cargo install $tool --force
-
-  if [[ $? -ne 0 ]]; then
-    error "Failed to update $tool to the latest ($latest_version) version"
-    return 1
-  fi
-
-  warning "$tool updated to the latest ($latest_version) version\n"
-}
-
-go_install () {
-  local tool=$(echo ${1} | awk -F/ '{print $NF}')
-
-  info "Installing $tool..."
-
-  PATH=$HOME/.local/bin:$PATH
-
-  if [[ -z $(which go) ]]; then
-    error "Go is not found. Can't procced"
-    return 1
-  fi
-
-  if [[ -n $(which $tool) ]]; then
-    success "$tool already exists"
-    return
-  fi
-
-  go install github.com/${1}@latest
-  success "$tool installed"
 }

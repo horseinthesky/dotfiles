@@ -2,6 +2,27 @@
 
 source scripts/helper.sh
 
+go_install () {
+  local tool=$(echo ${1} | awk -F/ '{print $NF}')
+
+  info "Installing $tool..."
+
+  PATH=$HOME/.local/bin:$PATH
+
+  if [[ -z $(which go) ]]; then
+    error "Go is not found. Can't procced"
+    return 1
+  fi
+
+  if [[ -n $(which $tool) ]]; then
+    success "$tool already exists"
+    return
+  fi
+
+  go install github.com/${1}@latest
+  success "$tool installed"
+}
+
 install_go () {
   header "Installing go..."
 

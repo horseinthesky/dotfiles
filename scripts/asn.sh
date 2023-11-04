@@ -7,8 +7,12 @@ install_deps () {
 
   packages=(
     whois
+    mtr-tiny
     ipcalc
-    mtr
+    grepcidr
+    nmap
+    ncat
+    aha
   )
 
   install ${packages[@]}

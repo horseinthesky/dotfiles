@@ -2,16 +2,20 @@ local icons = require("appearance").icons
 local lspconfig = require "lspconfig"
 local on_attach = require "lsp.on_attach"
 
+-- Add additional capabilities supported by nvim-cmp
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+
 -- LSP servers custom configs
 local servers = {
-  -- gopls = {},
-  gopls = {
-    root_dir = lspconfig.util.root_pattern("YAOWNERS", "ya.make", "go.work", "go.mod", ".git"),
-    settings = {
-      gopls = {
-        expandWorkspaceToModule = false,
-      },
-    },
+  dockerls = {},
+  terraformls = {},
+  yamlls = {},
+  cssls = { on_attach = on_attach.no_format },
+  jsonls = { on_attach = on_attach.no_format },
+  html = {
+    filetypes = { "html", "jinja.html" },
+    on_attach = on_attach.no_format,
   },
   pylsp = {
     settings = {
@@ -34,21 +38,34 @@ local servers = {
       },
     },
   },
-  yamlls = {},
-  html = {
-    filetypes = { "html", "jinja.html" },
-    on_attach = on_attach.no_format,
+  -- gopls = {},
+  gopls = {
+    root_dir = lspconfig.util.root_pattern("YAOWNERS", "ya.make", "go.work", "go.mod", ".git"),
   },
-  cssls = { on_attach = on_attach.no_format },
-  jsonls = { on_attach = on_attach.no_format },
-  terraformls = {},
-  dockerls = {},
-  lua_ls = require("lsp.sumneko").config,
-}
+  lua_ls = {
+    on_init = function(client)
+      local path = client.workspace_folders[1].name
+      if not vim.loop.fs_stat(path .. "/.luarc.json") and not vim.loop.fs_stat(path .. "/.luarc.jsonc") then
+        client.config.settings = vim.tbl_deep_extend("force", client.config.settings, {
+          Lua = {
+            runtime = {
+              version = "LuaJIT",
+            },
+            workspace = {
+              checkThirdParty = false,
+              library = {
+                vim.env.VIMRUNTIME,
+              },
+            },
+          },
+        })
 
--- Add additional capabilities supported by nvim-cmp
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+        client.notify("workspace/didChangeConfiguration", { settings = client.config.settings })
+      end
+      return true
+    end,
+  },
+}
 
 -- Setup LSP servers
 for server, config in pairs(servers) do
