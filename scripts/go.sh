@@ -3,9 +3,8 @@
 source scripts/helper.sh
 
 go_install () {
-  local tool=$(echo ${1} | awk -F/ '{print $NF}')
-
-  info "Installing $tool..."
+  local path=$1
+  local tool=$(echo ${path} | awk -F/ '{print $(NF-1)"/"$NF}')
 
   PATH=$HOME/.local/bin:$PATH
 
@@ -14,19 +13,15 @@ go_install () {
     return 1
   fi
 
-  if [[ -n $(which $tool) ]]; then
-    success "$tool already exists"
-    return
-  fi
-
-  go install github.com/${1}@latest
+  info "Installing $tool..."
+  go install ${path}@latest
   success "$tool installed"
 }
 
 install_go () {
   header "Installing go..."
 
-  local version=1.20.3
+  local version=1.21.3
   local tarball=go${version}.linux-amd64.tar.gz
 
   [[ ! -d $HOME/.local/bin ]] && mkdir -p $HOME/.local/bin
@@ -64,20 +59,17 @@ install_go_tools () {
   header "Installing go tools..."
 
   tools=(
-    muesli/duf
-    charmbracelet/glow
-    fatih/gomodifytags
-    cweill/gotests/...
-    natesales/q
+    golang.org/x/tools/gopls
+    github.com/muesli/duf
+    github.com/charmbracelet/glow
+    github.com/fatih/gomodifytags
+    github.com/cweill/gotests/...
+    github.com/natesales/q
   )
 
   for tool in ${tools[@]}; do
     go_install $tool
   done
-
-  info "Installing gopls..."
-  GO111MODULE=on go install golang.org/x/tools/gopls@latest
-  success
 }
 
 main () {
