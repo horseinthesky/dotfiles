@@ -43,7 +43,7 @@ local mappings = {
   { "n", "<S-Tab>", "<cmd>tabp<CR>" },
   -- Replace all <tab>s with 4 whitespaces
   { "n", "<leader>T", "<cmd>%s/\t/    /g<CR>" },
-  -- Strip all trailing whitespace in the current file
+  -- Strip all trailing whitespace in the current file while saving last search pattern
   { "n", "<leader>W", "<cmd>let _s=@/ <Bar> %s/\\s\\+$//e <Bar> let @/=_s <Bar> unlet _s<CR>" },
   -- Visual shifting (does not exit Visual mode)
   { "v", "<", "<gv" },

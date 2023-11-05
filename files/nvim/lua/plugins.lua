@@ -171,18 +171,18 @@ local plugins = {
   },
   {
     "olexsmir/gopher.nvim",
+    ft = "go",
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
     },
-    ft = "go",
   },
   {
     "simrat39/rust-tools.nvim",
+    ft = "rust",
     config = function()
       require("lsp.rt").setup()
     end,
-    ft = "rust",
   },
 
   -- Features
@@ -434,9 +434,10 @@ for _, keymap in ipairs(telescope_mappings) do
 end
 
 local hls = {
-  TelescopeSelection = "Constant",
-  TelescopeSelectionCaret = "TelescopeSelection",
-  TelescopeMultiSelection = "TelescopeSelection",
+  TelescopeResultsNormal = "SpecialKey",
+  TelescopeSelectionCaret = "WarningMsg",
+  TelescopeSelection = "TelescopeNormal",
+  TelescopeMultiSelection = "TelescopeResultsNormal",
   TelescopeMatching = "Type",
   TelescopePromptPrefix = "Type",
 }

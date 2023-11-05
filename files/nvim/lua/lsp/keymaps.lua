@@ -12,7 +12,6 @@ local function keymap()
     { "n", "<leader>ch", vim.lsp.buf.hover },
     { "n", "<leader>cD", vim.lsp.buf.definition },
     { "n", "<leader>cr", vim.lsp.buf.rename },
-    { "n", "<leader>cl", vim.diagnostic.setloclist },
     { "n", "<leader>ci", vim.lsp.buf.implementation },
     { "n", "<leader>cs", vim.lsp.buf.signature_help },
     { "n", "<leader>td", vim.lsp.buf.type_definition },

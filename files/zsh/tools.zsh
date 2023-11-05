@@ -17,7 +17,7 @@ if [[ -f $HOME/.fzf.zsh ]]; then
     --layout=reverse
     --height 60%
     --prompt ' '
-    --pointer '►'
+    --pointer ''
     --marker=⦁
     --color
       'fg:#bdae93,fg+:#f9f5d7,hl:#fabd2f,hl+:#fabd2f,info:#8ec07c,pointer:#fb4934,marker:#fe8019,bg+:-1'
