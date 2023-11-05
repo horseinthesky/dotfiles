@@ -107,7 +107,7 @@ local plugins = {
     end,
   },
 
-  -- LSP and completion
+  -- LSP
   {
     "neovim/nvim-lspconfig",
     dependencies = {
@@ -117,13 +117,6 @@ local plugins = {
     config = function()
       require "lsp"
     end,
-  },
-  {
-    "simrat39/rust-tools.nvim",
-    config = function()
-      require("lsp.rt").setup()
-    end,
-    ft = "rust",
   },
   {
     "hrsh7th/nvim-cmp",
@@ -164,7 +157,7 @@ local plugins = {
     end,
   },
 
-  -- Features
+  -- Languages addons
   {
     "danymat/neogen",
     dependencies = {
@@ -176,6 +169,23 @@ local plugins = {
       }
     end,
   },
+  {
+    "olexsmir/gopher.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+    },
+    ft = "go",
+  },
+  {
+    "simrat39/rust-tools.nvim",
+    config = function()
+      require("lsp.rt").setup()
+    end,
+    ft = "rust",
+  },
+
+  -- Features
   {
     "folke/todo-comments.nvim",
     dependencies = {
@@ -191,13 +201,6 @@ local plugins = {
     keys = { "<F3>", "<F4>" },
     config = function()
       require "plugins.fterm"
-    end,
-  },
-  {
-    "folke/which-key.nvim",
-    event = "BufRead",
-    config = function()
-      require "plugins.which_key"
     end,
   },
   {
@@ -259,16 +262,6 @@ local plugins = {
     end,
   },
 
-  -- Languages support
-  {
-    "olexsmir/gopher.nvim",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-treesitter/nvim-treesitter",
-    },
-    ft = "go",
-  },
-
   -- Visuals
   {
     "goolord/alpha-nvim",
@@ -280,6 +273,35 @@ local plugins = {
       return vim.api.nvim_buf_get_name(0) == ""
     end,
   },
+  {
+    "folke/which-key.nvim",
+    event = "BufRead",
+    config = function()
+      require "plugins.which_key"
+    end,
+  },
+  {
+    "Glench/Vim-Jinja2-Syntax",
+    ft = "jinja",
+  },
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    event = "BufRead",
+    config = function()
+      require("ibl").setup {
+        scope = {
+          -- enabled = false,
+          show_start = false,
+          show_end = false,
+        },
+        indent = {
+          char = { "", "¦", "┆", "┊" },
+        },
+      }
+    end,
+  },
+
+  -- Themes
   {
     "ellisonleao/gruvbox.nvim",
     lazy = false,
@@ -312,26 +334,6 @@ local plugins = {
     end,
     cond = function()
       return vim.g.theme == "tokyonight"
-    end,
-  },
-  {
-    "Glench/Vim-Jinja2-Syntax",
-    ft = "jinja",
-  },
-  {
-    "lukas-reineke/indent-blankline.nvim",
-    event = "BufRead",
-    config = function()
-      require("ibl").setup {
-        scope = {
-          -- enabled = false,
-          show_start = false,
-          show_end = false,
-        },
-        indent = {
-          char = { "", "¦", "┆", "┊" },
-        },
-      }
     end,
   },
 
