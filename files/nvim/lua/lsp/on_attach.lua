@@ -17,19 +17,22 @@ function M.default(client, bufnr)
 
   -- Document highlight
   if client.server_capabilities.documentHighlightProvider then
-    local lsp_highlight_group = vim.api.nvim_create_augroup("LSPHighlight", { clear = true })
+    local group = vim.api.nvim_create_augroup("LSPDpcumentHighlight", { clear = true })
 
     vim.api.nvim_create_autocmd("CursorHold", {
       pattern = "<buffer>",
       callback = vim.lsp.buf.document_highlight,
-      group = lsp_highlight_group,
+      group = group,
     })
 
     vim.api.nvim_create_autocmd("CursorMoved", {
       pattern = "<buffer>",
       callback = vim.lsp.buf.clear_references,
-      group = lsp_highlight_group,
+      group = group,
     })
+
+    vim.api.nvim_set_hl(0, "LspReferenceRead", { link = "Search" })
+    vim.api.nvim_set_hl(0, "LspReferenceWrite", { link = "IncSearch" })
   end
 end
 
