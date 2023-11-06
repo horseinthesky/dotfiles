@@ -68,10 +68,11 @@ install_js_packages () {
   header "Installing yarn packages..."
 
   packages=(
-    @fsouza/prettierd
+    pyright
     vscode-langservers-extracted
-    dockerfile-language-server-nodejs
     yaml-language-server
+    dockerfile-language-server-nodejs
+    @fsouza/prettierd
   )
 
   XDG_DATA_HOME=$XDG_DATA_HOME yarn global add ${packages[@]} | grep -E "Installed"

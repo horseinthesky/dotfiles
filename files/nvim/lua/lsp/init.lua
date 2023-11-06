@@ -17,28 +17,32 @@ local servers = {
     filetypes = { "html", "jinja.html" },
     on_attach = on_attach.no_format,
   },
-  pylsp = {
+  pyright = {
     settings = {
-      pylsp = {
-        plugins = {
-          pycodestyle = {
-            -- enabled = false,
-            maxLineLength = 100,
-            ignore = {
-              "E501",
-            },
-          },
-          -- mccabe = {
-          --   enabled = false,
-          -- },
-          -- pyflakes = {
-          --   enabled = false,
-          -- },
+      python = {
+        python = {
+          venvPath = ".venv",
+        },
+        -- analysis = {
+        --   typeCheckingMode = "off",
+        -- },
+      },
+    },
+  },
+  ruff_lsp = {
+    init_options = {
+      settings = {
+        args = {
+          "--line-length",
+          "100",
+          "--select",
+          "I,F,W,E,B,A,C,RET",
+          "--ignore",
+          "E501",
         },
       },
     },
   },
-  -- gopls = {},
   gopls = {
     root_dir = lspconfig.util.root_pattern("YAOWNERS", "ya.make", "go.work", "go.mod", ".git"),
   },

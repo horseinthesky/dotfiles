@@ -5,10 +5,10 @@ local map = require("utils").map
 local function keymap()
   local lsp_keymappings = {
     { "n", "<leader>i", "<cmd>LspInfo<CR>" },
-    { "n", "<leader>F", function() vim.lsp.buf.format { async = true } end },
+    { "n", "<leader>cd", vim.diagnostic.open_float },
     { "n", "]d", function() vim.diagnostic.goto_next { float = false } end },
     { "n", "[d", function() vim.diagnostic.goto_prev { float = false } end},
-    { "n", "<leader>cd", vim.diagnostic.open_float },
+    { "n", "<leader>F", function() vim.lsp.buf.format { async = true } end },
     { "n", "<leader>ch", vim.lsp.buf.hover },
     { "n", "<leader>cD", vim.lsp.buf.definition },
     { "n", "<leader>cr", vim.lsp.buf.rename },
