@@ -38,7 +38,7 @@ local servers = {
           "--select",
           "I,F,W,E,B,A,C,RET",
           "--ignore",
-          "E501",
+          "E501,F401,F821",
         },
       },
     },
