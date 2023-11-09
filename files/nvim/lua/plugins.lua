@@ -25,9 +25,18 @@ local plugins = {
     end,
   },
   {
-    "kyazdani42/nvim-web-devicons",
+    "nvim-tree/nvim-web-devicons",
     config = function()
-      require("nvim-web-devicons").setup { default = true }
+      require("nvim-web-devicons").set_icon {
+        struct = {
+          icon = "",
+          color = "#428850",
+          cterm_color = "65",
+          name = "Struct",
+        },
+      }
+      require("nvim-web-devicons").setup {}
+      -- require("nvim-web-devicons").setup { default = true }
     end,
   },
   {
@@ -122,6 +131,7 @@ local plugins = {
     "hrsh7th/nvim-cmp",
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-nvim-lsp-signature-help",
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
       "hrsh7th/cmp-emoji",
@@ -419,8 +429,11 @@ local telescope_mappings = {
   -- {"n", "<leader>flr", "<cmd>Telescope lsp_references<CR>"},
   -- {"n", "<leader>fld", "<cmd>Telescope diagnostics bufnr=0<CR>"},
   -- {"n", "<leader>flD", "<cmd>Telescope diagnostics<CR>"},
-  { "n", "<leader>fls", "<cmd>Telescope lsp_document_symbols<CR>" },
-  { "n", "<leader>flS", "<cmd>Telescope lsp_workspace_symbols<CR>" },
+  -- { "n", "<leader>fli", "<cmd>Telescope lsp_implementations<CR>" },
+  -- { "n", "<leader>fls", "<cmd>Telescope lsp_document_symbols<CR>" },
+  -- { "n", "<leader>flS", "<cmd>Telescope lsp_workspace_symbols<CR>" },
+  -- { "n", "<leader>flci", "<cmd>Telescope lsp_incoming_calls<CR>" },
+  -- { "n", "<leader>flco", "<cmd>Telescope lsp_outgoing_calls<CR>" },
 
   -- extentions
   { "n", "<leader>fp", "<cmd>Telescope project<CR>" },
@@ -469,10 +482,13 @@ local fzf_mappings = {
 
   -- lsp search mappings
   { "n", "<leader>flr", "<cmd>FzfLua lsp_references<CR>" },
+  { "n", "<leader>fli", "<cmd>FzfLua lsp_implementations<CR>" },
   { "n", "<leader>fld", "<cmd>FzfLua lsp_document_diagnostics<CR>" },
   { "n", "<leader>flD", "<cmd>FzfLua lsp_workspace_diagnostics<CR>" },
-  -- {"n", "<leader>fls", "<cmd>FzfLua lsp_document_symbols<CR>"},
-  -- {"n", "<leader>flS", "<cmd>FzfLua lsp_workspace_symbols<CR>"},
+  { "n", "<leader>fls", "<cmd>FzfLua lsp_document_symbols<CR>" },
+  { "n", "<leader>flS", "<cmd>FzfLua lsp_workspace_symbols<CR>" },
+  { "n", "<leader>flci", "<cmd>FzfLua lsp_incoming_calls<CR>" },
+  { "n", "<leader>flco", "<cmd>FzfLua lsp_outgoing_calls<CR>" },
 }
 
 for _, keymap in ipairs(fzf_mappings) do

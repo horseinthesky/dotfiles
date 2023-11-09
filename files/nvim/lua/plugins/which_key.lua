@@ -16,9 +16,7 @@ end
 local leader_map = {
   ["'"] = "Horizontal split",
   [";"] = "Vertical split",
-  ["`"] = "Terminal",
   A = "Yank the whole buffer",
-  B = "List buffers",
   F = "Format",
   I = "Toggle indentline",
   S = {
@@ -28,9 +26,8 @@ local leader_map = {
     f = "Outer function",
     p = "Inner parameter",
   },
-  R = "Reload buffer",
-  T = "Replace tabs",
-  W = "Strip whitespaces",
+  T = "Replace each tab with 4 whitespaces",
+  W = "Strip trailing whitespaces",
   a = {
     name = "Annotate",
     c = "Class",
@@ -44,37 +41,11 @@ local leader_map = {
   },
   c = {
     name = "Code",
-    D = "Definition",
+    D = "Line diagnostics",
     a = "Code action",
-    d = "Line diagnistics",
-    g = {
-      name = "Go",
-      t = {
-        name = "Tests",
-        a = "Add",
-        e = "Exported only",
-        A = "All",
-      },
-    },
+    d = "Definition",
     h = "Hover",
-    i = "Implementation",
     r = "Rename",
-    s = "Sinature help",
-    t = {
-      name = "Tags",
-      a = {
-        name = "Add",
-        j = "JSON",
-        y = "YAML",
-        x = "XML",
-      },
-      r = {
-        name = "Remove",
-        j = "JSON",
-        y = "YAML",
-        x = "XML",
-      },
-    },
   },
   f = {
     name = "Find",
@@ -98,10 +69,16 @@ local leader_map = {
     l = {
       name = "Lsp",
       D = "Workspace diagnostics",
+      S = "Workspace symbols",
       d = "Document diagnostics",
+      i = "Implementations",
       r = "References",
       s = "Document symbols",
-      S = "Workspace symbols",
+      c = {
+        name = "Calls",
+        i = "Incoming",
+        o = "Outgoing",
+      },
     },
     m = "Marks",
     o = "Options",
@@ -113,7 +90,7 @@ local leader_map = {
   g = {
     name = "Git",
     b = "Branches",
-    d = "which_key_ignore",
+    -- d = "which_key_ignore",
     c = "Commits",
     h = "Hunk",
     s = "Status",
