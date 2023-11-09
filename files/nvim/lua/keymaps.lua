@@ -1,6 +1,34 @@
 local utils = require "utils"
 
 local mappings = {
+  -- Miscellaneous
+  -- alternate way to save
+  { "n", "<C-s>", "<cmd>w<CR>" },
+  -- yank all buffer
+  { "n", "<leader>A", "<cmd>%y<CR>" },
+  -- keep cursor position when J
+  { "n", "J", "mzJ'z" },
+  -- selects code that was just pasted in the visual mode last used
+  { "n", "<leader>v", "'`[' . strpart(getregtype(), 0, 1) . '`]'", { expr = true } },
+  -- visual shifting (does not exit Visual mode)
+  { "v", "<", "<gv" },
+  { "v", ">", ">gv" },
+  -- linewise wrapped lines movement
+  { "n", "j", "gj" },
+  { "n", "k", "gk" },
+  -- center search results
+  { "n", "n", "nzz" },
+  { "n", "N", "Nzz" },
+  -- strip all trailing whitespace in the current file while saving last search pattern
+  { "n", "<leader>W", "<cmd>let _s=@/ <Bar> %s/\\s\\+$//e <Bar> let @/=_s <Bar> unlet _s<CR>" },
+  -- move lines up/down in any mode with Alt+k/j
+  { "v", "<A-j>", ":m '>+1<CR>gv=gv" },
+  { "v", "<A-k>", ":m '<-2<CR>gv=gv" },
+  { "i", "<A-j>", "<esc>:m .+1<CR>==i" },
+  { "i", "<A-k>", "<esc>:m .-2<CR>==i" },
+  { "n", "<A-j>", ":m .+1<CR>==" },
+  { "n", "<A-k>", ":m .-2<CR>==" },
+
   -- Splits
   { "n", "<leader>;", "<cmd>vsplit n<CR>" },
   { "n", "<leader>'", "<cmd>split n<CR>" },
@@ -18,9 +46,7 @@ local mappings = {
   { "i", "<C-Right>", "<cmd>vertical resize -3<CR>" },
   { "i", "<C-Up>", "<cmd>resize +3<CR>" },
   { "i", "<C-Down>", "<cmd>resize -3<CR>" },
-  -- Center search results
-  { "n", "n", "nzz" },
-  { "n", "N", "Nzz" },
+
   -- Buffers
   { "n", "]b", "<cmd>bnext<CR>" },
   { "n", "[b", "<cmd>bprev<CR>" },
@@ -28,6 +54,7 @@ local mappings = {
   { "n", "<leader>bd", "<cmd>bdelete<CR>" },
   { "n", "<leader>bo", "<cmd>%bdelete|edit#|bdelete#<CR>" },
   { "n", "<C-w>d", "<cmd>bdelete<CR>" },
+
   -- Tabs
   { "n", "]t", "<cmd>tabn<CR>" },
   { "n", "[t", "<cmd>tabp<CR>" },
@@ -41,33 +68,10 @@ local mappings = {
   -- <tab> / <s-tab> | Circular windows navigation
   { "n", "<Tab>", "<cmd>tabn<CR>" },
   { "n", "<S-Tab>", "<cmd>tabp<CR>" },
-  -- Replace all <tab>s with 4 whitespaces
+  -- replace all <tab>s with 4 whitespaces
   { "n", "<leader>T", "<cmd>%s/\t/    /g<CR>" },
-  -- Strip all trailing whitespace in the current file while saving last search pattern
-  { "n", "<leader>W", "<cmd>let _s=@/ <Bar> %s/\\s\\+$//e <Bar> let @/=_s <Bar> unlet _s<CR>" },
-  -- Visual shifting (does not exit Visual mode)
-  { "v", "<", "<gv" },
-  { "v", ">", ">gv" },
-  -- Linewise wrapped lines movement
-  { "n", "j", "gj" },
-  { "n", "k", "gk" },
-  -- Reload current buffer
-  { "n", "<leader>R", "(&filetype == 'lua') ? '<cmd>luafile %<CR>' : '<cmd>source %<CR>'", { expr = true } },
-  -- Alternate way to save
-  { "n", "<C-s>", "<cmd>w<CR>" },
-  -- Selects code that was just pasted in the visual mode last used
-  { "n", "<leader>v", "'`[' . strpart(getregtype(), 0, 1) . '`]'", { expr = true } },
-  -- Yank all buffer
-  { "n", "<leader>A", "<cmd>%y<CR>" },
-  -- Keep cursor position when J
-  { "n", "J", "mzJ'z" },
-  -- Move text
-  { "v", "<A-j>", ":m '>+1<CR>gv=gv" },
-  { "v", "<A-k>", ":m '<-2<CR>gv=gv" },
-  { "i", "<A-j>", "<esc>:m .+1<CR>==i" },
-  { "i", "<A-k>", "<esc>:m .-2<CR>==i" },
-  { "n", "<A-j>", ":m .+1<CR>==" },
-  { "n", "<A-k>", ":m .-2<CR>==" },
+
+  -- Multiple replace
   -- Press * to search for the term under the cursor and then press a key below
   -- to replace all instances of it in the current file.
   -- Second binding is for comfirmation.
