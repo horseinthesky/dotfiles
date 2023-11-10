@@ -44,6 +44,7 @@ local leader_map = {
     a = "Code action",
     d = "Definition",
     h = "Hover",
+    i = "Lsp info",
     r = "Rename",
   },
   f = {
@@ -94,7 +95,6 @@ local leader_map = {
     s = "Status",
     w = "Blame (who)",
   },
-  i = "Lsp info",
   r = {
     name = "Replace",
     c = "Replace with confirmation",
