@@ -28,6 +28,9 @@ install_kitty () {
   curl -sL https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
   symlink $HOME/.local/kitty.app/bin/kitty $HOME/.local/bin/kitty
   symlink $DOTFILES_HOME/kitty $HOME/.config
+
+
+  info "Configuring kitty desktop..."
   cp $DOTFILES_HOME/kitty/kitty.desktop $HOME/.local/share/applications/
   sed -i 's|PLACEHOLDER|'"$HOME"'|' $HOME/.local/share/applications/kitty.desktop
   sed -i 's|TryExec=kitty|'"TryExec=$HOME/.local/bin/kitty"'|' $HOME/.local/share/applications/kitty.desktop
@@ -38,18 +41,15 @@ install_kitty () {
 
 install_font () {
   header "Downloading nerd font..."
-  FONT=DejaVu\ Sans\ Mono\ Nerd\ Font\ Complete.ttf
-  FONT_DIR=$HOME/.fonts
 
+  FONT_FAMILY=DejaVuSansMono
+  FONT_TYPE=Regular
+  FONT=DejaVuSansMNerdFont-Regular.ttf
+
+  FONT_DIR=$HOME/.local/share/fonts
   [[ ! -d $FONT_DIR ]] && mkdir -p $FONT_DIR
 
-  if [[ -f $FONT_DIR/$FONT ]]; then
-    warning "Already exists"
-    exit
-  fi
-
-  curl https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/DejaVuSansMono/Regular/complete/DejaVu%20Sans%20Mono%20Nerd%20Font%20Complete.ttf -o $FONT_DIR/$FONT
-  success
+  download https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/$FONT_FAMILY/$FONT_TYPE/$FONT $FONT_DIR
 }
 
 main () {
