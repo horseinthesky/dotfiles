@@ -21,7 +21,6 @@ local leader_map = {
   I = "Toggle indentline",
   S = {
     name = "Swap previous",
-    ["<space>"] = "which_key_ignore",
     c = "Outer class",
     f = "Outer function",
     p = "Inner parameter",
@@ -90,7 +89,6 @@ local leader_map = {
   g = {
     name = "Git",
     b = "Branches",
-    -- d = "which_key_ignore",
     c = "Commits",
     h = "Hunk",
     s = "Status",
@@ -105,7 +103,6 @@ local leader_map = {
   },
   s = {
     name = "Swap next",
-    ["<space>"] = "which_key_ignore",
     b = "Outer block",
     c = "Outer class",
     f = "Outer function",
@@ -194,8 +191,8 @@ local conf = {
     winblend = 10,
   },
   icons = {
-    breadcrumb = "ﰲ",
-    separator = "ﰲ",
+    breadcrumb = "󰜴",
+    separator = "󰜴",
     group = " ",
   },
   ignore_missing = true,

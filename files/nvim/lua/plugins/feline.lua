@@ -12,19 +12,19 @@ local force_inactive = {
 }
 
 local mode_map = {
-  n = { "", "NORMAL" },
+  n = { "󰋜", "NORMAL" },
   i = { "", "INSERT" },
   ic = { "", "INSERT" },
   R = { "", "REPLACE" },
-  v = { "", "VISUAL" },
-  V = { "", "V-LINE" },
-  c = { "ﲵ", "COMMAND" },
-  s = { "", "SELECT" },
-  S = { "", "S-LINE" },
+  v = { "󰆏", "VISUAL" },
+  V = { "󰆏", "V-LINE" },
+  c = { "󰞷", "COMMAND" },
+  s = { "󰆏", "SELECT" },
+  S = { "󰆏", "S-LINE" },
   t = { "", "TERMINAL" },
   nt = { "", "TERMINAL" },
-  ["\22"] = { "", "V-BLOCK" },
-  ["\19"] = { "", "S-BLOCK" },
+  ["\22"] = { "󰆏", "V-BLOCK" },
+  ["\19"] = { "󰆏", "S-BLOCK" },
 }
 
 setmetatable(mode_map, {

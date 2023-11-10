@@ -141,9 +141,9 @@ local magenta='%F{#d3869b}'
 
 # Groups format
 zstyle ':completion:*:*:*:*:corrections' format "${yellow}  ${ivory}%d${meta}"
-zstyle ':completion:*:*:*:*:descriptions' format "${magenta} 硫${ivory}%d${meta}"
-zstyle ':completion:*:*:*:*:messages' format "${blue}  ${ivory}%d${meta}"
-zstyle ':completion:*:*:*:*:warnings' format "${red}  ${ivory}No Matches Found${meta}"
+zstyle ':completion:*:*:*:*:descriptions' format "${magenta} 󰓏 ${ivory}%d${meta}"
+zstyle ':completion:*:*:*:*:messages' format "${blue} 󰍡 ${ivory}%d${meta}"
+zstyle ':completion:*:*:*:*:warnings' format "${red} 󰅙 ${ivory}No Matches Found${meta}"
 
 # Colors for files and directory
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}

@@ -146,7 +146,7 @@
   fi
 
   # ======== User ========
-  typeset -g POWERLEVEL9K_USER_ICON='\uF415' # 
+  typeset -g POWERLEVEL9K_USER_ICON='\uF2BD' # 
   typeset -g POWERLEVEL9K_ROOT_ICON='\uF198' # 
   # typeset -g POWERLEVEL9K_ROOT_ICON='\uF09C' # 
   typeset -g POWERLEVEL9K_SSH_ICON='\uF489' # 
@@ -194,13 +194,13 @@
   # Enable counters for staged, unstaged, etc.
   typeset -g POWERLEVEL9K_VCS_{STAGED,UNSTAGED,UNTRACKED,CONFLICTED,COMMITS_AHEAD,COMMITS_BEHIND}_MAX_NUM=-1
 
-  typeset -g POWERLEVEL9K_VCS_GIT_ICON='' # \uF7A1
+  typeset -g POWERLEVEL9K_VCS_GIT_ICON='󰊢' # \uF02A2
   typeset -g POWERLEVEL9K_VCS_GIT_GITHUB_ICON=' ' # \uF408
   # typeset -g POWERLEVEL9K_VCS_GIT_GITHUB_ICON=' ' # \uF113
-  # typeset -g POWERLEVEL9K_VCS_GIT_GITHUB_ICON='' # \uF7A1
+  # typeset -g POWERLEVEL9K_VCS_GIT_GITHUB_ICON='󰊢' # \uF02A2
   typeset -g POWERLEVEL9K_VCS_GIT_GITLAB_ICON=' ' # \uF296
   typeset -g POWERLEVEL9K_VCS_GIT_BITBUCKET_ICON=' ' # \uF171
-  typeset -g POWERLEVEL9K_VCS_BRANCH_ICON=' ' # \uF418
+  typeset -g POWERLEVEL9K_VCS_BRANCH_ICON=' ' # \uE725
   typeset -g POWERLEVEL9K_VCS_STASH_ICON=' ' # \uF01C
   typeset -g POWERLEVEL9K_VCS_STAGED_ICON=' ' # \uF055
   # typeset -g POWERLEVEL9K_VCS_UNTRACKED_ICON=' ' # \uF00D
@@ -234,14 +234,14 @@
   # Triplets are tried in order. The first triplet whose pattern matches $PWD wins. If there
   # are no matches, the directory will have no icon.
   typeset -g POWERLEVEL9K_DIR_CLASSES=(
-    '~/dotfiles(|/*)'  DOTFILES     ''
-    '~/work(|/*)'      WORK         '歷'
+    '~/dotfiles(|/*)'  DOTFILES     '󰣐'
+    '~/work(|/*)'      WORK         '󰒍'
     '~(|/*)'           HOME         ''
     '/etc(|/*)'        ETC          ''
     '/usr(|/*)'        USR          ''
-    '/tmp(|/*)'        TMP          '﯊'
+    '/tmp(|/*)'        TMP          '󰛌'
     '/bin(|/*)'        BIN          ''
-    '/home(|/*)'       HOME         ''
+    '/home(|/*)'       HOME         ''
     '/proc(|/*)'       PROC         ''
     '/usr(|/*)'        CODE         '' # '   '
     '*'                DEFAULT      '')
