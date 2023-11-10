@@ -69,9 +69,9 @@
 
   zsh_detect_ssh(){
     if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
-      echo -n "$(print_icon 'SSH_ICON') "
-    else
-      echo -n "$(print_icon 'HOST_ICON') "
+      echo -n " $(print_icon 'SSH_ICON') "
+    # else
+    #   echo -n " $(print_icon 'HOST_ICON') "
     fi
   }
 
@@ -84,7 +84,7 @@
       *) user_icon=$POWERLEVEL9K_USER_ICON ;;
     esac
 
-    echo -n "$user_icon $user $(zsh_detect_ssh)"
+    echo -n "$user_icon $user$(zsh_detect_ssh)"
   }
 
   # Defines character set used by powerlevel10k. It's best to let `p10k configure` set it for you.
@@ -150,40 +150,14 @@
   typeset -g POWERLEVEL9K_ROOT_ICON='\uF198' # 
   # typeset -g POWERLEVEL9K_ROOT_ICON='\uF09C' # 
   typeset -g POWERLEVEL9K_SSH_ICON='\uF489' # 
-  if [[ -d /sys/class/power_supply/BAT0 ]] || [[ -d /sys/class/power_supply/BAT1 ]]; then
-    typeset -g POWERLEVEL9K_HOST_ICON='\uF109' # 
-  else
-    typeset -g POWERLEVEL9K_HOST_ICON='\uF108' # 
-  fi
+  # if [[ -d /sys/class/power_supply/BAT0 ]] || [[ -d /sys/class/power_supply/BAT1 ]]; then
+  #   typeset -g POWERLEVEL9K_HOST_ICON='\uF109' # 
+  # else
+  #   typeset -g POWERLEVEL9K_HOST_ICON='\uF108' # 
+  # fi
 
   # ==== Python ====
   typeset -g POWERLEVEL9K_PYTHON_ICON='\uE606' # 
-
-  # ==== Pyenv ====
-  # Hide python version if it doesn't come from one of these sources.
-  typeset -g POWERLEVEL9K_PYENV_SOURCES=(shell local global)
-
-  # If set to false, hide python version if it's the same as global:
-  # $(pyenv version-name) == $(pyenv global).
-  typeset -g POWERLEVEL9K_PYENV_PROMPT_ALWAYS_SHOW=true
-
-  # If set to false, hide python version if it's equal to "system".
-  typeset -g POWERLEVEL9K_PYENV_SHOW_SYSTEM=false
-
-  # Pyenv segment format. The following parameters are available within the expansion.
-  #
-  # - P9K_CONTENT                Current pyenv environment (pyenv version-name).
-  # - P9K_PYENV_PYTHON_VERSION   Current python version (python --version).
-  #
-  # The default format has the following logic:
-  #
-  # 1. Display just "$P9K_CONTENT" if it's equal to "$P9K_PYENV_PYTHON_VERSION" or
-  #    starts with "$P9K_PYENV_PYTHON_VERSION/".
-  # 2. Otherwise display "$P9K_CONTENT $P9K_PYENV_PYTHON_VERSION".
-  typeset -g POWERLEVEL9K_PYENV_CONTENT_EXPANSION='${P9K_CONTENT}${${P9K_CONTENT:#$P9K_PYENV_PYTHON_VERSION(|/*)}:+ $P9K_PYENV_PYTHON_VERSION}'
-
-  # Custom icon.
-  # typeset -g POWERLEVEL9K_PYENV_VISUAL_IDENTIFIER_EXPANSION=' '
 
   # ==== Home ====
   typeset -g POWERLEVEL9K_HOME_ICON='\uF015' # 
