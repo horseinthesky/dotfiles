@@ -1,10 +1,3 @@
-# Config for Powerlevel10k with lean prompt style. Type `p10k configure` to generate
-# your own config based on it.
-#
-# Tip: Looking for a nice color? Here's a one-liner to print colormap.
-#
-#   for i in {0..255}; do print -Pn "%K{$i}  %k%F{$i}${(l:3::0:)i}%f " ${${(M)$((i%6)):#3}:+$'\n'}; done
-
 # Temporarily change options.
 'builtin' 'local' '-a' 'p10k_config_opts'
 [[ ! -o 'aliases'         ]] || p10k_config_opts+=('aliases')
@@ -20,7 +13,11 @@
   unset -m '(POWERLEVEL9K_*|DEFAULT_USER)~POWERLEVEL9K_GITSTATUS_DIR'
 
   # Zsh >= 5.1 is required.
-  autoload -Uz is-at-least && is-at-least 5.1 || return
+  [[ $ZSH_VERSION == (5.<1->*|<6->.*) ]] || return
+
+  # ==== p10k subtheme ====
+  source /etc/os-release
+  [[ -f '$ZDOTDIR/$P10K_THEME.zsh' ]] || source $ZDOTDIR/$P10K_THEME.zsh
 
   # ==== Right/Left prompt settings ====
   typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
@@ -29,7 +26,6 @@
     dir                     # current directory
     vcs                     # git status
     virtualenv              # python virtual environment (https://docs.python.org/3/library/venv.html)
-    # pyenv                   # python environment (https://github.com/pyenv/pyenv)
     # =========================[ Line #2 ]=========================
     newline                 # \n
     prompt_char             # prompt symbol
@@ -39,14 +35,10 @@
     custom_host             # os icon and hostname
   )
 
-  # ==== P10K Theme ====
-  source /etc/os-release
-  [[ -f '$ZDOTDIR/$P10K_THEME.zsh' ]] || source $ZDOTDIR/$P10K_THEME.zsh
-
-  # ==== Custom functions ====
+  # Custom elements
   typeset -g POWERLEVEL9K_CUSTOM_HOST="custom_host"
 
-  custom_host(){
+  custom_host () {
     local os_icon
 
     case $ID in
@@ -67,7 +59,7 @@
 
   typeset -g POWERLEVEL9K_CUSTOM_USER="custom_user"
 
-  zsh_detect_ssh(){
+  zsh_detect_ssh () {
     if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
       echo -n " $(print_icon 'SSH_ICON') "
     # else
@@ -88,7 +80,7 @@
   }
 
   # Defines character set used by powerlevel10k. It's best to let `p10k configure` set it for you.
-  typeset -g POWERLEVEL9K_MODE=nerdfont-complete
+  typeset -g POWERLEVEL9K_MODE=nerdfont-v3
 
   # When set to `moderate`, some icons will have an extra space after them. This is meant to avoid
   # icon overlap when using non-monospace fonts. When set to `none`, spaces are not added.
@@ -145,7 +137,7 @@
     typeset -g POWERLEVEL9K_EMPTY_LINE_RIGHT_PROMPT_FIRST_SEGMENT_START_SYMBOL='%{%}'
   fi
 
-  # ======== User ========
+  # ==== User ====
   typeset -g POWERLEVEL9K_USER_ICON='\uF2BD' # 
   typeset -g POWERLEVEL9K_ROOT_ICON='\uF198' # 
   # typeset -g POWERLEVEL9K_ROOT_ICON='\uF09C' # 
@@ -229,8 +221,6 @@
   #   typeset -g POWERLEVEL9K_DIR_WORK_ANCHOR_FOREGROUND=39
 
   # ==== Prompt char ====
-  # Transparent background
-  typeset -g POWERLEVEL9K_PROMPT_CHAR_BACKGROUND=
   # Green prompt symbol if the last command succeeded.
   typeset -g POWERLEVEL9K_PROMPT_CHAR_OK_{VIINS,VICMD,VIVIS,VIOWR}_FOREGROUND="#b8bb26"
   # Red prompt symbol if the last command failed.
@@ -248,8 +238,6 @@
   typeset -g POWERLEVEL9K_PROMPT_CHAR_LEFT_PROMPT_LAST_SEGMENT_END_SYMBOL=''
   # No line introducer if prompt_char is the first segment.
   typeset -g POWERLEVEL9K_PROMPT_CHAR_LEFT_PROMPT_FIRST_SEGMENT_START_SYMBOL=
-  # No surrounding whitespace.
-  typeset -g POWERLEVEL9K_PROMPT_CHAR_LEFT_{LEFT,RIGHT}_WHITESPACE=
 
   # Transient prompt works similarly to the builtin transient_rprompt option. It trims down prompt
   # when accepting a command line. Supported values:

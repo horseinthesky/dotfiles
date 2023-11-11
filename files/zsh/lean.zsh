@@ -122,18 +122,24 @@ function my_git_formatter() {
 
   # Show tracking branch name if it differs from local branch.
   if [[ -n ${VCS_STATUS_REMOTE_BRANCH:#$VCS_STATUS_LOCAL_BRANCH} ]]; then
-    res+="${meta}:${name}${(V)VCS_STATUS_REMOTE_BRANCH//\%/%%}"  # escape %
+    res+="${meta}:${name}${(V)VCS_STATUS_REMOTE_BRANCH//\%/%%}"
   fi
 
-  #  42 if behind the remote.
-  (( VCS_STATUS_COMMITS_BEHIND )) && res+=" ${clean}${(g::)POWERLEVEL9K_VCS_COMMITS_BEHIND_ICON}${VCS_STATUS_COMMITS_BEHIND}"
-  #  42 if ahead of the remote; no leading space if also behind the remote: ⇣42⇡42.
-  (( VCS_STATUS_COMMITS_AHEAD && VCS_STATUS_COMMITS_BEHIND )) && res+=" "
-  (( VCS_STATUS_COMMITS_AHEAD  )) && res+=" ${clean}${(g::)POWERLEVEL9K_VCS_COMMITS_AHEAD_ICON}${VCS_STATUS_COMMITS_AHEAD}"
+  if (( VCS_STATUS_COMMITS_AHEAD || VCS_STATUS_COMMITS_BEHIND )); then
+    #  42 if behind the remote.
+    (( VCS_STATUS_COMMITS_BEHIND )) && res+=" ${clean}${(g::)POWERLEVEL9K_VCS_COMMITS_BEHIND_ICON}${VCS_STATUS_COMMITS_BEHIND}"
+    #  42 if ahead of the remote; leading space if also behind the remote:  42  42.
+    (( VCS_STATUS_COMMITS_AHEAD && VCS_STATUS_COMMITS_BEHIND )) && res+=" "
+    (( VCS_STATUS_COMMITS_AHEAD  )) && res+="${clean}${(g::)POWERLEVEL9K_VCS_COMMITS_AHEAD_ICON}${VCS_STATUS_COMMITS_AHEAD}"
+  elif [[ -n $VCS_STATUS_REMOTE_BRANCH ]]; then
+    # Tip: Uncomment the next line to display '=' if up to date with the remote.
+    # res+=" ${clean}="
+  fi
+
   #  42 if behind the push remote.
   (( VCS_STATUS_PUSH_COMMITS_BEHIND )) && res+=" ${clean}${(g::)POWERLEVEL9K_VCS_PUSH_COMMITS_BEHIND_ICON}${VCS_STATUS_PUSH_COMMITS_BEHIND}"
+  #  42 if ahead of the push remote; leading space if also behind:  42  42.
   (( VCS_STATUS_PUSH_COMMITS_AHEAD && VCS_STATUS_PUSH_COMMITS_BEHIND )) && res+=" "
-  #  42 if ahead of the push remote; no leading space if also behind:  42  42.
   (( VCS_STATUS_PUSH_COMMITS_AHEAD  )) && res+="${clean}${(g::)POWERLEVEL9K_VCS_PUSH_COMMITS_AHEAD_ICON}${VCS_STATUS_PUSH_COMMITS_AHEAD}"
   #  42 if have stashes.
   (( VCS_STATUS_STASHES        )) && res+=" ${stashed}${(g::)POWERLEVEL9K_VCS_STASH_ICON}${VCS_STATUS_STASHES}"
@@ -145,9 +151,15 @@ function my_git_formatter() {
   (( VCS_STATUS_NUM_STAGED     )) && res+=" ${modified}${(g::)POWERLEVEL9K_VCS_STAGED_ICON}${VCS_STATUS_NUM_STAGED}"
   #  42 if have unstaged changes.
   (( VCS_STATUS_NUM_UNSTAGED   )) && res+=" ${modified}${(g::)POWERLEVEL9K_VCS_UNSTAGED_ICON}${VCS_STATUS_NUM_UNSTAGED}"
-  #  42 if have untracked files.
+  #  42 if have untracked files.
   # Remove the next line if you don't want to see untracked files at all.
   (( VCS_STATUS_NUM_UNTRACKED  )) && res+=" ${untracked}${(g::)POWERLEVEL9K_VCS_UNTRACKED_ICON}${VCS_STATUS_NUM_UNTRACKED}"
+  # "─" if the number of unstaged files is unknown. This can happen due to
+  # POWERLEVEL9K_VCS_MAX_INDEX_SIZE_DIRTY (see below) being set to a non-negative number lower
+  # than the number of files in the Git index, or due to bash.showDirtyState being set to false
+  # in the repository config. The number of staged and untracked files may also be unknown
+  # in this case.
+  (( VCS_STATUS_HAS_UNSTAGED == -1 )) && res+=" ${modified}─"
 
   typeset -g my_git_format=$res
 }
@@ -176,8 +188,6 @@ typeset -g POWERLEVEL9K_VCS_LOADING_CONTENT_EXPANSION='${$((my_git_formatter(0))
 # Icon color.
 typeset -g POWERLEVEL9K_VCS_VISUAL_IDENTIFIER_COLOR="#fb4934"
 typeset -g POWERLEVEL9K_VCS_LOADING_VISUAL_IDENTIFIER_COLOR="#928374"
-# Custom icon.
-# typeset -g POWERLEVEL9K_VCS_VISUAL_IDENTIFIER_EXPANSION='⭐'
 
 # Show status of repositories of these types. You can add svn and/or hg if you are
 # using them. If you do, your prompt may become slow even when your current directory

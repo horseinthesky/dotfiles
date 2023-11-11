@@ -46,37 +46,12 @@ P10K_THEME=lean
 # P10K_THEME=rainbow
 
 load_theme $ZSH_THEME
+
+# Enable Powerlevel10k instant prompt. Should stay close to the top of .zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 source_file p10k.zsh
-
-# ==== WSL ====
-# WSL 2 specific settings.
-if grep -q "microsoft" /proc/version &>/dev/null; then
-  # Requires: https://sourceforge.net/projects/vcxsrv/ (or alternative)
-  export DISPLAY="$(/sbin/ip route | awk '/default/ { print $3 }'):0"
-fi
-
-# WSL 1 specific settings.
-# if grep -qE "(Microsoft|WSL)" /proc/version &>/dev/null; then
-#   if [ "$(umask)" = "0000" ]; then
-#     umask 0022
-#   fi
-#
-#   # Requires: https://sourceforge.net/projects/vcxsrv/ (or alternative)
-#   export DISPLAY=:0
-# fi
-
-# ==== Yandex ====
-if [[ $(cat /proc/sys/kernel/hostname) == 'carbon9' ]] ; then
-  # export PSSH_AUTH_SOCK="/mnt/c/Users/$USER/AppData/Local/Temp/pssh-agent.sock"
-  # export SSH_AUTH_SOCK="${PSSH_AUTH_SOCK}"
-  # [[ $(ssh-add -l) =~ "$HOME/.ssh/id_rsa" ]] || ssh-add
-
-  # The next line updates PATH for Yandex Cloud CLI.
-  if [[ -d $HOME/yandex-cloud ]] && [[ ! $PATH == *$HOME/yandex-cloud/bin* ]]; then
-    export PATH=$HOME/yandex-cloud/bin:$PATH
-  fi
-  if [[ -d $HOME/ycp ]] && [[ ! $PATH == *$HOME/ycp/bin* ]]; then
-    export PATH=$HOME/ycp/bin:$PATH
-  fi
-  [[ -f $HOME/yandex-cloud/completion.zsh.inc ]] && source $HOME/yandex-cloud/completion.zsh.inc
-fi
