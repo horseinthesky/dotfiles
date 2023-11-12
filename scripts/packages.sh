@@ -9,6 +9,7 @@ packages=(
   tree
   jq
   bc
+  shellcheck
 )
 
 header "Installing packages..."

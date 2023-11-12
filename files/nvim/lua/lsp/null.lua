@@ -4,6 +4,7 @@ local nls = require "null-ls"
 local b = nls.builtins
 
 local sources = {
+  -- Linting
   -- b.diagnostics.mypy.with {
   --   extra_args = {
   --     "--show-column-numbers",
@@ -16,6 +17,7 @@ local sources = {
   -- },
 
   -- Formatting
+  b.formatting.shellharden,
   b.formatting.prettierd,
   b.formatting.stylua.with {
     extra_args = { "--config-path", vim.fn.expand "~/.config/stylua/stylua.toml" },

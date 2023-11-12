@@ -131,6 +131,7 @@ install_tools () {
     lsd
     exa
     git-delta,delta
+    shellharden
     stylua
     gping
     xh
