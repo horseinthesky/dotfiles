@@ -27,16 +27,7 @@ local plugins = {
   {
     "nvim-tree/nvim-web-devicons",
     config = function()
-      require("nvim-web-devicons").set_icon {
-        struct = {
-          icon = "",
-          color = "#428850",
-          cterm_color = "65",
-          name = "Struct",
-        },
-      }
       require("nvim-web-devicons").setup {}
-      -- require("nvim-web-devicons").setup { default = true }
     end,
   },
   {
@@ -174,18 +165,16 @@ local plugins = {
       "nvim-treesitter/nvim-treesitter",
     },
     config = function()
-      require("neogen").setup {
-        enabled = true,
-      }
+      require("neogen").setup()
     end,
   },
   {
     "olexsmir/gopher.nvim",
-    ft = "go",
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
     },
+    ft = "go",
   },
   {
     "simrat39/rust-tools.nvim",
@@ -385,7 +374,7 @@ local options = {
     border = "rounded",
     icons = {
       start = "",
-      event = "",
+      event = "󰌵",
       cmd = "",
       ft = "",
     },
