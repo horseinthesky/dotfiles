@@ -4,11 +4,13 @@ local mappings = {
   -- Miscellaneous
   -- alternate way to save
   { "n", "<C-s>", "<cmd>w<CR>" },
-  -- yank all buffer
+  -- yank the whole buffer
   { "n", "<leader>A", "<cmd>%y<CR>" },
-  -- keep cursor position when J
-  { "n", "J", "mzJ'z" },
-  -- selects code that was just pasted in the visual mode last used
+  -- strip all trailing whitespace in the current file while saving last search pattern
+  { "n", "<leader>W", "<cmd>let _s=@/ <Bar> %s/\\s\\+$//e <Bar> let @/=_s <Bar> unlet _s<CR>" },
+  -- keep yanked text in void register after each paste
+  { "x", "<leader>p", '"_dP' },
+  -- select code that was just pasted in the visual mode last used
   { "n", "<leader>v", "'`[' . strpart(getregtype(), 0, 1) . '`]'", { expr = true } },
   -- visual shifting (does not exit Visual mode)
   { "v", "<", "<gv" },
@@ -19,8 +21,11 @@ local mappings = {
   -- center search results
   { "n", "n", "nzz" },
   { "n", "N", "Nzz" },
-  -- strip all trailing whitespace in the current file while saving last search pattern
-  { "n", "<leader>W", "<cmd>let _s=@/ <Bar> %s/\\s\\+$//e <Bar> let @/=_s <Bar> unlet _s<CR>" },
+  -- center page up/down
+  { "n", "<C-d>", "<C-d>zz" },
+  { "n", "<C-u>", "<C-u>zz" },
+  -- keep cursor position when J
+  { "n", "J", "mzJ'z" },
   -- move lines up/down in any mode with Alt+k/j
   { "v", "<A-j>", ":m '>+1<CR>gv=gv" },
   { "v", "<A-k>", ":m '<-2<CR>gv=gv" },
@@ -75,14 +80,14 @@ local mappings = {
   -- Press * to search for the term under the cursor and then press a key below
   -- to replace all instances of it in the current file.
   -- Second binding is for comfirmation.
-  { "n", "<leader>rr", ":%s///g<Left><Left>" },
-  { "n", "<leader>rc", ":%s///gc<Left><Left><Left>" },
+  { "n", "<leader>rr", ":%s///g<Left><Left>", { silent = false } },
+  { "n", "<leader>rc", ":%s///gc<Left><Left><Left>", { silent = false } },
   -- The same as above but instead of acting on the whole file it will be
   -- restricted to the previously visually selected range. You can do that by
   -- pressing *, visually selecting the range you want it to apply to and then
   -- press a key below to replace all instances of it in the current selection.
-  { "x", "<leader>rr", ":s///g<Left><Left>" },
-  { "x", "<leader>rc", ":s///gc<Left><Left><Left>" },
+  { "x", "<leader>rr", ":s///g<Left><Left>", { silent = false } },
+  { "x", "<leader>rc", ":s///gc<Left><Left><Left>", { silent = false } },
   -- Press key below on the word or on visual selection and type a replacement term.
   -- Press . to repeat the replacement again. Useful
   -- for replacing a few instances of the term (comparable to multiple cursors).
