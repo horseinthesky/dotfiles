@@ -125,22 +125,14 @@ function my_git_formatter() {
     res+="${meta}:${name}${(V)VCS_STATUS_REMOTE_BRANCH//\%/%%}"
   fi
 
-  if (( VCS_STATUS_COMMITS_AHEAD || VCS_STATUS_COMMITS_BEHIND )); then
-    #  42 if behind the remote.
-    (( VCS_STATUS_COMMITS_BEHIND )) && res+=" ${clean}${(g::)POWERLEVEL9K_VCS_COMMITS_BEHIND_ICON}${VCS_STATUS_COMMITS_BEHIND}"
-    #  42 if ahead of the remote; leading space if also behind the remote:  42  42.
-    (( VCS_STATUS_COMMITS_AHEAD && VCS_STATUS_COMMITS_BEHIND )) && res+=" "
-    (( VCS_STATUS_COMMITS_AHEAD  )) && res+="${clean}${(g::)POWERLEVEL9K_VCS_COMMITS_AHEAD_ICON}${VCS_STATUS_COMMITS_AHEAD}"
-  elif [[ -n $VCS_STATUS_REMOTE_BRANCH ]]; then
-    # Tip: Uncomment the next line to display '=' if up to date with the remote.
-    # res+=" ${clean}="
-  fi
-
+  #  42 if behind the remote.
+  (( VCS_STATUS_COMMITS_BEHIND )) && res+=" ${clean}${(g::)POWERLEVEL9K_VCS_COMMITS_BEHIND_ICON}${VCS_STATUS_COMMITS_BEHIND}"
+  #  42 if ahead of the remote.
+  (( VCS_STATUS_COMMITS_AHEAD  )) && res+=" ${clean}${(g::)POWERLEVEL9K_VCS_COMMITS_AHEAD_ICON}${VCS_STATUS_COMMITS_AHEAD}"
   #  42 if behind the push remote.
   (( VCS_STATUS_PUSH_COMMITS_BEHIND )) && res+=" ${clean}${(g::)POWERLEVEL9K_VCS_PUSH_COMMITS_BEHIND_ICON}${VCS_STATUS_PUSH_COMMITS_BEHIND}"
-  #  42 if ahead of the push remote; leading space if also behind:  42  42.
-  (( VCS_STATUS_PUSH_COMMITS_AHEAD && VCS_STATUS_PUSH_COMMITS_BEHIND )) && res+=" "
-  (( VCS_STATUS_PUSH_COMMITS_AHEAD  )) && res+="${clean}${(g::)POWERLEVEL9K_VCS_PUSH_COMMITS_AHEAD_ICON}${VCS_STATUS_PUSH_COMMITS_AHEAD}"
+  #  42 if ahead of the push remote.
+  (( VCS_STATUS_PUSH_COMMITS_AHEAD  )) && res+=" ${clean}${(g::)POWERLEVEL9K_VCS_PUSH_COMMITS_AHEAD_ICON}${VCS_STATUS_PUSH_COMMITS_AHEAD}"
   #  42 if have stashes.
   (( VCS_STATUS_STASHES        )) && res+=" ${stashed}${(g::)POWERLEVEL9K_VCS_STASH_ICON}${VCS_STATUS_STASHES}"
   # 'merge' if the repo is in an unusual state.
@@ -149,7 +141,7 @@ function my_git_formatter() {
   (( VCS_STATUS_NUM_CONFLICTED )) && res+=" ${conflicted}${(g::)POWERLEVEL9K_VCS_CONFLICTED_ICON}${VCS_STATUS_NUM_CONFLICTED}"
   #  42 if have staged changes.
   (( VCS_STATUS_NUM_STAGED     )) && res+=" ${modified}${(g::)POWERLEVEL9K_VCS_STAGED_ICON}${VCS_STATUS_NUM_STAGED}"
-  #  42 if have unstaged changes.
+  #  42 if have unstaged changes.
   (( VCS_STATUS_NUM_UNSTAGED   )) && res+=" ${modified}${(g::)POWERLEVEL9K_VCS_UNSTAGED_ICON}${VCS_STATUS_NUM_UNSTAGED}"
   #  42 if have untracked files.
   # Remove the next line if you don't want to see untracked files at all.
