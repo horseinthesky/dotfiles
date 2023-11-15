@@ -71,7 +71,7 @@ local settings = {
   scrolloff = 10, -- Start scrolling 10 lines before edge of viewpoint
   guicursor = "", -- Fix for mysterious 'q' letters
   completeopt = { "menu", "menuone", "noselect" }, -- Set completeopt to have a better completion experience
-  shortmess =  vim.opt.shortmess + "c", -- Don't give |ins-completion-menu| messages
+  shortmess = vim.opt.shortmess + "c", -- Don't give |ins-completion-menu| messages
   guifont = "DejavuSansMono NF:h16", -- Font
   updatetime = 300, -- Faster completion (default is 4000)
   timeoutlen = 500, -- Timeout for a mapped sequence to complete. (1000 ms by default)
@@ -87,6 +87,7 @@ local settings = {
   hlsearch = false,
   ignorecase = true,
   smartcase = true,
+
   -- Windows
   number = true,
   relativenumber = true,
@@ -99,7 +100,7 @@ local settings = {
     nbsp = "␣",
     precedes = "←",
     space = "·",
-    tab = "\\",
+    tab = " ",
     trail = "·",
   },
   -- list = true,
@@ -111,18 +112,22 @@ local settings = {
   -- signcolumn = "yes",               -- Always show signcolumns (left row)
 
   -- Folding
-  foldmethod = "indent", -- Fold based on indent
+  foldmethod = "expr", -- Fold based on expression
+  foldexpr = "nvim_treesitter#foldexpr()",
   foldnestmax = 10, -- Deepest fold is 10 levels
   foldenable = false, -- Dont fold by default
   foldlevel = 2, -- This is just what I use
+
   -- History
   history = 100,
   undolevels = 100,
   undofile = true,
   undodir = vim.fn.stdpath "config" .. "/undo",
+
   -- Splits
   splitbelow = true, -- new horizontal split to appear below
   splitright = true, -- new vertical split to appear on the right
+
   -- Buffers
   showtabline = 1, -- Show tabs only when 2 or more open
   swapfile = false, -- Dont' use swapfile
