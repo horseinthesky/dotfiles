@@ -25,7 +25,7 @@ local leader_map = {
     f = "Outer function",
     p = "Inner parameter",
   },
-  T = "Replace each tab with 4 whitespaces",
+  T = "Neotree",
   W = "Strip trailing whitespaces",
   a = {
     name = "Annotate",

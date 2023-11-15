@@ -186,6 +186,28 @@ local plugins = {
 
   -- Features
   {
+    "nvim-neo-tree/neo-tree.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons",
+      "MunifTanjim/nui.nvim",
+    },
+    cmd = "Neotree",
+    config = function()
+      require("neo-tree").setup {
+        enable_git_status = false,
+        enable_diagnostics = false,
+        default_component_configs = {
+          icon = {
+            folder_closed = "",
+            folder_open = "",
+            folder_empty = "",
+          },
+        },
+      }
+    end,
+  },
+  {
     "folke/todo-comments.nvim",
     dependencies = {
       "nvim-lua/plenary.nvim",
@@ -495,6 +517,9 @@ end)
 map("n", "<leader>at", function()
   require("neogen").generate { type = "type" }
 end)
+
+-- nvim-tree
+map("n", "<leader>T", "<cmd>Neotree toggle reveal<CR>")
 
 -- hop
 map("n", "f", "<cmd>HopChar1<CR>")

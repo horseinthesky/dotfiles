@@ -74,7 +74,7 @@ local mappings = {
   { "n", "<Tab>", "<cmd>tabn<CR>" },
   { "n", "<S-Tab>", "<cmd>tabp<CR>" },
   -- replace all <tab>s with 4 whitespaces
-  { "n", "<leader>T", "<cmd>%s/\t/    /g<CR>" },
+  -- { "n", "<leader>T", "<cmd>%s/\t/    /g<CR>" },
 
   -- Multiple replace
   -- Press * to search for the term under the cursor and then press a key below
