@@ -12,22 +12,22 @@ install_docker () {
         curl
         gnupg
       )
-      install ${packages[@]}
+      install "${packages[@]}"
 
       info "Adding docker gpg key..."
       DOCKER_GPG=/usr/share/keyrings/docker.gpg
 
       if [[ ! -f $DOCKER_GPG ]]; then
         curl -fsSL https://download.docker.com/linux/ubuntu/gpg | \
-          sudo gpg --dearmor -o $DOCKER_GPG
+          sudo gpg --dearmor -o "$DOCKER_GPG"
       fi
 
       info  "Adding docker repo..."
       if [[ ! -f /etc/apt/sources.list.d/docker.list ]]; then
         echo \
-          "deb [arch="$(dpkg --print-architecture)" signed-by=$DOCKER_GPG] \
+          "deb [arch=""$(dpkg --print-architecture) signed-by=$DOCKER_GPG] \
             https://download.docker.com/linux/ubuntu \
-          "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
+          ""$(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
           sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
       fi
 
@@ -51,7 +51,7 @@ install_docker () {
 
 setup_docker_group () {
   header "Adding $USER to docker group..."
-  sudo usermod -aG docker $(whoami)
+  sudo usermod -aG docker "$(whoami)"
   success
 }
 
@@ -66,12 +66,23 @@ install_docker_compose () {
     exit
   fi
 
-  download https://github.com/docker/compose/releases/download/${version}/docker-compose-$(uname -s)-$(uname -m)
+  download https://github.com/docker/compose/releases/download/"$version/docker-compose-$(uname -s)-$(uname -m)"
   [[ $? -ne 0 ]] && exit
 
-  [[ ! -d $plugin_dir ]] && mkdir -p $plugin_dir
-  mv $HOME/docker-compose-$(uname -s)-$(uname -m) $plugin_dir/docker-compose
-  chmod +x $plugin_dir/docker-compose
+  [[ ! -d $plugin_dir ]] && mkdir -p "$plugin_dir"
+  mv "$HOME/docker-compose-$(uname -s)-$(uname -m)" "$plugin_dir"/docker-compose
+  chmod +x "$plugin_dir"/docker-compose
+
+  success
+}
+
+install_hadolint () {
+  header "Installing hadolint..."
+
+  local version=2.12.0
+  download https://github.com/hadolint/hadolint/releases/download/v"$version"/hadolint-Linux-x86_64 "$HOME"/.local/bin
+  mv "$HOME"/.local/bin/hadolint-Linux-x86_64 "$HOME"/.local/bin/hadolint
+  chmod +x "$HOME"/.local/bin/hadolint
 
   success
 }
@@ -80,6 +91,7 @@ main () {
   install_docker
   setup_docker_group
   install_docker_compose
+  install_hadolint
 }
 
 main

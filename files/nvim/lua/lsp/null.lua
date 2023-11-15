@@ -5,6 +5,7 @@ local b = nls.builtins
 
 local sources = {
   -- Linting
+  b.diagnostics.hadolint,
   -- b.diagnostics.mypy.with {
   --   extra_args = {
   --     "--show-column-numbers",
