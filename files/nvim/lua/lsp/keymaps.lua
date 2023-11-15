@@ -6,6 +6,7 @@ local function keymap()
   local lsp_keymappings = {
     -- General
     { "n", "<leader>ci", "<cmd>LspInfo<CR>" },
+    { "n", "<leader>cR", "<cmd>LspRestart<CR>" },
     { "n", "<leader>F", function() vim.lsp.buf.format { async = true } end },
     { "n", "<leader>ca", function() vim.lsp.buf.code_action { source = { organizeImports = true } } end },
     { "n", "<leader>ch", vim.lsp.buf.hover },

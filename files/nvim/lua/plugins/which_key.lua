@@ -41,6 +41,7 @@ local leader_map = {
   c = {
     name = "Code",
     D = "Line diagnostics",
+    R = "Restart LSP client",
     a = "Code action",
     d = "Definition",
     h = "Hover",
@@ -95,6 +96,7 @@ local leader_map = {
     s = "Status",
     w = "Blame (who)",
   },
+  p = "Paste white keeping original text",
   r = {
     name = "Replace",
     c = "Replace with confirmation",
