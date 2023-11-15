@@ -1,5 +1,5 @@
 -- Sensible defaults
-require "settings"
+require "options"
 
 -- Key mappings
 require "keymaps"
