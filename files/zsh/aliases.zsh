@@ -51,13 +51,6 @@ alias tl='tmux ls'
 alias tpl='tmuxp load '
 
 # apps
-alias rg='
-  rg \
-  --colors=path:fg:0xbd,0xae,0x93 \
-  --colors=line:fg:0x8e,0xc0,0x7c \
-  --colors=match:fg:0xfb,0x49,0x34 \
-  --colors=match:style:bold'
-
 alias nv='~/.local/bin/nvim'
 alias pp='ptpython'
 
