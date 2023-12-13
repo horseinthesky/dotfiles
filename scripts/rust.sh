@@ -4,7 +4,7 @@ source scripts/helper.sh
 
 cargo_install () {
   local tool binary
-  IFS=, read -r tool binary <<< ${1}
+  IFS=, read -r tool binary <<< "${1}"
 
   info "Installing $tool..."
 
@@ -20,8 +20,8 @@ cargo_install () {
   fi
 
   # Fresh install
-  if [[ -z $(which $binary) ]]; then
-    cargo install $tool
+  if [[ -z $(which "$binary") ]]; then
+    cargo install "$tool"
 
     if [[ $? -ne 0 ]]; then
       error "Failed to install $tool"
@@ -33,8 +33,8 @@ cargo_install () {
   fi
 
   # Update
-  local current_version=$($binary --version 2> /dev/null | grep -P -o "\d+\.\d+\.\d+" | head -n 1)
-  local latest_version=$(cargo search $tool | head -n 1 | awk '{print $3}' | tr -d '"')
+  local current_version=$("$binary" --version 2> /dev/null | grep -P -o "\d+\.\d+\.\d+" | head -n 1)
+  local latest_version=$(cargo search "$tool" | head -n 1 | awk '{print $3}' | tr -d '"')
 
   if [[ $current_version == $latest_version ]]; then
     success "Latest ($latest_version) version is already installed"
@@ -42,7 +42,7 @@ cargo_install () {
   fi
 
   info "Newer version found. Updating $current_version -> $latest_version..."
-  cargo install $tool --force
+  cargo install "$tool" --force
 
   if [[ $? -ne 0 ]]; then
     error "Failed to update $tool to the latest ($latest_version) version"
@@ -118,7 +118,7 @@ install_cli_tools_deps () {
       ;;
   esac
 
-  install ${deps[@]}
+  install "${deps[@]}"
 }
 
 install_tools () {
@@ -131,6 +131,7 @@ install_tools () {
     lsd
     exa
     git-delta,delta
+    just
     shellharden
     stylua
     gping
@@ -145,8 +146,8 @@ install_tools () {
     speedtest-rs
   )
 
-  for tool in ${tools[@]}; do
-    cargo_install $tool
+  for tool in "${tools[@]}"; do
+    cargo_install "$tool"
   done
 
   header "Installing rust-analyzer..."
@@ -154,17 +155,19 @@ install_tools () {
   success
 }
 
-symlink_stylua_config () {
+symlink_configs () {
   header "Symlinking stylua config..."
+  symlink "$DOTFILES_HOME"/stylua.toml "$HOME"/.config/stylua/stylua.toml
 
-  symlink $DOTFILES_HOME/stylua.toml $HOME/.config/stylua/stylua.toml
+  header "Symlinking rustfmt config..."
+  symlink "$DOTFILES_HOME"/rustfmt.toml "$HOME"/.config/rustfmt/rustfmt.toml
 }
 
 main () {
   install_cargo
   install_cli_tools_deps
   install_tools
-  symlink_stylua_config
+  symlink_configs
 }
 
 main
