@@ -128,8 +128,7 @@ install_tools () {
     ripgrep,rg
     fd-find,fd
     zoxide
-    lsd
-    exa
+    eza
     git-delta,delta
     just
     shellharden

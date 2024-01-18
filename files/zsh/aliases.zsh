@@ -50,7 +50,7 @@ alias tK='tmux kill-server'
 alias tl='tmux ls'
 alias tpl='tmuxp load '
 
-# apps
+# misc
 alias nv='~/.local/bin/nvim'
 alias pp='ptpython'
 
@@ -63,7 +63,8 @@ alias p="procs"
 alias du="dust"
 alias ll='lsd -lA --group-dirs first'
 
-alias l='exa --group-directories-first -la --icons --header'
+export EZA_COLORS="da=33"
+alias l='eza --group-directories-first -la --icons --header --color-scale age'
 t () {
   local depth=${2:-2}
   local dir=${1:-.}
