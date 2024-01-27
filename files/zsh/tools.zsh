@@ -59,13 +59,13 @@ fi
 [[ -z $(whence z) ]] && eval "$(zoxide init zsh)"
 
 # ==== Yandex ====
-if [[ $(cat /proc/sys/kernel/hostname) == 'carbon9' ]] ; then
-  # export PSSH_AUTH_SOCK="/mnt/c/Users/$USER/AppData/Local/Temp/pssh-agent.sock"
-  # export SSH_AUTH_SOCK="${PSSH_AUTH_SOCK}"
-  # [[ $(ssh-add -l) =~ "$HOME/.ssh/id_rsa" ]] || ssh-add
+# if [[ $(cat /proc/sys/kernel/hostname) == 'carbon9' ]] ; then
+# fi
+# export PSSH_AUTH_SOCK="/mnt/c/Users/$USER/AppData/Local/Temp/pssh-agent.sock"
+# export SSH_AUTH_SOCK="${PSSH_AUTH_SOCK}"
+# [[ $(ssh-add -l) =~ "$HOME/.ssh/id_rsa" ]] || ssh-add
 
-  # yc & ycp
-  [[ -d $HOME/yandex-cloud && ! $PATH == *$HOME/yandex-cloud/bin* ]] && export PATH=$HOME/yandex-cloud/bin:$PATH
-  [[ -d $HOME/ycp && ! $PATH == *$HOME/ycp/bin* ]] && export PATH=$HOME/ycp/bin:$PATH
-  [[ -f $HOME/yandex-cloud/completion.zsh.inc ]] && source $HOME/yandex-cloud/completion.zsh.inc
-fi
+# yc & ycp
+[[ -d $HOME/yandex-cloud && ! $PATH == *$HOME/yandex-cloud/bin* ]] && export PATH=$HOME/yandex-cloud/bin:$PATH
+[[ -d $HOME/ycp && ! $PATH == *$HOME/ycp/bin* ]] && export PATH=$HOME/ycp/bin:$PATH
+[[ -f $HOME/yandex-cloud/completion.zsh.inc ]] && source $HOME/yandex-cloud/completion.zsh.inc

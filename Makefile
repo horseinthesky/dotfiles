@@ -17,7 +17,7 @@ targets = \
 	js \
 	nvim \
 	docker \
-	terraform \
+	cloud \
 
 .PHONY: all $(targets)
 
