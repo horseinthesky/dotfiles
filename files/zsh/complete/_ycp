@@ -1,0 +1,38 @@
+#compdef ycp
+
+__ycp_bash_source() {
+	emulate -L sh
+	setopt kshglob noshglob braceexpand
+	source "$@"
+}
+
+__ycp_type() {
+	# -t is not supported by zsh
+	if [ "$1" == "-t" ]; then
+		shift
+	fi
+	type "$@"
+}
+
+__ycp_get_comp_words_by_ref() {
+	cur="${COMP_WORDS[COMP_CWORD]}"
+	prev="${COMP_WORDS[${COMP_CWORD}-1]}"
+	words=("${COMP_WORDS[@]}")
+	cword=("${COMP_CWORD[@]}")
+}
+
+autoload -U +X bashcompinit && bashcompinit
+
+__ycp_convert_bash_to_zsh() {
+	sed \
+	-e 's/declare -F/whence -w/' \
+	-e "s/\\\$(type${RWORD}/\$(__ycp_type/g" \
+	-e "s/${LWORD}_get_comp_words_by_ref${RWORD}/__ycp_get_comp_words_by_ref/g" \
+	-e "s/ type \-t/\ __ycp_type \-t/g" \
+	-e "s/ read -ra COMPREPLY -d ''/ read -rA -d '' COMPREPLY/g" \
+	-e "s/:endIndex}/:\$endIndex}/g" \
+	-e "s/\${!COMPREPLY\[\*\]}/\${(k)COMPREPLY}/g" \
+	< "$HOME/ycp/completion.bash.inc"
+}
+
+__ycp_bash_source <(__ycp_convert_bash_to_zsh)
