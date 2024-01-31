@@ -1,5 +1,5 @@
 [experimental]
 autoMemoryReclaim=gradual
 sparseVhd=true
-networkingMode=mirrored 
+networkingMode=mirrored
 dnsTunneling=true
