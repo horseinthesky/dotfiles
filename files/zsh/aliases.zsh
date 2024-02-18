@@ -21,8 +21,11 @@ alias a='source ./.venv/bin/activate'
 alias d='deactivate'
 
 # docker
-alias dRc='docker rm $(docker ps -a -q -f status=exited)'
-alias dRi='docker rmi -f $(docker images -qf dangling=true)'
+alias dp='docker ps -a'
+alias di='docker images -a'
+
+alias dre='docker rm $(docker ps -a -q -f status=exited)'
+alias dri='docker rmi -f $(docker images -qf dangling=true)'
 
 # k8s
 k () {

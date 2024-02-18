@@ -24,7 +24,7 @@ fenv () {
 }
 
 fdrc () {
-  local containers=$(docker ps | tail -n +2 | awk '{print $1" "$NF}' | fzf -m | cut -d " " -f 1 | tr "\n" " ")
+  local containers=$(docker ps | tail -n +2 | awk '{print $1" "$2}' | fzf -m | cut -d " " -f 1 | tr "\n" " ")
 
   [[ -z $containers ]] && return
 
