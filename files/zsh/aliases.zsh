@@ -21,10 +21,10 @@ alias a='source ./.venv/bin/activate'
 alias d='deactivate'
 
 # docker
-alias dp='docker ps -a'
+alias dc='docker ps -a'
 alias di='docker images -a'
 
-alias dre='docker rm $(docker ps -a -q -f status=exited)'
+alias drc='docker rm $(docker ps -a -q -f status=exited)'
 alias dri='docker rmi -f $(docker images -qf dangling=true)'
 
 # k8s
