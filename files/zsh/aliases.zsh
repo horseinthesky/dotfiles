@@ -54,7 +54,7 @@ alias tl='tmux ls'
 alias tpl='tmuxp load '
 
 # misc
-alias nv='~/.local/bin/nvim'
+alias nv='$HOME/.local/bin/nvim'
 alias pp='ptpython'
 
 alias grep='grep --color=auto --line-buffered'

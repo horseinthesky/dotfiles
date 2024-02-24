@@ -6,8 +6,6 @@ go_install () {
   local path=$1
   local tool=$(echo "$path" | awk -F/ '{print $(NF-1)"/"$NF}')
 
-  PATH=$HOME/.local/bin:$PATH
-
   if [[ -z $(which go) ]]; then
     error "Go is not found. Can't procced"
     return 1
@@ -23,10 +21,6 @@ install_go () {
 
   local version=1.22.0
   local tarball=go${version}.linux-amd64.tar.gz
-
-  [[ ! -d $HOME/.local/bin ]] && mkdir -p "$HOME"/.local/bin
-  [[ ! -d $HOME/.local/lib ]] && mkdir -p "$HOME"/.local/lib
-  [[ ! $PATH == *$HOME/.local/bin* ]] && export PATH=$HOME/.local/bin:$PATH
 
   if [[ -n $(which go) ]] && [[ $(go version | awk '{print $3}' | cut -c3-) == $version ]]; then
     success "Latest version ($version) is already installed."

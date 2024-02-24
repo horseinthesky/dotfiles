@@ -15,24 +15,22 @@ install_deps () {
     aha
   )
 
-  install ${packages[@]}
+  install "${packages[@]}"
 }
 
 install_asn () {
   header "Downloading asn..."
 
-  [[ ! -d $HOME/.local/bin ]] && mkdir -p $HOME/.local/bin
+  ASN=$HOME/.local/bin/asn
 
-  ASN_PATH=$HOME/.local/bin/asn
-
-  if [[ -f $ASN_PATH ]]; then
+  if [[ -f $ASN ]]; then
     success "Already installed"
     exit
   fi
 
   curl -s https://raw.githubusercontent.com/nitefood/asn/master/asn > \
-    $ASN_PATH && \
-    chmod +x $ASN_PATH
+    "$ASN" && \
+    chmod +x "$ASN"
 
   success
 }

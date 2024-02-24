@@ -1,3 +1,4 @@
+# Setup colors
 RED="\e[31m"
 GREEN="\e[32m"
 YELLOW="\e[33m"
@@ -15,6 +16,7 @@ LIGHTGREY="\e[37m"
 WHITE="\e[97m"
 NORMAL="\e[0m"
 
+# Setup env
 XDG_CONFIG_HOME=$HOME/.config
 XDG_DATA_HOME=$HOME/.local/share
 XDG_CACHE_HOME=$HOME/.cache
@@ -23,6 +25,15 @@ DOTFILES_HOME=$HOME/dotfiles/files
 
 source /etc/os-release
 
+setup_env () {
+  [[ ! -d $HOME/.local/bin ]] && mkdir -p "$HOME"/.local/bin
+  [[ ! -d $HOME/.local/lib ]] && mkdir -p "$HOME"/.local/lib
+  [[ ! $PATH == *$HOME/.local/bin* ]] && export PATH=$HOME/.local/bin:$PATH
+}
+
+setup_env
+
+# Export functions
 header () {
   echo -e "\n${LIGHTMAGENTA}$1${NORMAL}"
   printf "${LIGHTMAGENTA}%$(($(tput cols) / 3))s${NORMAL}\n" | tr " " "="

@@ -2,11 +2,6 @@
 
 source scripts/helper.sh
 
-setup_env () {
-  [[ ! -d $HOME/.local/bin ]] && mkdir -p "$HOME"/.local/bin
-  [[ ! $PATH == *$HOME/.local/bin* ]] && export PATH=$HOME/.local/bin:$PATH
-}
-
 download_package () {
   local url=$1
   local path=$2
@@ -92,7 +87,6 @@ install_helm () {
 }
 
 main () {
-  setup_env
   install_terraform_packages
   install_kubelet
   install_helm

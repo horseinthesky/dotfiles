@@ -14,7 +14,7 @@ fw() {
 }
 
 fenv () {
-  local version=$(ll $HOME/.local/bin | grep python | awk '{print $11}' |
+  local version=$(ls -la $HOME/.local/bin | grep python | awk '{print $9}' |
     fzf --delimiter='python' --with-nth=2
   )
 

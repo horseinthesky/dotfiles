@@ -23,8 +23,8 @@ setup_env () {
   [[ $? -ne 0 ]] && exit
 
   info "Installing venv..."
-  $HOME/.local/bin/python${devver} $HOME/virtualenv.pyz $devenv --quiet
-  rm $HOME/virtualenv.pyz
+  "$HOME/.local/bin/python$devver" "$HOME"/virtualenv.pyz "$devenv" --quiet
+  rm "$HOME"/virtualenv.pyz
 
   success
 }
@@ -49,7 +49,7 @@ install_python_tools () {
   fi
 
   [[ ! $PATH == *$devenv/bin* ]] && export PATH=$devenv/bin:$PATH
-  pip install -U ${packages[@]} | grep -E "installed"
+  pip install -U "${packages[@]}" | grep -E "installed"
 
   success
 }
@@ -57,7 +57,7 @@ install_python_tools () {
 symlink_configs () {
   header "Setting up python tools configs..."
 
-  symlink $DOTFILES_HOME/ptpython.py $XDG_CONFIG_HOME/ptpython/config.py
+  symlink "$DOTFILES_HOME"/ptpython.py "$XDG_CONFIG_HOME"/ptpython/config.py
 }
 
 install_poetry () {
@@ -78,12 +78,15 @@ install_poetry () {
     return
   fi
 
+  header "Installing poetry export plugin..."
+  poetry self add poetry-plugin-export
+
   success
 }
 
 symlink_poetry () {
   header "Symlink poetry config.toml"
-  symlink $DOTFILES_HOME/poetry.toml $XDG_CONFIG_HOME/pypoetry/config.toml
+  symlink "$DOTFILES_HOME"/poetry.toml "$XDG_CONFIG_HOME"/pypoetry/config.toml
 }
 
 main () {
