@@ -36,6 +36,7 @@ install_python_tools () {
     virtualenv
     ptpython
     ruff
+    uv
     isort
     mypy
     flake8
