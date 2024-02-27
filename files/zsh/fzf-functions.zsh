@@ -32,7 +32,7 @@ fdrc () {
 }
 
 fdri () {
-  local images=$(docker images | tail -n +2 | awk '{print $1" "$2" "$3}' | column -t | fzf -m | cut -d " " -f 2 | tr "\n" " ")
+  local images=$(docker images | tail -n +2 | awk '{print $1" "$2" "$3}' | column -t | fzf -m | awk '{print $NF}' | tr "\n" " ")
 
   [[ -z $images ]] && return
 
