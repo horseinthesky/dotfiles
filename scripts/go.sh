@@ -54,6 +54,7 @@ install_go_tools () {
 
   tools=(
     golang.org/x/tools/gopls
+    golang.org/x/tools/cmd/deadcode
     github.com/muesli/duf
     github.com/charmbracelet/glow
     github.com/fatih/gomodifytags
