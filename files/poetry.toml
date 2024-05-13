@@ -4,3 +4,6 @@
 in-project = true
 
 [repositories]
+
+[warnings]
+export = false
