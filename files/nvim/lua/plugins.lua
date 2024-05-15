@@ -186,28 +186,6 @@ local plugins = {
 
   -- Features
   {
-    "nvim-neo-tree/neo-tree.nvim",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-tree/nvim-web-devicons",
-      "MunifTanjim/nui.nvim",
-    },
-    cmd = "Neotree",
-    config = function()
-      require("neo-tree").setup {
-        enable_git_status = false,
-        enable_diagnostics = false,
-        default_component_configs = {
-          icon = {
-            folder_closed = "",
-            folder_open = "",
-            folder_empty = "",
-          },
-        },
-      }
-    end,
-  },
-  {
     "folke/todo-comments.nvim",
     dependencies = {
       "nvim-lua/plenary.nvim",
@@ -279,6 +257,30 @@ local plugins = {
         after_open = function(bufnr)
           vim.api.nvim_buf_set_keymap(bufnr, "n", "<Esc>", ":close<CR>", {})
         end,
+      }
+    end,
+  },
+  {
+    "stevearc/oil.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    cmd = "Oil",
+    config = function()
+      require("oil").setup {
+        use_default_keymaps = false,
+        keymaps = {
+          ["g?"] = "actions.show_help",
+          ["g."] = "actions.toggle_hidden",
+          ["<CR>"] = "actions.select",
+          ["_"] = "actions.open_cwd",
+          ["<BS>"] = "actions.parent",
+          ["<C-h>"] = "actions.select_split",
+          ["<C-v>"] = "actions.select_vsplit",
+          ["<C-t>"] = "actions.select_tab",
+          ["<C-p>"] = "actions.preview",
+          ["<C-r>"] = "actions.refresh",
+          ["<C-s>"] = "<CMD>write<CR>",
+          ["q"] = "actions.close",
+        },
       }
     end,
   },
@@ -405,7 +407,7 @@ local options = {
 
 -- Setup
 require("lazy").setup(plugins, options)
-vim.keymap.set("n", "<leader>L", "<cmd>Lazy<CR>")
+vim.keymap.set("n", "<leader>L", "<CMD>Lazy<CR>")
 
 -- ==== Plugins keymaps
 local map = require("utils").map
@@ -413,42 +415,42 @@ local map = require("utils").map
 -- Telescope
 local telescope_mappings = {
   -- regular search mappings
-  { "n", "<leader>ff", "<cmd>Telescope find_files hidden=true<CR>" },
-  -- {"n", "<leader>fB", "<cmd>Telescope builtin previewer=false<CR>"},
-  -- {"n", "<leader>fb", "<cmd>Telescope buffers<CR>"},
-  -- {"n", "<leader>fe", "<cmd>Telescope current_buffer_fuzzy_find<CR>"},
-  -- {"n", "<leader>fh", "<cmd>Telescope help_tags<CR>"},
-  -- {"n", "<leader>fg", "<cmd>Telescope live_grep<CR>"},
-  -- {"n", "<leader>fw", "<cmd>Telescope grep_string<CR>"},
-  { "n", "<leader>fr", "<cmd>Telescope registers<CR>" },
-  -- {"n", "<leader>fm", "<cmd>Telescope marks<CR>"},
-  { "n", "<leader>fk", "<cmd>Telescope keymaps<CR>" },
-  -- {"n", "<leader>fO", "<cmd>Telescope oldfiles<CR>"},
-  { "n", "<leader>fc", "<cmd>Telescope commands<CR>" },
-  { "n", "<leader>fo", "<cmd>Telescope vim_options<CR>" },
-  { "n", "<leader>fa", "<cmd>Telescope autocommands<CR>" },
-  { "n", "<leader>fH", "<cmd>Telescope highlights<CR>" },
-  { "n", "<leader>fC", "<cmd>Telescope colorscheme<CR>" },
-  { "n", "<leader>fS", "<cmd>Telescope symbols<CR>" },
+  { "n", "<leader>ff", "<CMD>Telescope find_files hidden=true<CR>" },
+  -- {"n", "<leader>fB", "<CMD>Telescope builtin previewer=false<CR>"},
+  -- {"n", "<leader>fb", "<CMD>Telescope buffers<CR>"},
+  -- {"n", "<leader>fe", "<CMD>Telescope current_buffer_fuzzy_find<CR>"},
+  -- {"n", "<leader>fh", "<CMD>Telescope help_tags<CR>"},
+  -- {"n", "<leader>fg", "<CMD>Telescope live_grep<CR>"},
+  -- {"n", "<leader>fw", "<CMD>Telescope grep_string<CR>"},
+  { "n", "<leader>fr", "<CMD>Telescope registers<CR>" },
+  -- {"n", "<leader>fm", "<CMD>Telescope marks<CR>"},
+  { "n", "<leader>fk", "<CMD>Telescope keymaps<CR>" },
+  -- {"n", "<leader>fO", "<CMD>Telescope oldfiles<CR>"},
+  { "n", "<leader>fc", "<CMD>Telescope commands<CR>" },
+  { "n", "<leader>fo", "<CMD>Telescope vim_options<CR>" },
+  { "n", "<leader>fa", "<CMD>Telescope autocommands<CR>" },
+  { "n", "<leader>fH", "<CMD>Telescope highlights<CR>" },
+  { "n", "<leader>fC", "<CMD>Telescope colorscheme<CR>" },
+  { "n", "<leader>fS", "<CMD>Telescope symbols<CR>" },
 
   -- git search mappings
-  -- {"n", "<leader>gb", "<cmd>Telescope git_branches<CR>"},
-  -- {"n", "<leader>gc", "<cmd>Telescope git_commits<CR>"},
-  -- {"n", "<leader>gs", "<cmd>Telescope git_status<CR>"},
+  -- {"n", "<leader>gb", "<CMD>Telescope git_branches<CR>"},
+  -- {"n", "<leader>gc", "<CMD>Telescope git_commits<CR>"},
+  -- {"n", "<leader>gs", "<CMD>Telescope git_status<CR>"},
 
   -- lsp search mappings
-  -- {"n", "<leader>fld", "<cmd>Telescope diagnostics bufnr=0<CR>"},
-  -- {"n", "<leader>flD", "<cmd>Telescope diagnostics<CR>"},
-  -- {"n", "<leader>flr", "<cmd>Telescope lsp_references<CR>"},
-  -- { "n", "<leader>fli", "<cmd>Telescope lsp_implementations<CR>" },
-  -- { "n", "<leader>fls", "<cmd>Telescope lsp_document_symbols<CR>" },
-  -- { "n", "<leader>flS", "<cmd>Telescope lsp_workspace_symbols<CR>" },
-  -- { "n", "<leader>flci", "<cmd>Telescope lsp_incoming_calls<CR>" },
-  -- { "n", "<leader>flco", "<cmd>Telescope lsp_outgoing_calls<CR>" },
+  -- {"n", "<leader>fld", "<CMD>Telescope diagnostics bufnr=0<CR>"},
+  -- {"n", "<leader>flD", "<CMD>Telescope diagnostics<CR>"},
+  -- {"n", "<leader>flr", "<CMD>Telescope lsp_references<CR>"},
+  -- { "n", "<leader>fli", "<CMD>Telescope lsp_implementations<CR>" },
+  -- { "n", "<leader>fls", "<CMD>Telescope lsp_document_symbols<CR>" },
+  -- { "n", "<leader>flS", "<CMD>Telescope lsp_workspace_symbols<CR>" },
+  -- { "n", "<leader>flci", "<CMD>Telescope lsp_incoming_calls<CR>" },
+  -- { "n", "<leader>flco", "<CMD>Telescope lsp_outgoing_calls<CR>" },
 
   -- extentions
-  { "n", "<leader>fp", "<cmd>Telescope project<CR>" },
-  { "n", "<leader>fP", "<cmd>Telescope neoclip<CR>" },
+  { "n", "<leader>fp", "<CMD>Telescope project<CR>" },
+  { "n", "<leader>fP", "<CMD>Telescope neoclip<CR>" },
 }
 
 for _, keymap in ipairs(telescope_mappings) do
@@ -471,35 +473,35 @@ end
 
 -- fzf-lua
 local fzf_mappings = {
-  { "n", ";", "<cmd>FzfLua files<CR>" },
-  { "n", "<leader>fg", "<cmd>FzfLua live_grep<CR>" },
-  { "n", "<leader>fw", "<cmd>FzfLua grep_cword<CR>" },
-  { "n", "<leader>fh", "<cmd>FzfLua help_tags<CR>" },
-  { "n", "<leader>fb", "<cmd>FzfLua buffers<CR>" },
-  { "n", "<leader>ft", "<cmd>FzfLua tabs<CR>" },
-  { "n", "<leader>fB", "<cmd>FzfLua builtin<CR>" },
-  { "n", "<leader>fe", "<cmd>FzfLua blines<CR>" },
-  { "n", "<leader>fE", "<cmd>FzfLua lines<CR>" },
-  -- {"n", "<leader>fr", "<cmd>FzfLua registers<CR>"},
-  { "n", "<leader>fm", "<cmd>FzfLua marks<CR>" },
-  -- { "n", "<leader>fk", "<cmd>FzfLua keymaps<CR>" },
-  -- {"n", "<leader>fc", "<cmd>FzfLua commands<CR>"},
-  { "n", "<leader>fO", "<cmd>FzfLua oldfiles<CR>" },
+  { "n", ";",            "<CMD>FzfLua files<CR>" },
+  { "n", "<leader>fg",   "<CMD>FzfLua live_grep<CR>" },
+  { "n", "<leader>fw",   "<CMD>FzfLua grep_cword<CR>" },
+  { "n", "<leader>fh",   "<CMD>FzfLua help_tags<CR>" },
+  { "n", "<leader>fb",   "<CMD>FzfLua buffers<CR>" },
+  { "n", "<leader>ft",   "<CMD>FzfLua tabs<CR>" },
+  { "n", "<leader>fB",   "<CMD>FzfLua builtin<CR>" },
+  { "n", "<leader>fe",   "<CMD>FzfLua blines<CR>" },
+  { "n", "<leader>fE",   "<CMD>FzfLua lines<CR>" },
+  -- {"n", "<leader>fr", "<CMD>FzfLua registers<CR>"},
+  { "n", "<leader>fm",   "<CMD>FzfLua marks<CR>" },
+  -- { "n", "<leader>fk", "<CMD>FzfLua keymaps<CR>" },
+  -- {"n", "<leader>fc", "<CMD>FzfLua commands<CR>"},
+  { "n", "<leader>fO",   "<CMD>FzfLua oldfiles<CR>" },
 
   -- git search mappings
-  { "n", "<leader>gb", "<cmd>FzfLua git_branches<CR>" },
-  { "n", "<leader>gc", "<cmd>FzfLua git_commits<CR>" },
-  { "n", "<leader>gs", "<cmd>FzfLua git_status<CR>" },
+  { "n", "<leader>gb",   "<CMD>FzfLua git_branches<CR>" },
+  { "n", "<leader>gc",   "<CMD>FzfLua git_commits<CR>" },
+  { "n", "<leader>gs",   "<CMD>FzfLua git_status<CR>" },
 
   -- lsp search mappings
-  { "n", "<leader>fld", "<cmd>FzfLua lsp_document_diagnostics<CR>" },
-  { "n", "<leader>flD", "<cmd>FzfLua lsp_workspace_diagnostics<CR>" },
-  { "n", "<leader>flr", "<cmd>FzfLua lsp_references<CR>" },
-  { "n", "<leader>fli", "<cmd>FzfLua lsp_implementations<CR>" },
-  { "n", "<leader>fls", "<cmd>FzfLua lsp_document_symbols<CR>" },
-  { "n", "<leader>flS", "<cmd>FzfLua lsp_workspace_symbols<CR>" },
-  { "n", "<leader>flci", "<cmd>FzfLua lsp_incoming_calls<CR>" },
-  { "n", "<leader>flco", "<cmd>FzfLua lsp_outgoing_calls<CR>" },
+  { "n", "<leader>fld",  "<CMD>FzfLua lsp_document_diagnostics<CR>" },
+  { "n", "<leader>flD",  "<CMD>FzfLua lsp_workspace_diagnostics<CR>" },
+  { "n", "<leader>flr",  "<CMD>FzfLua lsp_references<CR>" },
+  { "n", "<leader>fli",  "<CMD>FzfLua lsp_implementations<CR>" },
+  { "n", "<leader>fls",  "<CMD>FzfLua lsp_document_symbols<CR>" },
+  { "n", "<leader>flS",  "<CMD>FzfLua lsp_workspace_symbols<CR>" },
+  { "n", "<leader>flci", "<CMD>FzfLua lsp_incoming_calls<CR>" },
+  { "n", "<leader>flco", "<CMD>FzfLua lsp_outgoing_calls<CR>" },
 }
 
 for _, keymap in ipairs(fzf_mappings) do
@@ -518,11 +520,8 @@ map("n", "<leader>at", function()
   require("neogen").generate { type = "type" }
 end)
 
--- nvim-tree
-map("n", "<leader>T", "<cmd>Neotree toggle reveal<CR>")
-
 -- hop
-map("n", "f", "<cmd>HopChar1<CR>")
+map("n", "f", "<CMD>HopChar1<CR>")
 
 -- osc52
 map("n", "<leader>C", require("osc52").copy_operator, { expr = true })
@@ -530,10 +529,13 @@ map("n", "<leader>CC", "<leader>C_", { remap = true })
 map("x", "<leader>C", require("osc52").copy_visual)
 
 -- treesj
-map("n", "gj", "<cmd>TSJToggle<CR>")
+map("n", "gj", "<CMD>TSJToggle<CR>")
 
 -- devdocs
-map("n", "<leader>fd", "<cmd>DevdocsOpenCurrentFloat<CR>")
+map("n", "<leader>fd", "<CMD>DevdocsOpenCurrentFloat<CR>")
 
 -- indentline
-map("n", "<leader>I", "<cmd>IBLToggle<CR>")
+map("n", "<leader>I", "<CMD>IBLToggle<CR>")
+
+-- oil
+map("n", "-", "<CMD>Oil<CR>")

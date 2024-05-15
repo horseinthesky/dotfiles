@@ -25,7 +25,6 @@ local leader_map = {
     f = "Outer function",
     p = "Inner parameter",
   },
-  T = "Neotree",
   W = "Strip trailing whitespaces",
   a = {
     name = "Annotate",
