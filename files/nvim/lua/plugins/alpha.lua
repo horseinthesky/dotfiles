@@ -30,7 +30,7 @@ local buttons = {
   type = "group",
   val = {
     button("e", "  New file", ":ene <BAR> startinsert <CR>"),
-    button("f", "  Find file", ":Telescope find_files <CR>"),
+    button("f", "󰈞 Find file", ":Telescope find_files <CR>"),
     button("r", "  Recently used files", ":Telescope oldfiles <CR>"),
     button("g", "  Live grep", ":Telescope live_grep <CR>"),
     button("p", "  Find project", ":Telescope project <CR>"),

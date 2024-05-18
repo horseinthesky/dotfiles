@@ -14,6 +14,7 @@ end
 
 -- Colors fix
 vim.api.nvim_set_hl(0, "NormalFloat", { link = "Normal" })
+vim.api.nvim_set_hl(0, "Delimiter", { link = "Special" })
 vim.api.nvim_set_hl(0, "SignColumn", {})
 
 -- Transparency toggle

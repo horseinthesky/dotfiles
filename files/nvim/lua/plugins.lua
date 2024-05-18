@@ -211,21 +211,11 @@ local plugins = {
     end,
   },
   {
-    "numToStr/Comment.nvim",
-    keys = { "gc", "gcc", "gbc" },
-    config = function()
-      require("Comment").setup()
-    end,
-  },
-  {
     "kylechui/nvim-surround",
     event = "BufRead",
     config = function()
       require("nvim-surround").setup()
     end,
-  },
-  {
-    "ojroques/nvim-osc52",
   },
   {
     "Wansmer/treesj",
@@ -522,11 +512,6 @@ end)
 
 -- hop
 map("n", "f", "<CMD>HopChar1<CR>")
-
--- osc52
-map("n", "<leader>C", require("osc52").copy_operator, { expr = true })
-map("n", "<leader>CC", "<leader>C_", { remap = true })
-map("x", "<leader>C", require("osc52").copy_visual)
 
 -- treesj
 map("n", "gj", "<CMD>TSJToggle<CR>")

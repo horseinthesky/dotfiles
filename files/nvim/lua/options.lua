@@ -2,14 +2,10 @@ local utils = require "utils"
 
 -- Neovim providers
 vim.g.clipboard = {
-  name = "void",
+  name = "OSC 52",
   copy = {
-    ["+"] = function()
-      return true
-    end,
-    ["*"] = function()
-      return true
-    end,
+    ["+"] = require("vim.ui.clipboard.osc52").copy "+",
+    ["*"] = require("vim.ui.clipboard.osc52").copy "*",
   },
   paste = {
     ["+"] = function()
@@ -19,7 +15,12 @@ vim.g.clipboard = {
       return {}
     end,
   },
+  -- paste = {
+  --   ["+"] = require("vim.ui.clipboard.osc52").paste "+",
+  --   ["*"] = require("vim.ui.clipboard.osc52").paste "*",
+  -- },
 }
+
 vim.g.loaded_python3_provider = 0
 vim.g.loaded_ruby_provider = 0
 vim.g.loaded_perl_provider = 0
@@ -75,12 +76,6 @@ local settings = {
   guifont = "DejavuSansMono NF:h16", -- Font
   updatetime = 300, -- Faster completion (default is 4000)
   timeoutlen = 500, -- Timeout for a mapped sequence to complete. (1000 ms by default)
-  -- cmdheight = 2,     -- More space for messages
-
-  -- Colors
-  termguicolors = true,
-  -- Clipboard
-  -- clipboard = "unnamedplus",
 
   -- Search
   incsearch = true,

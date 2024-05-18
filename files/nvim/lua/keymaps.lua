@@ -4,14 +4,8 @@ local mappings = {
   -- Miscellaneous
   -- alternate way to save
   { "n", "<C-s>", "<cmd>w<CR>" },
-  -- yank the whole buffer
-  { "n", "<leader>A", "<cmd>%y<CR>" },
   -- strip all trailing whitespace in the current file while saving last search pattern
   { "n", "<leader>W", "<cmd>let _s=@/ <Bar> %s/\\s\\+$//e <Bar> let @/=_s <Bar> unlet _s<CR>" },
-  -- keep yanked text in void register after each paste
-  { "x", "<leader>p", '"_dP' },
-  -- select code that was just pasted in the visual mode last used
-  { "n", "<leader>v", "'`[' . strpart(getregtype(), 0, 1) . '`]'", { expr = true } },
   -- visual shifting (does not exit Visual mode)
   { "v", "<", "<gv" },
   { "v", ">", ">gv" },
@@ -33,6 +27,19 @@ local mappings = {
   { "i", "<A-k>", "<esc>:m .-2<CR>==i" },
   { "n", "<A-j>", ":m .+1<CR>==" },
   { "n", "<A-k>", ":m .-2<CR>==" },
+
+  -- Yank & paste
+  -- yank the whole buffer
+  { "n", "<leader>A", "<cmd>%y<CR>" },
+  -- copy to system clipboard
+  { "n", "<leader>C", '"+y' },
+  { "n", "<leader>CC", "<leader>C_", { remap = true } },
+  { "x", "<leader>C", '"+y' },
+  -- when paste in visual mode keep yanked text in void register after each paste
+  -- makes you able to paste same text multiple times
+  { "x", "<leader>p", '"_dP' },
+  -- select code that was just pasted in the visual mode last used
+  { "n", "<leader>v", "'`[' . strpart(getregtype(), 0, 1) . '`]'", { expr = true } },
 
   -- Splits
   { "n", "<leader>;", "<cmd>vsplit n<CR>" },
@@ -58,7 +65,6 @@ local mappings = {
   { "n", "<leader>B", ":ls<CR>:b<Space>" },
   { "n", "<leader>bd", "<cmd>bdelete<CR>" },
   { "n", "<leader>bo", "<cmd>%bdelete|edit#|bdelete#<CR>" },
-  { "n", "<C-w>d", "<cmd>bdelete<CR>" },
 
   -- Tabs
   { "n", "]t", "<cmd>tabn<CR>" },

@@ -2,8 +2,8 @@ local M = {}
 
 local map = require("utils").map
 
-local function keymap()
-  local lsp_keymappings = {
+local function set_keymaps()
+  local keymaps = {
     -- General
     { "n", "<leader>ci", "<cmd>LspInfo<CR>" },
     { "n", "<leader>cR", "<cmd>LspRestart<CR>" },
@@ -14,19 +14,21 @@ local function keymap()
     { "n", "<leader>cd", vim.lsp.buf.definition },
 
     -- Diagnostic
+    -- NVIM 0.10 has floating diagnostics on <C-W>d by default
     { "n", "<leader>cD", vim.diagnostic.open_float },
-    { "n", "]d", function() vim.diagnostic.goto_next { float = false } end },
-    { "n", "[d", function() vim.diagnostic.goto_prev { float = false } end},
+    -- These keybinds are now on by default
+    -- { "n", "]d", function() vim.diagnostic.goto_next { float = false } end },
+    -- { "n", "[d", function() vim.diagnostic.goto_prev { float = false } end},
   }
 
-  for _, binds in ipairs(lsp_keymappings) do
+  for _, binds in ipairs(keymaps) do
     local mode, lhs, rhs, opts = unpack(binds)
     map(mode, lhs, rhs, opts)
   end
 end
 
 function M.setup()
-  keymap()
+  set_keymaps()
 end
 
 return M
