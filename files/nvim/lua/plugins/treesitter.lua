@@ -120,5 +120,3 @@ require("nvim-treesitter.configs").setup {
     },
   },
 }
-
-vim.keymap.set("n", "<leader>P", "<cmd>TSPlaygroundToggle<CR>")

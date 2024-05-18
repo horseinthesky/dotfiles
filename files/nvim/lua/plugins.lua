@@ -25,12 +25,6 @@ local plugins = {
     end,
   },
   {
-    "nvim-tree/nvim-web-devicons",
-    config = function()
-      require("nvim-web-devicons").setup {}
-    end,
-  },
-  {
     "nvim-treesitter/nvim-treesitter",
     dependencies = {
       "nvim-treesitter/nvim-treesitter-textobjects",
@@ -79,20 +73,6 @@ local plugins = {
       "nvim-telescope/telescope-symbols.nvim",
       "nvim-telescope/telescope-project.nvim",
       { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-      {
-        "AckslD/nvim-neoclip.lua",
-        config = function()
-          require("neoclip").setup {
-            keys = {
-              telescope = {
-                i = {
-                  paste = "<cr>",
-                },
-              },
-            },
-          }
-        end,
-      },
     },
     cmd = "Telescope",
     config = function()
@@ -245,7 +225,7 @@ local plugins = {
         },
         wrap = true,
         after_open = function(bufnr)
-          vim.api.nvim_buf_set_keymap(bufnr, "n", "<Esc>", ":close<CR>", {})
+          vim.api.nvim_buf_set_keymap(bufnr, "n", "<Esc>", "<CMD>close<CR>", {})
         end,
       }
     end,
@@ -440,7 +420,6 @@ local telescope_mappings = {
 
   -- extentions
   { "n", "<leader>fp", "<CMD>Telescope project<CR>" },
-  { "n", "<leader>fP", "<CMD>Telescope neoclip<CR>" },
 }
 
 for _, keymap in ipairs(telescope_mappings) do

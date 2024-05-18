@@ -54,7 +54,6 @@ local leader_map = {
     E = "Workspace line",
     H = "Highlights",
     O = "Oldfiles",
-    P = "Neoclip",
     S = "Symbols",
     T = "Todo-comments",
     a = "Autocommands",
