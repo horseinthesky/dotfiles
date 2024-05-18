@@ -238,10 +238,11 @@ local plugins = {
       require("oil").setup {
         use_default_keymaps = false,
         keymaps = {
-          ["g?"] = "actions.show_help",
-          ["g."] = "actions.toggle_hidden",
-          ["<CR>"] = "actions.select",
+          ["q"] = "actions.close",
+          ["?"] = "actions.show_help",
           ["_"] = "actions.open_cwd",
+          ["."] = "actions.toggle_hidden",
+          ["<CR>"] = "actions.select",
           ["<BS>"] = "actions.parent",
           ["<C-h>"] = "actions.select_split",
           ["<C-v>"] = "actions.select_vsplit",
@@ -249,7 +250,6 @@ local plugins = {
           ["<C-p>"] = "actions.preview",
           ["<C-r>"] = "actions.refresh",
           ["<C-s>"] = "<CMD>write<CR>",
-          ["q"] = "actions.close",
         },
       }
     end,
