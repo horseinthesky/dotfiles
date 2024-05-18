@@ -249,7 +249,6 @@ local plugins = {
           ["<C-t>"] = "actions.select_tab",
           ["<C-p>"] = "actions.preview",
           ["<C-r>"] = "actions.refresh",
-          ["<C-s>"] = "<CMD>write<CR>",
         },
       }
     end,
