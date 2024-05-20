@@ -19,7 +19,7 @@ local plugins = {
   -- Appearance
   {
     "stevearc/dressing.nvim",
-    event = "BufRead",
+    event = "VeryLazy",
     config = function()
       vim.api.nvim_set_hl(0, "FloatTitle", { link = "Normal" })
     end,
@@ -31,7 +31,7 @@ local plugins = {
       "nvim-treesitter/nvim-treesitter-context",
     },
     build = ":TSUpdate",
-    event = "BufRead",
+    event = "VeryLazy",
     config = function()
       require "plugins.treesitter"
     end,
@@ -40,7 +40,7 @@ local plugins = {
   -- Git
   {
     "lewis6991/gitsigns.nvim",
-    event = "BufRead",
+    event = "VeryLazy",
     config = function()
       require "plugins.gitsigns"
     end,
@@ -170,7 +170,7 @@ local plugins = {
     dependencies = {
       "nvim-lua/plenary.nvim",
     },
-    event = "BufRead",
+    event = "VeryLazy",
     config = function()
       require "plugins.todo"
     end,
@@ -192,7 +192,7 @@ local plugins = {
   },
   {
     "kylechui/nvim-surround",
-    event = "BufRead",
+    event = "VeryLazy",
     config = function()
       require("nvim-surround").setup()
     end,
@@ -267,7 +267,7 @@ local plugins = {
   },
   {
     "folke/which-key.nvim",
-    event = "BufRead",
+    event = "VeryLazy",
     config = function()
       require "plugins.which_key"
     end,
@@ -278,7 +278,7 @@ local plugins = {
   },
   {
     "lukas-reineke/indent-blankline.nvim",
-    event = "BufRead",
+    event = "VeryLazy",
     config = function()
       require("ibl").setup {
         scope = {
@@ -332,14 +332,14 @@ local plugins = {
   -- Statusline
   {
     "freddiehaddad/feline.nvim",
-    event = "VimEnter",
+    event = "VeryLazy",
     config = function()
       require "plugins.feline"
     end,
   },
   {
     "akinsho/bufferline.nvim",
-    event = "BufReadPre",
+    event = "VeryLazy",
     config = function()
       require "plugins.bufferline"
     end,
