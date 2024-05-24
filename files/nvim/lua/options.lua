@@ -61,21 +61,19 @@ end
 -- Options
 local settings = {
   -- General
-  inccommand = "nosplit", -- Incremental substitution shows substituted text before applying
+  inccommand = "nosplit", -- Do not show substitutions in split below, show them in main window instead
   laststatus = 2, -- Always show statusline
   showmode = false, -- No to duplicate statusline
   backup = false, -- Don't create annoying backup files
   iskeyword = { "@", "48-57", "_", "192-255", "-" }, -- Treat dash separated words as a word text object
-  mouse = "v", -- Diable mouse (if enabled temp. disable with holding Shift)
+  mouse = "v", -- Diable mouse (Enable is "a". If enabled temp. disable with holding Shift)
   winblend = 10, -- Transparency for floating windows
   pumblend = 10, -- Transparency for popup-menu
   scrolloff = 10, -- Start scrolling 10 lines before edge of viewpoint
-  guicursor = "", -- Fix for mysterious 'q' letters
   completeopt = { "menu", "menuone", "noselect" }, -- Set completeopt to have a better completion experience
   shortmess = vim.opt.shortmess + "c", -- Don't give |ins-completion-menu| messages
-  guifont = "DejavuSansMono NF:h16", -- Font
   updatetime = 300, -- Faster completion (default is 4000)
-  timeoutlen = 500, -- Timeout for a mapped sequence to complete. (1000 ms by default)
+  timeoutlen = 500, -- Timeout for a mapped sequence to complete (default 1000). Faster which-key popup
 
   -- Search
   incsearch = true,
@@ -184,10 +182,13 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
--- Highlight on yank
+-- Highlight when yanking (copying) text
+--  Try it with `yap` in normal mode
+--  See `:help vim.highlight.on_yank()`
 vim.api.nvim_create_autocmd("TextYankPost", {
+  desc = "Highlight when yanking (copying) text",
   callback = function()
-    vim.highlight.on_yank { on_visual = false, timeout = 100 }
+    vim.highlight.on_yank()
   end,
 })
 

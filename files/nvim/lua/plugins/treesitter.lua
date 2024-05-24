@@ -56,7 +56,6 @@ require("nvim-treesitter.configs").setup {
   ensure_installed = parsers,
   highlight = {
     enable = true,
-    disable = { "json" },
     additional_vim_regex_highlighting = false,
   },
   indent = {

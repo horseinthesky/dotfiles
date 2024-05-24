@@ -45,10 +45,10 @@ local mappings = {
   { "n", "<leader>;", "<cmd>vsplit n<CR>" },
   { "n", "<leader>'", "<cmd>split n<CR>" },
   -- split navigation
-  { "n", "<C-J>", "<C-W><C-J>" },
-  { "n", "<C-K>", "<C-W><C-K>" },
-  { "n", "<C-L>", "<C-W><C-L>" },
-  { "n", "<C-H>", "<C-W><C-H>" },
+  { "n", "<C-j>", "<C-w><C-j>" },
+  { "n", "<C-k>", "<C-w><C-k>" },
+  { "n", "<C-l>", "<C-w><C-l>" },
+  { "n", "<C-h>", "<C-w><C-h>" },
   -- split resizing
   { "n", "<C-Left>", "<cmd>vertical resize +3<CR>" },
   { "n", "<C-Right>", "<cmd>vertical resize -3<CR>" },
@@ -111,8 +111,14 @@ utils.map("n", "gn", function()
   utils.info(vim.api.nvim_buf_get_name(0), "Filename")
 end)
 
--- Text-objects
+-- Additional text-objects
 -- https://thevaluable.dev/vim-create-text-objects/
+--
+-- Examples:
+--  - va: - [V]isually select [A]round [:]colon
+--  - yi/ - [Y]ank [I]nside [/]slash
+--  - ci| - [C]hange [I]nside [|]pipe
+--  - da% - [D]elete [A]round [%]percent
 local chars = { "_", ".", ":", ",", ";", "|", "/", "\\", "*", "+", "%", "`", "?" }
 
 for _, char in ipairs(chars) do
