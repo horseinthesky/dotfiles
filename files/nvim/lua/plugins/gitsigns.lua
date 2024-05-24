@@ -10,21 +10,23 @@ require("gitsigns").setup {
     untracked = { hl = "DiffAdd", text = " " },
   },
   on_attach = function(_)
-    local gs = package.loaded.gitsigns
+    local gs = require "gitsigns"
 
     -- Navigation
     map("n", "]h", function()
       if vim.wo.diff then
-        return "]h"
+        vim.cmd.normal { "]h", bang = true }
+      else
+        gs.nav_hunk "next"
       end
-      gs.next_hunk()
     end)
 
     map("n", "[h", function()
       if vim.wo.diff then
-        return "[h"
+        vim.cmd.normal { "[h", bang = true }
+      else
+        gs.nav_hunk "prev"
       end
-      gs.prev_hunk()
     end)
 
     -- Actions
