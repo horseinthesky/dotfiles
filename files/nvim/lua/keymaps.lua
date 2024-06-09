@@ -2,10 +2,8 @@ local utils = require "utils"
 
 local mappings = {
   -- Miscellaneous
-  -- alternate way to save
-  { "n", "<C-s>", "<cmd>w<CR>" },
-  -- strip all trailing whitespace in the current file while saving last search pattern
-  { "n", "<leader>W", "<cmd>let _s=@/ <Bar> %s/\\s\\+$//e <Bar> let @/=_s <Bar> unlet _s<CR>" },
+  { "n", "<C-s>", "<CMD>w<CR>", { desc = "Alternate way to save" } },
+  { "n", "J", "mzJ'z", { desc = "Keep cursor position when J" } },
   -- visual shifting (does not exit Visual mode)
   { "v", "<", "<gv" },
   { "v", ">", ">gv" },
@@ -18,8 +16,6 @@ local mappings = {
   -- center page up/down
   { "n", "<C-d>", "<C-d>zz" },
   { "n", "<C-u>", "<C-u>zz" },
-  -- keep cursor position when J
-  { "n", "J", "mzJ'z" },
   -- move lines up/down in any mode with Alt+k/j
   { "v", "<A-j>", ":m '>+1<CR>gv=gv" },
   { "v", "<A-k>", ":m '<-2<CR>gv=gv" },
@@ -27,10 +23,11 @@ local mappings = {
   { "i", "<A-k>", "<esc>:m .-2<CR>==i" },
   { "n", "<A-j>", ":m .+1<CR>==" },
   { "n", "<A-k>", ":m .-2<CR>==" },
+  -- strip all trailing whitespace in the current file while saving last search pattern
+  { "n", "<leader>W", "<cmd>let _s=@/ <Bar> %s/\\s\\+$//e <Bar> let @/=_s <Bar> unlet _s<CR>" },
 
   -- Yank & paste
-  -- yank the whole buffer
-  { "n", "<leader>A", "<cmd>%y<CR>" },
+  { "n", "<leader>A", "<cmd>%y<CR>", { desc = "Yank the whole buffer" } },
   -- copy to system clipboard
   { "n", "<leader>C", '"+y' },
   { "n", "<leader>CC", "<leader>C_", { remap = true } },
