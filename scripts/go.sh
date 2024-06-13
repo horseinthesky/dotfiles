@@ -19,7 +19,7 @@ go_install () {
 install_go () {
   header "Installing go..."
 
-  local version=1.22.0
+  local version=1.21.11
   local tarball=go${version}.linux-amd64.tar.gz
 
   if [[ -n $(which go) ]] && [[ $(go version | awk '{print $3}' | cut -c3-) == $version ]]; then
