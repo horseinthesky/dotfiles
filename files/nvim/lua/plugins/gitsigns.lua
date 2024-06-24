@@ -2,12 +2,12 @@ local map = require("utils").map
 
 require("gitsigns").setup {
   signs = {
-    add = { hl = "DiffAdd", text = " " },
-    change = { hl = "DiffChange", text = " " },
-    delete = { hl = "DiffDelete", text = " " },
-    topdelete = { hl = "DiffDelete", text = " " },
-    changedelete = { hl = "DiffChange", text = " " },
-    untracked = { hl = "DiffAdd", text = " " },
+    add = { text = " " },
+    change = { text = " " },
+    delete = { text = " " },
+    topdelete = { text = " " },
+    changedelete = { text = " " },
+    untracked = { text = " " },
   },
   on_attach = function(_)
     local gs = require "gitsigns"
@@ -35,6 +35,15 @@ require("gitsigns").setup {
   end,
 }
 
+-- Base colors
 vim.api.nvim_set_hl(0, "DiffAdd", { bg = "#b8bb26" })
 vim.api.nvim_set_hl(0, "DiffChange", { link = "IncSearch" })
 vim.api.nvim_set_hl(0, "DiffDelete", { link = "Error" })
+
+-- GitSigns colors
+vim.api.nvim_set_hl(0, "GitSignsAdd", { link = "DiffAdd" })
+vim.api.nvim_set_hl(0, "GitSignsChange", { link = "DiffChange" })
+vim.api.nvim_set_hl(0, "GitSignsChangedelete", { link = "DiffChange" })
+vim.api.nvim_set_hl(0, "GitSignsDelete", { link = "DiffDelete" })
+vim.api.nvim_set_hl(0, "GitSignsChangeDelete", { link = "DiffDelete" })
+vim.api.nvim_set_hl(0, "GitSignsTopDelete", { link = "DiffDelete" })
