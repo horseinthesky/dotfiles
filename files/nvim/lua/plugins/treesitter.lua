@@ -47,6 +47,7 @@ local parsers = {
   "toml",
   "terraform",
   "typescript",
+  "vimdoc",
   "vue",
   "yaml",
   "yang",
