@@ -267,6 +267,7 @@ local plugins = {
   },
   {
     "folke/which-key.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
     event = "VeryLazy",
     config = function()
       require "plugins.which_key"

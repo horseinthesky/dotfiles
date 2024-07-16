@@ -73,7 +73,7 @@ local settings = {
   completeopt = { "menu", "menuone", "noselect" }, -- Set completeopt to have a better completion experience
   shortmess = vim.opt.shortmess + "c", -- Don't give |ins-completion-menu| messages
   updatetime = 300, -- Faster completion (default is 4000)
-  timeoutlen = 500, -- Timeout for a mapped sequence to complete (default 1000). Faster which-key popup
+  timeoutlen = 500, -- Timeout for a mapped sequence to complete (default 1000)
 
   -- Search
   incsearch = true,
