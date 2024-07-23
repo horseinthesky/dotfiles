@@ -20,6 +20,7 @@ end)()
 local parsers = {
   "bash",
   "cmake",
+  "cue",
   "dockerfile",
   "go",
   "gomod",
