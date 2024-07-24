@@ -20,14 +20,14 @@ install_go () {
   header "Installing go..."
 
   local version=1.21.11
-  local tarball=go${version}.linux-amd64.tar.gz
+  local tarball=go${version}.linux-$ARCH.tar.gz
 
   if [[ -n $(which go) ]] && [[ $(go version | awk '{print $3}' | cut -c3-) == $version ]]; then
     success "Latest version ($version) is already installed."
     return
   fi
 
-  # Remove old ersion
+  # Remove old version
   [[ -d $HOME/.local/lib/go ]] && rm -rf "$HOME"/.local/lib/go
 
   # Install a new one
