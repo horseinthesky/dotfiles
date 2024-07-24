@@ -61,11 +61,11 @@ install () {
   case $ID in
     debian|ubuntu)
       sudo apt-get update -y 1> /dev/null
-      sudo apt-get install ${@} -y | grep -E "upgraded"
+      sudo apt-get install "${@}" -y | grep -E "upgraded"
       ;;
     arch|manjaro)
       sudo pacman -Sy --noconfirm 1> /dev/null
-      sudo pacman -S ${@} --noconfirm --needed
+      sudo pacman -S "${@}" --noconfirm --needed
       ;;
     *)
       error "Distro $ID is not supported"
@@ -77,7 +77,7 @@ install () {
 download () {
   local path=$1
   local dest=${2:-$HOME}
-  local filename=$(echo $path | awk -F/ '{print $NF}')
+  local filename=$(echo "$path" | awk -F/ '{print $NF}')
 
   if [[ -f $dest/$filename ]]; then
     warning "$dest/$filename already exists"
@@ -86,9 +86,9 @@ download () {
 
   info "Downloading $filename..."
 
-  [[ ! -d $dest ]] && mkdir -p $dest
+  [[ ! -d $dest ]] && mkdir -p "$dest"
 
-  curl -fsSL $path --output ${dest}/$filename
+  curl -fsSL "$path" --output "$dest/$filename"
   if [[ $? -ne 0 ]]; then
     error "Failed to download $filename"
     return 1
@@ -104,35 +104,35 @@ symlink () {
   info "Symlinking $link for $file"
 
   if [[ -f $link ]] && [[ ! -L $link ]]; then
-    cp $link $link.bak
+    cp "$link" "$link".bak
     info "$link backed up"
   elif [[ -d $link ]] && [[ ! -L $link ]]; then
-    cp -R $link $link.bak
+    cp -R "$link" "$link".bak
     info "$link backed up"
   fi
 
-  local symlink_dir=$(dirname $link)
-  [[ ! -d $symlink_dir ]] && mkdir -p $symlink_dir
+  local symlink_dir=$(dirname "$link")
+  [[ ! -d $symlink_dir ]] && mkdir -p "$symlink_dir"
 
-  ln -snf $file $link
+  ln -snf "$file" "$link"
   success
 }
 
 clone () {
   local path_prefix=${3:-}
-  local tool=$(echo ${1} | cut -d "/" -f 2)
+  local tool=$(echo "${1}" | cut -d "/" -f 2)
 
   info "Cloning $tool..."
 
   if [[ -d ${2}/$path_prefix$tool ]]; then
     warning "$tool already exists. Updating..."
-    cd ${2}/$path_prefix$tool && git pull 1> /dev/null
+    cd "${2}/$path_prefix$tool" && git pull 1> /dev/null
     success
 
     return
   fi
 
-  git clone -q https://github.com/${1}.git ${2}/$path_prefix$tool
+  git clone -q https://github.com/"${1}".git "${2}/$path_prefix$tool"
   if [[ $? -ne 0 ]]; then
     error "Failed to clone $tool"
     return 1
