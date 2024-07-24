@@ -35,7 +35,7 @@ terraform_install () {
 
   local current_version=$("$name" -v | head -n 1 | grep -Po "\d+\.\d+\.\d+")
 
-  if [[ $current_version == $latest_version ]]; then
+  if [[ $current_version == "$latest_version" ]]; then
     success "Latest ($latest_version) version is already installed"
     return
   fi
@@ -58,7 +58,7 @@ install_terraform_packages () {
   done
 }
 
-install_kubelet () {
+install_kubectl () {
   header "Installing kubectl..."
 
   if [[ -n $(which kubectl) ]]; then
@@ -66,9 +66,23 @@ install_kubelet () {
     return
   fi
 
-  curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-  chmod +x "$HOME"/kubectl
-  mv "$HOME"/kubectl "$HOME"/.local/bin/kubectl
+  local architecture=$(uname -m)
+
+  case "$architecture" in
+    x86_64)
+      arch=amd64
+      ;;
+    aarch64)
+      arch=arm64
+      ;;
+    *)
+      error "Unsupported architecture. Can't proceed"
+      exit
+      ;;
+  esac
+
+  curl -L "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/$arch/kubectl" -o "$HOME"/.local/bin/kubectl
+  chmod +x "$HOME"/.local/bin/kubectl
 
   success
 }
@@ -88,7 +102,7 @@ install_helm () {
 
 main () {
   install_terraform_packages
-  install_kubelet
+  install_kubectl
   install_helm
 }
 
