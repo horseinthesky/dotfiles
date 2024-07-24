@@ -19,8 +19,23 @@ go_install () {
 install_go () {
   header "Installing go..."
 
+  local architecture=$(uname -m)
+
+  case "$architecture" in
+    x86_64)
+      arch=amd64
+      ;;
+    aarch64)
+      arch=arm64
+      ;;
+    *)
+      error "Unsupported architecture. Can't proceed"
+      exit
+      ;;
+  esac
+
   local version=1.21.11
-  local tarball=go${version}.linux-$ARCH.tar.gz
+  local tarball=go${version}.linux-$arch.tar.gz
 
   if [[ -n $(which go) ]] && [[ $(go version | awk '{print $3}' | cut -c3-) == $version ]]; then
     success "Latest version ($version) is already installed."

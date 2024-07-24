@@ -9,7 +9,7 @@ cargo_install () {
   info "Installing $tool..."
 
   if [[ ! -d $HOME/.cargo ]]; then
-    error "Cargo is not found. Can't procced"
+    error "Cargo is not found. Can't proceed"
     return 1
   fi
 

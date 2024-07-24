@@ -33,8 +33,23 @@ install_lua () {
 install_lua_ls () {
   header "Installing lua-ls..."
 
-  local version=3.7.0
-  local tarball=lua-language-server-$version-linux-x64.tar.gz
+  local architecture=$(uname -m)
+
+  case "$architecture" in
+    x86_64)
+      arch=x64
+      ;;
+    aarch64)
+      arch=arm64
+      ;;
+    *)
+      error "Unsupported architecture. Can't proceed"
+      exit
+      ;;
+  esac
+
+  local version=3.9.3
+  local tarball=lua-language-server-$version-linux-$arch.tar.gz
 
   download https://github.com/LuaLS/lua-language-server/releases/download/"$version/$tarball"
   [[ $? -ne 0 ]] && exit

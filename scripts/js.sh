@@ -10,7 +10,7 @@ install_deps () {
     unzip
   )
 
-  install ${packages[@]}
+  install "${packages[@]}"
 }
 
 install_fnm () {
@@ -21,14 +21,14 @@ install_fnm () {
     return
   fi
 
-  curl -fsSL https://fnm.vercel.app/install | bash -s -- --install-dir $HOME/.fnm --skip-shell
+  curl -fsSL https://fnm.vercel.app/install | bash -s -- --install-dir "$HOME"/.fnm --skip-shell
 
   success
 }
 
 install_yarn () {
-  [[ -f $HOME/.yarnrc ]] && rm $HOME/.yarnrc
-  fnm install $1
+  [[ -f $HOME/.yarnrc ]] && rm "$HOME"/.yarnrc
+  fnm install "$1"
   npm install --global npm
   npm install --global yarn
   success
@@ -40,7 +40,7 @@ install_node () {
   PATH=$PATH:$HOME/.fnm && eval "$(fnm env)"
 
   if [[ -z $(which fnm) ]]; then
-    error "fnm is not found. Can't procced."
+    error "fnm is not found. Can't proceed."
     exit
   fi
 
@@ -48,20 +48,20 @@ install_node () {
 
   # Install node if missing
   if [[ -z $(which node) ]]; then
-    install_yarn $version
+    install_yarn "$version"
     return
   fi
 
   # Update node if old
   local current_version=$(node -v | cut -c2-)
 
-  if [[ $current_version == $version ]]; then
+  if [[ $current_version == "$version" ]]; then
     success "Latest ($version) version is already installed"
     return
   fi
 
-  fnm uninstall $current_version
-  install_yarn $version
+  fnm uninstall "$current_version"
+  install_yarn "$version"
 }
 
 install_js_packages () {
@@ -76,7 +76,7 @@ install_js_packages () {
     bash-language-server
   )
 
-  XDG_DATA_HOME=$XDG_DATA_HOME yarn global add ${packages[@]} | grep -E "Installed"
+  XDG_DATA_HOME=$XDG_DATA_HOME yarn global add "${packages[@]}" | grep -E "Installed"
 }
 
 main () {

@@ -23,20 +23,6 @@ XDG_CACHE_HOME=$HOME/.cache
 
 DOTFILES_HOME=$HOME/dotfiles/files
 
-architecture=$(uname -m)
-
-case "$architecture" in
-  x86_64)
-    ARCH=amd64
-    ;;
-  aarch64)
-    ARCH=arm64
-    ;;
-  *)
-    ARCH=unknown
-    ;;
-esac
-
 # Prepare local paths
 source /etc/os-release
 
