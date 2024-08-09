@@ -79,9 +79,25 @@ install_docker_compose () {
 install_hadolint () {
   header "Installing hadolint..."
 
+  local architecture=$(uname -m)
+
+  case "$architecture" in
+    x86_64)
+      arch=x86_64
+      ;;
+    aarch64)
+      arch=arm64
+      ;;
+    *)
+      error "Unsupported architecture. Can't proceed"
+      exit
+      ;;
+  esac
+
   local version=2.12.0
-  download https://github.com/hadolint/hadolint/releases/download/v"$version"/hadolint-Linux-x86_64 "$HOME"/.local/bin
-  mv "$HOME"/.local/bin/hadolint-Linux-x86_64 "$HOME"/.local/bin/hadolint
+
+  download https://github.com/hadolint/hadolint/releases/download/v"$version"/hadolint-Linux-$arch "$HOME"/.local/bin
+  mv "$HOME"/.local/bin/hadolint-Linux-$arch "$HOME"/.local/bin/hadolint
   chmod +x "$HOME"/.local/bin/hadolint
 
   success
