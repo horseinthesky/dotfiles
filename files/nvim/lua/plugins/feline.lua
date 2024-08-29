@@ -278,7 +278,7 @@ local comps = {
   lsp = {
     icon = {
       provider = function()
-        return icons.gears .. " "
+        return " " .. icons.gears .. " "
       end,
       hl = {
         fg = colors.lsp_icon,
@@ -384,13 +384,13 @@ local components = {
       comps.git.remove,
     },
     {
-      comps.lsp.icon,
-      comps.lsp.server,
       comps.lsp.ok,
       comps.lsp.error,
       comps.lsp.warning,
       comps.lsp.hint,
       comps.lsp.info,
+      comps.lsp.icon,
+      comps.lsp.server,
       comps.sep.right_nested,
       comps.file.format,
       comps.sep.right,
