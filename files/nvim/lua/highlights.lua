@@ -50,6 +50,7 @@ local config = {
     "alpha",
     "lazy",
     "TelescopePrompt",
+    "crates.nvim",
   },
   ignore_terminal = true,
 }

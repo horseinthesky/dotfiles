@@ -27,7 +27,14 @@ local kind_icons = {
   Event = "",
   Operator = "󰆕",
   TypeParameter = "",
+  Version = "󰓹",
 }
+
+setmetatable(kind_icons, {
+  __index = function()
+    return "?"
+  end
+})
 
 cmp.setup {
   preselect = cmp.PreselectMode.None,
@@ -51,6 +58,7 @@ cmp.setup {
         nvim_lsp = "[LSP]",
         nvim_lua = "[Lua]",
         emoji = "[Emoji]",
+        crates = "[Crates]",
         luasnip = "[LuaSnip]",
         cmp_tabnine = "[TabNine]",
       })[entry.source.name]
@@ -87,10 +95,11 @@ cmp.setup {
     { name = "nvim_lsp_signature_help" },
     { name = "nvim_lua" },
     { name = "buffer" },
+    { name = "path" },
     { name = "luasnip" },
     { name = "cmp_tabnine" },
-    { name = "path" },
     { name = "emoji" },
+    { name = "crates" },
   },
   completion = {
     keyword_length = 2,
