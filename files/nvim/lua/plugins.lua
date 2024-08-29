@@ -157,13 +157,6 @@ local plugins = {
     ft = "go",
   },
   {
-    "simrat39/rust-tools.nvim",
-    ft = "rust",
-    config = function()
-      require("lsp.rt").setup()
-    end,
-  },
-  {
     "saecki/crates.nvim",
     event = { "BufRead Cargo.toml" },
     config = function()

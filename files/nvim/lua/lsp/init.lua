@@ -47,6 +47,7 @@ local servers = {
   gopls = {
     root_dir = lspconfig.util.root_pattern("YAOWNERS", "ya.make", "go.work", "go.mod", ".git"),
   },
+  rust_analyzer = {},
   lua_ls = {
     on_init = function(client)
       local path = client.workspace_folders[1].name

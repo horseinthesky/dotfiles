@@ -19,13 +19,13 @@ function M.has_value(table, val)
 end
 
 function M.diagnostic_exists()
-  return not vim.tbl_isempty(vim.lsp.buf_get_clients(vim.api.nvim_get_current_buf()))
+  return not vim.tbl_isempty(vim.lsp.get_clients { bufnr = vim.api.nvim_get_current_buf() })
 end
 
 function M.get_lsp_clients()
   local buf_client_names = {}
 
-  for _, client in pairs(vim.lsp.buf_get_clients(0)) do
+  for _, client in pairs(vim.lsp.get_clients { bufnr = vim.api.nvim_get_current_buf() }) do
     local client_name = string.match(client.name, "(.-)_.*") or string.match(client.name, "(.-)-.*") or client.name
 
     table.insert(buf_client_names, client_name)

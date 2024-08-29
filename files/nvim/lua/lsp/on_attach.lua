@@ -34,6 +34,10 @@ function M.default(client, bufnr)
     vim.api.nvim_set_hl(0, "LspReferenceRead", { link = "Search" })
     vim.api.nvim_set_hl(0, "LspReferenceWrite", { link = "IncSearch" })
   end
+
+  if client.server_capabilities.inlayHintProvider then
+    vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+  end
 end
 
 function M.no_format(client, bufnr)

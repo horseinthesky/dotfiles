@@ -166,7 +166,7 @@ wk.add {
   { "<leader>cR", desc = "Restart LSP client" },
   { "<leader>ca", desc = "Code action" },
   { "<leader>cd", desc = "Definition" },
-  { "<leader>ch", desc = "Hover" },
+  { "<leader>ch", desc = "Hints (inlay)" },
   { "<leader>ci", desc = "Lsp info" },
   { "<leader>cr", desc = "Rename" },
   -- Git
