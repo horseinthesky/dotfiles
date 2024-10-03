@@ -8,6 +8,7 @@ capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
 -- LSP servers custom configs
 local servers = {
+  bufls = {},
   bashls = {},
   dockerls = {},
   terraformls = {},
