@@ -41,7 +41,7 @@ install_deps () {
       ;;
   esac
 
-  install ${packages[@]}
+  install "${packages[@]}"
 
   success
 }
@@ -49,10 +49,10 @@ install_deps () {
 install_pyenv () {
   header "Installing pyenv..."
 
-  clone pyenv/pyenv $HOME .
+  clone pyenv/pyenv "$HOME" .
   [[ $? -ne 0 ]] && exit
 
-  clone pyenv/pyenv-update $HOME/.pyenv/plugins
+  clone pyenv/pyenv-update "$HOME"/.pyenv/plugins
   [[ $? -ne 0 ]] && exit
 }
 
@@ -62,15 +62,16 @@ install_versions () {
   pyenv_versions=(
     3.11.9
     3.12.3
+    3.13.0
   )
 
   PATH=$PATH:$HOME/.pyenv/bin
 
-  for version in ${pyenv_versions[@]}; do
-    pyenv install $version --skip-existing
+  for version in "${pyenv_versions[@]}"; do
+    pyenv install "$version" --skip-existing
 
-    symlink $HOME/.pyenv/versions/${version}/bin/python \
-      $HOME/.local/bin/python$(echo $version | awk -F- '{print $1}' | awk -F. '{print $1"."$2}')
+    symlink "$HOME/.pyenv/versions/$version"/bin/python \
+      "$HOME/.local/bin/python$(echo "$version" | awk -F- '{print $1}' | awk -F. '{print $1"."$2}')"
   done
 }
 
