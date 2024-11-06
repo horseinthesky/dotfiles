@@ -1,5 +1,33 @@
 local M = {}
 
+-- Yandex hacks
+function M.is_yandex()
+  -- mkdir -p cloudia-store cloud-go
+  -- arc init -r cloudia --object-store cloudia-store/ --path-filter cloud/cloud-go cloud-go
+  local file_path = vim.api.nvim_buf_get_name(0)
+
+  local yandex_projects = {
+    "arcadia",
+    "cloudia",
+  }
+
+  for _, path in ipairs(yandex_projects) do
+    if string.find(file_path, "/" .. path .. "/") then
+      return true
+    end
+  end
+
+  return false
+end
+
+function M.ternary(condition, trueValue, falseValue)
+  if condition then
+    return trueValue
+  end
+
+  return falseValue
+end
+
 function M.map(mode, key, action, opts)
   local options = { noremap = true, silent = true }
   if opts then
