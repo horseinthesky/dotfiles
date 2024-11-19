@@ -199,7 +199,6 @@ wk.add {
   { "<leader>fa", desc = "Autocommands" },
   { "<leader>fb", desc = "Buffers" },
   { "<leader>fc", desc = "Commands" },
-  { "<leader>fd", desc = "Devdocs" },
   { "<leader>fe", desc = "Buffer line" },
   { "<leader>ff", desc = "Files" },
   { "<leader>fh", desc = "Help" },

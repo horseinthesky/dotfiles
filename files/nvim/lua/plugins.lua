@@ -217,29 +217,6 @@ local plugins = {
     end,
   },
   {
-    "luckasRanarison/nvim-devdocs",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-telescope/telescope.nvim",
-      "nvim-treesitter/nvim-treesitter",
-    },
-    build = ":DevdocsFetch",
-    cmd = "DevdocsOpenCurrentFloat",
-    config = function()
-      require("nvim-devdocs").setup {
-        ensure_installed = {
-          "python-3.11",
-          "go",
-          "rust",
-        },
-        wrap = true,
-        after_open = function(bufnr)
-          vim.api.nvim_buf_set_keymap(bufnr, "n", "<Esc>", "<CMD>close<CR>", {})
-        end,
-      }
-    end,
-  },
-  {
     "stevearc/oil.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     cmd = "Oil",
@@ -504,9 +481,6 @@ map("n", "f", "<CMD>HopChar1<CR>")
 
 -- treesj
 map("n", "gj", "<CMD>TSJToggle<CR>")
-
--- devdocs
-map("n", "<leader>fd", "<CMD>DevdocsOpenCurrentFloat<CR>")
 
 -- indentline
 map("n", "<leader>I", "<CMD>IBLToggle<CR>")
