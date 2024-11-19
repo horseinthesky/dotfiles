@@ -1,3 +1,5 @@
+local utils = require "utils"
+
 -- ==== Lazy
 -- Bootstrap
 local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
@@ -40,6 +42,11 @@ local plugins = {
   -- Git
   {
     "lewis6991/gitsigns.nvim",
+    dir = utils.ternary(
+      utils.is_yandex(),
+      "~/arcadia/contrib/tier1/gitsigns.arc.nvim",
+      vim.fn.stdpath "data" .. "/lazy/gitsigns.nvim"
+    ),
     event = "VeryLazy",
     config = function()
       require "plugins.gitsigns"
@@ -367,7 +374,7 @@ require("lazy").setup(plugins, options)
 vim.keymap.set("n", "<leader>L", "<CMD>Lazy<CR>")
 
 -- ==== Plugins keymaps
-local map = require("utils").map
+local map = utils.map
 
 -- Telescope
 local telescope_mappings = {
