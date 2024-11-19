@@ -70,7 +70,13 @@ local servers = {
     },
   },
   gopls = get_gopls_config(),
-  rust_analyzer = {},
+  rust_analyzer = {
+    capabilities = {
+      experimental = {
+        snippetTextEdit = true,
+      },
+    },
+  },
   lua_ls = {
     on_init = function(client)
       local path = client.workspace_folders[1].name
