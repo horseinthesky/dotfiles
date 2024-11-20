@@ -174,6 +174,14 @@ for ft, opts in pairs(ft_settings) do
   })
 end
 
+-- Hack for salt templates
+vim.filetype.add {
+  pattern = {
+    ["${HOME}/.*/salt%-formula/.*%.yaml"] = "jinja",
+    ["${HOME}/.*/salt%-formula/.*%.yml"] = "jinja",
+  },
+}
+
 -- Windows to close with "q"
 vim.api.nvim_create_autocmd("FileType", {
   pattern = { "help", "lspinfo" },
