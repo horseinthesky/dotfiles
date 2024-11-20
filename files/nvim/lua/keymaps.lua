@@ -1,6 +1,8 @@
 local utils = require "utils"
 
 local mappings = {
+  -- Disable annoying s key
+  { "n", "s", "<Nop>" },
   -- Miscellaneous
   { "n", "<C-s>", "<CMD>w<CR>", { desc = "Alternate way to save" } },
   { "n", "J", "mzJ'z", { desc = "Keep cursor position when J" } },

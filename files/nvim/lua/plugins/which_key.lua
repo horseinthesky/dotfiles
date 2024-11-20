@@ -32,7 +32,7 @@ wk.add {
   { "gd", group = "Diff" },
   { "gdh", desc = "Diff from (left)" },
   { "gdl", desc = "Diff to (right)" },
-  { "gj", desc = "Split/join array" },
+  { "gs", desc = "Split/join array" },
   { "gn", desc = "Show filename" },
   { "gf", hidden = true, desc = "Go to file under cursor" },
   { "gi", hidden = true, desc = "Go to last insert" },

@@ -207,23 +207,6 @@ local plugins = {
     end,
   },
   {
-    "kylechui/nvim-surround",
-    event = "VeryLazy",
-    config = function()
-      require("nvim-surround").setup()
-    end,
-  },
-  {
-    "Wansmer/treesj",
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-    },
-    cmd = "TSJToggle",
-    config = function()
-      require("treesj").setup()
-    end,
-  },
-  {
     "stevearc/oil.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     cmd = "Oil",
@@ -242,6 +225,18 @@ local plugins = {
           ["<C-t>"] = "actions.select_tab",
           ["<C-p>"] = "actions.preview",
           ["<C-r>"] = "actions.refresh",
+        },
+      }
+    end,
+  },
+  {
+    "echasnovski/mini.nvim",
+    event = "VeryLazy",
+    config = function()
+      require("mini.surround").setup {}
+      require("mini.splitjoin").setup {
+        mappings = {
+          toggle = "gs",
         },
       }
     end,
@@ -485,9 +480,6 @@ end)
 
 -- hop
 map("n", "f", "<CMD>HopChar1<CR>")
-
--- treesj
-map("n", "gj", "<CMD>TSJToggle<CR>")
 
 -- indentline
 map("n", "<leader>I", "<CMD>IBLToggle<CR>")
