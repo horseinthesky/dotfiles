@@ -32,7 +32,7 @@ end
 
 -- LSP servers custom configs
 local servers = {
-  bufls = {},
+  buf_ls = {},
   bashls = {},
   dockerls = {},
   terraformls = {},
@@ -55,7 +55,7 @@ local servers = {
       },
     },
   },
-  ruff_lsp = {
+  ruff = {
     init_options = {
       settings = {
         args = {
