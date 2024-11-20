@@ -281,6 +281,22 @@ local plugins = {
       }
     end,
   },
+  {
+    "OXY2DEV/markview.nvim",
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-tree/nvim-web-devicons",
+    },
+    ft = "markdown",
+    config = function()
+      require("markview").setup {
+        hybrid_modes = { "n" },
+        list_items = {
+          shift_width = 2,
+        },
+      }
+    end,
+  },
 
   -- Themes
   {
@@ -486,3 +502,7 @@ map("n", "<leader>I", "<CMD>IBLToggle<CR>")
 
 -- oil
 map("n", "-", "<CMD>Oil<CR>")
+
+-- markview
+map("n", "<leader>M", "<CMD>Markview<CR>")
+map("n", "<leader>ms", "<CMD>Markview splitToggle<CR>")
