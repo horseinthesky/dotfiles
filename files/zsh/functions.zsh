@@ -30,6 +30,7 @@ panes () {
 }
 
 weather () {
+  # JSON: weather moscow format=j1
   local options="${2:-1}"
   curl https://wttr.in/"${1}"\?"${options}"
 }

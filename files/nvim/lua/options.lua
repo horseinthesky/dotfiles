@@ -138,6 +138,9 @@ end
 
 -- Shiftwidth, tabstop & expandtab settings based on filetype
 local ft_settings = {
+  help = {
+    colorcolumn = {},
+  },
   python = {
     shiftwidth = 4,
     tabstop = 4,
