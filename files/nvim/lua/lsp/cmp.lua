@@ -57,7 +57,6 @@ cmp.setup {
         path = "[Path]",
         nvim_lsp = "[LSP]",
         nvim_lua = "[Lua]",
-        emoji = "[Emoji]",
         crates = "[Crates]",
         luasnip = "[LuaSnip]",
         cmp_tabnine = "[TabNine]",
@@ -98,7 +97,6 @@ cmp.setup {
     { name = "path" },
     { name = "luasnip" },
     { name = "cmp_tabnine" },
-    { name = "emoji" },
     { name = "crates" },
   },
   completion = {
