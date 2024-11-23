@@ -18,12 +18,71 @@ vim.opt.rtp:prepend(lazypath)
 
 -- Plugins
 local plugins = {
-  -- Appearance
+  -- Features
+  {
+    "goolord/alpha-nvim",
+    lazy = false,
+    config = function()
+      require "plugins.alpha"
+    end,
+    cond = function()
+      return vim.api.nvim_buf_get_name(0) == ""
+    end,
+  },
+  {
+    "freddiehaddad/feline.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    event = "VeryLazy",
+    config = function()
+      require "plugins.feline"
+    end,
+  },
+  {
+    "folke/todo-comments.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
+    event = "VeryLazy",
+    config = function()
+      require "plugins.todo"
+    end,
+  },
+  {
+    "akinsho/bufferline.nvim",
+    event = "VeryLazy",
+    config = function()
+      require "plugins.bufferline"
+    end,
+  },
+  {
+    "folke/which-key.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    event = "VeryLazy",
+    config = function()
+      require "plugins.which_key"
+    end,
+  },
   {
     "stevearc/dressing.nvim",
     event = "VeryLazy",
     config = function()
       vim.api.nvim_set_hl(0, "FloatTitle", { link = "Normal" })
+    end,
+  },
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    event = "VeryLazy",
+    config = function()
+      require("ibl").setup {
+        scope = {
+          -- enabled = false,
+          show_start = false,
+          show_end = false,
+        },
+        indent = {
+          char = { "", "¦", "┆", "┊" },
+        },
+      }
     end,
   },
   {
@@ -38,6 +97,57 @@ local plugins = {
       require "plugins.treesitter"
     end,
   },
+  {
+    "numToStr/FTerm.nvim",
+    keys = { "<F3>", "<F4>" },
+    config = function()
+      require "plugins.fterm"
+    end,
+  },
+  {
+    "smoka7/hop.nvim",
+    cmd = "HopChar1",
+    config = function()
+      require("hop").setup()
+      vim.api.nvim_set_hl(0, "HopNextKey", { link = "Type" })
+    end,
+  },
+  {
+    "stevearc/oil.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    cmd = "Oil",
+    config = function()
+      require("oil").setup {
+        use_default_keymaps = false,
+        keymaps = {
+          ["q"] = "actions.close",
+          ["?"] = "actions.show_help",
+          ["_"] = "actions.open_cwd",
+          ["."] = "actions.toggle_hidden",
+          ["<CR>"] = "actions.select",
+          ["<BS>"] = "actions.parent",
+          ["<C-h>"] = "actions.select_split",
+          ["<C-v>"] = "actions.select_vsplit",
+          ["<C-t>"] = "actions.select_tab",
+          ["<C-p>"] = "actions.preview",
+          ["<C-r>"] = "actions.refresh",
+        },
+      }
+    end,
+  },
+  {
+    "echasnovski/mini.nvim",
+    event = "VeryLazy",
+    config = function()
+      require("mini.surround").setup {}
+      require("mini.splitjoin").setup {
+        mappings = {
+          toggle = "gs",
+        },
+      }
+    end,
+  },
+
 
   -- Git
   {
@@ -146,6 +256,26 @@ local plugins = {
 
   -- Languages addons
   {
+    "Glench/Vim-Jinja2-Syntax",
+    ft = "jinja",
+  },
+  {
+    "OXY2DEV/markview.nvim",
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-tree/nvim-web-devicons",
+    },
+    ft = "markdown",
+    config = function()
+      require("markview").setup {
+        hybrid_modes = { "n" },
+        list_items = {
+          shift_width = 2,
+        },
+      }
+    end,
+  },
+  {
     "danymat/neogen",
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
@@ -174,124 +304,6 @@ local plugins = {
         },
         popup = {
           autofocus = true,
-        },
-      }
-    end,
-  },
-
-  -- Features
-  {
-    "folke/todo-comments.nvim",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-    },
-    event = "VeryLazy",
-    config = function()
-      require "plugins.todo"
-    end,
-  },
-  {
-    "numToStr/FTerm.nvim",
-    keys = { "<F3>", "<F4>" },
-    config = function()
-      require "plugins.fterm"
-    end,
-  },
-  {
-    "smoka7/hop.nvim",
-    cmd = "HopChar1",
-    config = function()
-      require("hop").setup()
-      vim.api.nvim_set_hl(0, "HopNextKey", { link = "Type" })
-    end,
-  },
-  {
-    "stevearc/oil.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    cmd = "Oil",
-    config = function()
-      require("oil").setup {
-        use_default_keymaps = false,
-        keymaps = {
-          ["q"] = "actions.close",
-          ["?"] = "actions.show_help",
-          ["_"] = "actions.open_cwd",
-          ["."] = "actions.toggle_hidden",
-          ["<CR>"] = "actions.select",
-          ["<BS>"] = "actions.parent",
-          ["<C-h>"] = "actions.select_split",
-          ["<C-v>"] = "actions.select_vsplit",
-          ["<C-t>"] = "actions.select_tab",
-          ["<C-p>"] = "actions.preview",
-          ["<C-r>"] = "actions.refresh",
-        },
-      }
-    end,
-  },
-  {
-    "echasnovski/mini.nvim",
-    event = "VeryLazy",
-    config = function()
-      require("mini.surround").setup {}
-      require("mini.splitjoin").setup {
-        mappings = {
-          toggle = "gs",
-        },
-      }
-    end,
-  },
-
-  -- Visuals
-  {
-    "goolord/alpha-nvim",
-    lazy = false,
-    config = function()
-      require "plugins.alpha"
-    end,
-    cond = function()
-      return vim.api.nvim_buf_get_name(0) == ""
-    end,
-  },
-  {
-    "folke/which-key.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    event = "VeryLazy",
-    config = function()
-      require "plugins.which_key"
-    end,
-  },
-  {
-    "Glench/Vim-Jinja2-Syntax",
-    ft = "jinja",
-  },
-  {
-    "lukas-reineke/indent-blankline.nvim",
-    event = "VeryLazy",
-    config = function()
-      require("ibl").setup {
-        scope = {
-          -- enabled = false,
-          show_start = false,
-          show_end = false,
-        },
-        indent = {
-          char = { "", "¦", "┆", "┊" },
-        },
-      }
-    end,
-  },
-  {
-    "OXY2DEV/markview.nvim",
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-      "nvim-tree/nvim-web-devicons",
-    },
-    ft = "markdown",
-    config = function()
-      require("markview").setup {
-        hybrid_modes = { "n" },
-        list_items = {
-          shift_width = 2,
         },
       }
     end,
@@ -330,23 +342,6 @@ local plugins = {
     end,
     cond = function()
       return vim.g.theme == "tokyonight"
-    end,
-  },
-
-  -- Statusline
-  {
-    "freddiehaddad/feline.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    event = "VeryLazy",
-    config = function()
-      require "plugins.feline"
-    end,
-  },
-  {
-    "akinsho/bufferline.nvim",
-    event = "VeryLazy",
-    config = function()
-      require "plugins.bufferline"
     end,
   },
 }
