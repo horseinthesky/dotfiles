@@ -49,19 +49,35 @@ install_deps () {
 install_neovim () {
   header "Installing Neovim ..."
 
-  clone neovim/neovim "$HOME"
-  [[ $? -ne 0 ]] && exit
+  if [[ -d $HOME/neovim ]]; then
+    warning "neovim already exists. Updating..."
+    cd "$HOME"/neovim && git pull 1> /dev/null
+    success
 
-  info "Building neovim from source..."
+    exit
+  fi
+
+  local branch=release-0.10
+
+  git clone --depth 1 --branch "$branch" https://github.com/neovim/neovim.git "$HOME"/neovim
+  if [[ $? -ne 0 ]]; then
+    error "Failed to clone neovim"
+    exit
+  fi
+
+  info "\nBuilding neovim from source..."
 
   cd "$HOME"/neovim \
-    && make distclean \
     && rm -rf "$HOME"/.local/share/nvim/runtime \
-    && git checkout remotes/origin/release-0.10 \
+    && make distclean \
     && make \
       CMAKE_BUILD_TYPE=Release \
-      CMAKE_INSTALL_PREFIX="$HOME"/.local install 1> /dev/null \
-    && git checkout master
+      CMAKE_INSTALL_PREFIX="$HOME"/.local install 1> /dev/null
+
+  if [[ $? -ne 0 ]]; then
+    error "Failed to build neovim"
+    exit
+  fi
 
   success
 }
