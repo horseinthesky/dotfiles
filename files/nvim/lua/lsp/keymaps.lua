@@ -5,7 +5,7 @@ local utils = require("utils")
 local function set_keymaps()
   local keymaps = {
     -- General
-    { "n", "<leader>ci", "<cmd>LspInfo<CR>" },
+    { "n", "<leader>ci", "<cmd>check lspconfig<CR>" },
     { "n", "<leader>cR", "<cmd>LspRestart<CR>" },
     { "n", "<leader>F",  function() vim.lsp.buf.format { async = true } end },
     { "n", "<leader>ca", function() vim.lsp.buf.code_action { source = { organizeImports = true } } end },

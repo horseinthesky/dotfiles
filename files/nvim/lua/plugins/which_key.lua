@@ -151,6 +151,9 @@ wk.add {
   { "<leader>b", group = "Buffers" },
   { "<leader>bd", desc = "Delete buffer" },
   { "<leader>bp", desc = "Pick buffer" },
+  -- Markview
+  { "<leader>M", desc = "Markview" },
+  { "<leader>ms", desc = "Split" },
   -- Tabs
   { "<leader>t", group = "Tabs" },
   { "<leader>tc", desc = "Close tab" },
