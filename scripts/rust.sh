@@ -33,8 +33,8 @@ cargo_install () {
   fi
 
   # Update
-  local current_version=$("$binary" --version 2> /dev/null | grep -P -o "\d+\.\d+\.\d+" | head -n 1)
-  local latest_version=$(cargo search "$tool" | head -n 1 | awk '{print $3}' | tr -d '"')
+  local current_version=$("$binary" --version 2> /dev/null | grep -Po "\d+\.\d+\.\d+" | head -n 1)
+  local latest_version=$(cargo info "$tool" | grep ^version | awk '{print $NF}')
 
   if [[ $current_version == $latest_version ]]; then
     success "Latest ($latest_version) version is already installed"
