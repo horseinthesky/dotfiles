@@ -27,7 +27,7 @@ install_kitty () {
 
   curl -sL https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
   symlink $HOME/.local/kitty.app/bin/kitty $HOME/.local/bin/kitty
-  symlink $DOTFILES_HOME/kitty $HOME/.config
+  symlink $DOTFILES_HOME/kitty $HOME/.config/kitty
 
 
   info "Configuring kitty desktop..."
@@ -37,6 +37,23 @@ install_kitty () {
   sed -i 's|^Exec=kitty|'"Exec=$HOME/.local/bin/kitty"'|' $HOME/.local/share/applications/kitty.desktop
 
   success
+}
+
+install_ghostty () {
+  header "Installing ghostty..."
+
+  local version=1.0.1-0
+  local ppa=ppa3
+  local deb=ghostty_"$version"."$ppa"_amd64_22.04.deb
+
+  download https://github.com/mkasberg/ghostty-ubuntu/releases/download/"$version"-"$ppa"/"$deb"
+
+  info "Installing deb..."
+  sudo dpkg -i ~/"$deb"
+  rm ~/"$deb"
+  success
+
+  symlink $DOTFILES_HOME/ghostty.conf $HOME/.config/ghostty/config
 }
 
 install_font () {
@@ -63,6 +80,7 @@ main () {
   install_flameshot
   install_kitty
   install_font
+  install_ghostty
 }
 
 main

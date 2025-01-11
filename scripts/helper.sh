@@ -105,11 +105,11 @@ symlink () {
 
   if [[ -f $link ]] && [[ ! -L $link ]]; then
     cp "$link" "$link".bak
+    info "$link backed up"
   elif [[ -d $link ]] && [[ ! -L $link ]]; then
     cp -R "$link" "$link".bak
+    info "$link backed up"
   fi
-
-  info "$link backed up"
 
   local symlink_dir=$(dirname "$link")
   [[ ! -d $symlink_dir ]] && mkdir -p "$symlink_dir"
