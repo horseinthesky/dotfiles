@@ -49,11 +49,11 @@ install_ghostty () {
   download https://github.com/mkasberg/ghostty-ubuntu/releases/download/"$version"-"$ppa"/"$deb"
 
   info "Installing deb..."
-  sudo dpkg -i ~/"$deb"
-  rm ~/"$deb"
+  sudo dpkg -i "$HOME"/"$deb"
+  rm "$HOME"/"$deb"
   success
 
-  symlink $DOTFILES_HOME/ghostty.conf $HOME/.config/ghostty/config
+  symlink "$DOTFILES_HOME"/ghostty "$HOME"/.config/ghostty
 }
 
 install_font () {

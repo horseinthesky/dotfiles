@@ -10,6 +10,9 @@ selection-foreground = #282828
 selection-background = #ead037
 cursor-color = #ead037
 
+# Tabs style
+gtk-custom-css = tab-style.css
+
 # Font settings
 font-family = DejaVuSansM Nerd Font
 font-size = 12
