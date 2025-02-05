@@ -1,5 +1,8 @@
+[wsl2]
+swap=0
+networkingMode=mirrored
+
 [experimental]
+hostAddressLoopback=true
 autoMemoryReclaim=gradual
 sparseVhd=true
-networkingMode=mirrored
-dnsTunneling=true
