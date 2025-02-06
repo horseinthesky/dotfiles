@@ -30,7 +30,7 @@ local plugins = {
     end,
   },
   {
-    "freddiehaddad/feline.nvim",
+    "famiu/feline.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     event = "VeryLazy",
     config = function()

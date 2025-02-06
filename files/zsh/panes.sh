@@ -1,17 +1,15 @@
 #!/bin/env bash
-#
 # ColorPanes - Show off your true colors
-
 f=3 b=4
 for j in f b; do
   for i in {0..7}; do
-    printf -v $j$i %b "\e[${!j}${i}m"
+    printf -v "$j$i" %b "\e[${!j}${i}m"
   done
 done
+
 d=$'\e[1m'
 t=$'\e[0m'
 v=$'\e[7m'
-
 
 cat << EOF
 

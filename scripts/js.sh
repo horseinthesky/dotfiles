@@ -44,7 +44,7 @@ install_node () {
     exit
   fi
 
-  local version=20.9.0
+  local version=22.13.1
 
   # Install node if missing
   if [[ -z $(which node) ]]; then
