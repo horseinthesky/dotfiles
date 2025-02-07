@@ -27,8 +27,8 @@ try {
 } catch {
     Write-Host "Failed to set value of $name."
     Write-Host "Run the script with admin privileges."
-    Write-Host "Reboot required for the changes to take effect."
     return
 }
 
 Write-Host "Value changed to $targetValue."
+Write-Host "Reboot required for the changes to take effect."
