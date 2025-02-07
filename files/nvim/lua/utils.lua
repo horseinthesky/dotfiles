@@ -21,7 +21,7 @@ function M.is_yandex()
 end
 
 function M.ternary(condition, trueValue, falseValue)
-  if condition then
+  if condition() then
     return trueValue
   end
 

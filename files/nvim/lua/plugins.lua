@@ -153,7 +153,7 @@ local plugins = {
   {
     "lewis6991/gitsigns.nvim",
     dir = utils.ternary(
-      utils.is_yandex(),
+      utils.is_yandex,
       "~/arcadia/contrib/tier1/gitsigns.arc.nvim",
       vim.fn.stdpath "data" .. "/lazy/gitsigns.nvim"
     ),
