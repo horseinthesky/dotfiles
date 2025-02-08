@@ -38,6 +38,13 @@ local plugins = {
     end,
   },
   {
+    "akinsho/bufferline.nvim",
+    event = "VeryLazy",
+    config = function()
+      require "plugins.bufferline"
+    end,
+  },
+  {
     "folke/todo-comments.nvim",
     dependencies = {
       "nvim-lua/plenary.nvim",
@@ -45,13 +52,6 @@ local plugins = {
     event = "VeryLazy",
     config = function()
       require "plugins.todo"
-    end,
-  },
-  {
-    "akinsho/bufferline.nvim",
-    event = "VeryLazy",
-    config = function()
-      require "plugins.bufferline"
     end,
   },
   {
@@ -95,13 +95,6 @@ local plugins = {
     event = "VeryLazy",
     config = function()
       require "plugins.treesitter"
-    end,
-  },
-  {
-    "numToStr/FTerm.nvim",
-    keys = { "<F3>", "<F4>" },
-    config = function()
-      require "plugins.fterm"
     end,
   },
   {
