@@ -30,11 +30,11 @@ local plugins = {
     end,
   },
   {
-    "famiu/feline.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
+    "nvim-lualine/lualine.nvim",
+    dependencies = { "kyazdani42/nvim-web-devicons" },
     event = "VeryLazy",
     config = function()
-      require "plugins.feline"
+      require "plugins.lualine"
     end,
   },
   {
@@ -140,7 +140,6 @@ local plugins = {
       }
     end,
   },
-
 
   -- Git
   {
@@ -316,7 +315,6 @@ local plugins = {
           folds = false,
         },
       }
-      require "highlights"
     end,
     cond = function()
       return vim.g.theme == "gruvbox"
@@ -327,11 +325,13 @@ local plugins = {
     lazy = false,
     priority = 999,
     config = function()
-      vim.g.tokyonight_style = "storm"
-      vim.g.tokyonight_italic_comments = false
-      vim.g.tokyonight_italic_keywords = false
-      require("tokyonight").colorscheme()
-      require "highlights"
+      require("tokyonight").setup {
+        style = "storm",
+        styles = {
+          comments = { italic = false },
+          keywords = { italic = false },
+        },
+      }
     end,
     cond = function()
       return vim.g.theme == "tokyonight"
@@ -434,33 +434,33 @@ end
 
 -- fzf-lua
 local fzf_mappings = {
-  { "n", ";",            "<CMD>FzfLua files<CR>" },
-  { "n", "<leader>fg",   "<CMD>FzfLua live_grep<CR>" },
-  { "n", "<leader>fw",   "<CMD>FzfLua grep_cword<CR>" },
-  { "n", "<leader>fh",   "<CMD>FzfLua help_tags<CR>" },
-  { "n", "<leader>fb",   "<CMD>FzfLua buffers<CR>" },
-  { "n", "<leader>ft",   "<CMD>FzfLua tabs<CR>" },
-  { "n", "<leader>fB",   "<CMD>FzfLua builtin<CR>" },
-  { "n", "<leader>fe",   "<CMD>FzfLua blines<CR>" },
-  { "n", "<leader>fE",   "<CMD>FzfLua lines<CR>" },
+  { "n", ";", "<CMD>FzfLua files<CR>" },
+  { "n", "<leader>fg", "<CMD>FzfLua live_grep<CR>" },
+  { "n", "<leader>fw", "<CMD>FzfLua grep_cword<CR>" },
+  { "n", "<leader>fh", "<CMD>FzfLua help_tags<CR>" },
+  { "n", "<leader>fb", "<CMD>FzfLua buffers<CR>" },
+  { "n", "<leader>ft", "<CMD>FzfLua tabs<CR>" },
+  { "n", "<leader>fB", "<CMD>FzfLua builtin<CR>" },
+  { "n", "<leader>fe", "<CMD>FzfLua blines<CR>" },
+  { "n", "<leader>fE", "<CMD>FzfLua lines<CR>" },
   -- {"n", "<leader>fr", "<CMD>FzfLua registers<CR>"},
-  { "n", "<leader>fm",   "<CMD>FzfLua marks<CR>" },
+  { "n", "<leader>fm", "<CMD>FzfLua marks<CR>" },
   -- { "n", "<leader>fk", "<CMD>FzfLua keymaps<CR>" },
   -- {"n", "<leader>fc", "<CMD>FzfLua commands<CR>"},
-  { "n", "<leader>fO",   "<CMD>FzfLua oldfiles<CR>" },
+  { "n", "<leader>fO", "<CMD>FzfLua oldfiles<CR>" },
 
   -- git search mappings
-  { "n", "<leader>gb",   "<CMD>FzfLua git_branches<CR>" },
-  { "n", "<leader>gc",   "<CMD>FzfLua git_commits<CR>" },
-  { "n", "<leader>gs",   "<CMD>FzfLua git_status<CR>" },
+  { "n", "<leader>gb", "<CMD>FzfLua git_branches<CR>" },
+  { "n", "<leader>gc", "<CMD>FzfLua git_commits<CR>" },
+  { "n", "<leader>gs", "<CMD>FzfLua git_status<CR>" },
 
   -- lsp search mappings
-  { "n", "<leader>fld",  "<CMD>FzfLua lsp_document_diagnostics<CR>" },
-  { "n", "<leader>flD",  "<CMD>FzfLua lsp_workspace_diagnostics<CR>" },
-  { "n", "<leader>flr",  "<CMD>FzfLua lsp_references<CR>" },
-  { "n", "<leader>fli",  "<CMD>FzfLua lsp_implementations<CR>" },
-  { "n", "<leader>fls",  "<CMD>FzfLua lsp_document_symbols<CR>" },
-  { "n", "<leader>flS",  "<CMD>FzfLua lsp_workspace_symbols<CR>" },
+  { "n", "<leader>fld", "<CMD>FzfLua lsp_document_diagnostics<CR>" },
+  { "n", "<leader>flD", "<CMD>FzfLua lsp_workspace_diagnostics<CR>" },
+  { "n", "<leader>flr", "<CMD>FzfLua lsp_references<CR>" },
+  { "n", "<leader>fli", "<CMD>FzfLua lsp_implementations<CR>" },
+  { "n", "<leader>fls", "<CMD>FzfLua lsp_document_symbols<CR>" },
+  { "n", "<leader>flS", "<CMD>FzfLua lsp_workspace_symbols<CR>" },
   { "n", "<leader>flci", "<CMD>FzfLua lsp_incoming_calls<CR>" },
   { "n", "<leader>flco", "<CMD>FzfLua lsp_outgoing_calls<CR>" },
 }

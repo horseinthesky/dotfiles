@@ -1,5 +1,21 @@
 local M = {}
 
+-- General
+function M.wide_enough(width)
+  if vim.fn.winwidth(0) > width then
+    return true
+  end
+  return false
+end
+
+function M.buffer_not_empty()
+  if vim.fn.empty(vim.fn.expand "%:t") ~= 1 then
+    return true
+  end
+  return false
+end
+
+-- Icons
 M.icons = {
   dos = "", -- e70f
   unix = "", -- f17c
@@ -46,10 +62,10 @@ M.icons = {
     hint = "", -- f059
   },
   sep = {
-    -- right_filled = "", -- e0b6
-    -- left_filled = "", -- e0b4
-    right_filled = " ", -- e0ca
-    left_filled = " ", -- e0c8
+    right_filled = "", -- e0b6
+    left_filled = "", -- e0b4
+    -- right_filled = " ", -- e0ca
+    -- left_filled = " ", -- e0c8
     -- right_filled = "", -- e0b2
     -- left_filled = "", -- e0b0
     -- right = "", -- e0b3
@@ -61,7 +77,71 @@ M.icons = {
   },
 }
 
--- Gruvbox
+-- LSP & Diagnostics
+function M.get_lsp_clients()
+  local buf_client_names = {}
+
+  for _, client in pairs(vim.lsp.get_clients { bufnr = vim.api.nvim_get_current_buf() }) do
+    local client_name = string.match(client.name, "(.-)_.*") or string.match(client.name, "(.-)-.*") or client.name
+
+    table.insert(buf_client_names, client_name)
+  end
+
+  return table.concat(buf_client_names, ", ")
+end
+
+function M.diagnostic_exists()
+  return not vim.tbl_isempty(vim.lsp.get_clients { bufnr = vim.api.nvim_get_current_buf() })
+end
+
+local diag_map = {
+  [vim.diagnostic.severity.ERROR] = M.icons.diagnostic.error,
+  [vim.diagnostic.severity.WARN] = M.icons.diagnostic.warning,
+  [vim.diagnostic.severity.INFO] = M.icons.diagnostic.info,
+  [vim.diagnostic.severity.HINT] = M.icons.diagnostic.hint,
+}
+
+function M.if_diagnostic_ok()
+  local e = M.get_diagnostic_by_severity(vim.diagnostic.severity.ERROR)
+  local w = M.get_diagnostic_by_severity(vim.diagnostic.severity.WARN)
+  local i = M.get_diagnostic_by_severity(vim.diagnostic.severity.INFO)
+  local h = M.get_diagnostic_by_severity(vim.diagnostic.severity.HINT)
+
+  if #w ~= 0 or #e ~= 0 or #i ~= 0 or #h ~= 0 then
+    return ""
+  end
+
+  return M.icons.diagnostic.ok
+end
+
+function M.get_diagnostic_by_severity(severity)
+  local count = vim.diagnostic.get(0, { severity = severity })
+
+  if #count == 0 then
+    return ""
+  end
+
+  return string.format(" %s %d", diag_map[severity], #count)
+end
+
+function M.get_diagnostic_all()
+  local count = vim.diagnostic.count(0)
+  if #count == 0 then
+    return M.icons.diagnostic.ok
+  end
+
+  local res = ""
+  for severity_idx, icon in ipairs(diag_map) do
+    local severity_diag = count[severity_idx] or 0
+    if severity_diag > 0 then
+      res = res .. string.format(" %s %d", icon, severity_diag)
+    end
+  end
+
+  return res
+end
+
+-- Colors
 local gruvbox = {
   gray = "#928374",
   bright_red = "#fb4934",
@@ -115,7 +195,6 @@ local gruvbox = {
   },
 }
 
--- Tokyonight
 local tokyonight = {
   none = "NONE",
   bg_highlight = "#292e42",
@@ -287,7 +366,7 @@ for _, table in pairs(color_map) do
   end
 end
 
-local theme_map = color_map[vim.g.colors_name] or color_map["gruvbox"]
+local theme_map = color_map[vim.g.theme] or color_map["gruvbox"]
 
 M.colors = theme_map[vim.opt.background:get()] or theme_map["dark"]
 

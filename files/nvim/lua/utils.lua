@@ -46,44 +46,6 @@ function M.has_value(table, val)
   return false
 end
 
-function M.diagnostic_exists()
-  return not vim.tbl_isempty(vim.lsp.get_clients { bufnr = vim.api.nvim_get_current_buf() })
-end
-
-function M.get_lsp_clients()
-  local buf_client_names = {}
-
-  for _, client in pairs(vim.lsp.get_clients { bufnr = vim.api.nvim_get_current_buf() }) do
-    local client_name = string.match(client.name, "(.-)_.*") or string.match(client.name, "(.-)-.*") or client.name
-
-    table.insert(buf_client_names, client_name)
-  end
-
-  return table.concat(buf_client_names, ", ")
-end
-
-function M.wide_enough(width)
-  if vim.fn.winwidth(0) > width then
-    return true
-  end
-  return false
-end
-
-function M.buffer_not_empty()
-  if vim.fn.empty(vim.fn.expand "%:t") ~= 1 then
-    return true
-  end
-  return false
-end
-
-function M.has_filetype()
-  local f_type = vim.bo.filetype
-  if not f_type or f_type == "" then
-    return false
-  end
-  return true
-end
-
 local function log(msg, name, hl)
   name = name or "Neovim"
   hl = hl or "Comment"

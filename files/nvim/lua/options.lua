@@ -15,10 +15,6 @@ vim.g.clipboard = {
       return {}
     end,
   },
-  -- paste = {
-  --   ["+"] = require("vim.ui.clipboard.osc52").paste "+",
-  --   ["*"] = require("vim.ui.clipboard.osc52").paste "*",
-  -- },
 }
 
 vim.g.loaded_python3_provider = 0
