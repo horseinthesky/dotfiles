@@ -18,10 +18,9 @@ download_package () {
 }
 
 terraform_install () {
-  local name=$1
-
   header "Installing $name..."
 
+  local name=$1
   local latest_version=$(
     curl -s https://api.github.com/repos/hashicorp/"$name"/releases/latest | \
     grep tag_name | grep -Po "\d+\.\d+\.\d+"
@@ -87,6 +86,111 @@ install_kubectl () {
   success
 }
 
+install_kubelogin () {
+  header "Installing kubelogin..."
+
+  local architecture=$(uname -m)
+
+  case "$architecture" in
+    x86_64)
+      arch=amd64
+      ;;
+    aarch64)
+      arch=arm64
+      ;;
+    *)
+      error "Unsupported architecture. Can't proceed"
+      exit
+      ;;
+  esac
+
+  local latest_version=$(
+    curl -s https://api.github.com/repos/Azure/kubelogin/releases/latest \ |
+      grep tag_name | grep -Po "v\d+\.\d+\.\d+"
+  )
+  local package=kubelogin-linux-"$arch".zip
+
+  # Fresh install
+  if [[ -z $(which kubelogin) ]]; then
+    download https://github.com/Azure/kubelogin/releases/download/"$latest_version"/"$package" /tmp
+    unzip -o /tmp/"$package" -d /tmp/kubelogin
+    mv /tmp/kubelogin/bin/linux_"$arch"/kubelogin "$HOME"/.local/bin
+    rm /tmp/"$package" && rm -rf /tmp/kubelogin
+    success "kubelogin installed"
+    return
+  fi
+
+  # Update
+  local current_version=$(kubelogin --version | grep -Po "v\d+\.\d+\.\d+")
+  if [[ "$current_version" == "$latest_version" ]]; then
+    success "Latest ($latest_version) version is already installed"
+    return
+  fi
+
+  info "Newer version found. Updating $current_version -> $latest_version..."
+
+  download https://github.com/Azure/kubelogin/releases/download/"$latest_version"/"$package" /tmp
+  unzip -o /tmp/"$package" -d /tmp/kubelogin
+  mv /tmp/kubelogin/bin/linux_"$arch"/kubelogin "$HOME"/.local/bin
+  rm /tmp/"$package" && rm -rf /tmp/kubelogin
+
+  warning "kubelogin updated to the latest ($latest_version) version\n"
+}
+
+install_kubectx () {
+  header "Installing kubectx..."
+
+  local architecture=$(uname -m)
+
+  case "$architecture" in
+    x86_64)
+      arch=x86_64
+      ;;
+    aarch64)
+      arch=arm64
+      ;;
+    *)
+      error "Unsupported architecture. Can't proceed"
+      exit
+      ;;
+  esac
+
+  local latest_version=$(
+    curl -s https://api.github.com/repos/ahmetb/kubectx/releases/latest \ |
+      grep tag_name | grep -Po "\d+\.\d+\.\d+"
+  )
+  local package=kubectx_"$latest_version"_linux_"$arch".tar.gz
+
+  # Fresh install
+  if [[ -z $(which kubectx) ]]; then
+    download https://github.com/ahmetb/kubectx/releases/download/v"$latest_version"/"$package" /tmp
+    mkdir -p /tmp/kubectx
+    tar -xzf /tmp/"$package" --directory=/tmp/kubectx
+    mv /tmp/kubectx/kubectx "$HOME"/.local/bin
+    rm /tmp/"$package" && rm -rf /tmp/kubelogin
+
+    success "kubectx installed"
+    return
+  fi
+
+  # Update
+  local current_version=$(kubectx --version)
+  if [[ "$current_version" == "$latest_version" ]]; then
+    success "Latest ($latest_version) version is already installed"
+    return
+  fi
+
+  info "Newer version found. Updating $current_version -> $latest_version..."
+
+  download https://github.com/ahmetb/kubectx/releases/download/v"$latest_version"/"$package" /tmp
+  mkdir -p /tmp/kubectx
+  tar -xzf /tmp/"$package" --directory=/tmp/kubectx
+  mv /tmp/kubectx/kubectx "$HOME"/.local/bin
+  rm /tmp/"$package" && rm -rf /tmp/kubelogin
+
+  warning "kubectx updated to the latest ($latest_version) version\n"
+}
+
 install_helm () {
   header "Installing helm..."
 
@@ -103,6 +207,8 @@ install_helm () {
 main () {
   install_terraform_packages
   install_kubectl
+  install_kubelogin
+  install_kubectx
   install_helm
 }
 
