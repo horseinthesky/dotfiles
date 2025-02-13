@@ -111,17 +111,17 @@ install_kubelogin () {
   local package=kubelogin-linux-"$arch".zip
 
   # Fresh install
-  if [[ -z $(which kubelogin) ]]; then
+  if [[ -z $(which kubectl-oidc_login) ]]; then
     download https://github.com/Azure/kubelogin/releases/download/"$latest_version"/"$package" /tmp
     unzip -o /tmp/"$package" -d /tmp/kubelogin
-    mv /tmp/kubelogin/bin/linux_"$arch"/kubelogin "$HOME"/.local/bin
+    mv /tmp/kubelogin/bin/linux_"$arch"/kubelogin "$HOME"/.local/bin/kubectl-oidc_login
     rm /tmp/"$package" && rm -rf /tmp/kubelogin
     success "kubelogin installed"
     return
   fi
 
   # Update
-  local current_version=$(kubelogin --version | grep -Po "v\d+\.\d+\.\d+")
+  local current_version=$(kubectl-oidc_login --version | grep -Po "v\d+\.\d+\.\d+")
   if [[ "$current_version" == "$latest_version" ]]; then
     success "Latest ($latest_version) version is already installed"
     return
@@ -131,7 +131,7 @@ install_kubelogin () {
 
   download https://github.com/Azure/kubelogin/releases/download/"$latest_version"/"$package" /tmp
   unzip -o /tmp/"$package" -d /tmp/kubelogin
-  mv /tmp/kubelogin/bin/linux_"$arch"/kubelogin "$HOME"/.local/bin
+  mv /tmp/kubelogin/bin/linux_"$arch"/kubelogin "$HOME"/.local/bin/kubectl-oidc_login
   rm /tmp/"$package" && rm -rf /tmp/kubelogin
 
   warning "kubelogin updated to the latest ($latest_version) version\n"
