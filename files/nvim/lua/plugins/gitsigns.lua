@@ -34,16 +34,3 @@ require("gitsigns").setup {
     map("n", "<leader>gw", gs.blame_line)
   end,
 }
-
--- Base colors
-vim.api.nvim_set_hl(0, "DiffAdd", { bg = "#b8bb26" })
-vim.api.nvim_set_hl(0, "DiffChange", { link = "IncSearch" })
-vim.api.nvim_set_hl(0, "DiffDelete", { link = "Error" })
-
--- GitSigns colors
-vim.api.nvim_set_hl(0, "GitSignsAdd", { link = "DiffAdd" })
-vim.api.nvim_set_hl(0, "GitSignsChange", { link = "DiffChange" })
-vim.api.nvim_set_hl(0, "GitSignsChangedelete", { link = "DiffChange" })
-vim.api.nvim_set_hl(0, "GitSignsDelete", { link = "DiffDelete" })
-vim.api.nvim_set_hl(0, "GitSignsChangeDelete", { link = "DiffDelete" })
-vim.api.nvim_set_hl(0, "GitSignsTopDelete", { link = "DiffDelete" })

@@ -43,7 +43,7 @@ local config = {
   highlight = "Error",
   ignored_filetypes = {
     "help",
-    "lspinfo",
+    "checkhealth",
     "alpha",
     "lazy",
     "TelescopePrompt",

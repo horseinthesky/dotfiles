@@ -71,6 +71,7 @@ local s_comps = {
         icons.git.branch,
         color = { fg = colors.git_icon },
       },
+      padding = { left = 1, right = 0 },
     },
     diff = {
       "diff",
@@ -122,6 +123,7 @@ local native_sections = {
       symbols = {
         modified = icons.file.modified,
         readonly = icons.file.locked,
+        unnamed = "",
       },
       padding = { left = 0, right = 1 },
     },
