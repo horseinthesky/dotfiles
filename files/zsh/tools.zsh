@@ -1,4 +1,4 @@
-# ======== Tools ========
+# ==== Tools ====
 # Disable tmupx autotitle
 export DISABLE_AUTO_TITLE=true
 
@@ -58,6 +58,11 @@ fi
 # zoxide
 [[ -z $(whence z) ]] && eval "$(zoxide init zsh)"
 
+# yc & ycp
+[[ -d $HOME/yandex-cloud && ! $PATH == *$HOME/yandex-cloud/bin* ]] && export PATH=$HOME/yandex-cloud/bin:$PATH
+[[ -d $HOME/ycp && ! $PATH == *$HOME/ycp/bin* ]] && export PATH=$HOME/ycp/bin:$PATH
+[[ -f $HOME/yandex-cloud/completion.zsh.inc ]] && source $HOME/yandex-cloud/completion.zsh.inc
+
 # ==== Yandex ====
 # if [[ $(cat /proc/sys/kernel/hostname) == 'carbon9' ]] ; then
 # fi
@@ -65,7 +70,16 @@ fi
 # export SSH_AUTH_SOCK="${PSSH_AUTH_SOCK}"
 # [[ $(ssh-add -l) =~ "$HOME/.ssh/id_rsa" ]] || ssh-add
 
-# yc & ycp
-[[ -d $HOME/yandex-cloud && ! $PATH == *$HOME/yandex-cloud/bin* ]] && export PATH=$HOME/yandex-cloud/bin:$PATH
-[[ -d $HOME/ycp && ! $PATH == *$HOME/ycp/bin* ]] && export PATH=$HOME/ycp/bin:$PATH
-[[ -f $HOME/yandex-cloud/completion.zsh.inc ]] && source $HOME/yandex-cloud/completion.zsh.inc
+# ==== MWS ====
+load_mws() {
+  local mwsenv="$HOME"/.mwsenv
+
+  if [[ ! -f "$mwsenv" ]]; then
+    echo -e "\e[93m \e[97mMWS env file $1 does not exist"
+    return
+  fi
+
+  source "$mwsenv"
+}
+
+[[ $(cat /proc/sys/kernel/hostname) == "0000NBB0W095X1D" ]] && load_mws
