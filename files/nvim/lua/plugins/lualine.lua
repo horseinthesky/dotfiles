@@ -24,7 +24,7 @@ setmetatable(mode_map, {
   end,
 })
 
-local s_comps = {
+local comps = {
   mode = {
     function()
       local icon, label = unpack(mode_map[vim.api.nvim_get_mode().mode])
@@ -108,15 +108,15 @@ local s_comps = {
   },
 }
 
-local native_sections = {
+local sections = {
   lualine_a = {
-    s_comps.mode,
+    comps.mode,
   },
   lualine_b = {
     {
       "filetype",
       icon_only = true,
-      padding = { left = 1 },
+      padding = { left = 1, right = 0 },
     },
     {
       "filename",
@@ -125,12 +125,11 @@ local native_sections = {
         readonly = icons.file.locked,
         unnamed = "",
       },
-      padding = { left = 0, right = 1 },
     },
   },
   lualine_c = {
-    s_comps.git.branch,
-    s_comps.git.diff,
+    comps.git.branch,
+    comps.git.diff,
   },
   lualine_x = {
     {
@@ -143,16 +142,16 @@ local native_sections = {
       },
       padding = 0,
     },
-    s_comps.lsp.ok,
-    s_comps.lsp.icon,
-    s_comps.lsp.server,
+    comps.lsp.ok,
+    comps.lsp.icon,
+    comps.lsp.server,
   },
   lualine_y = {
-    s_comps.file.format,
+    comps.file.format,
   },
   lualine_z = {
-    s_comps.file.position,
-    s_comps.file.percentage,
+    comps.file.position,
+    comps.file.percentage,
   },
 }
 
@@ -173,5 +172,5 @@ require("lualine").setup {
       },
     },
   },
-  sections = native_sections,
+  sections = sections,
 }
