@@ -60,9 +60,8 @@ install_versions () {
   header "Installing pyenv versions..."
 
   pyenv_versions=(
-    3.11.9
-    3.12.3
-    3.13.0
+    3.12.9
+    3.13.2
   )
 
   PATH=$PATH:$HOME/.pyenv/bin
