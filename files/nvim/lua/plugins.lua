@@ -30,14 +30,6 @@ local plugins = {
     end,
   },
   {
-    "nvim-lualine/lualine.nvim",
-    dependencies = { "kyazdani42/nvim-web-devicons" },
-    event = "VeryLazy",
-    config = function()
-      require "plugins.lualine"
-    end,
-  },
-  {
     "akinsho/bufferline.nvim",
     event = "VeryLazy",
     config = function()
@@ -316,9 +308,9 @@ local plugins = {
         },
       }
     end,
-    cond = function()
-      return vim.g.theme == "gruvbox"
-    end,
+    -- cond = function()
+    --   return vim.g.theme == "gruvbox"
+    -- end,
   },
   {
     "folke/tokyonight.nvim",
@@ -333,9 +325,9 @@ local plugins = {
         },
       }
     end,
-    cond = function()
-      return vim.g.theme == "tokyonight"
-    end,
+    -- cond = function()
+    --   return vim.g.theme == "tokyonight"
+    -- end,
   },
 }
 

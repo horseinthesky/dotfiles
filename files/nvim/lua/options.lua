@@ -23,6 +23,7 @@ vim.g.loaded_perl_provider = 0
 vim.g.loaded_node_provider = 0
 
 -- Colorscheme
+-- vim.g.theme = "tokyonight-storm"
 vim.g.theme = "gruvbox"
 
 -- Disable loading builtin plugins
@@ -126,6 +127,7 @@ local settings = {
   expandtab = true, -- Expand tabs into spaces
   smartindent = true,
   shiftround = true, -- When shifting lines, round the indentation to the nearest multiple of “shiftwidth.”
+  statusline = [[%!v:lua.require("statusline").render()]],
 }
 
 for option, value in pairs(settings) do

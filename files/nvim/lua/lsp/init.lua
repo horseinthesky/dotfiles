@@ -1,7 +1,7 @@
-local icons = require("appearance").icons
 local lspconfig = require "lspconfig"
 local on_attach = require "lsp.on_attach"
 local utils = require "utils"
+local icons = utils.icons
 
 -- Add additional capabilities supported by nvim-cmp
 local capabilities = vim.lsp.protocol.make_client_capabilities()
