@@ -193,52 +193,51 @@ local function get_colors()
   return color_map[vim.g.colors_name][vim.opt.background:get()]
 end
 
-local last_mode = vim.api.nvim_get_mode().mode
-local first_time = true
+local last_mode = ""
 
-local function sync_highlights()
+local function update_highlights()
   local current_mode = vim.api.nvim_get_mode().mode
 
-  if current_mode ~= last_mode or first_time then
-    local fg, bg = unpack(get_colors()[current_mode])
-
-    vim.api.nvim_set_hl(0, "StatusLineTop", { fg = bg, bg = fg })
-    vim.api.nvim_set_hl(0, "StatusLineTopSep", { fg = fg, bg = bg })
-    vim.api.nvim_set_hl(0, "StatusLineMiddle", { fg = fg, bg = bg })
-    vim.api.nvim_set_hl(0, "StatusLineMiddleSep", {
-      fg = bg,
-      bg = vim.api.nvim_get_hl(0, { name = "CursorLine", link = false }).bg,
-    })
-
-    last_mode = current_mode
+  if current_mode == last_mode then
+    return
   end
 
-  first_time = false
+  local fg, bg = unpack(get_colors()[current_mode])
+
+  vim.api.nvim_set_hl(0, "StatusLineTop", { fg = bg, bg = fg })
+  vim.api.nvim_set_hl(0, "StatusLineTopSep", { fg = fg, bg = bg })
+  vim.api.nvim_set_hl(0, "StatusLineMiddle", { fg = fg, bg = bg })
+  vim.api.nvim_set_hl(0, "StatusLineMiddleSep", {
+    fg = bg,
+    bg = vim.api.nvim_get_hl(0, { name = "ColorColumn", link = false }).bg,
+  })
+
+  last_mode = current_mode
 end
 
 vim.api.nvim_set_hl(0, "StatusLineBottom", {
   fg = vim.api.nvim_get_hl(0, { name = "WinBar", link = false }).fg,
-  bg = vim.api.nvim_get_hl(0, { name = "CursorLine", link = false }).bg,
+  bg = vim.api.nvim_get_hl(0, { name = "ColorColumn", link = false }).bg,
 })
 vim.api.nvim_set_hl(0, "StatusLineLspIcon", {
   fg = vim.api.nvim_get_hl(0, { name = "Constant", link = false }).fg,
-  bg = vim.api.nvim_get_hl(0, { name = "CursorLine", link = false }).bg,
+  bg = vim.api.nvim_get_hl(0, { name = "ColorColumn", link = false }).bg,
 })
 vim.api.nvim_set_hl(0, "StatusLineGitIcon", {
   fg = vim.api.nvim_get_hl(0, { name = "Operator", link = false }).fg,
-  bg = vim.api.nvim_get_hl(0, { name = "CursorLine", link = false }).bg,
+  bg = vim.api.nvim_get_hl(0, { name = "ColorColumn", link = false }).bg,
 })
 vim.api.nvim_set_hl(0, "StatusLineGitDiffAdd", {
   fg = vim.api.nvim_get_hl(0, { name = "String", link = false }).fg,
-  bg = vim.api.nvim_get_hl(0, { name = "CursorLine", link = false }).bg,
+  bg = vim.api.nvim_get_hl(0, { name = "ColorColumn", link = false }).bg,
 })
 vim.api.nvim_set_hl(0, "StatusLineGitDiffChange", {
   fg = vim.api.nvim_get_hl(0, { name = "Debug", link = false }).fg,
-  bg = vim.api.nvim_get_hl(0, { name = "CursorLine", link = false }).bg,
+  bg = vim.api.nvim_get_hl(0, { name = "ColorColumn", link = false }).bg,
 })
 vim.api.nvim_set_hl(0, "StatusLineGitDiffDelete", {
   fg = vim.api.nvim_get_hl(0, { name = "Error", link = false }).fg,
-  bg = vim.api.nvim_get_hl(0, { name = "CursorLine", link = false }).bg,
+  bg = vim.api.nvim_get_hl(0, { name = "ColorColumn", link = false }).bg,
 })
 
 ---Output the content colored by the supplied highlight group.
@@ -609,7 +608,7 @@ local sections = {
 }
 
 function M.render()
-  sync_highlights()
+  update_highlights()
 
   -- Filter out elements that are nil or false.
   return table.concat(
