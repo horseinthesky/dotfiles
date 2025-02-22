@@ -1,8 +1,5 @@
 local utils = require "utils"
 
--- Colorscheme options
-vim.opt.termguicolors = true
-
 local colorscheme = vim.g.theme
 local ok, _ = pcall(vim.cmd, "colorscheme " .. colorscheme)
 if not ok then
@@ -10,35 +7,28 @@ if not ok then
   return
 end
 
--- Colors fix
-vim.api.nvim_set_hl(0, "SignColumn", {})
-
 -- Transparency toggle
-vim.g.original_normal_bg = vim.fn.synIDattr(vim.api.nvim_get_hl_id_by_name "Normal", "bg")
-vim.g.original_normal_fg = vim.fn.synIDattr(vim.api.nvim_get_hl_id_by_name "Normal", "fg")
-
-vim.g.is_transparent = 0
+local non_transparent_params = {}
+local is_transparent = false
 
 local function toggle_transparent()
-  if vim.g.is_transparent == 0 then
-    vim.api.nvim_set_hl(0, "Normal", {
-      fg = vim.g.original_normal_fg,
-      bg = nil,
-    })
-    vim.g.is_transparent = 1
+  if is_transparent then
+    vim.api.nvim_set_hl(0, "Normal", { bg = non_transparent_params.bg })
+    is_transparent = false
     return
   end
 
+  non_transparent_params = vim.api.nvim_get_hl(0, { name = "Normal", link = false })
+
   vim.api.nvim_set_hl(0, "Normal", {
-    fg = vim.g.original_normal_fg,
-    bg = vim.g.original_normal_bg,
+    bg = nil,
   })
-  vim.g.is_transparent = 0
+  is_transparent = true
 end
 
 utils.map("n", "<C-t>", toggle_transparent, { silent = true })
 
--- Trailing whitespaces
+-- Highlight trailing whitespaces
 local config = {
   highlight = "Error",
   ignored_filetypes = {
@@ -52,7 +42,7 @@ local config = {
   ignore_terminal = true,
 }
 
-local function highlight()
+local function highlight_trailing_whitespaces()
   if not vim.fn.hlexists(config.highlight) then
     utils.error(string.format("highlight group %s does not exist", config.highlight))
     return
@@ -73,7 +63,7 @@ end
 vim.api.nvim_create_autocmd("FileType", {
   callback = function()
     vim.schedule(function()
-      highlight()
+      highlight_trailing_whitespaces()
     end)
   end,
 })

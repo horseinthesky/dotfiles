@@ -23,7 +23,6 @@ vim.g.loaded_perl_provider = 0
 vim.g.loaded_node_provider = 0
 
 -- Colorscheme
--- vim.g.theme = "tokyonight-storm"
 vim.g.theme = "gruvbox"
 
 -- Disable loading builtin plugins

@@ -193,17 +193,16 @@ local function get_colors()
   return color_map[vim.g.colors_name][vim.opt.background:get()]
 end
 
-local last_mode = ""
+local last_mode, last_colorscheme = "", ""
 
 local function update_highlights()
+  -- Update mode colors
   local current_mode = vim.api.nvim_get_mode().mode
-
   if current_mode == last_mode then
     return
   end
 
   local fg, bg = unpack(get_colors()[current_mode])
-
   vim.api.nvim_set_hl(0, "StatusLineTop", { fg = bg, bg = fg })
   vim.api.nvim_set_hl(0, "StatusLineTopSep", { fg = fg, bg = bg })
   vim.api.nvim_set_hl(0, "StatusLineMiddle", { fg = fg, bg = bg })
@@ -213,32 +212,71 @@ local function update_highlights()
   })
 
   last_mode = current_mode
-end
 
-vim.api.nvim_set_hl(0, "StatusLineBottom", {
-  fg = vim.api.nvim_get_hl(0, { name = "WinBar", link = false }).fg,
-  bg = vim.api.nvim_get_hl(0, { name = "ColorColumn", link = false }).bg,
-})
-vim.api.nvim_set_hl(0, "StatusLineLspIcon", {
-  fg = vim.api.nvim_get_hl(0, { name = "Constant", link = false }).fg,
-  bg = vim.api.nvim_get_hl(0, { name = "ColorColumn", link = false }).bg,
-})
-vim.api.nvim_set_hl(0, "StatusLineGitIcon", {
-  fg = vim.api.nvim_get_hl(0, { name = "Operator", link = false }).fg,
-  bg = vim.api.nvim_get_hl(0, { name = "ColorColumn", link = false }).bg,
-})
-vim.api.nvim_set_hl(0, "StatusLineGitDiffAdd", {
-  fg = vim.api.nvim_get_hl(0, { name = "String", link = false }).fg,
-  bg = vim.api.nvim_get_hl(0, { name = "ColorColumn", link = false }).bg,
-})
-vim.api.nvim_set_hl(0, "StatusLineGitDiffChange", {
-  fg = vim.api.nvim_get_hl(0, { name = "Debug", link = false }).fg,
-  bg = vim.api.nvim_get_hl(0, { name = "ColorColumn", link = false }).bg,
-})
-vim.api.nvim_set_hl(0, "StatusLineGitDiffDelete", {
-  fg = vim.api.nvim_get_hl(0, { name = "Error", link = false }).fg,
-  bg = vim.api.nvim_get_hl(0, { name = "ColorColumn", link = false }).bg,
-})
+  -- Update colorscheme colors
+  local current_colorscheme = vim.g.colors_name
+  if current_colorscheme == last_colorscheme then
+    return
+  end
+
+  vim.api.nvim_set_hl(0, "SignColumn", {})
+
+  vim.api.nvim_set_hl(0, "GitSignsAdd", {
+    fg = vim.api.nvim_get_hl(0, { name = "DiagnosticSignOk", link = false }).bg,
+    bg = vim.api.nvim_get_hl(0, { name = "DiagnosticSignOk", link = false }).fg,
+  })
+  vim.api.nvim_set_hl(0, "GitSignsChange", {
+    fg = vim.api.nvim_get_hl(0, { name = "DiagnosticSignWarn", link = false }).bg,
+    bg = vim.api.nvim_get_hl(0, { name = "DiagnosticSignWarn", link = false }).fg,
+  })
+  vim.api.nvim_set_hl(0, "GitSignsDelete", {
+    fg = vim.api.nvim_get_hl(0, { name = "DiagnosticSignError", link = false }).bg,
+    bg = vim.api.nvim_get_hl(0, { name = "DiagnosticSignError", link = false }).fg,
+  })
+
+  vim.api.nvim_set_hl(0, "StatusLineBottom", {
+    fg = vim.api.nvim_get_hl(0, { name = "WinBar", link = false }).fg,
+    bg = vim.api.nvim_get_hl(0, { name = "ColorColumn", link = false }).bg,
+  })
+  vim.api.nvim_set_hl(0, "StatusLineLspIcon", {
+    fg = vim.api.nvim_get_hl(0, { name = "Constant", link = false }).fg,
+    bg = vim.api.nvim_get_hl(0, { name = "ColorColumn", link = false }).bg,
+  })
+  vim.api.nvim_set_hl(0, "StatusLineGitIcon", {
+    fg = vim.api.nvim_get_hl(0, { name = "Operator", link = false }).fg,
+    bg = vim.api.nvim_get_hl(0, { name = "ColorColumn", link = false }).bg,
+  })
+  vim.api.nvim_set_hl(0, "StatusLineGitDiffAdd", {
+    fg = vim.api.nvim_get_hl(0, { name = "DiagnosticSignOk", link = false }).fg,
+    bg = vim.api.nvim_get_hl(0, { name = "ColorColumn", link = false }).bg,
+  })
+  vim.api.nvim_set_hl(0, "StatusLineGitDiffChange", {
+    fg = vim.api.nvim_get_hl(0, { name = "DiagnosticSignWarn", link = false }).fg,
+    bg = vim.api.nvim_get_hl(0, { name = "ColorColumn", link = false }).bg,
+  })
+  vim.api.nvim_set_hl(0, "StatusLineGitDiffDelete", {
+    fg = vim.api.nvim_get_hl(0, { name = "DiagnosticSignError", link = false }).fg,
+    bg = vim.api.nvim_get_hl(0, { name = "ColorColumn", link = false }).bg,
+  })
+  vim.api.nvim_set_hl(0, "StatusLineDiagnosticSignError", {
+    fg = vim.api.nvim_get_hl(0, { name = "DiagnosticSignError", link = false }).fg,
+    bg = vim.api.nvim_get_hl(0, { name = "ColorColumn", link = false }).bg,
+  })
+  vim.api.nvim_set_hl(0, "StatusLineDiagnosticSignWarn", {
+    fg = vim.api.nvim_get_hl(0, { name = "DiagnosticSignWarn", link = false }).fg,
+    bg = vim.api.nvim_get_hl(0, { name = "ColorColumn", link = false }).bg,
+  })
+  vim.api.nvim_set_hl(0, "StatusLineDiagnosticSignInfo", {
+    fg = vim.api.nvim_get_hl(0, { name = "DiagnosticSignInfo", link = false }).fg,
+    bg = vim.api.nvim_get_hl(0, { name = "ColorColumn", link = false }).bg,
+  })
+  vim.api.nvim_set_hl(0, "StatusLineDiagnosticSignHint", {
+    fg = vim.api.nvim_get_hl(0, { name = "DiagnosticSignHint", link = false }).fg,
+    bg = vim.api.nvim_get_hl(0, { name = "ColorColumn", link = false }).bg,
+  })
+
+  last_colorscheme = current_colorscheme
+end
 
 ---Output the content colored by the supplied highlight group.
 ---@param hl_group string
@@ -340,10 +378,10 @@ local diag_severity_to_icon_map = {
 }
 
 local diag_params = {
-  { vim.diagnostic.severity.ERROR, icons.diagnostic.error,   "DiagnosticSignError" },
-  { vim.diagnostic.severity.WARN,  icons.diagnostic.warning, "DiagnosticSignWarn" },
-  { vim.diagnostic.severity.INFO,  icons.diagnostic.info,    "DiagnosticSigninfo" },
-  { vim.diagnostic.severity.HINT,  icons.diagnostic.hint,    "DiagnosticSignHint" },
+  { vim.diagnostic.severity.ERROR, icons.diagnostic.error,   "StatusLineDiagnosticSignError" },
+  { vim.diagnostic.severity.WARN,  icons.diagnostic.warning, "StatusLineDiagnosticSignWarn" },
+  { vim.diagnostic.severity.INFO,  icons.diagnostic.info,    "StatusLineDiagnosticSignInfo" },
+  { vim.diagnostic.severity.HINT,  icons.diagnostic.hint,    "StatusLineDiagnosticSignHint" },
 }
 
 local function get_diagnostic_by_severity(severity)
@@ -359,7 +397,7 @@ end
 local function get_diagnostic_all()
   local count = vim.diagnostic.count(0)
   if #count == 0 then
-    return colorize("DiagnosticOk", icons.diagnostic.ok)
+    return colorize("DiagnosticOk", icons.diagnostic.ok .. " ")
   end
 
   local res = ""
