@@ -1,33 +1,35 @@
-<h1 align="center">🛠️ dotfiles</h1>
-<div align="center">Always a WIP :)</div>
+# 🛠️ dotfiles
+
+>[!IMPORTANT]
+> Always a WIP :)
+
+![aplha](https://raw.githubusercontent.com/horseinthesky/dotfiles/master/media/alpha.png)
 
 <div align="center">
-    <a href="https://github.com/horseinthesky/dotfiles/#%EF%B8%8F-requirements">Requirements</a>
-  <span> • </span>
-	<a href="https://github.com/horseinthesky/dotfiles/#-features">Features</a>
-  <span> • </span>
-	<a href="https://github.com/horseinthesky/dotfiles/#-installation">Installation</a>
+    <a href="#-screenshots">Screenshots</a>
+    <span> • </span>
+    <a href="#-requirements">Requirements</a>
+    <span> • </span>
+	<a href="#-features">Features</a>
+    <span> • </span>
+	<a href="#-installation">Installation</a>
 </div>
 
 ## 📚 Screenshots
 
 Neovim
-![aplha](https://raw.githubusercontent.com/horseinthesky/dotfiles/master/media/alpha.png)
 ![nvim](https://raw.githubusercontent.com/horseinthesky/dotfiles/master/media/nvim.png)
 ![nvim_insert](https://raw.githubusercontent.com/horseinthesky/dotfiles/master/media/nvim_insert.png)
 ![markdown](https://raw.githubusercontent.com/horseinthesky/dotfiles/master/media/markdown.png)
 ![telescope](https://raw.githubusercontent.com/horseinthesky/dotfiles/master/media/telescope.png)
 
 fzf
-
 ![fzf](https://raw.githubusercontent.com/horseinthesky/dotfiles/master/media/fzf.png)
 
 ripgrep
-
 ![rg](https://raw.githubusercontent.com/horseinthesky/dotfiles/master/media/rg.png)
 
 fd
-
 ![fd](https://raw.githubusercontent.com/horseinthesky/dotfiles/master/media/fd.png)
 
 ## ⚡️ Requirements
