@@ -113,6 +113,8 @@ install_kubelogin () {
   # Fresh install
   if [[ -z $(which kubectl-oidc_login) ]]; then
     download https://github.com/Azure/kubelogin/releases/download/"$latest_version"/"$package" /tmp
+    [[ $? -ne  0 ]] && return
+
     unzip -o /tmp/"$package" -d /tmp/kubelogin
     mv /tmp/kubelogin/bin/linux_"$arch"/kubelogin "$HOME"/.local/bin/kubectl-oidc_login
     rm /tmp/"$package" && rm -rf /tmp/kubelogin
@@ -130,6 +132,8 @@ install_kubelogin () {
   info "Newer version found. Updating $current_version -> $latest_version..."
 
   download https://github.com/Azure/kubelogin/releases/download/"$latest_version"/"$package" /tmp
+  [[ $? -ne  0 ]] && return
+
   unzip -o /tmp/"$package" -d /tmp/kubelogin
   mv /tmp/kubelogin/bin/linux_"$arch"/kubelogin "$HOME"/.local/bin/kubectl-oidc_login
   rm /tmp/"$package" && rm -rf /tmp/kubelogin
@@ -159,11 +163,13 @@ install_kubectx () {
     curl -s https://api.github.com/repos/ahmetb/kubectx/releases/latest \ |
       grep tag_name | grep -Po "\d+\.\d+\.\d+"
   )
-  local package=kubectx_"$latest_version"_linux_"$arch".tar.gz
+  local package=kubectx_v"$latest_version"_linux_"$arch".tar.gz
 
   # Fresh install
   if [[ -z $(which kubectx) ]]; then
     download https://github.com/ahmetb/kubectx/releases/download/v"$latest_version"/"$package" /tmp
+    [[ $? -ne  0 ]] && return
+
     mkdir -p /tmp/kubectx
     tar -xzf /tmp/"$package" --directory=/tmp/kubectx
     mv /tmp/kubectx/kubectx "$HOME"/.local/bin
@@ -183,6 +189,8 @@ install_kubectx () {
   info "Newer version found. Updating $current_version -> $latest_version..."
 
   download https://github.com/ahmetb/kubectx/releases/download/v"$latest_version"/"$package" /tmp
+  [[ $? -ne  0 ]] && return
+
   mkdir -p /tmp/kubectx
   tar -xzf /tmp/"$package" --directory=/tmp/kubectx
   mv /tmp/kubectx/kubectx "$HOME"/.local/bin

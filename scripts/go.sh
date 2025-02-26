@@ -72,7 +72,6 @@ install_go_tools () {
     golang.org/x/tools/cmd/deadcode
     github.com/bufbuild/buf/cmd/buf
     github.com/muesli/duf
-    github.com/charmbracelet/glow
     github.com/fatih/gomodifytags
     github.com/cweill/gotests/...
     github.com/natesales/q
