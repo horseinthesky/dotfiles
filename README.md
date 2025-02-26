@@ -8,7 +8,7 @@
 <div align="center">
     <a href="#-screenshots">Screenshots</a>
     <span> • </span>
-    <a href="#-requirements">Requirements</a>
+    <a href="#%EF%B8%8F-requirements">Requirements</a>
     <span> • </span>
 	<a href="#-features">Features</a>
     <span> • </span>
