@@ -11,28 +11,22 @@
 
 ## 📚 Screenshots
 
-This is how Neovim start screen looks like
-
+Neovim
 ![aplha](https://raw.githubusercontent.com/horseinthesky/dotfiles/master/media/alpha.png)
-
-Neovim experience
-
 ![nvim](https://raw.githubusercontent.com/horseinthesky/dotfiles/master/media/nvim.png)
 ![nvim_insert](https://raw.githubusercontent.com/horseinthesky/dotfiles/master/media/nvim_insert.png)
-
-Neovim telescope plugin for finding stuff
-
+![markdown](https://raw.githubusercontent.com/horseinthesky/dotfiles/master/media/markdown.png)
 ![telescope](https://raw.githubusercontent.com/horseinthesky/dotfiles/master/media/telescope.png)
 
-Shell `fzf` tool
+fzf
 
 ![fzf](https://raw.githubusercontent.com/horseinthesky/dotfiles/master/media/fzf.png)
 
-Shell `ripgrep` tool
+ripgrep
 
 ![rg](https://raw.githubusercontent.com/horseinthesky/dotfiles/master/media/rg.png)
 
-Shell `fd` tool
+fd
 
 ![fd](https://raw.githubusercontent.com/horseinthesky/dotfiles/master/media/fd.png)
 
@@ -59,6 +53,11 @@ Here is a list of what is going to be installed and setup:
 - [Tmux](https://github.com/tmux/tmux) terminal multiplexer & its session manager [tmuxp](https://github.com/tmux-python/tmuxp)
 - [asn](https://github.com/nitefood/asn) lookup tool and traceroute server
 - [Terraform](https://www.terraform.io/) with [terraform-ls](https://github.com/hashicorp/terraform-ls) language server
+- Kubertenes stuff:
+  + [kubectl](https://kubernetes.io/ru/docs/tasks/tools/install-kubectl/)
+  + [kubelogin](https://github.com/int128/kubelogin) kubectl OIDC plugin
+  + [kubectx](https://github.com/ahmetb/kubectx) kubectl helper tools
+  + [helm](https://helm.sh/)
 - [Docker](https://www.docker.com/) comunity edition container runtime
 - [Neovim](https://neovim.io/) with a ton of plugins (Lua based configuration)
   + You can find my **old (deprecated)** VimScript version (with [CoC](https://github.com/neoclide/coc.nvim)) in [this repo](https://github.com/horseinthesky/vimscript)
@@ -73,9 +72,10 @@ Here is a list of what is going to be installed and setup:
 - [Python](https://www.python.org/):
   + A better Python REPL [ptpython](https://github.com/prompt-toolkit/ptpython)
   + Linters, formatters and static type checkers (`flake8`, `isort`, `black`, `mypy` and `ruff`)
-  + [python-lsp-server](https://github.com/python-lsp/python-lsp-server)
+  + [pyright](https://github.com/microsoft/pyright) static type checker
   + [pyenv](https://github.com/pyenv/pyenv) Python version manager
   + [poetry](https://python-poetry.org/) Python virtual environments manager
+  + [uv](https://github.com/astral-sh/uv) Python package and project manager
 - [fnm](https://github.com/Schniz/fnm). Language servers:
   + [prettierd](https://github.com/fsouza/prettierd)
   + [vscode-langservers-extracted](https://github.com/hrsh7th/vscode-langservers-extracted)

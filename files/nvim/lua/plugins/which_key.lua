@@ -2,6 +2,8 @@ local wk = require "which-key"
 
 -- Colors
 local hls = {
+  WhichKeyNormal = "Normal",
+  WhichKeyBorder = "Normal",
   WhichKey = "Special",
   WhichKeyGroup = "Number",
   WhichKeyValue = "Title",
@@ -15,7 +17,7 @@ end
 local conf = {
   preset = "helix",
   win = {
-    border = "single",
+    border = "rounded",
   },
   icons = {
     breadcrumb = "󰜴",

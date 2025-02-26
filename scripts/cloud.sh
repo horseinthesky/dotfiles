@@ -142,8 +142,6 @@ install_kubelogin () {
 }
 
 install_kubectx () {
-  header "Installing kubectx..."
-
   local architecture=$(uname -m)
 
   case "$architecture" in
@@ -163,40 +161,50 @@ install_kubectx () {
     curl -s https://api.github.com/repos/ahmetb/kubectx/releases/latest \ |
       grep tag_name | grep -Po "\d+\.\d+\.\d+"
   )
-  local package=kubectx_v"$latest_version"_linux_"$arch".tar.gz
 
-  # Fresh install
-  if [[ -z $(which kubectx) ]]; then
+  local tools=(
+    kubectx
+    kubens
+  )
+
+  for tool in "${tools[@]}"; do
+    header "Installing $tool..."
+
+    local package="$tool"_v"$latest_version"_linux_"$arch".tar.gz
+
+    # Fresh install
+    if [[ -z $(which "$tool") ]]; then
+      download https://github.com/ahmetb/kubectx/releases/download/v"$latest_version"/"$package" /tmp
+      [[ $? -ne  0 ]] && continue
+
+      mkdir -p /tmp/kube
+      tar -xzf /tmp/"$package" --directory=/tmp/kube
+      mv /tmp/kube/"$tool" "$HOME"/.local/bin
+      rm /tmp/"$package" && rm -rf /tmp/kube
+
+      success "$tool installed"
+      continue
+    fi
+
+    # Update
+    local current_version=$("$tool" --version)
+    if [[ "$current_version" == "$latest_version" ]]; then
+      success "Latest ($latest_version) version is already installed"
+      continue
+    fi
+
+    info "Newer version found. Updating $current_version -> $latest_version..."
+
     download https://github.com/ahmetb/kubectx/releases/download/v"$latest_version"/"$package" /tmp
-    [[ $? -ne  0 ]] && return
+    [[ $? -ne  0 ]] && continue
 
-    mkdir -p /tmp/kubectx
-    tar -xzf /tmp/"$package" --directory=/tmp/kubectx
-    mv /tmp/kubectx/kubectx "$HOME"/.local/bin
-    rm /tmp/"$package" && rm -rf /tmp/kubelogin
+    mkdir -p /tmp/kube
+    tar -xzf /tmp/"$package" --directory=/tmp/kube
+    mv /tmp/kube/"$tool" "$HOME"/.local/bin
+    rm /tmp/"$package" && rm -rf /tmp/kube
 
-    success "kubectx installed"
-    return
-  fi
-
-  # Update
-  local current_version=$(kubectx --version)
-  if [[ "$current_version" == "$latest_version" ]]; then
-    success "Latest ($latest_version) version is already installed"
-    return
-  fi
-
-  info "Newer version found. Updating $current_version -> $latest_version..."
-
-  download https://github.com/ahmetb/kubectx/releases/download/v"$latest_version"/"$package" /tmp
-  [[ $? -ne  0 ]] && return
-
-  mkdir -p /tmp/kubectx
-  tar -xzf /tmp/"$package" --directory=/tmp/kubectx
-  mv /tmp/kubectx/kubectx "$HOME"/.local/bin
-  rm /tmp/"$package" && rm -rf /tmp/kubelogin
-
-  warning "kubectx updated to the latest ($latest_version) version\n"
+    warning "$tool updated to the latest ($latest_version) version\n"
+  done
 }
 
 install_helm () {

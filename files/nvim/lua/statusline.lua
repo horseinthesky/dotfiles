@@ -426,7 +426,7 @@ local function git_diff()
   local res = ""
   for _, group in ipairs(git_diff_params) do
     local type, icon, hl = unpack(group)
-    local val = gsd[type]
+    local val = gsd[type] or 0
 
     if val > 0 then
       res = res .. colorize(hl, string.format(" " .. icon .. " " .. val))

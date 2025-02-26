@@ -67,7 +67,7 @@ symlink_go () {
 install_go_tools () {
   header "Installing go tools..."
 
-  tools=(
+  local tools=(
     golang.org/x/tools/gopls
     golang.org/x/tools/cmd/deadcode
     github.com/bufbuild/buf/cmd/buf

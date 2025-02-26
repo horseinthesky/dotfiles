@@ -252,9 +252,13 @@ local plugins = {
     ft = "markdown",
     config = function()
       require("markview").setup {
-        hybrid_modes = { "n" },
-        list_items = {
-          shift_width = 2,
+        preview = {
+          hybrid_modes = { "n" },
+        },
+        markdown = {
+          list_items = {
+            shift_width = 2,
+          },
         },
       }
     end,
