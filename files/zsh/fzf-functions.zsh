@@ -7,7 +7,6 @@ fw() {
   fi
 
   local project=$(fd -t d --max-depth 1 . $projects | awk -F/ '{print $(NF-1)}' | fzf)
-
   [[ -z $project ]] && return
 
   cd $projects/$project
@@ -17,7 +16,6 @@ fenv () {
   local version=$(ls -la $HOME/.local/bin | grep python | awk '{print $9}' |
     fzf --delimiter='python' --with-nth=2
   )
-
   [[ -z $version ]] && return
 
   virtualenv .venv -p=$version
@@ -25,7 +23,6 @@ fenv () {
 
 fdrc () {
   local containers=$(docker ps | tail -n +2 | awk '{print $1" "$2}' | fzf -m | cut -d " " -f 1 | tr "\n" " ")
-
   [[ -z $containers ]] && return
 
   docker rm $(echo $containers) -f
@@ -33,7 +30,6 @@ fdrc () {
 
 fdri () {
   local images=$(docker images | tail -n +2 | awk '{print $1" "$2" "$3}' | column -t | fzf -m | awk '{print $NF}' | tr "\n" " ")
-
   [[ -z $images ]] && return
 
   docker rmi $(echo $images) -f
@@ -46,16 +42,17 @@ fpac () {
 }
 
 fapt () {
-  apt list |
+  apt list 2>/dev/null |
     fzf --multi --delimiter="/" --with-nth=1 --preview 'apt-cache policy {1}' |
     awk -F/ '{print $1}' |
     xargs -ro sudo apt-get install
 }
 
-c () {
+fcht () {
   local languages=(
     python
     go
+    rust
     lua
   )
 

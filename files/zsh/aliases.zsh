@@ -27,6 +27,15 @@ alias di='docker images -a'
 alias drc='docker rm $(docker ps -a -q -f status=exited)'
 alias dri='docker rmi -f $(docker images -qf dangling=true)'
 
+# lxc & incus
+c () {
+  if [[ -n $(whence incus) ]]; then
+    incus $@
+  else
+    lxc $@
+  fi
+}
+
 # k8s
 k () {
   if [[ -n $(whence kubectl) ]]; then
