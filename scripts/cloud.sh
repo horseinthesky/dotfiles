@@ -105,18 +105,18 @@ install_kubelogin () {
   esac
 
   local latest_version=$(
-    curl -s https://api.github.com/repos/Azure/kubelogin/releases/latest \ |
+    curl -s https://api.github.com/repos/int128/kubelogin/releases/latest \ |
       grep tag_name | grep -Po "v\d+\.\d+\.\d+"
   )
-  local package=kubelogin-linux-"$arch".zip
+  local package=kubelogin_linux_"$arch".zip
 
   # Fresh install
   if [[ -z $(which kubectl-oidc_login) ]]; then
-    download https://github.com/Azure/kubelogin/releases/download/"$latest_version"/"$package" /tmp
+    download https://github.com/int128/kubelogin/releases/download/"$latest_version"/"$package" /tmp
     [[ $? -ne  0 ]] && return
 
     unzip -o /tmp/"$package" -d /tmp/kubelogin
-    mv /tmp/kubelogin/bin/linux_"$arch"/kubelogin "$HOME"/.local/bin/kubectl-oidc_login
+    mv /tmp/kubelogin/kubelogin "$HOME"/.local/bin/kubectl-oidc_login
     rm /tmp/"$package" && rm -rf /tmp/kubelogin
     success "kubelogin installed"
     return
@@ -131,11 +131,11 @@ install_kubelogin () {
 
   info "Newer version found. Updating $current_version -> $latest_version..."
 
-  download https://github.com/Azure/kubelogin/releases/download/"$latest_version"/"$package" /tmp
+  download https://github.com/int128/kubelogin/releases/download/"$latest_version"/"$package" /tmp
   [[ $? -ne  0 ]] && return
 
   unzip -o /tmp/"$package" -d /tmp/kubelogin
-  mv /tmp/kubelogin/bin/linux_"$arch"/kubelogin "$HOME"/.local/bin/kubectl-oidc_login
+  mv /tmp/kubelogin/kubelogin "$HOME"/.local/bin/kubectl-oidc_login
   rm /tmp/"$package" && rm -rf /tmp/kubelogin
 
   warning "kubelogin updated to the latest ($latest_version) version\n"
