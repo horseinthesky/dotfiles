@@ -220,6 +220,7 @@ local function update_highlights()
   end
 
   vim.api.nvim_set_hl(0, "SignColumn", {})
+  vim.api.nvim_set_hl(0, "NormalFloat", {})
 
   vim.api.nvim_set_hl(0, "GitSignsAdd", {
     fg = vim.api.nvim_get_hl(0, { name = "DiagnosticSignOk", link = false }).bg,

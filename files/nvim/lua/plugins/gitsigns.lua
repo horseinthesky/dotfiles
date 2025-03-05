@@ -9,6 +9,9 @@ require("gitsigns").setup {
     changedelete = { text = " " },
     untracked = { text = " " },
   },
+  preview_config = {
+    border = "rounded",
+  },
   on_attach = function(_)
     local gs = require "gitsigns"
 

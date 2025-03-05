@@ -2,8 +2,6 @@ local wk = require "which-key"
 
 -- Colors
 local hls = {
-  WhichKeyNormal = "Normal",
-  WhichKeyBorder = "Normal",
   WhichKey = "Special",
   WhichKeyGroup = "Number",
   WhichKeyValue = "Title",
