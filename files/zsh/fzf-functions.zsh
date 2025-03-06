@@ -22,7 +22,7 @@ fenv () {
 }
 
 fdrc () {
-  local containers=$(docker ps | tail -n +2 | awk '{print $1" "$2}' | fzf -m | cut -d " " -f 1 | tr "\n" " ")
+  local containers=$(docker ps -a | tail -n +2 | awk '{print $1" "$2}' | fzf -m | cut -d " " -f 1 | tr "\n" " ")
   [[ -z $containers ]] && return
 
   docker rm $(echo $containers) -f
@@ -33,6 +33,13 @@ fdri () {
   [[ -z $images ]] && return
 
   docker rmi $(echo $images) -f
+}
+
+fdl () {
+  local container=$(docker ps -a | tail -n +2 | awk '{print $1" "$2}' | column -t | fzf | cut -d " " -f 1)
+  [[ -z $container ]] && return
+
+  docker logs $container
 }
 
 fpac () {
