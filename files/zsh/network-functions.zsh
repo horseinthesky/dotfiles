@@ -94,6 +94,8 @@ lookup () {
 }
 
 resolve() {
+  [[ -z $(command -v dig) ]] && echo "dig not found" && return 1
+
   local domain=$1
   [[ -z $domain ]] && echo "No domain specified" && return 1
 
