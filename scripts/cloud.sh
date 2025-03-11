@@ -86,6 +86,64 @@ install_kubectl () {
   success
 }
 
+install_k9s () {
+  header "Installing k9s..."
+
+  local architecture=$(uname -m)
+
+  case "$architecture" in
+    x86_64)
+      arch=amd64
+      ;;
+    aarch64)
+      arch=arm64
+      ;;
+    *)
+      error "Unsupported architecture. Can't proceed"
+      exit
+      ;;
+  esac
+
+  local latest_version=$(
+    curl -s https://api.github.com/repos/derailed/k9s/releases/latest \ |
+      grep tag_name | grep -Po "v\d+\.\d+\.\d+"
+  )
+  local package=k9s_Linux_"$arch".tar.gz
+
+  # Fresh install
+  if [[ -z $(which k9s) ]]; then
+    download https://github.com/derailed/k9s/releases/download/"$latest_version"/"$package" /tmp
+    [[ $? -ne  0 ]] && return
+
+    mkdir -p /tmp/k9s
+    tar -xzf /tmp/"$package" --directory=/tmp/k9s
+    mv /tmp/k9s/k9s "$HOME"/.local/bin/k9s
+    rm /tmp/"$package" && rm -rf /tmp/k9s
+
+    success "k9s installed"
+    return
+  fi
+
+  # Update
+  local current_version=$(k9s version | grep -Po "v\d+\.\d+\.\d+")
+  if [[ "$current_version" == "$latest_version" ]]; then
+    success "Latest ($latest_version) version is already installed"
+    return
+  fi
+
+  info "Newer version found. Updating $current_version -> $latest_version..."
+
+  download https://github.com/derailed/k9s/releases/download/"$latest_version"/"$package" /tmp
+  [[ $? -ne  0 ]] && return
+
+  mkdir -p /tmp/k9s
+  tar -xzf /tmp/"$package" --directory=/tmp/k9s
+  mv /tmp/k9s/k9s "$HOME"/.local/bin/k9s
+  rm /tmp/"$package" && rm -rf /tmp/k9s
+
+  warning "k9s updated to the latest ($latest_version) version\n"
+}
+
 install_kubelogin () {
   header "Installing kubelogin..."
 
@@ -118,6 +176,7 @@ install_kubelogin () {
     unzip -o /tmp/"$package" -d /tmp/kubelogin
     mv /tmp/kubelogin/kubelogin "$HOME"/.local/bin/kubectl-oidc_login
     rm /tmp/"$package" && rm -rf /tmp/kubelogin
+
     success "kubelogin installed"
     return
   fi
@@ -223,6 +282,7 @@ install_helm () {
 main () {
   install_terraform_packages
   install_kubectl
+  install_k9s
   install_kubelogin
   install_kubectx
   install_helm
