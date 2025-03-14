@@ -65,7 +65,7 @@ symlink_configs () {
 install_poetry () {
   header "Installing poetry..."
 
-  if [[ -n $(which poetry) ]]; then
+  if [[ -n $(command -v poetry) ]]; then
     warning "Already installed. Updating..."
     poetry self update
 

@@ -8,7 +8,7 @@ install_lua () {
   local version=5.4.3
   local tarball=lua-${version}.tar.gz
 
-  if [[ -n $(which lua) ]] && [[ $(lua -v | awk '{print $2}') == "$version" ]]; then
+  if [[ -n $(command -v lua) ]] && [[ $(lua -v | awk '{print $2}') == "$version" ]]; then
     success "Latest version ($version) is already installed."
     return
   fi

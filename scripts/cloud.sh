@@ -27,7 +27,7 @@ terraform_install () {
   )
   local package_name=${name}_${latest_version}_linux_amd64.zip
 
-  if [[ -z $(which "$name") ]]; then
+  if [[ -z $(command -v "$name") ]]; then
     download_package https://releases.hashicorp.com/"$name/$latest_version/$package_name" "$HOME"/.local/bin
     return
   fi
@@ -60,7 +60,7 @@ install_terraform_packages () {
 install_kubectl () {
   header "Installing kubectl..."
 
-  if [[ -n $(which kubectl) ]]; then
+  if [[ -n $(command -v kubectl) ]]; then
     success "kubectl is already installed."
     return
   fi
@@ -111,7 +111,7 @@ install_k9s () {
   local package=k9s_Linux_"$arch".tar.gz
 
   # Fresh install
-  if [[ -z $(which k9s) ]]; then
+  if [[ -z $(command -v k9s) ]]; then
     download https://github.com/derailed/k9s/releases/download/"$latest_version"/"$package" /tmp
     [[ $? -ne  0 ]] && return
 
@@ -169,7 +169,7 @@ install_kubelogin () {
   local package=kubelogin_linux_"$arch".zip
 
   # Fresh install
-  if [[ -z $(which kubectl-oidc_login) ]]; then
+  if [[ -z $(command -v kubectl-oidc_login) ]]; then
     download https://github.com/int128/kubelogin/releases/download/"$latest_version"/"$package" /tmp
     [[ $? -ne  0 ]] && return
 
@@ -232,7 +232,7 @@ install_kubectx () {
     local package="$tool"_v"$latest_version"_linux_"$arch".tar.gz
 
     # Fresh install
-    if [[ -z $(which "$tool") ]]; then
+    if [[ -z $(command -v "$tool") ]]; then
       download https://github.com/ahmetb/kubectx/releases/download/v"$latest_version"/"$package" /tmp
       [[ $? -ne  0 ]] && continue
 
@@ -269,7 +269,7 @@ install_kubectx () {
 install_helm () {
   header "Installing helm..."
 
-  if [[ -n $(which helm) ]]; then
+  if [[ -n $(command -v helm) ]]; then
     success "helm is already installed."
     return
   fi

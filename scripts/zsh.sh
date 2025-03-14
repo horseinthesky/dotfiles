@@ -43,7 +43,7 @@ install_symlinks () {
 setup_user_shell () {
   header "Setting shell"
 
-  sudo chsh -s $(which zsh) $(whoami)
+  sudo chsh -s $(command -v zsh) $(whoami)
 
   success
 }

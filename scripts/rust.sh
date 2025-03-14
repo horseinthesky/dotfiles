@@ -20,7 +20,7 @@ cargo_install () {
   fi
 
   # Fresh install
-  if [[ -z $(which "$binary") ]]; then
+  if [[ -z $(command -v "$binary") ]]; then
     cargo install "$tool"
 
     if [[ $? -ne 0 ]]; then

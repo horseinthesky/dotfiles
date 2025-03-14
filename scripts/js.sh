@@ -39,7 +39,7 @@ install_node () {
 
   PATH=$PATH:$HOME/.fnm && eval "$(fnm env)"
 
-  if [[ -z $(which fnm) ]]; then
+  if [[ -z $(command -v fnm) ]]; then
     error "fnm is not found. Can't proceed."
     exit
   fi
@@ -47,7 +47,7 @@ install_node () {
   local version=22.13.1
 
   # Install node if missing
-  if [[ -z $(which node) ]]; then
+  if [[ -z $(command -v node) ]]; then
     install_yarn "$version"
     return
   fi
