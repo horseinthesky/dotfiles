@@ -56,7 +56,7 @@ fi
 [[ -d $HOME/.cargo && ! $PATH == *$HOME/.cargo/bin* ]] && export PATH=$PATH:$HOME/.cargo/bin
 
 # zoxide
-[[ -z $(whence z) ]] && eval "$(zoxide init zsh)"
+[[ -z $(command -v z) ]] && eval "$(zoxide init zsh)"
 
 # yc & ycp
 [[ -d $HOME/yandex-cloud && ! $PATH == *$HOME/yandex-cloud/bin* ]] && export PATH=$HOME/yandex-cloud/bin:$PATH

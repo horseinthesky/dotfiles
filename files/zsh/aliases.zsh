@@ -20,6 +20,9 @@ alias v='virtualenv .venv'
 alias a='source ./.venv/bin/activate'
 alias d='deactivate'
 
+# lxc & incus
+alias c='incus'
+
 # docker
 alias dc='docker ps -a'
 alias di='docker images -a'
@@ -27,23 +30,9 @@ alias di='docker images -a'
 alias drc='docker rm $(docker ps -a -q -f status=exited)'
 alias dri='docker rmi -f $(docker images -qf dangling=true)'
 
-# lxc & incus
-c () {
-  if [[ -n $(whence incus) ]]; then
-    incus $@
-  else
-    lxc $@
-  fi
-}
-
 # k8s
-k () {
-  if [[ -n $(whence kubectl) ]]; then
-    kubectl $@
-  else
-    microk8s kubectl $@
-  fi
-}
+alias k='kubectl'
+alias h='helm'
 
 # poetry
 alias pr='poetry run python'
