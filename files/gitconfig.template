@@ -54,3 +54,6 @@
 
 [interactive]
   diffFilter = delta --color-only
+  
+[includeIf "gitdir:~/work/"]
+    path = ~/.gitconfig-work
