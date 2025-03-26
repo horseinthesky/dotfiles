@@ -9,11 +9,13 @@ install_deps () {
     debian|ubuntu)
       packages=(
         build-essential
+        protobuf-compiler
       )
       ;;
     arch|manjaro)
       packages=(
         base-devel
+        protobuf
       )
       ;;
     *)
