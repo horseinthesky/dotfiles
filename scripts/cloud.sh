@@ -201,6 +201,8 @@ install_kubelogin () {
 }
 
 install_kubectx () {
+  header "Installing kubectx..."
+
   local architecture=$(uname -m)
 
   case "$architecture" in
@@ -279,6 +281,65 @@ install_helm () {
   success
 }
 
+install_helmfile () {
+  header "Installing helmfile..."
+
+  local architecture=$(uname -m)
+
+  case "$architecture" in
+    x86_64)
+      arch=amd64
+      ;;
+    aarch64)
+      arch=arm64
+      ;;
+    *)
+      error "Unsupported architecture. Can't proceed"
+      exit
+      ;;
+  esac
+
+  local latest_version=$(
+    curl -s https://api.github.com/repos/helmfile/helmfile/releases/latest \ |
+      grep tag_name | grep -Po "\d+\.\d+\.\d+"
+  )
+
+  local package=helmfile_"$latest_version"_linux_"$arch".tar.gz
+
+  # Fresh install
+  if [[ -z $(command -v helmfile) ]]; then
+    download https://github.com/helmfile/helmfile/releases/download/v"$latest_version"/"$package" /tmp
+    [[ $? -ne  0 ]] && return
+
+    mkdir -p /tmp/helmfile
+    tar -xzf /tmp/"$package" --directory=/tmp/helmfile
+    mv /tmp/helmfile/helmfile "$HOME"/.local/bin
+    rm /tmp/"$package" && rm -rf /tmp/helmfile
+
+    success "helmfile installed"
+    return
+  fi
+
+  # Update
+  local current_version=$(helmfile --version | grep -Po "\d+\.\d+\.\d+")
+  if [[ "$current_version" == "$latest_version" ]]; then
+    success "Latest ($latest_version) version is already installed"
+    return
+  fi
+
+  info "Newer version found. Updating $current_version -> $latest_version..."
+
+  download https://github.com/helmfile/helmfile/releases/download/v"$latest_version"/"$package" /tmp
+  [[ $? -ne  0 ]] && return
+
+  mkdir -p /tmp/helmfile
+  tar -xzf /tmp/"$package" --directory=/tmp/helmfile
+  mv /tmp/helmfile/helmfile "$HOME"/.local/bin
+  rm /tmp/"$package" && rm -rf /tmp/helmfile
+
+  warning "helmfile updated to the latest ($latest_version) version\n"
+}
+
 main () {
   install_terraform_packages
   install_kubectl
@@ -286,6 +347,7 @@ main () {
   install_kubelogin
   install_kubectx
   install_helm
+  install_helmfile
 }
 
 main
