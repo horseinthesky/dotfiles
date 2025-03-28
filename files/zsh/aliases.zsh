@@ -20,17 +20,14 @@ alias v='virtualenv .venv'
 alias a='source ./.venv/bin/activate'
 alias d='deactivate'
 
-# lxc & incus
+# containers
 alias c='incus'
 
-# docker
 alias dc='docker ps -a'
 alias di='docker images -a'
-
 alias drc='docker rm $(docker ps -a -q -f status=exited)'
 alias dri='docker rmi -f $(docker images -qf dangling=true)'
 
-# k8s
 alias k='kubectl'
 alias h='helm'
 
@@ -54,6 +51,8 @@ alias tpl='tmuxp load '
 # misc
 alias nv='$HOME/.local/bin/nvim'
 alias pp='ptpython'
+
+alias dig='dig +noall +answer +stats'
 
 alias grep='grep --color=auto --line-buffered'
 alias diff='diff --color -u'
