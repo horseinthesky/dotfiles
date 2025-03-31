@@ -25,6 +25,7 @@ alias c='incus'
 
 alias dc='docker ps -a'
 alias di='docker images -a'
+alias dl='docker logs'
 alias drc='docker rm $(docker ps -a -q -f status=exited)'
 alias dri='docker rmi -f $(docker images -qf dangling=true)'
 

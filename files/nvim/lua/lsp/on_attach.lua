@@ -17,7 +17,7 @@ function M.default(client, bufnr)
 
   -- Document highlight
   if client.server_capabilities.documentHighlightProvider then
-    local group = vim.api.nvim_create_augroup("LSPDpcumentHighlight", { clear = true })
+    local group = vim.api.nvim_create_augroup("LSPDocumentHighlight", { clear = true })
 
     vim.api.nvim_create_autocmd("CursorHold", {
       pattern = "<buffer>",

@@ -24,6 +24,7 @@ vim.g.loaded_node_provider = 0
 
 -- Colorscheme
 vim.g.theme = "gruvbox"
+-- vim.g.theme = "tokyonight-storm"
 
 -- Disable loading builtin plugins
 local disabled_built_ins = {
@@ -64,9 +65,10 @@ local settings = {
   iskeyword = { "@", "48-57", "_", "192-255", "-" }, -- Treat dash separated words as a word text object
   mouse = "v", -- Diable mouse (Enable is "a". If enabled temp. disable with holding Shift)
   winblend = 10, -- Transparency for floating windows
+  winborder = "rounded",
   pumblend = 10, -- Transparency for popup-menu
   scrolloff = 10, -- Start scrolling 10 lines before edge of viewpoint
-  completeopt = { "menu", "menuone", "noselect" }, -- Set completeopt to have a better completion experience
+  completeopt = vim.opt.completeopt + "noselect", -- Set completeopt to have a better completion experience
   shortmess = vim.opt.shortmess + "c", -- Don't give |ins-completion-menu| messages
   updatetime = 300, -- Faster completion (default is 4000)
   timeoutlen = 500, -- Timeout for a mapped sequence to complete (default 1000)

@@ -3,12 +3,27 @@ local M = {}
 local utils = require("utils")
 
 local function set_keymaps()
+  -- NVIM 0.10 new default keymaps
+  -- <C-W>d (CTRL-W and d) - floating diagnostic
+  -- K - hover
+  -- ]d - goto next diagnostic
+  -- [d - goto prev diagnostic
+
+  -- NVIM 0.11 new default keymaps
+  -- gra - code actions
+  -- grn - rename
+  -- grr - references
+  -- gri - implementation
+  -- gO - document symbol
+  -- CTRL-S Insert/Select mode - signature help
+
   local keymaps = {
-    -- General
-    { "n", "<leader>ci", "<cmd>check lspconfig<CR>" },
+    { "n", "<leader>ci", "<cmd>checkhealth lsp<CR>" },
     { "n", "<leader>cR", "<cmd>LspRestart<CR>" },
-    { "n", "<leader>F",  function() vim.lsp.buf.format { async = true } end },
-    { "n", "<leader>ca", function() vim.lsp.buf.code_action { source = { organizeImports = true } } end },
+    { "n", "<leader>F",  vim.lsp.buf.format },
+
+    -- LSP
+    { "n", "<leader>ca", vim.lsp.buf.code_action },
     { "n", "<leader>cr", vim.lsp.buf.rename },
     { "n", "<leader>cd", vim.lsp.buf.definition },
     { "n", "<leader>ch", function()
@@ -19,11 +34,7 @@ local function set_keymaps()
     end },
 
     -- Diagnostic
-    -- NVIM 0.10 has floating diagnostics on <C-W>d by default
     { "n", "<leader>cD", vim.diagnostic.open_float },
-    -- These keybinds are now on by default
-    -- { "n", "]d", function() vim.diagnostic.goto_next { float = false } end },
-    -- { "n", "[d", function() vim.diagnostic.goto_prev { float = false } end},
   }
 
   for _, binds in ipairs(keymaps) do

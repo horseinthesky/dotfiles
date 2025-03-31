@@ -43,3 +43,16 @@ require("telescope").setup {
 
 require("telescope").load_extension "fzf"
 require("telescope").load_extension "project"
+
+local hls = {
+  TelescopeResultsNormal = "SpecialKey",
+  TelescopeSelectionCaret = "WarningMsg",
+  TelescopeSelection = "TelescopeNormal",
+  TelescopeMultiSelection = "TelescopeResultsNormal",
+  TelescopeMatching = "Type",
+  TelescopePromptPrefix = "Type",
+}
+
+for group, link in pairs(hls) do
+  vim.api.nvim_set_hl(0, group, { link = link })
+end

@@ -14,9 +14,6 @@ end
 -- Setup
 local conf = {
   preset = "helix",
-  win = {
-    border = "rounded",
-  },
   icons = {
     breadcrumb = "󰜴",
     separator = "󰜴",

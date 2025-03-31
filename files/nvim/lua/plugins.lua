@@ -57,9 +57,6 @@ local plugins = {
   {
     "stevearc/dressing.nvim",
     event = "VeryLazy",
-    config = function()
-      vim.api.nvim_set_hl(0, "FloatTitle", { link = "Normal" })
-    end,
   },
   {
     "lukas-reineke/indent-blankline.nvim",
@@ -330,7 +327,7 @@ local plugins = {
       }
     end,
     cond = function()
-      return vim.g.theme == "tokyonight"
+      return vim.g.theme == "tokyonight-storm"
     end,
   },
 }
@@ -413,19 +410,6 @@ local telescope_mappings = {
 for _, keymap in ipairs(telescope_mappings) do
   local mode, lhs, rhs, opts = unpack(keymap)
   map(mode, lhs, rhs, opts)
-end
-
-local hls = {
-  TelescopeResultsNormal = "SpecialKey",
-  TelescopeSelectionCaret = "WarningMsg",
-  TelescopeSelection = "TelescopeNormal",
-  TelescopeMultiSelection = "TelescopeResultsNormal",
-  TelescopeMatching = "Type",
-  TelescopePromptPrefix = "Type",
-}
-
-for group, link in pairs(hls) do
-  vim.api.nvim_set_hl(0, group, { link = link })
 end
 
 -- fzf-lua

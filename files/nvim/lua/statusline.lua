@@ -189,31 +189,9 @@ for _, table in pairs(color_map) do
   end
 end
 
-local function get_colors()
-  return color_map[vim.g.colors_name][vim.opt.background:get()]
-end
+local last_colorscheme = ""
 
-local last_mode, last_colorscheme = "", ""
-
-local function update_highlights()
-  -- Update mode colors
-  local current_mode = vim.api.nvim_get_mode().mode
-  if current_mode == last_mode then
-    return
-  end
-
-  local fg, bg = unpack(get_colors()[current_mode])
-  vim.api.nvim_set_hl(0, "StatusLineTop", { fg = bg, bg = fg })
-  vim.api.nvim_set_hl(0, "StatusLineTopSep", { fg = fg, bg = bg })
-  vim.api.nvim_set_hl(0, "StatusLineMiddle", { fg = fg, bg = bg })
-  vim.api.nvim_set_hl(0, "StatusLineMiddleSep", {
-    fg = bg,
-    bg = vim.api.nvim_get_hl(0, { name = "ColorColumn", link = false }).bg,
-  })
-
-  last_mode = current_mode
-
-  -- Update colorscheme colors
+local function update_colorscheme_highlights()
   local current_colorscheme = vim.g.colors_name
   if current_colorscheme == last_colorscheme then
     return
@@ -221,6 +199,7 @@ local function update_highlights()
 
   vim.api.nvim_set_hl(0, "SignColumn", {})
   vim.api.nvim_set_hl(0, "NormalFloat", {})
+  vim.api.nvim_set_hl(0, "FloatTitle", { link = "Normal" })
 
   vim.api.nvim_set_hl(0, "GitSignsAdd", {
     fg = vim.api.nvim_get_hl(0, { name = "DiagnosticSignOk", link = false }).bg,
@@ -235,48 +214,75 @@ local function update_highlights()
     bg = vim.api.nvim_get_hl(0, { name = "DiagnosticSignError", link = false }).fg,
   })
 
+  local bottom_bg = vim.api.nvim_get_hl(0, { name = "ColorColumn", link = false }).bg
+
   vim.api.nvim_set_hl(0, "StatusLineBottom", {
     fg = vim.api.nvim_get_hl(0, { name = "WinBar", link = false }).fg,
-    bg = vim.api.nvim_get_hl(0, { name = "ColorColumn", link = false }).bg,
-  })
-  vim.api.nvim_set_hl(0, "StatusLineLspIcon", {
-    fg = vim.api.nvim_get_hl(0, { name = "Constant", link = false }).fg,
-    bg = vim.api.nvim_get_hl(0, { name = "ColorColumn", link = false }).bg,
+    bg = bottom_bg,
   })
   vim.api.nvim_set_hl(0, "StatusLineGitIcon", {
     fg = vim.api.nvim_get_hl(0, { name = "Operator", link = false }).fg,
-    bg = vim.api.nvim_get_hl(0, { name = "ColorColumn", link = false }).bg,
+    bg = bottom_bg,
   })
   vim.api.nvim_set_hl(0, "StatusLineGitDiffAdd", {
     fg = vim.api.nvim_get_hl(0, { name = "DiagnosticSignOk", link = false }).fg,
-    bg = vim.api.nvim_get_hl(0, { name = "ColorColumn", link = false }).bg,
+    bg = bottom_bg,
   })
   vim.api.nvim_set_hl(0, "StatusLineGitDiffChange", {
     fg = vim.api.nvim_get_hl(0, { name = "DiagnosticSignWarn", link = false }).fg,
-    bg = vim.api.nvim_get_hl(0, { name = "ColorColumn", link = false }).bg,
+    bg = bottom_bg,
   })
   vim.api.nvim_set_hl(0, "StatusLineGitDiffDelete", {
     fg = vim.api.nvim_get_hl(0, { name = "DiagnosticSignError", link = false }).fg,
-    bg = vim.api.nvim_get_hl(0, { name = "ColorColumn", link = false }).bg,
+    bg = bottom_bg,
+  })
+  vim.api.nvim_set_hl(0, "StatusLineLspIcon", {
+    fg = vim.api.nvim_get_hl(0, { name = "Constant", link = false }).fg,
+    bg = bottom_bg,
   })
   vim.api.nvim_set_hl(0, "StatusLineDiagnosticSignError", {
     fg = vim.api.nvim_get_hl(0, { name = "DiagnosticSignError", link = false }).fg,
-    bg = vim.api.nvim_get_hl(0, { name = "ColorColumn", link = false }).bg,
+    bg = bottom_bg,
   })
   vim.api.nvim_set_hl(0, "StatusLineDiagnosticSignWarn", {
     fg = vim.api.nvim_get_hl(0, { name = "DiagnosticSignWarn", link = false }).fg,
-    bg = vim.api.nvim_get_hl(0, { name = "ColorColumn", link = false }).bg,
+    bg = bottom_bg,
   })
   vim.api.nvim_set_hl(0, "StatusLineDiagnosticSignInfo", {
     fg = vim.api.nvim_get_hl(0, { name = "DiagnosticSignInfo", link = false }).fg,
-    bg = vim.api.nvim_get_hl(0, { name = "ColorColumn", link = false }).bg,
+    bg = bottom_bg,
   })
   vim.api.nvim_set_hl(0, "StatusLineDiagnosticSignHint", {
     fg = vim.api.nvim_get_hl(0, { name = "DiagnosticSignHint", link = false }).fg,
-    bg = vim.api.nvim_get_hl(0, { name = "ColorColumn", link = false }).bg,
+    bg = bottom_bg,
   })
 
   last_colorscheme = current_colorscheme
+end
+
+local function get_colors()
+  return color_map[vim.g.colors_name][vim.opt.background:get()]
+end
+
+local last_mode = ""
+
+local function update_mode_highlights()
+  local current_mode = vim.api.nvim_get_mode().mode
+  if current_mode == last_mode then
+    return
+  end
+
+  local fg, bg = unpack(get_colors()[current_mode])
+
+  vim.api.nvim_set_hl(0, "StatusLineTop", { fg = bg, bg = fg })
+  vim.api.nvim_set_hl(0, "StatusLineTopSep", { fg = fg, bg = bg })
+  vim.api.nvim_set_hl(0, "StatusLineMiddle", { fg = fg, bg = bg })
+  vim.api.nvim_set_hl(0, "StatusLineMiddleSep", {
+    fg = bg,
+    bg = vim.api.nvim_get_hl(0, { name = "ColorColumn", link = false }).bg,
+  })
+
+  last_mode = current_mode
 end
 
 ---Output the content colored by the supplied highlight group.
@@ -284,7 +290,8 @@ end
 ---@param content string
 ---@return string
 local function colorize(hl_group, content)
-  return string.format("%%#%s#%s%%*", hl_group, content)
+  -- Use %* (%%* escaped) suffix to reset highlight group.
+  return string.format("%%#%s#%s", hl_group, content)
 end
 
 -- Conditions
@@ -346,8 +353,31 @@ local function get_mode()
   return " " .. mode .. " "
 end
 
+-- Git
+local git_diff_params = {
+  { "added",   icons.circle.plus,  "StatusLineGitDiffAdd" },
+  { "changed", icons.circle.dot,   "StatusLineGitDiffChange" },
+  { "removed", icons.circle.minus, "StatusLineGitDiffDelete" },
+}
+
+local function git_diff()
+  local gsd = vim.b.gitsigns_status_dict
+
+  local res = ""
+  for _, group in ipairs(git_diff_params) do
+    local type, icon, hl = unpack(group)
+    local val = gsd[type] or 0
+
+    if val > 0 then
+      res = res .. colorize(hl, string.format(" " .. icon .. " " .. val))
+    end
+  end
+
+  return res
+end
+
 -- LSP
-local function getlsp_clients()
+local function get_lsp_clients()
   local buf_client_names = {}
 
   for _, client in pairs(vim.lsp.get_clients { bufnr = vim.api.nvim_get_current_buf() }) do
@@ -414,32 +444,9 @@ local function get_diagnostic_all()
   return res
 end
 
--- Git
-local git_diff_params = {
-  { "added",   icons.circle.plus,  "StatusLineGitDiffAdd" },
-  { "changed", icons.circle.dot,   "StatusLineGitDiffChange" },
-  { "removed", icons.circle.minus, "StatusLineGitDiffDelete" },
-}
-
-local function git_diff()
-  local gsd = vim.b.gitsigns_status_dict
-
-  local res = ""
-  for _, group in ipairs(git_diff_params) do
-    local type, icon, hl = unpack(group)
-    local val = gsd[type] or 0
-
-    if val > 0 then
-      res = res .. colorize(hl, string.format(" " .. icon .. " " .. val))
-    end
-  end
-
-  return res
-end
-
 -- Statusline
 local function build(sections)
-  local prepared = {}
+  local built = {}
 
   for _, section in ipairs(sections) do
     if section.cond and not section.cond() then
@@ -448,7 +455,7 @@ local function build(sections)
 
     -- Handle string components
     if type(section) == "string" then
-      table.insert(prepared, section)
+      table.insert(built, section)
       goto continue
     end
 
@@ -460,12 +467,12 @@ local function build(sections)
       element = colorize(section.hl, element)
     end
 
-    table.insert(prepared, element)
+    table.insert(built, element)
 
     ::continue::
   end
 
-  return prepared
+  return built
 end
 
 local comps = {
@@ -605,7 +612,7 @@ local comps = {
       cond = diagnostic_exists,
     },
     server = {
-      getlsp_clients,
+      get_lsp_clients,
       hl = "StatusLineBottom",
       cond = function()
         return diagnostic_exists() and wide_enough(55)
@@ -647,7 +654,8 @@ local sections = {
 }
 
 function M.render()
-  update_highlights()
+  update_colorscheme_highlights()
+  update_mode_highlights()
 
   -- Filter out elements that are nil or false.
   return table.concat(

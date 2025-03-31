@@ -7,29 +7,6 @@ local icons = utils.icons
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
-local function get_gopls_config()
-  if utils.is_yandex() then
-    -- Custom gopls clubs/arcadia/29210
-    -- Custom gopls index dirs IGNIETFERRO-2091
-    -- Need to create a .arcadia.root file in the root go.mod dir
-    return {
-      -- cmd = { "ya", "tool", "gopls" },
-      cmd = { os.getenv "HOME" .. "/.ya/tools/v4/gopls-linux/gopls" },
-      -- root_dir = lspconfig.util.root_pattern("YAOWNERS", "ya.make", ".arcadia.root", "go.work", "go.mod", ".git"),
-      settings = {
-        gopls = {
-          arcadiaIndexDirs = {
-            os.getenv "HOME" .. "/cloudia/cloud-go/cloud/cloud-go/cloudgate",
-            os.getenv "HOME" .. "/cloudia/cloud-go/cloud/cloud-go/healthcheck",
-          },
-        },
-      },
-    }
-  end
-
-  return {}
-end
-
 -- LSP servers custom configs
 local servers = {
   buf_ls = {},
@@ -69,7 +46,21 @@ local servers = {
       },
     },
   },
-  gopls = get_gopls_config(),
+  gopls = utils.ternary(utils.is_yandex, {
+    -- Custom gopls clubs/arcadia/29210
+    -- Custom gopls index dirs IGNIETFERRO-2091
+    -- Need to create a .arcadia.root file in the root go.mod dir
+    -- root_dir = lspconfig.util.root_pattern("YAOWNERS", "ya.make", ".arcadia.root", "go.work", "go.mod", ".git"),
+    cmd = { os.getenv "HOME" .. "/.ya/tools/v4/gopls-linux/gopls" },
+    settings = {
+      gopls = {
+        arcadiaIndexDirs = {
+          os.getenv "HOME" .. "/cloudia/cloud-go/cloud/cloud-go/cloudgate",
+          os.getenv "HOME" .. "/cloudia/cloud-go/cloud/cloud-go/healthcheck",
+        },
+      },
+    },
+  }, {}),
   rust_analyzer = {
     capabilities = {
       experimental = {
@@ -122,15 +113,7 @@ vim.diagnostic.config {
     prefix = icons.duck,
   },
   signs = false,
-  float = {
-    border = "single",
-  },
-  update_in_insert = false,
 }
-
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-  border = "single",
-})
 
 -- Signs
 local signs = {
@@ -150,5 +133,5 @@ for type, icon in pairs(signs) do
   })
 end
 
--- Colors
+-- Fix diagnostic text in floating windows to match diagnostic text anywhere else
 vim.api.nvim_set_hl(0, "DiagnosticFloatingWarn", { link = "Type" })
