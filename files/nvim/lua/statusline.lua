@@ -202,16 +202,16 @@ local function update_colorscheme_highlights()
   vim.api.nvim_set_hl(0, "FloatTitle", { link = "Normal" })
 
   vim.api.nvim_set_hl(0, "GitSignsAdd", {
-    fg = vim.api.nvim_get_hl(0, { name = "DiagnosticSignOk", link = false }).bg,
-    bg = vim.api.nvim_get_hl(0, { name = "DiagnosticSignOk", link = false }).fg,
+    fg = nil,
+    bg = vim.api.nvim_get_hl(0, { name = "DiagnosticOk", link = false }).fg,
   })
   vim.api.nvim_set_hl(0, "GitSignsChange", {
-    fg = vim.api.nvim_get_hl(0, { name = "DiagnosticSignWarn", link = false }).bg,
-    bg = vim.api.nvim_get_hl(0, { name = "DiagnosticSignWarn", link = false }).fg,
+    fg = nil,
+    bg = vim.api.nvim_get_hl(0, { name = "DiagnosticWarn", link = false }).fg,
   })
   vim.api.nvim_set_hl(0, "GitSignsDelete", {
-    fg = vim.api.nvim_get_hl(0, { name = "DiagnosticSignError", link = false }).bg,
-    bg = vim.api.nvim_get_hl(0, { name = "DiagnosticSignError", link = false }).fg,
+    fg = nil,
+    bg = vim.api.nvim_get_hl(0, { name = "DiagnosticError", link = false }).fg,
   })
 
   local bottom_bg = vim.api.nvim_get_hl(0, { name = "ColorColumn", link = false }).bg
@@ -225,35 +225,35 @@ local function update_colorscheme_highlights()
     bg = bottom_bg,
   })
   vim.api.nvim_set_hl(0, "StatusLineGitDiffAdd", {
-    fg = vim.api.nvim_get_hl(0, { name = "DiagnosticSignOk", link = false }).fg,
+    fg = vim.api.nvim_get_hl(0, { name = "DiagnosticOk", link = false }).fg,
     bg = bottom_bg,
   })
   vim.api.nvim_set_hl(0, "StatusLineGitDiffChange", {
-    fg = vim.api.nvim_get_hl(0, { name = "DiagnosticSignWarn", link = false }).fg,
+    fg = vim.api.nvim_get_hl(0, { name = "DiagnosticWarn", link = false }).fg,
     bg = bottom_bg,
   })
   vim.api.nvim_set_hl(0, "StatusLineGitDiffDelete", {
-    fg = vim.api.nvim_get_hl(0, { name = "DiagnosticSignError", link = false }).fg,
+    fg = vim.api.nvim_get_hl(0, { name = "DiagnosticError", link = false }).fg,
     bg = bottom_bg,
   })
   vim.api.nvim_set_hl(0, "StatusLineLspIcon", {
     fg = vim.api.nvim_get_hl(0, { name = "Constant", link = false }).fg,
     bg = bottom_bg,
   })
-  vim.api.nvim_set_hl(0, "StatusLineDiagnosticSignError", {
-    fg = vim.api.nvim_get_hl(0, { name = "DiagnosticSignError", link = false }).fg,
+  vim.api.nvim_set_hl(0, "StatusLineDiagnosticError", {
+    fg = vim.api.nvim_get_hl(0, { name = "DiagnosticError", link = false }).fg,
     bg = bottom_bg,
   })
-  vim.api.nvim_set_hl(0, "StatusLineDiagnosticSignWarn", {
-    fg = vim.api.nvim_get_hl(0, { name = "DiagnosticSignWarn", link = false }).fg,
+  vim.api.nvim_set_hl(0, "StatusLineDiagnosticWarn", {
+    fg = vim.api.nvim_get_hl(0, { name = "DiagnosticWarn", link = false }).fg,
     bg = bottom_bg,
   })
-  vim.api.nvim_set_hl(0, "StatusLineDiagnosticSignInfo", {
-    fg = vim.api.nvim_get_hl(0, { name = "DiagnosticSignInfo", link = false }).fg,
+  vim.api.nvim_set_hl(0, "StatusLineDiagnosticInfo", {
+    fg = vim.api.nvim_get_hl(0, { name = "DiagnosticInfo", link = false }).fg,
     bg = bottom_bg,
   })
-  vim.api.nvim_set_hl(0, "StatusLineDiagnosticSignHint", {
-    fg = vim.api.nvim_get_hl(0, { name = "DiagnosticSignHint", link = false }).fg,
+  vim.api.nvim_set_hl(0, "StatusLineDiagnosticHint", {
+    fg = vim.api.nvim_get_hl(0, { name = "DiagnosticHint", link = false }).fg,
     bg = bottom_bg,
   })
 
@@ -409,10 +409,10 @@ local diag_severity_to_icon_map = {
 }
 
 local diag_params = {
-  { vim.diagnostic.severity.ERROR, icons.diagnostic.error,   "StatusLineDiagnosticSignError" },
-  { vim.diagnostic.severity.WARN,  icons.diagnostic.warning, "StatusLineDiagnosticSignWarn" },
-  { vim.diagnostic.severity.INFO,  icons.diagnostic.info,    "StatusLineDiagnosticSignInfo" },
-  { vim.diagnostic.severity.HINT,  icons.diagnostic.hint,    "StatusLineDiagnosticSignHint" },
+  { vim.diagnostic.severity.ERROR, icons.diagnostic.error,   "StatusLineDiagnosticError" },
+  { vim.diagnostic.severity.WARN,  icons.diagnostic.warning, "StatusLineDiagnosticWarn" },
+  { vim.diagnostic.severity.INFO,  icons.diagnostic.info,    "StatusLineDiagnosticInfo" },
+  { vim.diagnostic.severity.HINT,  icons.diagnostic.hint,    "StatusLineDiagnosticHint" },
 }
 
 local function get_diagnostic_by_severity(severity)

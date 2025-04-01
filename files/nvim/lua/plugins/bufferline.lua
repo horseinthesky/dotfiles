@@ -2,7 +2,7 @@ local map = require("utils").map
 
 map("n", "<leader>bp", "<cmd>BufferLinePick<CR>")
 
-for buffer = 1,9 do
+for buffer = 1, 9 do
   map("n", "<leader>" .. buffer, "<cmd>BufferLineGoToBuffer " .. buffer .. "<CR>")
 end
 
@@ -17,25 +17,24 @@ require("bufferline").setup {
     show_tab_indicators = false,
     tab_size = 5,
     numbers = function(opts)
-      if vim.api.nvim_get_current_tabpage() == opts.id then return "" end
+      if vim.api.nvim_get_current_tabpage() == opts.id then
+        return ""
+      end
+
       return opts.ordinal
     end,
   },
   highlights = {
     indicator_selected = {
       fg = {
-          attribute = "fg",
-          highlight = "Type"
-      },
-      bg = {
-          attribute = "bg",
-          highlight = "Type"
+        attribute = "fg",
+        highlight = "Type",
       },
     },
-    numbers= {
+    numbers = {
       fg = {
-          attribute = "fg",
-          highlight = "Type"
+        attribute = "fg",
+        highlight = "Type",
       },
     },
     buffer_selected = {
@@ -45,6 +44,12 @@ require("bufferline").setup {
       italic = false,
     },
     pick_selected = {
+      italic = false,
+    },
+    duplicate = {
+      italic = false,
+    },
+    duplicate_selected = {
       italic = false,
     },
   },

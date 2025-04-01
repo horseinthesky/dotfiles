@@ -112,25 +112,19 @@ vim.diagnostic.config {
     spacing = 4,
     prefix = icons.duck,
   },
-  signs = false,
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = icons.diagnostic.error,
+      [vim.diagnostic.severity.WARN] = icons.diagnostic.warning,
+      [vim.diagnostic.severity.INFO] = icons.diagnostic.info,
+      [vim.diagnostic.severity.HINT] = icons.diagnostic.hint,
+    },
+  },
 }
 
--- Signs
-local signs = {
-  Error = icons.diagnostic.error,
-  Warn = icons.diagnostic.warning,
-  Hint = icons.diagnostic.hint,
-  Info = icons.diagnostic.info,
-}
-
-for type, icon in pairs(signs) do
-  local hl = "DiagnosticSign" .. type
-
-  vim.fn.sign_define(hl, {
-    text = icon,
-    texthl = hl,
-    numhl = "",
-  })
+-- Remove background from diagnostic signs groups
+for _, severity in ipairs { "Error", "Warn", "Info", "Hint" } do
+  vim.api.nvim_set_hl(0, "DiagnosticSign" .. severity, { link = "Diagnostic" .. severity })
 end
 
 -- Fix diagnostic text in floating windows to match diagnostic text anywhere else
