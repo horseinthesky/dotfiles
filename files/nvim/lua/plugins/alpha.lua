@@ -30,11 +30,13 @@ local buttons = {
   type = "group",
   val = {
     button("e", "  New file", ":ene <BAR> startinsert <CR>"),
+    button("r", "  Recent files", ":Telescope oldfiles <CR>"),
     button("f", "󰈞  Find file", ":Telescope find_files <CR>"),
-    button("r", "  Recently used files", ":Telescope oldfiles <CR>"),
     button("g", "  Live grep", ":Telescope live_grep <CR>"),
     button("p", "  Find project", ":Telescope project <CR>"),
-    button("c", "  Configuration", ":e $MYVIMRC<CR>"),
+    button("c", "  Configuration", function()
+      Snacks.dashboard.pick("files", { cwd = vim.fn.stdpath "config" .. "/lua" })
+    end),
     button("q", "  Quit", ":qa<CR>"),
   },
   opts = {

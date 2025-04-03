@@ -1,6 +1,6 @@
 local map = require("utils").map
 
-map("n", "<leader>bp", "<cmd>BufferLinePick<CR>")
+map("n", "<leader>bp", "<cmd>BufferLinePick<CR>", { desc = "Pick" })
 
 for buffer = 1, 9 do
   map("n", "<leader>" .. buffer, "<cmd>BufferLineGoToBuffer " .. buffer .. "<CR>")

@@ -26,23 +26,23 @@ local mappings = {
   { "n", "<A-j>", ":m .+1<CR>==" },
   { "n", "<A-k>", ":m .-2<CR>==" },
   -- strip all trailing whitespace in the current file while saving last search pattern
-  { "n", "<leader>W", "<cmd>let _s=@/ <Bar> %s/\\s\\+$//e <Bar> let @/=_s <Bar> unlet _s<CR>" },
+  { "n", "<leader>W", "<cmd>let _s=@/ <Bar> %s/\\s\\+$//e <Bar> let @/=_s <Bar> unlet _s<CR>", { desc = "Strip trailing whitespaces" } },
 
   -- Yank & paste
   { "n", "<leader>A", "<cmd>%y<CR>", { desc = "Yank the whole buffer" } },
   -- copy to system clipboard
-  { "n", "<leader>C", '"+y' },
+  { "n", "<leader>C", '"+y', { desc = "Copy to system clipboard" } },
   { "n", "<leader>CC", "<leader>C_", { remap = true } },
-  { "x", "<leader>C", '"+y' },
+  { "x", "<leader>C", '"+y', { desc = "Copy to system clipboard" } },
   -- when paste in visual mode keep yanked text in void register after each paste
   -- makes you able to paste same text multiple times
-  { "x", "<leader>p", '"_dP' },
+  { "x", "<leader>p", '"_dP', { desc = "Paste white keeping original text" } },
   -- select code that was just pasted in the visual mode last used
-  { "n", "<leader>v", "'`[' . strpart(getregtype(), 0, 1) . '`]'", { expr = true } },
+  { "n", "<leader>v", "'`[' . strpart(getregtype(), 0, 1) . '`]'", { expr = true, desc = "Reselect pasted text" } },
 
   -- Splits
-  { "n", "<leader>;", "<cmd>vsplit n<CR>" },
-  { "n", "<leader>'", "<cmd>split n<CR>" },
+  { "n", "<leader>;", "<cmd>vsplit n<CR>", { desc = "Vertical split" } },
+  { "n", "<leader>'", "<cmd>split n<CR>", { desc = "Horizontal split" } },
   -- split navigation
   { "n", "<C-j>", "<C-w><C-j>" },
   { "n", "<C-k>", "<C-w><C-k>" },
@@ -59,45 +59,42 @@ local mappings = {
   { "i", "<C-Down>", "<cmd>resize -3<CR>" },
 
   -- Buffers
-  { "n", "]b", "<cmd>bnext<CR>" },
-  { "n", "[b", "<cmd>bprev<CR>" },
-  { "n", "<leader>B", ":ls<CR>:b<Space>" },
-  { "n", "<leader>bd", "<cmd>bdelete<CR>" },
-  { "n", "<leader>bo", "<cmd>%bdelete|edit#|bdelete#<CR>" },
+  { "n", "<leader>B", ":ls<CR>:b<Space>", { desc = "Go to buffer N" } },
+  { "n", "<leader>bd", "<cmd>bdelete<CR>", { desc = "Delete" } },
+  { "n", "<leader>bo", "<cmd>%bdelete|edit#|bdelete#<CR>", { desc = "Keep only this one" } },
 
   -- Tabs
-  { "n", "]t", "<cmd>tabn<CR>" },
-  { "n", "[t", "<cmd>tabp<CR>" },
-  { "n", "<leader>tt", "<cmd>tabnew<CR>" },
-  { "n", "<leader>tc", "<cmd>tabclose<CR>" },
-  { "n", "<leader>to", "<cmd>tabonly<cr>" },
-  { "n", "<leader>th", "<cmd>-tabmove<CR>" },
-  { "n", "<leader>tl", "<cmd>+tabmove<CR>" },
-  { "n", "<leader>tj", "<cmd>tabmove 0<CR>" },
-  { "n", "<leader>tk", "<cmd>tabmove $<CR>" },
+  { "n", "]t", "<cmd>tabn<CR>", { desc = "Next tab" } },
+  { "n", "[t", "<cmd>tabp<CR>", { desc = "Prev tab" } },
+  -- { "n", "<leader>T", "<cmd>%s/\t/    /g<CR>", { desc = "Replace all <tab>s with 4 whitespaces" } },
+  { "n", "<leader>tt", "<cmd>tabnew<CR>", { desc = "New tab" } },
+  { "n", "<leader>tc", "<cmd>tabclose<CR>", { desc = "Close tab" } },
+  { "n", "<leader>to", "<cmd>tabonly<cr>", { desc = "Keep only this one" } },
+  { "n", "<leader>th", "<cmd>-tabmove<CR>", { desc = "Move left" } },
+  { "n", "<leader>tl", "<cmd>+tabmove<CR>", { desc = "Move right" } },
+  { "n", "<leader>tj", "<cmd>tabmove 0<CR>", { desc = "Move to left edge" } },
+  { "n", "<leader>tk", "<cmd>tabmove $<CR>", { desc = "Move to right edge" } },
   -- <tab> / <s-tab> | Circular windows navigation
   { "n", "<Tab>", "<cmd>tabn<CR>" },
   { "n", "<S-Tab>", "<cmd>tabp<CR>" },
-  -- replace all <tab>s with 4 whitespaces
-  -- { "n", "<leader>T", "<cmd>%s/\t/    /g<CR>" },
 
   -- Multiple replace
   -- Press * to search for the term under the cursor and then press a key below
   -- to replace all instances of it in the current file.
   -- Second binding is for comfirmation.
-  { "n", "<leader>rr", ":%s///g<Left><Left>", { silent = false } },
-  { "n", "<leader>rc", ":%s///gc<Left><Left><Left>", { silent = false } },
+  { "n", "<leader>rr", ":%s///g<Left><Left>", { silent = false, desc = "Replace all entries" } },
+  { "n", "<leader>rc", ":%s///gc<Left><Left><Left>", { silent = false, desc = "Replace with confirmation" } },
   -- The same as above but instead of acting on the whole file it will be
   -- restricted to the previously visually selected range. You can do that by
   -- pressing *, visually selecting the range you want it to apply to and then
   -- press a key below to replace all instances of it in the current selection.
-  { "x", "<leader>rr", ":s///g<Left><Left>", { silent = false } },
-  { "x", "<leader>rc", ":s///gc<Left><Left><Left>", { silent = false } },
+  { "x", "<leader>rr", ":s///g<Left><Left>", { silent = false, desc = "Replace all entries" } },
+  { "x", "<leader>rc", ":s///gc<Left><Left><Left>", { silent = false, desc = "Replace with confirmation" } },
   -- Press key below on the word or on visual selection and type a replacement term.
   -- Press . to repeat the replacement again. Useful
   -- for replacing a few instances of the term (comparable to multiple cursors).
-  { "n", "<leader>rs", ":let @/='\\<'.expand('<cword>').'\\>'<CR>cgn" },
-  { "x", "<leader>rs", '"sy:let @/=@s<CR>cgn' },
+  { "n", "<leader>rs", ":let @/='\\<'.expand('<cword>').'\\>'<CR>cgn", { desc = "Replace one entry" } },
+  { "x", "<leader>rs", '"sy:let @/=@s<CR>cgn', { desc = "Replace one entry" } },
 }
 
 for _, keymap in ipairs(mappings) do

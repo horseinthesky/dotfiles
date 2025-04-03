@@ -33,7 +33,7 @@ require("gitsigns").setup {
     end)
 
     -- Actions
-    map("n", "<leader>gh", gs.preview_hunk)
-    map("n", "<leader>gw", gs.blame_line)
+    map("n", "<leader>gh", gs.preview_hunk, { desc = "Preview hunk" })
+    map("n", "<leader>gw", gs.blame_line, { desc = "Blame (who)" })
   end,
 }

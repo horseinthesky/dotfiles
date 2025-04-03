@@ -20,6 +20,13 @@ vim.opt.rtp:prepend(lazypath)
 local plugins = {
   -- Features
   {
+    "folke/snacks.nvim",
+    event = "VeryLazy",
+    config = function()
+      require "plugins.snacks"
+    end,
+  },
+  {
     "goolord/alpha-nvim",
     lazy = false,
     config = function()
@@ -55,16 +62,11 @@ local plugins = {
     end,
   },
   {
-    "stevearc/dressing.nvim",
-    event = "VeryLazy",
-  },
-  {
     "lukas-reineke/indent-blankline.nvim",
     event = "VeryLazy",
     config = function()
       require("ibl").setup {
         scope = {
-          -- enabled = false,
           show_start = false,
           show_end = false,
         },
@@ -371,21 +373,16 @@ local map = utils.map
 local telescope_mappings = {
   -- regular search mappings
   { "n", "<leader>ff", "<CMD>Telescope find_files hidden=true<CR>" },
+  -- {"n", "<leader>fb", "<CMD>Telescope current_buffer_fuzzy_find<CR>"},
   -- {"n", "<leader>fB", "<CMD>Telescope builtin previewer=false<CR>"},
-  -- {"n", "<leader>fb", "<CMD>Telescope buffers<CR>"},
-  -- {"n", "<leader>fe", "<CMD>Telescope current_buffer_fuzzy_find<CR>"},
   -- {"n", "<leader>fh", "<CMD>Telescope help_tags<CR>"},
   -- {"n", "<leader>fg", "<CMD>Telescope live_grep<CR>"},
   -- {"n", "<leader>fw", "<CMD>Telescope grep_string<CR>"},
-  { "n", "<leader>fr", "<CMD>Telescope registers<CR>" },
-  -- {"n", "<leader>fm", "<CMD>Telescope marks<CR>"},
   { "n", "<leader>fk", "<CMD>Telescope keymaps<CR>" },
-  -- {"n", "<leader>fO", "<CMD>Telescope oldfiles<CR>"},
-  { "n", "<leader>fc", "<CMD>Telescope commands<CR>" },
   { "n", "<leader>fo", "<CMD>Telescope vim_options<CR>" },
   { "n", "<leader>fa", "<CMD>Telescope autocommands<CR>" },
   { "n", "<leader>fH", "<CMD>Telescope highlights<CR>" },
-  { "n", "<leader>fC", "<CMD>Telescope colorscheme<CR>" },
+  { "n", "<leader>fc", "<CMD>Telescope colorscheme<CR>" },
   { "n", "<leader>fS", "<CMD>Telescope symbols<CR>" },
 
   -- git search mappings
@@ -418,16 +415,9 @@ local fzf_mappings = {
   { "n", "<leader>fg", "<CMD>FzfLua live_grep<CR>" },
   { "n", "<leader>fw", "<CMD>FzfLua grep_cword<CR>" },
   { "n", "<leader>fh", "<CMD>FzfLua help_tags<CR>" },
-  { "n", "<leader>fb", "<CMD>FzfLua buffers<CR>" },
-  { "n", "<leader>ft", "<CMD>FzfLua tabs<CR>" },
+  { "n", "<leader>fb", "<CMD>FzfLua blines<CR>" },
   { "n", "<leader>fB", "<CMD>FzfLua builtin<CR>" },
-  { "n", "<leader>fe", "<CMD>FzfLua blines<CR>" },
-  { "n", "<leader>fE", "<CMD>FzfLua lines<CR>" },
-  -- {"n", "<leader>fr", "<CMD>FzfLua registers<CR>"},
-  { "n", "<leader>fm", "<CMD>FzfLua marks<CR>" },
   -- { "n", "<leader>fk", "<CMD>FzfLua keymaps<CR>" },
-  -- {"n", "<leader>fc", "<CMD>FzfLua commands<CR>"},
-  { "n", "<leader>fO", "<CMD>FzfLua oldfiles<CR>" },
 
   -- git search mappings
   { "n", "<leader>gb", "<CMD>FzfLua git_branches<CR>" },
@@ -453,23 +443,23 @@ end
 -- neogen
 map("n", "<leader>af", function()
   require("neogen").generate { type = "func" }
-end)
+end, { desc = "Type" })
 map("n", "<leader>ac", function()
   require("neogen").generate { type = "class" }
-end)
+end, { desc = "Type" })
 map("n", "<leader>at", function()
   require("neogen").generate { type = "type" }
-end)
+end, { desc = "Type" })
 
 -- hop
-map("n", "f", "<CMD>HopChar1<CR>")
+map("n", "f", "<CMD>HopChar1<CR>", { desc = "Hop" })
 
--- indentline
-map("n", "<leader>I", "<CMD>IBLToggle<CR>")
+-- indent-blankline
+map("n", "<leader>I", "<CMD>IBLToggle<CR>", { desc = "Indent toggle" })
 
 -- oil
-map("n", "-", "<CMD>Oil<CR>")
+map("n", "-", "<CMD>Oil<CR>", { desc = "Oil" })
 
 -- markview
-map("n", "<leader>M", "<CMD>Markview<CR>")
-map("n", "<leader>ms", "<CMD>Markview splitToggle<CR>")
+map("n", "<leader>M", "<CMD>Markview<CR>", { desc = "Markview toggle" })
+map("n", "<leader>ms", "<CMD>Markview splitToggle<CR>", { desc = "Split" })

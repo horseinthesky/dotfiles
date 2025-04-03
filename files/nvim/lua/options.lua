@@ -214,15 +214,6 @@ vim.api.nvim_create_autocmd("BufReadPost", {
   end,
 })
 
--- Turning number/relativenumer off for terminal windows
-vim.api.nvim_create_autocmd("TermOpen", {
-  callback = function()
-    vim.opt_local.relativenumber = false
-    vim.opt_local.number = false
-    vim.cmd [[startinsert]]
-  end,
-})
-
 -- Notify if file is changed outside of vim
 local checktime_group = vim.api.nvim_create_augroup("auto_checktime", { clear = true })
 

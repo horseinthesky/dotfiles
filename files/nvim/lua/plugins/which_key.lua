@@ -25,10 +25,7 @@ wk.setup(conf)
 
 -- Desc
 wk.add {
-  -- g
-  { "gd", group = "Diff" },
-  { "gdh", desc = "Diff from (left)" },
-  { "gdl", desc = "Diff to (right)" },
+  ---- g
   { "gs", desc = "Split/join array" },
   { "gn", desc = "Show filename" },
   { "gf", hidden = true, desc = "Go to file under cursor" },
@@ -43,8 +40,15 @@ wk.add {
   { "g'", hidden = true, desc = "marks" },
   { "g`", hidden = true, desc = "marks" },
   { "g~", hidden = true, desc = "Toggle cases" },
+  { "g,", hidden = true, desc = "Go to [count] newer position in change list" },
+  { "g;", hidden = true, desc = "Go to [count] older position in change list" },
+  { "gO", hidden = true, desc = "Document diagnostic" },
+  { "gra", hidden = true, desc = "Code actions" },
+  { "grn", hidden = true, desc = "Code rename" },
+  { "grr", hidden = true, desc = "Code references" },
+  { "gri", hidden = true, desc = "Code implementation" },
 
-  -- v
+  ---- v
   -- Inside
   { "vi", group = "Inside" },
   { "vib", desc = "Block" },
@@ -63,7 +67,7 @@ wk.add {
   { "vom", desc = "Call" },
   { "vos", desc = "Statement" },
   { "voC", desc = "Comment" },
-  -- hidden
+  -- Hidden
   { "v0", hidden = true, desc = "Start of line" },
   { "vb", hidden = true, desc = "Prev word" },
   { "vc", hidden = true, desc = "Change" },
@@ -78,7 +82,6 @@ wk.add {
   { "]h", desc = "Git hunk" },
   { "]l", desc = "Loclist entry" },
   { "]q", desc = "Quickfixlist entry" },
-  { "]t", desc = "Tab" },
   { "]w", desc = "Whitespace" },
   { "]f", desc = "Goto next function start" },
   { "]F", desc = "Goto next function end" },
@@ -100,7 +103,6 @@ wk.add {
   { "[h", desc = "Git hunk" },
   { "[l", desc = "Loclist entry" },
   { "[q", desc = "Quickfixlist entry" },
-  { "[t", desc = "Tab" },
   { "[w", desc = "Whitespace" },
   { "[f", desc = "Goto prev function start" },
   { "[F", desc = "Goto prev function end" },
@@ -116,107 +118,42 @@ wk.add {
   { "[]", hidden = true, desc = "]" },
   { "[[", hidden = true, desc = "[" },
 
-  -- leader
-  { "<leader>'", desc = "Horizontal split" },
-  { "<leader>;", desc = "Vertical split" },
-  { "<leader>A", desc = "Yank the whole buffer" },
-  { "<leader>F", desc = "Format" },
-  { "<leader>I", desc = "Toggle indentline" },
-  { "<leader>W", desc = "Strip trailing whitespaces" },
-  { "<leader>p", desc = "Paste white keeping original text" },
-  { "<leader>v", desc = "Reselect pasted text" },
-  { "<leader>C", desc = "Copy to system clipboard" },
-  -- swap next
+  -- Buffers
+  { "<leader>b", group = "Buffers" },
+  -- Tabs
+  { "<leader>t", group = "Tabs" },
+  -- Code
+  { "<leader>c", group = "Code" },
+  -- Git
+  { "<leader>g", group = "Git" },
+  -- Replace
+  { "<leader>r", group = "Replace" },
+  -- Find
+  { "<leader>f", group = "Find" },
+  -- Find LSP
+  { "<leader>fl", group = "Lsp" },
+  { "<leader>flc", group = "Calls" },
+  { "<leader>flci", desc = "Incoming" },
+  { "<leader>flco", desc = "Outgoing" },
+
+  ---- Treesitter swap
+  -- Next
   { "<leader>s", group = "Swap next" },
   { "<leader>sb", desc = "Outer block" },
   { "<leader>sc", desc = "Outer class" },
   { "<leader>sf", desc = "Outer function" },
   { "<leader>sm", desc = "Outer call" },
-  { "<leader>sp", desc = "Inner parameter" },
+  { "<leader>sa", desc = "Inner attribute" },
   { "<leader>ss", desc = "Outer statement" },
-  -- swap prev
+  -- Prev
   { "<leader>S", group = "Swap previous" },
   { "<leader>Sc", desc = "Outer class" },
   { "<leader>Sf", desc = "Outer function" },
-  { "<leader>Sp", desc = "Inner parameter" },
-  -- Annotate
+  { "<leader>Sa", desc = "Inner attribute" },
+
+  ---- Plugins groups
+  -- neogen
   { "<leader>a", desc = "Annotate" },
-  { "<leader>ac", desc = "Class" },
-  { "<leader>af", desc = "Function" },
-  { "<leader>at", desc = "Type" },
-  -- Buffers
-  { "<leader>b", group = "Buffers" },
-  { "<leader>bd", desc = "Delete buffer" },
-  { "<leader>bp", desc = "Pick buffer" },
   -- Markview
-  { "<leader>M", desc = "Markview" },
-  { "<leader>ms", desc = "Split" },
-  -- Tabs
-  { "<leader>t", group = "Tabs" },
-  { "<leader>tc", desc = "Close tab" },
-  { "<leader>th", desc = "Move left" },
-  { "<leader>tj", desc = "Move first" },
-  { "<leader>tk", desc = "Move last" },
-  { "<leader>tl", desc = "Move right" },
-  { "<leader>to", desc = "Only this tab" },
-  { "<leader>tt", desc = "New tab" },
-  -- Code
-  { "<leader>c", group = "Code" },
-  { "<leader>cD", desc = "Line diagnostics" },
-  { "<leader>cR", desc = "Restart LSP client" },
-  { "<leader>ca", desc = "Code action" },
-  { "<leader>cd", desc = "Definition" },
-  { "<leader>ch", desc = "Hints (inlay)" },
-  { "<leader>ci", desc = "Lsp info" },
-  { "<leader>cr", desc = "Rename" },
-  -- Git
-  { "<leader>g", group = "Git" },
-  { "<leader>gb", desc = "Branches" },
-  { "<leader>gc", desc = "Commits" },
-  { "<leader>gh", desc = "Hunk" },
-  { "<leader>gs", desc = "Status" },
-  { "<leader>gw", desc = "Blame (who)" },
-  -- Replace
-  { "<leader>r", group = "Replace" },
-  { "<leader>rc", desc = "Replace with confirmation" },
-  { "<leader>rr", desc = "Replace all entries" },
-  { "<leader>rs", desc = "Replace one entry" },
-  -- Find
-  { "<leader>f", group = "Find" },
-  { "<leader>fm", desc = "Marks" },
-  { "<leader>fo", desc = "Options" },
-  { "<leader>fp", desc = "Project" },
-  { "<leader>fr", desc = "Registers" },
-  { "<leader>ft", desc = "Tabs" },
-  { "<leader>fw", desc = "Word" },
-  { "<leader>fB", desc = "Builtins" },
-  { "<leader>fC", desc = "Colorscheme" },
-  { "<leader>fE", desc = "Workspace line" },
-  { "<leader>fH", desc = "Highlights" },
-  { "<leader>fO", desc = "Oldfiles" },
-  { "<leader>fS", desc = "Symbols" },
-  { "<leader>fT", desc = "Todo-comments" },
-  { "<leader>fa", desc = "Autocommands" },
-  { "<leader>fb", desc = "Buffers" },
-  { "<leader>fc", desc = "Commands" },
-  { "<leader>fe", desc = "Buffer line" },
-  { "<leader>ff", desc = "Files" },
-  { "<leader>fh", desc = "Help" },
-  { "<leader>fg", desc = "Live grep" },
-  { "<leader>fk", desc = "Keymaps" },
-  -- Find LSP
-  { "<leader>fl", group = "Lsp" },
-  { "<leader>flD", desc = "Workspace diagnostics" },
-  { "<leader>flS", desc = "Workspace symbols" },
-  { "<leader>fld", desc = "Document diagnostics" },
-  { "<leader>fli", desc = "Implementations" },
-  { "<leader>flr", desc = "References" },
-  { "<leader>fls", desc = "Document symbols" },
-  -- Find LSP Calls
-  { "<leader>flc", group = "Calls" },
-  { "<leader>flci", desc = "Incoming" },
-  { "<leader>flco", desc = "Outgoing" },
-  -- Hidden
-  { "<leader>B", hidden = true, desc = "List buffers" },
-  { "<leader>B", hidden = true, desc = "List buffers" },
+  { "<leader>m", group = "Markview" },
 }

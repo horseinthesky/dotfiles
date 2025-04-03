@@ -13,5 +13,3 @@ require("todo-comments").setup {
     hack = "Special",
   },
 }
-
-vim.keymap.set("n", "<leader>fT", "<cmd>TodoTelescope<CR>")
