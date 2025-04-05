@@ -1,4 +1,4 @@
-local icons = require "utils".icons
+local icons = require "config.utils".icons
 
 local M = {}
 

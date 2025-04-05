@@ -1,4 +1,4 @@
-local utils = require "utils"
+local utils = require "config.utils"
 
 local mappings = {
   -- Disable annoying s key
@@ -103,7 +103,7 @@ for _, keymap in ipairs(mappings) do
 end
 
 -- Show filename
-utils.map("n", "gn", function()
+utils.nmap("gn", function()
   utils.info(vim.api.nvim_buf_get_name(0), "Filename")
 end)
 
@@ -123,3 +123,24 @@ for _, char in ipairs(chars) do
     utils.map(mode, "a" .. char, string.format(":<C-u>silent! normal! f%sF%svf%s<CR>", char, char, char))
   end
 end
+
+-- Transparency toggle
+local non_transparent_params = {}
+local is_transparent = false
+
+local function toggle_transparent()
+  if is_transparent then
+    vim.api.nvim_set_hl(0, "Normal", { bg = non_transparent_params.bg })
+    is_transparent = false
+    return
+  end
+
+  non_transparent_params = vim.api.nvim_get_hl(0, { name = "Normal", link = false })
+
+  vim.api.nvim_set_hl(0, "Normal", {
+    bg = nil,
+  })
+  is_transparent = true
+end
+
+utils.nmap("<C-t>", toggle_transparent, { silent = true })

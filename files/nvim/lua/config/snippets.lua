@@ -1,4 +1,4 @@
-local map = require("utils").map
+local map = require("config.utils").map
 
 -- Load VS Code snippets
 require("luasnip.loaders.from_vscode").lazy_load()
@@ -89,6 +89,12 @@ ls.add_snippets("all", {
     "hack",
     f(function()
       return comment "HACK"
+    end)
+  ),
+  s(
+    "bug",
+    f(function()
+      return comment "BUG"
     end)
   ),
 })

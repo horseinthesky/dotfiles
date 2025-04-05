@@ -1,11 +1,17 @@
 -- Sensible defaults
 require "options"
 
--- Key mappings
+-- Handy autocommands
+require "autocmds"
+
+-- Convenient keymaps
 require "keymaps"
 
--- Install and run plugins
-require "plugins"
+-- Useful plugins
+require "manager"
 
--- Init colorscheme and highlights
-require "highlights"
+-- Sexy colorscheme
+require "colorscheme"
+
+-- Indispensable LSP servers
+require "lsp"

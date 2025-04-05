@@ -1,59 +1,6 @@
-local utils = require "utils"
-
--- Neovim providers
-vim.g.clipboard = {
-  name = "OSC 52",
-  copy = {
-    ["+"] = require("vim.ui.clipboard.osc52").copy "+",
-    ["*"] = require("vim.ui.clipboard.osc52").copy "*",
-  },
-  paste = {
-    ["+"] = function()
-      return {}
-    end,
-    ["*"] = function()
-      return {}
-    end,
-  },
-}
-
-vim.g.loaded_python3_provider = 0
-vim.g.loaded_ruby_provider = 0
-vim.g.loaded_perl_provider = 0
-vim.g.loaded_node_provider = 0
-
 -- Colorscheme
 vim.g.theme = "gruvbox"
 -- vim.g.theme = "tokyonight-storm"
-
--- Disable loading builtin plugins
-local disabled_built_ins = {
-  "gzip",
-  "zip",
-  "zipPlugin",
-  "tar",
-  "tarPlugin",
-
-  "2html_plugin",
-  "getscript",
-  "getscriptPlugin",
-  "vimball",
-  "vimballPlugin",
-
-  "matchit",
-  "matchparen",
-  "logipat",
-  "rrhelper",
-
-  "netrw",
-  "netrwPlugin",
-  "netrwSettings",
-  "netrwFileHandlers",
-}
-
-for _, plugin in ipairs(disabled_built_ins) do
-  vim.g["loaded_" .. plugin] = 1
-end
 
 -- Options
 local settings = {
@@ -128,123 +75,56 @@ local settings = {
   expandtab = true, -- Expand tabs into spaces
   smartindent = true,
   shiftround = true, -- When shifting lines, round the indentation to the nearest multiple of “shiftwidth.”
-  statusline = [[%!v:lua.require("statusline").render()]],
+  statusline = [[%!v:lua.require("config.statusline").render()]],
 }
 
 for option, value in pairs(settings) do
   vim.opt[option] = value
 end
 
--- Shiftwidth, tabstop & expandtab settings based on filetype
-local ft_settings = {
-  help = {
-    colorcolumn = {},
+-- Diable default providers
+vim.g.clipboard = {
+  name = "OSC 52",
+  copy = {
+    ["+"] = require("vim.ui.clipboard.osc52").copy "+",
+    ["*"] = require("vim.ui.clipboard.osc52").copy "*",
   },
-  python = {
-    shiftwidth = 4,
-    tabstop = 4,
-  },
-  make = {
-    shiftwidth = 4,
-    tabstop = 4,
-    expandtab = false,
-  },
-  jinja = {
-    shiftwidth = 2,
-  },
-  go = {
-    shiftwidth = 4,
-    tabstop = 4,
-    expandtab = false,
-  },
-  terraform = {
-    commentstring = "# %s",
-  },
-}
-
-local tab_group = vim.api.nvim_create_augroup("TabSettings", { clear = true })
-
-for ft, opts in pairs(ft_settings) do
-  vim.api.nvim_create_autocmd("FileType", {
-    pattern = ft,
-    callback = function()
-      for opt, value in pairs(opts) do
-        vim.opt_local[opt] = value
-      end
+  paste = {
+    ["+"] = function()
+      return {}
     end,
-    group = tab_group,
-  })
-end
-
--- Hack for salt templates
-vim.filetype.add {
-  pattern = {
-    ["${HOME}/.*/salt%-formula/.*%.yaml"] = "jinja",
-    ["${HOME}/.*/salt%-formula/.*%.yml"] = "jinja",
+    ["*"] = function()
+      return {}
+    end,
   },
 }
 
--- Windows to close with "q"
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "help", "lspinfo" },
-  callback = function()
-    vim.keymap.set("n", "q", "<cmd>close<CR>", { buffer = true })
-  end,
-})
+vim.g.loaded_python3_provider = 0
+vim.g.loaded_ruby_provider = 0
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_node_provider = 0
 
--- Highlight when yanking (copying) text
---  Try it with `yap` in normal mode
---  See `:help vim.highlight.on_yank()`
-vim.api.nvim_create_autocmd("TextYankPost", {
-  desc = "Highlight when yanking (copying) text",
-  callback = function()
-    vim.highlight.on_yank()
-  end,
-})
+-- Disable loading builtin plugins
+local builtin_plugins = {
+  -- File manager
+  "netrwPlugin",
 
--- Return to last edit position when opening files (You want this!)
-vim.api.nvim_create_autocmd("BufReadPost", {
-  callback = function()
-    local last_pos = vim.api.nvim_buf_get_mark(0, '"')
-    local lcount = vim.api.nvim_buf_line_count(0)
+  -- Pair elems matcher
+  "matchit",
+  "matchparen",
 
-    if last_pos[1] > 0 and last_pos[1] <= lcount then
-      pcall(vim.api.nvim_win_set_cursor, 0, last_pos)
-    end
-  end,
-})
+  -- Archive
+  "gzip",
+  "zipPlugin",
+  "tarPlugin",
 
--- Notify if file is changed outside of vim
-local checktime_group = vim.api.nvim_create_augroup("auto_checktime", { clear = true })
+  -- HTML exporter
+  "tohtml",
 
--- Trigger `checktime` when files changes on disk
--- https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
--- https://vi.stackexchange.com/questions/13692/prevent-focusgained-autocmd-running-in-command-line-editing-mode
-vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, {
-  callback = function()
-    vim.schedule(function()
-      local modes = { "n", "i", "ic" }
+  -- Tutor
+  "tutor",
+}
 
-      if utils.has_value(modes, vim.api.nvim_get_mode().mode) and vim.fn.getcmdwintype() == "" then
-        vim.cmd [[checktime]]
-      end
-    end)
-  end,
-  group = checktime_group,
-})
-
--- Notification after file change
--- https://vi.stackexchange.com/questions/13091/autocmd-event-for-autoread
-vim.api.nvim_create_autocmd("FileChangedShellPost", {
-  callback = function()
-    vim.schedule(function()
-      utils.info "File changed on disk. Buffer reloaded."
-    end)
-  end,
-  group = checktime_group,
-})
-
--- Allow files to be saved as root when forgetting to start Vim using sudo.
--- https://www.youtube.com/watch?v=AcvxrF2MrrI
--- https://www.youtube.com/watch?v=u1HgODpoijc
-vim.api.nvim_create_user_command("W", ":execute ':silent w !sudo tee % > /dev/null' | :edit!", {})
+for _, plugin in ipairs(builtin_plugins) do
+  vim.g["loaded_" .. plugin] = 1
+end

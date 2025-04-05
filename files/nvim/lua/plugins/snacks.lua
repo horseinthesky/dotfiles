@@ -1,4 +1,67 @@
-local map = require("utils").map
+local nmap = require("config.utils").nmap
+
+-- Keymaps
+local snacks_keymaps = {
+  -- General
+  { "<leader>fa", function() Snacks.picker.autocmds() end, { desc = "Autocommands" } },
+  { "<leader>fc", function() Snacks.picker.commands() end, { desc = "Commands" } },
+  { "<leader>fC", function() Snacks.picker.colorschemes() end, { desc = "Colorschemes" } },
+  { "<leader>fh", function() Snacks.picker.help() end, { desc = "Help" } },
+  { "<leader>fH", function() Snacks.picker.highlights() end, { desc = "Highlights" } },
+  { "<leader>fi", function() Snacks.picker.icons() end, { desc = "Icons" } },
+  { "<leader>fk", function() Snacks.picker.keymaps() end, { desc = "Keymaps" } },
+  { "<leader>fm", function() Snacks.picker.man() end, { desc = "Man pages" } },
+  { "<leader>fn", function() Snacks.picker.notifications() end, { desc = "Notifications" } },
+  { "<leader>e", function() Snacks.explorer { hidden = true } end, { desc = "File Explorer" } },
+
+  -- Search
+  { ";", function() Snacks.picker.smart { hidden = true } end, { desc = "Smart find files" } },
+  { "<leader>fg", function() Snacks.picker.grep() end, { desc = "Live grep" } },
+  { "<leader>fb", function() Snacks.picker.lines() end, { desc = "Buffer lines" } },
+  { "<leader>fw", function() Snacks.picker.grep_word() end, { desc = "Grep word" } },
+
+  -- LSP
+  { "<leader>fld", function() Snacks.picker.diagnostics_buffer() end, { desc = "Diagnostics" } },
+  { "<leader>flD", function() Snacks.picker.diagnostics() end, { desc = "Workspace diagnostics" } },
+  { "<leader>fls", function() Snacks.picker.lsp_symbols() end, { desc = "Symbols" } },
+  { "<leader>flS", function() Snacks.picker.lsp_workspace_symbols() end, { desc = "Workspace symbols" } },
+  { "<leader>flr", function() Snacks.picker.lsp_references() end, { desc = "References" } },
+  { "<leader>fli", function() Snacks.picker.lsp_implementations() end, { desc = "Implementations" } },
+  -- TODO: (horseinthesky) Set calls keymaps once https://github.com/folke/snacks.nvim/pull/1483 is done
+
+  -- Git
+  { "<leader>gb", function() Snacks.picker.git_branches() end, { desc = "Branches" } },
+  { "<leader>gl", function() Snacks.picker.git_log() end, { desc = "Logs" } },
+  { "<leader>gf", function() Snacks.picker.git_log_file() end, { desc = "Log file" } },
+  { "<leader>gL", function() Snacks.picker.git_log_line() end, { desc = "Log line" } },
+  { "<leader>gs", function() Snacks.picker.git_status() end, { desc = "Status" } },
+  { "<leader>gH", function() Snacks.picker.git_diff() end, { desc = "Hunk" } },
+  { "<leader>gt", function() Snacks.picker.git_stash() end, { desc = "Stash" } },
+
+  -- Other plugins
+  { "<leader>ft", function() Snacks.picker.todo_comments() end, { desc = "Todo" } },
+}
+
+for _, keymap in ipairs(snacks_keymaps) do
+  local lhs, rhs, opts = unpack(keymap)
+  nmap(lhs, rhs, opts)
+end
+
+-- LSP Progress on startup
+vim.api.nvim_create_autocmd("LspProgress", {
+  ---@param ev {data: {client_id: integer, params: lsp.ProgressParams}}
+  callback = function(ev)
+    local spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
+    vim.notify(vim.lsp.status(), "info", {
+      id = "lsp_progress",
+      title = "LSP Progress",
+      opts = function(notif)
+        notif.icon = ev.data.params.value.kind == "end" and " "
+          or spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1]
+      end,
+    })
+  end,
+})
 
 -- dashboard
 local function get_footer()
@@ -51,109 +114,33 @@ local dashboard = {
   },
 }
 
--- Setup
-require("snacks").setup {
-  input = {},
-  notifier = {},
-  dashboard = dashboard,
-  picker = {
-    win = {
-      input = {
-        keys = {
-          ["<Esc>"] = { "close", mode = { "i" } },
+return {
+  {
+    "folke/snacks.nvim",
+    lazy = false,
+    priority = 1000,
+    opts = {
+      input = {},
+      notifier = {},
+      -- dashboard = dashboard,
+      picker = {
+        win = {
+          input = {
+            keys = {
+              ["<Esc>"] = { "close", mode = { "i" } },
+            },
+          },
+        },
+        layout = {
+          preset = "sidebar",
+        },
+      },
+      styles = {
+        input = {
+          relative = "cursor",
+          row = -3,
         },
       },
     },
-    layout = {
-      preset = "sidebar",
-    },
-  },
-  styles = {
-    input = {
-      relative = "cursor",
-      row = -3,
-    },
   },
 }
-
--- Keymaps
-local snacks_keymaps = {
-  ---- Picker
-  -- General
-  { "<leader>fa", Snacks.picker.autocmds, { desc = "Autocommands" } },
-  { "<leader>fc", Snacks.picker.commands, { desc = "Commands" } },
-  { "<leader>fC", Snacks.picker.colorschemes, { desc = "Colorschemes" } },
-  { "<leader>fh", Snacks.picker.help, { desc = "Help" } },
-  { "<leader>fH", Snacks.picker.highlights, { desc = "Highlights" } },
-  { "<leader>fi", Snacks.picker.icons, { desc = "Icons" } },
-  { "<leader>fk", Snacks.picker.keymaps, { desc = "Keymaps" } },
-  { "<leader>fm", Snacks.picker.man, { desc = "Man pages" } },
-  { "<leader>fn", Snacks.picker.notifications, { desc = "Notifications" } },
-  {
-    "<leader>e",
-    function()
-      Snacks.explorer { hidden = true }
-    end,
-    { desc = "File Explorer" },
-  },
-
-  -- Search
-  {
-    ";",
-    function()
-      Snacks.picker.smart { hidden = true }
-    end,
-    { desc = "Smart find files" },
-  },
-  { "<leader>fg", Snacks.picker.grep, { desc = "Live grep" } },
-  { "<leader>fb", Snacks.picker.lines, { desc = "Buffer lines" } },
-  { "<leader>fw", Snacks.picker.grep_word, { desc = "Grep word" } },
-
-  -- LSP
-  { "<leader>fld", Snacks.picker.diagnostics_buffer, { desc = "Diagnostics" } },
-  { "<leader>flD", Snacks.picker.diagnostics, { desc = "Workspace diagnostics" } },
-  { "<leader>fls", Snacks.picker.lsp_symbols, { desc = "Symbols" } },
-  { "<leader>flS", Snacks.picker.lsp_workspace_symbols, { desc = "Workspace symbols" } },
-  { "<leader>flr", Snacks.picker.lsp_references, { desc = "References" } },
-  { "<leader>fli", Snacks.picker.lsp_implementations, { desc = "Implementations" } },
-  -- TODO: (horseinthesky) Set calls keymaps once https://github.com/folke/snacks.nvim/pull/1483 is done
-
-  -- Git
-  { "<leader>gb", Snacks.picker.git_branches, { desc = "Branches" } },
-  { "<leader>gl", Snacks.picker.git_log, { desc = "Logs" } },
-  { "<leader>gf", Snacks.picker.git_log_file, { desc = "Log file" } },
-  { "<leader>gL", Snacks.picker.git_log_line, { desc = "Log line" } },
-  { "<leader>gs", Snacks.picker.git_status, { desc = "Status" } },
-  { "<leader>gH", Snacks.picker.git_diff, { desc = "Hunk" } },
-  { "<leader>gt", Snacks.picker.git_stash, { desc = "Stash" } },
-
-  -- Other plugins
-  {
-    "<leader>ft",
-    function()
-      Snacks.picker.todo_comments()
-    end,
-    { desc = "Todo" },
-  },
-}
-
-for _, keymap in ipairs(snacks_keymaps) do
-  local lhs, rhs, opts = unpack(keymap)
-  map("n", lhs, rhs, opts)
-end
-
--- LSP Progress on startup
-vim.api.nvim_create_autocmd("LspProgress", {
-  ---@param ev {data: {client_id: integer, params: lsp.ProgressParams}}
-  callback = function(ev)
-    local spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
-    vim.notify(vim.lsp.status(), "info", {
-      id = "lsp_progress",
-      title = "LSP Progress",
-      opts = function(notif)
-        notif.icon = ev.data.params.value.kind == "end" and " "
-          or spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1]
-      end,
-    })
-  end,
-})

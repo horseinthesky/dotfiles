@@ -1,6 +1,6 @@
 local M = {}
 
-local utils = require "utils"
+local utils = require "config.utils"
 
 local function set_keymaps()
   ---- NVIM 0.10 new default keymaps
