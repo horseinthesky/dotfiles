@@ -2,10 +2,6 @@ local lspconfig = require "lspconfig"
 local on_attach = require "lsp.on_attach"
 local utils = require "config.utils"
 
--- Add additional capabilities supported by nvim-cmp
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
-
 local servers = {
   buf_ls = {},
   bashls = {},
@@ -93,7 +89,6 @@ local servers = {
 
 for server, config in pairs(servers) do
   lspconfig[server].setup(vim.tbl_deep_extend("force", {
-    capabilities = capabilities,
     on_attach = on_attach.default,
     flags = {
       debounce_text_changes = 250,

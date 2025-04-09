@@ -25,7 +25,12 @@ require("lazy").setup {
     -- Plugin specs path
     { import = "plugins" },
   },
-  defaults = { lazy = true },
+  change_detection = {
+    notify = false,
+  },
+  defaults = {
+    lazy = true
+  },
   git = {
     -- Kill processes that take more than N seconds
     timeout = 30,

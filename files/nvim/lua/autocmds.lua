@@ -54,7 +54,6 @@ local config = {
   highlight = "Error",
   ignored_filetypes = {
     "help",
-    "checkhealth",
     "alpha",
     "lazy",
     "TelescopePrompt",
@@ -83,14 +82,13 @@ end
 
 vim.api.nvim_create_autocmd("FileType", {
   callback = function()
-    vim.schedule(function()
-      highlight_trailing_whitespaces()
-    end)
+    vim.schedule(highlight_trailing_whitespaces)
   end,
 })
 
 -- Windows to close with "q"
 vim.api.nvim_create_autocmd("FileType", {
+  desc = 'Windows to close with "q"',
   pattern = { "help" },
   callback = function()
     vim.keymap.set("n", "q", "<cmd>close<CR>", { buffer = true })
@@ -109,6 +107,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 
 -- Return to last edit position when opening files (You want this!)
 vim.api.nvim_create_autocmd("BufReadPost", {
+  desc = "Return to last edit position when opening files (You want this!)",
   callback = function()
     local last_pos = vim.api.nvim_buf_get_mark(0, '"')
     local lcount = vim.api.nvim_buf_line_count(0)

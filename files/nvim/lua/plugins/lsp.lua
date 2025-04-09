@@ -1,3 +1,5 @@
+local map = require("config.utils").map
+
 return {
   {
     "neovim/nvim-lspconfig",
@@ -7,163 +9,115 @@ return {
     event = "BufReadPre",
   },
   {
-    "hrsh7th/nvim-cmp",
+    "saghen/blink.cmp",
     dependencies = {
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-nvim-lsp-signature-help",
-      "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-path",
-      "hrsh7th/cmp-cmdline",
-      "saadparwaiz1/cmp_luasnip",
       "rafamadriz/friendly-snippets",
       {
         "L3MON4D3/LuaSnip",
         config = function()
-          require "config.snippets"
+          local ls = require "luasnip"
+
+          ls.config.setup {
+            -- This tells LuaSnip to remember to keep around the last snippet.
+            -- You can jump back into it even if you move outside of the selection
+            history = true,
+
+            -- Updates as you type
+            updateevents = "TextChanged,TextChangedI",
+          }
+
+          require("luasnip.loaders.from_vscode").lazy_load()
+          require("luasnip.loaders.from_lua").load({ paths = vim.fn.stdpath "config" .. "/lua/snippets" })
+
+          -- Expand or jump to next item
+          map({ "i", "s" }, "<C-j>", function()
+            if ls.expand_or_jumpable() then
+              ls.expand_or_jump()
+            end
+          end)
+
+          -- Jump to previous item
+          map({ "i", "s" }, "<C-k>", function()
+            if ls.jumpable(-1) then
+              ls.jump(-1)
+            end
+          end)
+
+          -- Selecting within a list of options.
+          map("i", "<c-l>", function()
+            if ls.choice_active() then
+              ls.change_choice(1)
+            end
+          end)
         end,
       },
     },
+    version = "1.*",
     event = "InsertEnter",
-    config = function()
-      local cmp = require "cmp"
+    opts = {
+      -- 'default' (recommended) for mappings similar to built-in completions (C-y to accept)
+      -- 'super-tab' for mappings similar to vscode (tab to accept)
+      -- 'enter' for enter to accept
+      -- 'none' for no mappings
+      --
+      -- All presets have the following mappings:
+      -- C-space: Open menu or open docs if already open
+      -- C-n/C-p or Up/Down: Select next/previous item
+      -- C-e: Hide menu
+      -- C-k: Toggle signature help (if signature.enabled = true)
+      --
+      -- See :h blink-cmp-config-keymap for defining your own keymap
+      keymap = {
+        preset = "enter",
+        ["<Tab>"] = { "select_next", "fallback" },
+        ["<S-Tab>"] = { "select_prev", "fallback" },
+        ["<C-u>"] = { "scroll_documentation_up", "fallback" },
+        ["<C-d>"] = { "scroll_documentation_down", "fallback" },
+      },
 
-      local kind_icons = {
-        TabNine = "",
-        Text = "󰉿",
-        Method = "󰊕",
-        Function = "󰊕",
-        Constructor = "",
-        Field = "󰓹",
-        Variable = "󰀫",
-        Class = "󰆧",
-        Interface = "",
-        Module = "",
-        Property = "󰓹",
-        Unit = "",
-        Value = "󰎠",
-        Enum = "",
-        Keyword = "󰌋",
-        Snippet = "",
-        Color = "",
-        File = "",
-        Reference = "",
-        Folder = "",
-        EnumMember = "",
-        Constant = "󰏿",
-        Struct = "󰆼",
-        Event = "",
-        Operator = "󰆕",
-        TypeParameter = "",
-        Version = "󰓹",
-      }
-
-      setmetatable(kind_icons, {
-        __index = function()
-          return "?"
-        end,
-      })
-
-      cmp.setup {
-        preselect = cmp.PreselectMode.None,
-        snippet = {
-          expand = function(args)
-            require("luasnip").lsp_expand(args.body)
-          end,
+      completion = {
+        ghost_text = {
+          enabled = true,
         },
-        window = {
-          documentation = cmp.config.window.bordered(),
-        },
-        formatting = {
-          format = function(entry, vim_item)
-            -- fancy icons and a name of kind
-            vim_item.kind = kind_icons[vim_item.kind] .. " " .. vim_item.kind
-
-            -- set a name for each source
-            vim_item.menu = ({
-              buffer = "[Buffer]",
-              path = "[Path]",
-              nvim_lsp = "[LSP]",
-              nvim_lua = "[Lua]",
-              crates = "[Crates]",
-              luasnip = "[LuaSnip]",
-              cmp_tabnine = "[TabNine]",
-            })[entry.source.name]
-
-            return vim_item
-          end,
-        },
-        mapping = {
-          ["<C-u>"] = cmp.mapping.scroll_docs(-4),
-          ["<C-d>"] = cmp.mapping.scroll_docs(4),
-          ["<C-Space>"] = cmp.mapping.complete(),
-          ["<C-e>"] = cmp.mapping.close(),
-          ["<CR>"] = cmp.mapping.confirm {
-            behavior = cmp.ConfirmBehavior.Replace,
-            select = true,
+        menu = {
+          border = "none",
+          winblend = 10,
+          draw = {
+            columns = {
+              { "label", "label_description", gap = 1 },
+              { "kind_icon", "kind", gap = 1 },
+            },
           },
-          ["<Tab>"] = function(fallback)
-            if cmp.visible() then
-              cmp.select_next_item()
-            else
-              fallback()
-            end
-          end,
-          ["<S-Tab>"] = function(fallback)
-            if cmp.visible() then
-              cmp.select_prev_item()
-            else
-              fallback()
-            end
-          end,
         },
-        sources = {
-          { name = "nvim_lsp" },
-          { name = "nvim_lsp_signature_help" },
-          { name = "nvim_lua" },
-          { name = "buffer" },
-          { name = "path" },
-          { name = "luasnip" },
-          { name = "cmp_tabnine" },
-          { name = "crates" },
+
+        list = {
+          selection = {
+            preselect = false,
+          },
         },
+
+        documentation = {
+          auto_show = true,
+          window = {
+            winblend = 10,
+          },
+        },
+      },
+
+      snippets = { preset = "luasnip" },
+
+      cmdline = {
         completion = {
-          keyword_length = 2,
+          menu = {
+            auto_show = true,
+          },
+          list = {
+            selection = {
+              preselect = false,
+            },
+          },
         },
-      }
-
-      -- Use buffer source for '/'
-      cmp.setup.cmdline("/", {
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = {
-          { name = "buffer" },
-        },
-      })
-
-      -- Use cmdline & path source for ':'
-      cmp.setup.cmdline(":", {
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = cmp.config.sources({
-          { name = "path" },
-        }, {
-          { name = "cmdline" },
-        }),
-      })
-    end,
-  },
-  {
-    "tzachar/cmp-tabnine",
-    dependencies = {
-      "hrsh7th/nvim-cmp",
+      },
     },
-    build = "./install.sh",
-    event = "InsertEnter",
-    config = function()
-      local tabnine = require "cmp_tabnine"
-      tabnine:setup {
-        max_lines = 100,
-        max_num_results = 5,
-        sort = true,
-      }
-    end,
   },
 }

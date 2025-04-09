@@ -5,6 +5,9 @@ vim.diagnostic.config {
     spacing = 4,
     prefix = icons.duck,
   },
+  -- virtual_lines = {
+  --   current_line = true,
+  -- },
   signs = {
     text = {
       [vim.diagnostic.severity.ERROR] = icons.diagnostic.error,
