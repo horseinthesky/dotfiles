@@ -3,43 +3,211 @@ local nmap = require("config.utils").nmap
 -- Keymaps
 local snacks_keymaps = {
   -- General
-  { "<leader>fa", function() Snacks.picker.autocmds() end, { desc = "Autocommands" } },
-  { "<leader>fc", function() Snacks.picker.commands() end, { desc = "Commands" } },
-  { "<leader>fC", function() Snacks.picker.colorschemes() end, { desc = "Colorschemes" } },
-  { "<leader>fh", function() Snacks.picker.help() end, { desc = "Help" } },
-  { "<leader>fH", function() Snacks.picker.highlights() end, { desc = "Highlights" } },
-  { "<leader>fi", function() Snacks.picker.icons() end, { desc = "Icons" } },
-  { "<leader>fk", function() Snacks.picker.keymaps() end, { desc = "Keymaps" } },
-  { "<leader>fm", function() Snacks.picker.man() end, { desc = "Man pages" } },
-  { "<leader>fn", function() Snacks.picker.notifications() end, { desc = "Notifications" } },
-  { "<leader>e", function() Snacks.explorer { hidden = true } end, { desc = "File Explorer" } },
+  {
+    "<leader>fa",
+    function()
+      Snacks.picker.autocmds()
+    end,
+    { desc = "Autocommands" },
+  },
+  {
+    "<leader>fc",
+    function()
+      Snacks.picker.commands()
+    end,
+    { desc = "Commands" },
+  },
+  {
+    "<leader>fC",
+    function()
+      Snacks.picker.colorschemes()
+    end,
+    { desc = "Colorschemes" },
+  },
+  {
+    "<leader>fh",
+    function()
+      Snacks.picker.help()
+    end,
+    { desc = "Help" },
+  },
+  {
+    "<leader>fH",
+    function()
+      Snacks.picker.highlights()
+    end,
+    { desc = "Highlights" },
+  },
+  {
+    "<leader>fi",
+    function()
+      Snacks.picker.icons()
+    end,
+    { desc = "Icons" },
+  },
+  {
+    "<leader>fk",
+    function()
+      Snacks.picker.keymaps()
+    end,
+    { desc = "Keymaps" },
+  },
+  {
+    "<leader>fm",
+    function()
+      Snacks.picker.man()
+    end,
+    { desc = "Man pages" },
+  },
+  {
+    "<leader>fn",
+    function()
+      Snacks.picker.notifications()
+    end,
+    { desc = "Notifications" },
+  },
+  {
+    "<leader>e",
+    function()
+      Snacks.explorer { hidden = true }
+    end,
+    { desc = "File Explorer" },
+  },
 
   -- Search
-  { ";", function() Snacks.picker.smart { hidden = true } end, { desc = "Smart find files" } },
-  { "<leader>fg", function() Snacks.picker.grep() end, { desc = "Live grep" } },
-  { "<leader>fb", function() Snacks.picker.lines() end, { desc = "Buffer lines" } },
-  { "<leader>fw", function() Snacks.picker.grep_word() end, { desc = "Grep word" } },
+  {
+    ";",
+    function()
+      Snacks.picker.smart { hidden = true }
+    end,
+    { desc = "Smart find files" },
+  },
+  {
+    "<leader>fg",
+    function()
+      Snacks.picker.grep()
+    end,
+    { desc = "Live grep" },
+  },
+  {
+    "<leader>fb",
+    function()
+      Snacks.picker.lines()
+    end,
+    { desc = "Buffer lines" },
+  },
+  {
+    "<leader>fw",
+    function()
+      Snacks.picker.grep_word()
+    end,
+    { desc = "Grep word" },
+  },
 
   -- LSP
-  { "<leader>fld", function() Snacks.picker.diagnostics_buffer() end, { desc = "Diagnostics" } },
-  { "<leader>flD", function() Snacks.picker.diagnostics() end, { desc = "Workspace diagnostics" } },
-  { "<leader>fls", function() Snacks.picker.lsp_symbols() end, { desc = "Symbols" } },
-  { "<leader>flS", function() Snacks.picker.lsp_workspace_symbols() end, { desc = "Workspace symbols" } },
-  { "<leader>flr", function() Snacks.picker.lsp_references() end, { desc = "References" } },
-  { "<leader>fli", function() Snacks.picker.lsp_implementations() end, { desc = "Implementations" } },
+  {
+    "<leader>fld",
+    function()
+      Snacks.picker.diagnostics_buffer()
+    end,
+    { desc = "Diagnostics" },
+  },
+  {
+    "<leader>flD",
+    function()
+      Snacks.picker.diagnostics()
+    end,
+    { desc = "Workspace diagnostics" },
+  },
+  {
+    "<leader>fls",
+    function()
+      Snacks.picker.lsp_symbols()
+    end,
+    { desc = "Symbols" },
+  },
+  {
+    "<leader>flS",
+    function()
+      Snacks.picker.lsp_workspace_symbols()
+    end,
+    { desc = "Workspace symbols" },
+  },
+  {
+    "<leader>flr",
+    function()
+      Snacks.picker.lsp_references()
+    end,
+    { desc = "References" },
+  },
+  {
+    "<leader>fli",
+    function()
+      Snacks.picker.lsp_implementations()
+    end,
+    { desc = "Implementations" },
+  },
   -- TODO: (horseinthesky) Set calls keymaps once https://github.com/folke/snacks.nvim/pull/1483 is done
 
   -- Git
-  { "<leader>gb", function() Snacks.picker.git_branches() end, { desc = "Branches" } },
-  { "<leader>gl", function() Snacks.picker.git_log() end, { desc = "Logs" } },
-  { "<leader>gf", function() Snacks.picker.git_log_file() end, { desc = "Log file" } },
-  { "<leader>gL", function() Snacks.picker.git_log_line() end, { desc = "Log line" } },
-  { "<leader>gs", function() Snacks.picker.git_status() end, { desc = "Status" } },
-  { "<leader>gH", function() Snacks.picker.git_diff() end, { desc = "Hunk" } },
-  { "<leader>gt", function() Snacks.picker.git_stash() end, { desc = "Stash" } },
+  {
+    "<leader>gb",
+    function()
+      Snacks.picker.git_branches()
+    end,
+    { desc = "Branches" },
+  },
+  {
+    "<leader>gl",
+    function()
+      Snacks.picker.git_log()
+    end,
+    { desc = "Logs" },
+  },
+  {
+    "<leader>gf",
+    function()
+      Snacks.picker.git_log_file()
+    end,
+    { desc = "Log file" },
+  },
+  {
+    "<leader>gL",
+    function()
+      Snacks.picker.git_log_line()
+    end,
+    { desc = "Log line" },
+  },
+  {
+    "<leader>gs",
+    function()
+      Snacks.picker.git_status()
+    end,
+    { desc = "Status" },
+  },
+  {
+    "<leader>gH",
+    function()
+      Snacks.picker.git_diff()
+    end,
+    { desc = "Hunk" },
+  },
+  {
+    "<leader>gt",
+    function()
+      Snacks.picker.git_stash()
+    end,
+    { desc = "Stash" },
+  },
 
   -- Other plugins
-  { "<leader>ft", function() Snacks.picker.todo_comments() end, { desc = "Todo" } },
+  {
+    "<leader>ft",
+    function()
+      Snacks.picker.todo_comments()
+    end,
+    { desc = "Todo" },
+  },
 }
 
 for _, keymap in ipairs(snacks_keymaps) do
@@ -139,6 +307,8 @@ return {
           input = {
             keys = {
               ["<Esc>"] = { "close", mode = { "i" } },
+              ["<c-u>"] = { "preview_scroll_up", mode = { "i" } },
+              ["<c-d>"] = { "preview_scroll_down", mode = { "i" } },
             },
           },
         },
