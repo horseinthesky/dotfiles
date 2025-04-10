@@ -59,9 +59,9 @@ return {
     event = { "BufRead Cargo.toml" },
     opts = {
       completion = {
-        cmp = {
-          enabled = true,
-        },
+        -- cmp = {
+        --   enabled = true,
+        -- },
       },
       popup = {
         autofocus = true,

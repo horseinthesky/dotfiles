@@ -61,15 +61,12 @@ return {
 
       -- Footer
       local function version()
-        return ""
-          .. "v"
-          .. vim.version().major
-          .. "."
-          .. vim.version().minor
-          .. "."
-          .. vim.version().patch
-          .. "   "
-          .. os.date "%d-%m-%Y %H:%M:%S"
+        local ver = vim.version()
+        local ver_formatted = "v" .. ver.major .. "." .. ver.minor .. "." .. ver.patch
+        local total_plugins = "  " .. #require("lazy").plugins() .. " plugins"
+        local datetime = os.date "  %Y-%m-%d  %H:%M:%S"
+
+        return ver_formatted .. datetime .. total_plugins
       end
 
       local footer = {
