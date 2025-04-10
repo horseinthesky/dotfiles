@@ -1,7 +1,5 @@
 local nmap = require("config.utils").nmap
 
----- Keymaps
--- Telescope
 local telescope_keymaps = {
   -- regular search mappings
   { "<leader>ff", "<CMD>Telescope find_files hidden=true<CR>" },
@@ -41,7 +39,19 @@ for _, keymap in ipairs(telescope_keymaps) do
   nmap(lhs, rhs, opts)
 end
 
--- fzf
+local hls = {
+  TelescopeResultsNormal = "SpecialKey",
+  TelescopeSelectionCaret = "WarningMsg",
+  TelescopeSelection = "TelescopeNormal",
+  TelescopeMultiSelection = "TelescopeResultsNormal",
+  TelescopeMatching = "Type",
+  TelescopePromptPrefix = "Type",
+}
+
+for group, link in pairs(hls) do
+  vim.api.nvim_set_hl(0, group, { link = link })
+end
+
 local fzf_keymaps = {
   { ";", "<CMD>FzfLua files<CR>" },
   { "<leader>fg", "<CMD>FzfLua live_grep<CR>" },
@@ -72,21 +82,6 @@ for _, keymap in ipairs(fzf_keymaps) do
   nmap(lhs, rhs, opts)
 end
 
--- Highlights
-local hls = {
-  TelescopeResultsNormal = "SpecialKey",
-  TelescopeSelectionCaret = "WarningMsg",
-  TelescopeSelection = "TelescopeNormal",
-  TelescopeMultiSelection = "TelescopeResultsNormal",
-  TelescopeMatching = "Type",
-  TelescopePromptPrefix = "Type",
-}
-
-for group, link in pairs(hls) do
-  vim.api.nvim_set_hl(0, group, { link = link })
-end
-
--- Config
 local function projects()
   local work = "~/work/*"
 

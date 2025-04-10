@@ -56,7 +56,7 @@ vim.api.nvim_create_autocmd("LspProgress", {
       id = "lsp_progress",
       title = "LSP Progress",
       opts = function(notif)
-        notif.icon = ev.data.params.value.kind == "end" and " "
+        notif.icon = ev.data.params.value.kind == "end" and ""
           or spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1]
       end,
     })
@@ -65,8 +65,7 @@ vim.api.nvim_create_autocmd("LspProgress", {
 
 -- dashboard
 local function get_footer()
-  local datetime = os.date "%d-%m-%Y %H:%M:%S"
-  local plugins_text = ""
+  return ""
     .. "v"
     .. vim.version().major
     .. "."
@@ -74,9 +73,7 @@ local function get_footer()
     .. "."
     .. vim.version().patch
     .. "   "
-    .. datetime
-
-  return plugins_text
+    .. os.date "%d-%m-%Y %H:%M:%S"
 end
 
 local dashboard = {
@@ -97,7 +94,7 @@ local dashboard = {
         icon = "",
         key = "c",
         desc = "Config",
-        action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config') .. '/lua'})",
+        action = ":lua Snacks.dashboard.pick('files', { cwd = vim.fn.stdpath('config') .. '/lua' })",
       },
       { icon = "󰒲 ", key = "L", desc = "Lazy", action = ":Lazy", enabled = package.loaded.lazy ~= nil },
       { icon = " ", key = "q", desc = "Quit", action = ":qa" },
@@ -114,6 +111,19 @@ local dashboard = {
   },
 }
 
+-- Highlights
+local hls = {
+  SnacksPickerPrompt = "Type",
+  SnacksPickerMatch = "Type",
+  SnacksPickerDir = "SpecialKey",
+  -- SnacksPickerList = "SpecialKey",
+  -- SnacksPickerListCursorLine = "Normal",
+}
+
+for group, link in pairs(hls) do
+  vim.api.nvim_set_hl(0, group, { link = link })
+end
+
 return {
   {
     "folke/snacks.nvim",
@@ -124,6 +134,7 @@ return {
       notifier = {},
       -- dashboard = dashboard,
       picker = {
+        prompt = " ",
         win = {
           input = {
             keys = {
