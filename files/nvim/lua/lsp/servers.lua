@@ -1,19 +1,19 @@
+require "lsp.on_attach"
 local lspconfig = require "lspconfig"
-local on_attach = require "lsp.on_attach"
 local utils = require "config.utils"
+local keymaps = require "lsp.keymaps"
 
 local servers = {
-  buf_ls = {},
   bashls = {},
+  yamlls = {},
+  jsonls = {
+    init_options = {
+      provideFormatter = false,
+    },
+  },
   dockerls = {},
   terraformls = {},
-  yamlls = {},
-  cssls = { on_attach = on_attach.no_format },
-  jsonls = { on_attach = on_attach.no_format },
-  html = {
-    filetypes = { "html", "jinja.html" },
-    on_attach = on_attach.no_format,
-  },
+  buf_ls = {},
   pyright = {
     settings = {
       python = {
@@ -89,11 +89,9 @@ local servers = {
 
 for server, config in pairs(servers) do
   lspconfig[server].setup(vim.tbl_deep_extend("force", {
-    on_attach = on_attach.default,
+    on_attach = keymaps.set,
     flags = {
       debounce_text_changes = 250,
     },
   }, config))
 end
-
-require("lsp.null").setup { on_attach = on_attach.default }

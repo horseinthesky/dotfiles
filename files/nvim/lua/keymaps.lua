@@ -104,7 +104,7 @@ end
 
 -- Show filename
 utils.nmap("gn", function()
-  utils.info(vim.api.nvim_buf_get_name(0), "Filename")
+  utils.info(vim.api.nvim_buf_get_name(0), { title = "Filename" } )
 end)
 
 -- Additional text-objects

@@ -33,16 +33,11 @@ install_python_tools () {
   header "Installing python packages..."
 
   packages=(
-    virtualenv
     ptpython
-    ruff
-    ruff-lsp
+    virtualenv
     uv
-    isort
     mypy
-    flake8
-    black
-    python-lsp-server
+    ruff
   )
 
   if [[ ! -d $devenv ]]; then

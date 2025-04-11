@@ -2,11 +2,45 @@ local map = require("config.utils").map
 
 return {
   {
+    "nvimtools/none-ls.nvim",
+    event = "VeryLazy",
+    config = function()
+      local nls = require "null-ls"
+      local b = nls.builtins
+
+      local sources = {
+        -- Lint
+        b.diagnostics.hadolint,
+        b.diagnostics.buf,
+        -- b.diagnostics.mypy.with {
+        --   extra_args = {
+        --     "--show-column-numbers",
+        --     "--ignore-missing-imports",
+        --     "--disable-error-code",
+        --     "name-defined",
+        --     "--cache-dir",
+        --     "/dev/null",
+        --   },
+        -- },
+
+        -- Format
+        b.formatting.shellharden,
+        b.formatting.prettierd,
+        b.formatting.buf,
+        b.formatting.stylua.with {
+          extra_args = { "--config-path", vim.fn.expand "~/.config/stylua/stylua.toml" },
+        },
+      }
+
+      nls.setup {
+        diagnostics_format = "[#{s}] #{c}: #{m}",
+        sources = sources,
+      }
+    end,
+  },
+  {
     "neovim/nvim-lspconfig",
-    dependencies = {
-      "nvimtools/none-ls.nvim",
-    },
-    event = "BufReadPre",
+    -- event = "BufReadPre",
   },
   {
     "saghen/blink.cmp",
@@ -27,7 +61,7 @@ return {
           }
 
           require("luasnip.loaders.from_vscode").lazy_load()
-          require("luasnip.loaders.from_lua").load({ paths = vim.fn.stdpath "config" .. "/lua/snippets" })
+          require("luasnip.loaders.from_lua").load { paths = vim.fn.stdpath "config" .. "/lua/snippets" }
 
           -- Expand or jump to next item
           map({ "i", "s" }, "<C-j>", function()
@@ -84,8 +118,8 @@ return {
           winblend = 10,
           draw = {
             columns = {
-              { "label", "label_description", gap = 1 },
-              { "kind_icon", "kind", gap = 1 },
+              { "label",     "label_description", gap = 1 },
+              { "kind_icon", "kind",              gap = 1 },
             },
           },
         },

@@ -54,6 +54,7 @@ alias nv='$HOME/.local/bin/nvim'
 alias pp='ptpython'
 
 alias dig='dig +noall +answer +stats'
+alias r='nc -vz'
 
 alias grep='grep --color=auto --line-buffered'
 alias diff='diff --color -u'

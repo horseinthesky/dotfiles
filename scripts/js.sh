@@ -68,12 +68,12 @@ install_js_packages () {
   header "Installing yarn packages..."
 
   packages=(
-    pyright
+    bash-language-server
     vscode-langservers-extracted
     yaml-language-server
     dockerfile-language-server-nodejs
+    pyright
     @fsouza/prettierd
-    bash-language-server
   )
 
   XDG_DATA_HOME=$XDG_DATA_HOME yarn global add "${packages[@]}" | grep -E "Installed"

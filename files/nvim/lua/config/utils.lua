@@ -74,11 +74,8 @@ function M.ternary(condition, trueValue, falseValue)
 end
 
 function M.map(mode, key, action, opts)
-  local options = { noremap = true, silent = true }
-  if opts then
-    options = vim.tbl_extend("force", options, opts)
-  end
-  vim.keymap.set(mode, key, action, options)
+  opts = vim.tbl_extend("force", opts or {}, { noremap = true, silent = true })
+  vim.keymap.set(mode, key, action, opts)
 end
 
 function M.nmap(key, action, opts)
@@ -95,22 +92,31 @@ function M.has_value(table, val)
   return false
 end
 
-local function log(msg, name, hl)
-  name = name or "Neovim"
-  hl = hl or "Comment"
-  vim.api.nvim_echo({ { name .. ": ", hl }, { msg } }, true, {})
+local title_hl_map = {
+  [vim.log.levels.ERROR] = "DiagnosticError",
+  [vim.log.levels.WARN] = "DiagnosticWarn",
+  [vim.log.levels.INFO] = "DiagnosticInfo",
+}
+
+local function notify(msg, level, opts)
+  opts = opts or {}
+  level = level or vim.log.levels.DEBUG
+  local title = opts.title or "Neovim"
+  local title_hl = title_hl_map[level] or "DiagnosticInfo"
+  vim.api.nvim_echo({ { title, title_hl }, { ": " .. msg } }, true, {})
+  -- vim.notify(msg, level)
 end
 
-function M.warn(msg, name)
-  log(msg, name, "DiagnosticWarn")
+function M.error(msg, opts)
+  notify(msg, vim.log.levels.ERROR, opts)
 end
 
-function M.error(msg, name)
-  log(msg, name, "DiagnosticError")
+function M.warn(msg, opts)
+  notify(msg, vim.log.levels.WARN, opts)
 end
 
-function M.info(msg, name)
-  log(msg, name, "DiagnosticInfo")
+function M.info(msg, opts)
+  notify(msg, vim.log.levels.INFO, opts)
 end
 
 -- Yandex stuff

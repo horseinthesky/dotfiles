@@ -50,7 +50,7 @@ vim.filetype.add {
 }
 
 -- Highlight trailing whitespaces
-local config = {
+local tw_config = {
   highlight = "Error",
   ignored_filetypes = {
     "help",
@@ -63,24 +63,26 @@ local config = {
 }
 
 local function highlight_trailing_whitespaces()
-  if not vim.fn.hlexists(config.highlight) then
-    utils.error(string.format("highlight group %s does not exist", config.highlight))
+  if tw_config.ignore_terminal and vim.bo.buftype == "terminal" then
     return
   end
 
-  if config.ignore_terminal and vim.bo.buftype == "terminal" then
+  if vim.tbl_contains(tw_config.ignored_filetypes, vim.bo.filetype) then
     return
   end
 
-  if vim.tbl_contains(config.ignored_filetypes, vim.bo.filetype) then
+  local hl = vim.api.nvim_get_hl(0, { name = tw_config.highlight, create = false })
+  if next(hl) == nil then
+    utils.error(string.format("trailing whitespaces highlight group '%s' does not exist", tw_config.highlight))
     return
   end
 
-  local command = string.format([[match %s /\s\+$/]], config.highlight)
+  local command = string.format([[match %s /\s\+$/]], tw_config.highlight)
   vim.cmd(command)
 end
 
 vim.api.nvim_create_autocmd("FileType", {
+  desc = "Highlight trailing whitespaces",
   callback = function()
     vim.schedule(highlight_trailing_whitespaces)
   end,

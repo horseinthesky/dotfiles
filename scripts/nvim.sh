@@ -88,6 +88,7 @@ setup_neovim_env () {
   [[ ! -d $HOME/.config/nvim ]] && mkdir -p "$HOME"/.config/nvim
   symlink "$DOTFILES_HOME"/nvim/init.lua "$XDG_CONFIG_HOME"/nvim/init.lua
   symlink "$DOTFILES_HOME"/nvim/lua "$XDG_CONFIG_HOME"/nvim/lua
+  symlink "$DOTFILES_HOME"/nvim/lsp "$XDG_CONFIG_HOME"/nvim/lsp
 }
 
 main () {
