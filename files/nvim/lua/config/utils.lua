@@ -6,7 +6,9 @@ M.icons = {
   unix = "", -- f17c
   mac = "", -- f179
   code = "", -- e000
-  dot = "", -- f111
+  dot = "", -- f444
+  hollow_dot = "", -- f4c3
+  big_dot = "", -- f111
   duck = "󰇥 ", -- f01e5
   page = "☰", -- 2630
   arrow = "", -- e285
@@ -101,10 +103,11 @@ local title_hl_map = {
 local function notify(msg, level, opts)
   opts = opts or {}
   level = level or vim.log.levels.DEBUG
+
   local title = opts.title or "Neovim"
   local title_hl = title_hl_map[level] or "DiagnosticInfo"
   vim.api.nvim_echo({ { title, title_hl }, { ": " .. msg } }, true, {})
-  -- vim.notify(msg, level)
+  -- vim.notify(msg, level, { title = title })
 end
 
 function M.error(msg, opts)

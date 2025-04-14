@@ -33,15 +33,23 @@ return {
       local buttons = {
         type = "group",
         val = {
-          button("e", "  New file", ":ene <BAR> startinsert<CR>"),
-          button("r", "  Recent files", ":Telescope oldfiles<CR>"),
-          button("f", "󰈞  Find file", ":Telescope find_files<CR>"),
-          button("g", "  Live grep", ":Telescope live_grep<CR>"),
-          button("p", "  Find project", ":Telescope project<CR>"),
-          button("c", "  Configuration", function()
-            Snacks.dashboard.pick("files", { cwd = vim.fn.stdpath "config" .. "/lua" })
+          button("e", "  New file", "<CMD>ene <BAR> startinsert<CR>"),
+          button("r", "  Recent files", function()
+            Snacks.dashboard.pick "oldfiles"
           end),
-          button("q", "  Quit", ":qa<CR>"),
+          button("f", "󰈞  Find file", function()
+            Snacks.dashboard.pick "files"
+          end),
+          button("g", "  Live grep", function()
+            Snacks.dashboard.pick "live_grep"
+          end),
+          button("p", "  Projects", function()
+            Snacks.dashboard.pick("projects", { dev = { "~/work" } })
+          end),
+          button("c", "  Configuration", function()
+            Snacks.dashboard.pick("files", { cwd = vim.fn.stdpath "config" })
+          end),
+          button("q", "  Quit", "<CMD>qa<CR>"),
         },
         opts = {
           position = "center",
@@ -66,7 +74,7 @@ return {
         local total_plugins = "  " .. #require("lazy").plugins() .. " plugins"
         local datetime = os.date "  %Y-%m-%d  %H:%M:%S"
 
-        return ver_formatted .. datetime .. total_plugins
+        return ver_formatted .. "  " .. datetime .. "  " .. total_plugins
       end
 
       local footer = {

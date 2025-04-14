@@ -56,11 +56,10 @@ local settings = {
   foldenable = false, -- Dont fold by default
   foldlevel = 2, -- This is just what I use
 
-  -- History
+  -- History & undo
   history = 100,
   undolevels = 100,
   undofile = true,
-  undodir = vim.fn.stdpath "config" .. "/undo",
 
   -- Splits
   splitbelow = true, -- new horizontal split to appear below

@@ -38,24 +38,6 @@ return {
     },
   },
   {
-    "lukas-reineke/indent-blankline.nvim",
-    event = "VeryLazy",
-    config = function()
-      require("ibl").setup {
-        scope = {
-          show_start = false,
-          show_end = false,
-        },
-        indent = {
-          char = { "", "¦", "┆", "┊" },
-        },
-      }
-    end,
-    keys = {
-      { "<leader>I", "<CMD>IBLToggle<CR>", desc = "Indent toggle" },
-    },
-  },
-  {
     "smoka7/hop.nvim",
     cmd = "HopChar1",
     config = function()

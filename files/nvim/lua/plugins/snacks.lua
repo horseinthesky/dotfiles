@@ -217,7 +217,6 @@ end
 
 -- LSP Progress on startup
 vim.api.nvim_create_autocmd("LspProgress", {
-  ---@param ev {data: {client_id: integer, params: lsp.ProgressParams}}
   callback = function(ev)
     local spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
     vim.notify(vim.lsp.status(), "info", {
@@ -301,6 +300,16 @@ return {
       input = {},
       notifier = {},
       -- dashboard = dashboard,
+      indent = {
+        indent = {
+          char = "┆",
+          only_scope = true,
+        },
+        scope = {
+          char = "┆",
+          hl = "Comment",
+        },
+      },
       picker = {
         prompt = " ",
         win = {

@@ -39,10 +39,6 @@ return {
     end,
   },
   {
-    "neovim/nvim-lspconfig",
-    -- event = "BufReadPre",
-  },
-  {
     "saghen/blink.cmp",
     dependencies = {
       "rafamadriz/friendly-snippets",
