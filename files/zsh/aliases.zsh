@@ -30,6 +30,8 @@ alias drc='docker rm $(docker ps -a -q -f status=exited)'
 alias dri='docker rmi -f $(docker images -qf dangling=true)'
 
 alias k='kubectl'
+alias kx='kubectx'
+alias kn='kubens'
 alias h='helm'
 
 # poetry
