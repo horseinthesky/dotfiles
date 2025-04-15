@@ -293,6 +293,7 @@ install_helm () {
   fi
 
   curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | USE_SUDO=false HELM_INSTALL_DIR=~/.local/bin bash
+  helm plugin install https://github.com/databus23/helm-diff
 
   success
 }
