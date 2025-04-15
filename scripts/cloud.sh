@@ -25,7 +25,23 @@ terraform_install () {
     curl -s https://api.github.com/repos/hashicorp/"$name"/releases/latest | \
     grep tag_name | grep -Po "\d+\.\d+\.\d+"
   )
-  local package_name=${name}_${latest_version}_linux_amd64.zip
+
+  local architecture=$(uname -m)
+
+  case "$architecture" in
+    x86_64)
+      arch=amd64
+      ;;
+    aarch64)
+      arch=arm64
+      ;;
+    *)
+      error "Unsupported architecture. Can't proceed"
+      exit
+      ;;
+  esac
+
+  local package_name=${name}_${latest_version}_linux_${arch}.zip
 
   if [[ -z $(command -v "$name") ]]; then
     download_package https://releases.hashicorp.com/"$name/$latest_version/$package_name" "$HOME"/.local/bin
