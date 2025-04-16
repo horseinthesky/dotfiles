@@ -1,10 +1,12 @@
 # Setup colors
+NORMAL="\e[0m"
 RED="\e[31m"
 GREEN="\e[32m"
 YELLOW="\e[33m"
 BLUE="\e[34m"
 MAGENTA="\e[35m"
 CYAN="\e[36m"
+LIGHTGREY="\e[37m"
 GREY="\e[90m"
 LIGHTRED="\e[91m"
 LIGHTGREEN="\e[92m"
@@ -12,9 +14,7 @@ LIGHTYELLOW="\e[93m"
 LIGHTBLUE="\e[94m"
 LIGHTMAGENTA="\e[95m"
 LIGHTCYAN="\e[96m"
-LIGHTGREY="\e[37m"
 WHITE="\e[97m"
-NORMAL="\e[0m"
 
 # Setup env
 XDG_CONFIG_HOME=$HOME/.config
