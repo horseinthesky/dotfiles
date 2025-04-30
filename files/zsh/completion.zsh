@@ -1,9 +1,10 @@
-  # ____ ___  __  __ ____  _     _____ _____ ___ ___  _   _
 #  / ___/ _ \|  \/  |  _ \| |   | ____|_   _|_ _/ _ \| \ | |
 # | |  | | | | |\/| | |_) | |   |  _|   | |  | | | | |  \| |
 # | |__| |_| | |  | |  __/| |___| |___  | |  | | |_| | |\  |
 #  \____\___/|_|  |_|_|   |_____|_____| |_| |___\___/|_| \_|
- #
+
+# Disable compaudit warning
+export ZSH_DISABLE_COMPFIX=true
 
 # +---------+
 # | General |
@@ -23,7 +24,7 @@ WORDCHARS='|-.'
 # Should be called before compinit
 zmodload zsh/complist
 
-autoload -U compinit; compinit -d $XDG_DATA_HOME/zsh/.zcompdump
+autoload -Uz compinit; compinit
 
 # Show hidden files in completion menu
 _comp_options+=(globdots)

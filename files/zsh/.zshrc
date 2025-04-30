@@ -1,26 +1,25 @@
 # ==== Settings ====
-export ZSH_DISABLE_COMPFIX=true
-
 # Disable CTRL-s from freezing your terminal's output.
 stty stop undef
 
-# Disable highlighting of pasted text
+# Disable highlighting of pasted text.
+# zsh-autosuggestions intercepts paste settings. So if plugin is enabled this setting has no effect.
 zle_highlight=('paste:none')
 
 # ==== Options ====
-# Enable in-line comments
+# Enable in-line comments.
 setopt INTERACTIVE_COMMENTS
 
 # ==== Plugins ====
-source $ZDOTDIR/utils.zsh
+source "$ZDOTDIR"/utils.zsh
 
 plugins=(
   zsh-autosuggestions
   alias-tips
 )
 
-for plugin in ${plugins[@]}; do
-  add_plugin $plugin
+for plugin in "${plugins[@]}"; do
+  add_plugin "$plugin"
 done
 
 # ==== Addons ====
@@ -36,8 +35,8 @@ addons=(
   tools
 )
 
-for addon in ${addons[@]}; do
-  source_file $addon.zsh
+for addon in "${addons[@]}"; do
+  source_file "$addon".zsh
 done
 
 # ==== Theme ====

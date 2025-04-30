@@ -1,1 +1,5 @@
+# ZSH autocompletion dump
+.zcompdump
+
+# NVIM Lazy packages
 lazy-lock.json

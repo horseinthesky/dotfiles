@@ -1,18 +1,15 @@
 # XDG Base Directory Specification
+# https://specifications.freedesktop.org/basedir-spec/latest/
 export XDG_CONFIG_HOME=$HOME/.config
-export XDG_DATA_HOME=$HOME/.local/share
 export XDG_CACHE_HOME=$HOME/.cache
+export XDG_DATA_HOME=$HOME/.local/share
 
-# Zsh config dir
+# ZSH config dir
 export ZDOTDIR=$XDG_CONFIG_HOME/zsh
 
 # Editor vars
 export TERM="xterm-256color"
 export EDITOR=$HOME/.local/bin/nvim
 
-# Set system locales
-# export LC_ALL=C.UTF-8
-# export LANG=C.UTF-8
-
 # Python cache dir
-export PYTHONPYCACHEPREFIX=$HOME/.cache/cpython/
+export PYTHONPYCACHEPREFIX=$XDG_CACHE_HOME/cpython/
