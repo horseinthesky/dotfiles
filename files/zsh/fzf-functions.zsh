@@ -92,7 +92,7 @@ fcht () {
 # Fuzzy teleport ssh
 s () {
   # Pass args to teleport ssh if any
-  [[ $# -ne 0 ]] && teleport ssh $@ && return
+  [[ $# -ne 0 ]] && tsh ssh $@ && return
 
   local host=$(tsh ls | tail -n +3 | awk '{print $1" "$NF}' | column -t | fzf | cut -d " " -f 1)
   [[ -z $host ]] && return
