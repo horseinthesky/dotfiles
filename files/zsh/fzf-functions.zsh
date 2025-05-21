@@ -94,7 +94,12 @@ s () {
   # Pass args to teleport ssh if any
   [[ $# -ne 0 ]] && tsh ssh $@ && return
 
-  local host=$(tsh ls | tail -n +3 | awk '{print $1" "$NF}' | column -t | fzf | cut -d " " -f 1)
+  local hosts=$(tsh ls | tail -n +3)
+
+  # Check if authentication is needed
+  [[ "$hosts" == *"Press [ENTER] to continue."* ]] && echo "$hosts" && return
+
+  local host=$(echo "$hosts" | awk '{print $1" "$NF}' | column -t | fzf | cut -d " " -f 1)
   [[ -z $host ]] && return
 
   tsh ssh $host
