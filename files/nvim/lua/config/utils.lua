@@ -45,8 +45,8 @@ M.icons = {
     error = "", -- f057
     warning = "", -- f06a
     info = "", -- f05a
-    -- hint = "󰌵", -- f0335
     hint = "", -- f059
+    -- hint = "󰌵", -- f0335
   },
   sep = {
     left_filled = "", -- e0b4

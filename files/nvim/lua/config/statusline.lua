@@ -191,6 +191,7 @@ end
 
 local last_colorscheme = ""
 
+-- Define independent statusline colors
 local function update_colorscheme_highlights()
   local current_colorscheme = vim.g.colors_name
   if current_colorscheme == last_colorscheme then
@@ -238,6 +239,10 @@ local function update_colorscheme_highlights()
   })
   vim.api.nvim_set_hl(0, "StatusLineLspIcon", {
     fg = vim.api.nvim_get_hl(0, { name = "Constant", link = false }).fg,
+    bg = bottom_bg,
+  })
+  vim.api.nvim_set_hl(0, "StatusLineDiagnosticOk", {
+    fg = vim.api.nvim_get_hl(0, { name = "DiagnosticOk", link = false }).fg,
     bg = bottom_bg,
   })
   vim.api.nvim_set_hl(0, "StatusLineDiagnosticError", {
@@ -427,8 +432,8 @@ end
 
 local function get_diagnostic_all()
   local count = vim.diagnostic.count(0)
-  if #count == 0 then
-    return colorize("DiagnosticOk", icons.diagnostic.ok .. " ")
+  if vim.tbl_count(count) == 0 then
+    return colorize("StatusLineDiagnosticOk", icons.diagnostic.ok .. " ")
   end
 
   local res = ""
