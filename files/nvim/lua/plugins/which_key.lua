@@ -118,6 +118,15 @@ return {
         { "[<", hidden = true, desc = "<" },
         { "[]", hidden = true, desc = "]" },
         { "[[", hidden = true, desc = "[" },
+        { "<leader>1", hidden = true, desc = "BufferLineGoToBuffer1" },
+        { "<leader>2", hidden = true, desc = "BufferLineGoToBuffer2" },
+        { "<leader>3", hidden = true, desc = "BufferLineGoToBuffer3" },
+        { "<leader>4", hidden = true, desc = "BufferLineGoToBuffer4" },
+        { "<leader>5", hidden = true, desc = "BufferLineGoToBuffer5" },
+        { "<leader>6", hidden = true, desc = "BufferLineGoToBuffer6" },
+        { "<leader>7", hidden = true, desc = "BufferLineGoToBuffer7" },
+        { "<leader>8", hidden = true, desc = "BufferLineGoToBuffer8" },
+        { "<leader>9", hidden = true, desc = "BufferLineGoToBuffer9" },
 
         -- Buffers
         { "<leader>b", group = "Buffers" },
@@ -134,8 +143,8 @@ return {
         -- Find LSP
         { "<leader>fl", group = "Lsp" },
         { "<leader>flc", group = "Calls" },
-        { "<leader>flci", desc = "Incoming" },
-        { "<leader>flco", desc = "Outgoing" },
+        -- { "<leader>flci", desc = "Incoming" },
+        -- { "<leader>flco", desc = "Outgoing" },
 
         ---- Treesitter swap
         -- Next

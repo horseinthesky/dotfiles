@@ -1,3 +1,5 @@
+local nmap = require("config.utils").nmap
+
 local swap_next, swap_prev = (function()
   local swap_objects = {
     b = "@block.outer",
@@ -126,7 +128,9 @@ return {
           },
         },
       }
+
       require("treesitter-context").setup()
+      nmap("<leader>O", require("treesitter-context").toggle, { desc = "Treesitter context toggle" })
     end,
   },
 }
