@@ -1,11 +1,11 @@
 local swap_next, swap_prev = (function()
   local swap_objects = {
+    b = "@block.outer",
     c = "@class.outer",
     f = "@function.outer",
-    b = "@block.outer",
-    s = "@statement.outer",
-    p = "@parameter.inner",
     m = "@call.outer",
+    p = "@parameter.inner",
+    s = "@statement.outer",
   }
 
   local n, p = {}, {}
@@ -68,7 +68,6 @@ return {
         },
         indent = {
           enable = true,
-          disable = { "python" },
         },
         incremental_selection = {
           enable = true,
@@ -127,6 +126,7 @@ return {
           },
         },
       }
+      require("treesitter-context").setup()
     end,
   },
 }

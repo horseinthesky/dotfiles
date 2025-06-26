@@ -49,13 +49,6 @@ local settings = {
   linebreak = true, -- Word wrap
   -- signcolumn = "yes",               -- Always show signcolumns (left row)
 
-  -- Folding
-  foldmethod = "expr", -- Fold based on expression
-  foldexpr = "nvim_treesitter#foldexpr()",
-  foldnestmax = 10, -- Deepest fold is 10 levels
-  foldenable = false, -- Dont fold by default
-  foldlevel = 2, -- This is just what I use
-
   -- History & undo
   history = 100,
   undolevels = 100,

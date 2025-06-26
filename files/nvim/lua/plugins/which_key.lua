@@ -144,13 +144,16 @@ return {
         { "<leader>sc", desc = "Outer class" },
         { "<leader>sf", desc = "Outer function" },
         { "<leader>sm", desc = "Outer call" },
-        { "<leader>sa", desc = "Inner attribute" },
+        { "<leader>sp", desc = "Inner parameter" },
         { "<leader>ss", desc = "Outer statement" },
         -- Prev
         { "<leader>S", group = "Swap previous" },
+        { "<leader>Sb", desc = "Outer block" },
         { "<leader>Sc", desc = "Outer class" },
         { "<leader>Sf", desc = "Outer function" },
-        { "<leader>Sa", desc = "Inner attribute" },
+        { "<leader>Sm", desc = "Outer call" },
+        { "<leader>Sp", desc = "Inner parameter" },
+        { "<leader>Ss", desc = "Outer statement" },
 
         ---- Plugins groups
         -- neogen
