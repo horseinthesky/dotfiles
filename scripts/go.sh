@@ -74,10 +74,9 @@ install_go_tools () {
     golang.org/x/tools/cmd/deadcode
     github.com/mfridman/tparse
     github.com/bufbuild/buf/cmd/buf
-    github.com/muesli/duf
     github.com/fatih/gomodifytags
-    github.com/cweill/gotests/...
     github.com/natesales/q
+    github.com/muesli/duf
   )
 
   for tool in "${tools[@]}"; do

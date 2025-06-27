@@ -49,18 +49,4 @@ return {
     },
     ft = "go",
   },
-  {
-    "saecki/crates.nvim",
-    event = { "BufRead Cargo.toml" },
-    opts = {
-      completion = {
-        -- cmp = {
-        --   enabled = true,
-        -- },
-      },
-      popup = {
-        autofocus = true,
-      },
-    },
-  },
 }
