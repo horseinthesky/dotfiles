@@ -21,26 +21,19 @@ end)()
 
 local parsers = {
   "bash",
-  "cmake",
-  "cue",
   "dockerfile",
   "go",
   "gomod",
-  "gowork",
-  "graphql",
+  "gosum",
   "hcl",
   "json",
-  "json5",
-  "jsonc",
+  "just",
   "lua",
   "make",
   "markdown",
-  "markdown_inline",
-  "ninja",
   "python",
   "rust",
   "toml",
-  "vimdoc",
   "yaml",
 }
 

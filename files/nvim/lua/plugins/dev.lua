@@ -14,10 +14,6 @@ end, { desc = "Type" })
 
 return {
   {
-    "Glench/Vim-Jinja2-Syntax",
-    ft = "jinja",
-  },
-  {
     "OXY2DEV/markview.nvim",
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
