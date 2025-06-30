@@ -4,10 +4,10 @@ local nmap = require("config.utils").nmap
 -- neogen
 nmap("<leader>af", function()
   require("neogen").generate { type = "func" }
-end, { desc = "Type" })
+end, { desc = "Fuction" })
 nmap("<leader>ac", function()
   require("neogen").generate { type = "class" }
-end, { desc = "Type" })
+end, { desc = "Class" })
 nmap("<leader>at", function()
   require("neogen").generate { type = "type" }
 end, { desc = "Type" })
