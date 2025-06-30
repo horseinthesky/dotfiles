@@ -24,21 +24,16 @@ M.icons = {
     logo = "󰊢", -- f02a2
     branch = "", -- e725
   },
-  square = {
-    plus = "", -- f0f
-    minus = "", --f146
-    dot = "", --f264
-  },
   circle = {
     plus = "", -- f055
-    minus = "", --f056
+    minus = "", -- f056
     dot = "", -- f28d
   },
   file = {
     locked = "", -- f023
+    modified = "", -- f040
     not_modifiable = "", -- f05e
     unsaved = "", -- f0c7
-    modified = "", -- f040
   },
   diagnostic = {
     ok = "", -- f058
