@@ -41,23 +41,12 @@ for ft, opts in pairs(ft_settings) do
   })
 end
 
--- Hack for salt templates
-vim.filetype.add {
-  pattern = {
-    ["${HOME}/.*/salt%-formula/.*%.yaml"] = "jinja",
-    ["${HOME}/.*/salt%-formula/.*%.yml"] = "jinja",
-  },
-}
-
 -- Highlight trailing whitespaces
 local tw_config = {
   highlight = "Error",
   ignored_filetypes = {
     "help",
-    "alpha",
     "lazy",
-    "TelescopePrompt",
-    "crates.nvim",
   },
   ignore_terminal = true,
 }
@@ -98,8 +87,8 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- Highlight when yanking (copying) text
---  Try it with `yap` in normal mode
---  See `:help vim.highlight.on_yank()`
+-- Try it with `yap` in normal mode
+-- See `:help vim.highlight.on_yank()`
 vim.api.nvim_create_autocmd("TextYankPost", {
   desc = "Highlight when yanking (copying) text",
   callback = function()
@@ -154,3 +143,11 @@ vim.api.nvim_create_autocmd("FileChangedShellPost", {
 -- https://www.youtube.com/watch?v=AcvxrF2MrrI
 -- https://www.youtube.com/watch?v=u1HgODpoijc
 vim.api.nvim_create_user_command("W", ":execute ':silent w !sudo tee % > /dev/null' | :edit!", {})
+
+-- Hack for salt templates
+vim.filetype.add {
+  pattern = {
+    ["${HOME}/.*/salt%-formula/.*%.yaml"] = "jinja",
+    ["${HOME}/.*/salt%-formula/.*%.yml"] = "jinja",
+  },
+}

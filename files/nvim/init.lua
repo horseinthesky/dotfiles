@@ -1,8 +1,11 @@
 -- Sensible defaults
 require "options"
 
--- Handy autocommands
-require "autocmds"
+-- Handy (auto)commands
+require "cmds"
+
+-- Brilliant dev
+require "dev"
 
 -- Convenient keymaps
 require "keymaps"

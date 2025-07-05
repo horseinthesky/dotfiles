@@ -1,20 +1,39 @@
 local nmap = require("config.utils").nmap
 
 ---- Keymaps
--- hop
-nmap("f", "<CMD>HopChar1<CR>", { desc = "Hop" })
-
--- oil
-nmap("-", "<CMD>Oil<CR>", { desc = "Oil" })
-
 -- bufferline
-nmap("<leader>bp", "<cmd>BufferLinePick<CR>", { desc = "Pick" })
-
 for buffer = 1, 9 do
   nmap("<leader>" .. buffer, "<cmd>BufferLineGoToBuffer " .. buffer .. "<CR>")
 end
 
 return {
+  {
+    "ibhagwan/fzf-lua",
+    cmd = "FzfLua",
+    opts = {
+      winopts = {
+        fullscreen = true,
+        preview = {
+          layout = "horizontal",
+          horizontal = "right:70%",
+        },
+      },
+      keymap = {
+        builtin = {
+          ["<C-p>"] = "toggle-preview",
+          ["<C-f>"] = "toggle-fullscreen",
+          ["<C-d>"] = "preview-page-down",
+          ["<C-u>"] = "preview-page-up",
+        },
+      },
+      fzf_opts = {
+        ["--info"] = "default",
+      },
+    },
+    keys = {
+      { ";", "<CMD>FzfLua files<CR>", desc = "Find files" },
+    },
+  },
   {
     "folke/todo-comments.nvim",
     dependencies = {
@@ -44,6 +63,9 @@ return {
       require("hop").setup()
       vim.api.nvim_set_hl(0, "HopNextKey", { link = "Type" })
     end,
+    keys = {
+      { "f", "<CMD>HopChar1<CR>", desc = "Hop" },
+    },
   },
   {
     "stevearc/oil.nvim",
@@ -64,6 +86,9 @@ return {
         ["<C-p>"] = "actions.preview",
         ["<C-r>"] = "actions.refresh",
       },
+    },
+    keys = {
+      { "-", "<CMD>Oil<CR>", desc = "Oil" },
     },
   },
   {
@@ -127,6 +152,60 @@ return {
         duplicate_selected = {
           italic = false,
         },
+      },
+    },
+    keys = {
+      { "<leader>bp", "<cmd>BufferLinePick<CR>", desc = "Pick" },
+    },
+  },
+  {
+    "OXY2DEV/markview.nvim",
+    dependencies = {
+      "nvim-tree/nvim-web-devicons",
+    },
+    ft = "markdown",
+    opts = {
+      preview = {
+        hybrid_modes = { "n" },
+      },
+      markdown = {
+        list_items = {
+          shift_width = 2,
+        },
+      },
+    },
+    keys = {
+      { "<leader>M", "<CMD>Markview<CR>", desc = "Markview toggle" },
+      { "<leader>ms", "<CMD>Markview splitToggle<CR>", desc = "Split" },
+    },
+  },
+  {
+    "danymat/neogen",
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+    },
+    opts = {},
+    keys = {
+      {
+        "<leader>af",
+        function()
+          require("neogen").generate { type = "func" }
+        end,
+        desc = "Fuction",
+      },
+      {
+        "<leader>ac",
+        function()
+          require("neogen").generate { type = "class" }
+        end,
+        desc = "Class",
+      },
+      {
+        "<leader>at",
+        function()
+          require("neogen").generate { type = "type" }
+        end,
+        desc = "Type",
       },
     },
   },

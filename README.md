@@ -3,7 +3,7 @@
 >[!IMPORTANT]
 > Always a WIP :)
 
-![aplha](https://raw.githubusercontent.com/horseinthesky/dotfiles/master/media/alpha.png)
+![aplha](https://raw.githubusercontent.com/horseinthesky/dotfiles/master/media/dashboard.png)
 
 <div align="center">
     <a href="#-screenshots">Screenshots</a>
@@ -21,7 +21,7 @@ Neovim
 ![nvim](https://raw.githubusercontent.com/horseinthesky/dotfiles/master/media/nvim.png)
 ![nvim_insert](https://raw.githubusercontent.com/horseinthesky/dotfiles/master/media/nvim_insert.png)
 ![markdown](https://raw.githubusercontent.com/horseinthesky/dotfiles/master/media/markdown.png)
-![telescope](https://raw.githubusercontent.com/horseinthesky/dotfiles/master/media/telescope.png)
+![picker](https://raw.githubusercontent.com/horseinthesky/dotfiles/master/media/picker.png)
 
 fzf
 ![fzf](https://raw.githubusercontent.com/horseinthesky/dotfiles/master/media/fzf.png)
