@@ -44,10 +44,9 @@ return {
     dependencies = {
       "nvim-treesitter/nvim-treesitter-textobjects",
       "nvim-treesitter/nvim-treesitter-context",
-      "OXY2DEV/markview.nvim",
     },
     build = ":TSUpdate",
-    event = "VeryLazy",
+    lazy = false,
     config = function()
       require("nvim-treesitter.configs").setup {
         ensure_installed = parsers,
