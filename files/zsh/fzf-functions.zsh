@@ -94,13 +94,13 @@ s () {
   # Pass args to teleport ssh if any
   [[ $# -ne 0 ]] && tsh ssh $@ && return
 
-  local hosts=$(tsh ls | tail -n +3)
+  local hosts=$(tsh ls)
 
-  # Check if authentication is needed
-  [[ "$hosts" == *"Press [ENTER] to continue."* ]] && echo "$hosts" && return
+  # Failed to connect
+  [[ -z $hosts ]] && return
 
-  local host=$(echo "$hosts" | awk '{print $1" "$NF}' | column -t | fzf | cut -d " " -f 1)
-  [[ -z $host ]] && return
+  local nodename=$(echo "$hosts" | tail -n +3 | awk '{print $1" "$NF}' | column -t | fzf | cut -d " " -f 1)
+  [[ -z $nodename ]] && return
 
-  tsh ssh $host
+  tsh ssh $nodename
 }
