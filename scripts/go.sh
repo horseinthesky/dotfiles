@@ -34,7 +34,7 @@ install_go () {
       ;;
   esac
 
-  local version=1.24.0
+  local version=1.24.2
   local tarball=go${version}.linux-$arch.tar.gz
 
   if [[ -n $(command -v go) ]] && [[ $(go version | awk '{print $3}' | cut -c3-) == $version ]]; then
