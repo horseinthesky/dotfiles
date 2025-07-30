@@ -144,10 +144,24 @@ vim.api.nvim_create_autocmd("FileChangedShellPost", {
 -- https://www.youtube.com/watch?v=u1HgODpoijc
 vim.api.nvim_create_user_command("W", ":execute ':silent w !sudo tee % > /dev/null' | :edit!", {})
 
--- Hack for salt templates
+-- Set Salt formula YAML templates filetype to jinja
 vim.filetype.add {
+  desc = "Salt formula YAML has jinja filetype",
   pattern = {
     ["${HOME}/.*/salt%-formula/.*%.yaml"] = "jinja",
     ["${HOME}/.*/salt%-formula/.*%.yml"] = "jinja",
   },
 }
+
+-- Set Salt formula Python state files filetype to python
+vim.api.nvim_create_autocmd("BufReadPost", {
+  desc = "Salt formula pure Python states has python filetype",
+  pattern = "*.sls",
+  callback = function()
+    local first_line = vim.fn.getline(1)
+
+    if first_line:match "^#!py" then
+      vim.bo.filetype = "python"
+    end
+  end,
+})
