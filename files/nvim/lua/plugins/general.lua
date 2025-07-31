@@ -36,9 +36,6 @@ return {
   },
   {
     "folke/todo-comments.nvim",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-    },
     event = "VeryLazy",
     opts = {
       signs = true,
@@ -69,7 +66,6 @@ return {
   },
   {
     "stevearc/oil.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
     cmd = "Oil",
     opts = {
       use_default_keymaps = false,
@@ -160,9 +156,6 @@ return {
   },
   {
     "OXY2DEV/markview.nvim",
-    dependencies = {
-      "nvim-tree/nvim-web-devicons",
-    },
     ft = "markdown",
     opts = {
       preview = {

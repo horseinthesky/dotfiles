@@ -490,8 +490,7 @@ local comps = {
     icon = {
       function()
         local fname = vim.fn.expand "%:t"
-        local extension = vim.fn.expand "%:e"
-        local icon, _ = require("nvim-web-devicons").get_icon_color(fname, extension, { default = true })
+        local icon, _, _ = require("mini.icons").get("file", fname)
 
         return " " .. icon
       end,
