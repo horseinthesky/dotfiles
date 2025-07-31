@@ -3,6 +3,9 @@ local map = require("config.utils").map
 return {
   {
     "nvimtools/none-ls.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
     event = "VeryLazy",
     config = function()
       local nls = require "null-ls"
