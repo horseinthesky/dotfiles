@@ -65,7 +65,6 @@ alias bw="sudo $HOME/.cargo/bin/bandwhich -d 8.8.8.8"
 alias b="btm"
 alias p="procs"
 alias du="dust"
-alias ll='lsd -lA --group-dirs first'
 
 export EZA_COLORS="da=33"
 alias l='eza --group-directories-first -la --icons --header --color-scale age'

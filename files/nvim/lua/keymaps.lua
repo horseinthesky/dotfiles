@@ -4,7 +4,8 @@ local mappings = {
   -- Disable annoying s key
   { "n", "s", "<Nop>" },
   -- Miscellaneous
-  { "n", "<C-s>", "<CMD>w<CR>", { desc = "Alternate way to save" } },
+  { "n", "<leader>q", "<CMD>quit<CR>", { desc = "Quit" } },
+  { "n", "<C-s>", "<CMD>write<CR>", { desc = "Save" } },
   { "n", "J", "mzJ'z", { desc = "Keep cursor position when J" } },
   -- visual shifting (does not exit Visual mode)
   { "v", "<", "<gv" },
