@@ -91,8 +91,10 @@ fcht () {
 
 # Fuzzy teleport ssh
 s () {
+  local user=kpletnev
+
   # Pass args to teleport ssh if any
-  [[ $# -ne 0 ]] && tsh ssh $@ && return
+  [[ $# -ne 0 ]] && tsh ssh $user@$@ && return
 
   local hosts=$(tsh ls)
 
@@ -102,5 +104,5 @@ s () {
   local nodename=$(echo "$hosts" | tail -n +3 | awk '{print $1" "$NF}' | column -t | fzf | cut -d " " -f 1)
   [[ -z $nodename ]] && return
 
-  tsh ssh $nodename
+  tsh ssh $user@$nodename
 }

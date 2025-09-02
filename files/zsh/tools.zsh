@@ -72,7 +72,11 @@ fi
 
 # ==== MWS ====
 load_mws() {
+  local gitwork="$HOME"/.gitconfig-work
   local mwsenv="$HOME"/.mwsenv
+
+  # Load work env on work PC only.
+  [[ ! -f "$gitwork" ]] && return
 
   if [[ ! -f "$mwsenv" ]]; then
     echo -e "\e[93m \e[97mMWS env file $1 does not exist"
@@ -82,4 +86,4 @@ load_mws() {
   source "$mwsenv"
 }
 
-[[ $(cat /proc/sys/kernel/hostname) == "0000NBB0W095X1D" ]] && load_mws
+load_mws
