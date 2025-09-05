@@ -135,14 +135,10 @@ install_tools () {
     stylua
     gping
     xh
-    so
-    hyperfine
     procs
     du-dust,dust
     bandwhich
-    bottom,btm
     tealdeer,tldr
-    speedtest-rs
   )
 
   for tool in "${tools[@]}"; do
