@@ -94,7 +94,7 @@ s () {
   local user=kpletnev
 
   # Pass args to teleport ssh if any
-  [[ $# -ne 0 ]] && tsh ssh $user@$@ && return
+  [[ $# -ne 0 ]] && tsh ssh $user@hostname=$@ && return
 
   local hosts=$(tsh ls)
 
@@ -104,5 +104,5 @@ s () {
   local nodename=$(echo "$hosts" | tail -n +3 | awk '{print $1" "$NF}' | column -t | fzf | cut -d " " -f 1)
   [[ -z $nodename ]] && return
 
-  tsh ssh $user@$nodename
+  tsh ssh $user@hostname=$nodename
 }
