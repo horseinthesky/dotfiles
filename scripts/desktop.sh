@@ -22,23 +22,6 @@ install_flameshot () {
   success
 }
 
-install_kitty () {
-  header "Installing kitty..."
-
-  curl -sL https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
-  symlink $HOME/.local/kitty.app/bin/kitty $HOME/.local/bin/kitty
-  symlink $DOTFILES_HOME/kitty $HOME/.config/kitty
-
-
-  info "Configuring kitty desktop..."
-  cp $DOTFILES_HOME/kitty/kitty.desktop $HOME/.local/share/applications/
-  sed -i 's|PLACEHOLDER|'"$HOME"'|' $HOME/.local/share/applications/kitty.desktop
-  sed -i 's|TryExec=kitty|'"TryExec=$HOME/.local/bin/kitty"'|' $HOME/.local/share/applications/kitty.desktop
-  sed -i 's|^Exec=kitty|'"Exec=$HOME/.local/bin/kitty"'|' $HOME/.local/share/applications/kitty.desktop
-
-  success
-}
-
 install_ghostty () {
   header "Installing ghostty..."
 
@@ -78,7 +61,6 @@ main () {
 
   install_packages
   install_flameshot
-  install_kitty
   install_font
   install_ghostty
 }

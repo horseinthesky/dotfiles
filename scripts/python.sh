@@ -7,7 +7,7 @@ devenv=$HOME/.python
 setup_env () {
   header "Setting up dev environment..."
 
-  local devver=3.13
+  local devver=3.14
 
   if [[ -d $devenv ]]; then
     success "Already exists"
@@ -57,41 +57,10 @@ symlink_configs () {
   symlink "$DOTFILES_HOME"/ptpython.py "$XDG_CONFIG_HOME"/ptpython/config.py
 }
 
-install_poetry () {
-  header "Installing poetry..."
-
-  if [[ -n $(command -v poetry) ]]; then
-    warning "Already installed. Updating..."
-    poetry self update
-
-    success
-    return
-  fi
-
-  curl -sSL https://install.python-poetry.org | python - 1> /dev/null
-
-  if [[ $? -ne 0 ]]; then
-    error "Failed to install poetry"
-    return
-  fi
-
-  header "Installing poetry export plugin..."
-  poetry self add poetry-plugin-export
-
-  success
-}
-
-symlink_poetry () {
-  header "Symlink poetry config.toml"
-  symlink "$DOTFILES_HOME"/poetry.toml "$XDG_CONFIG_HOME"/pypoetry/config.toml
-}
-
 main () {
   setup_env
   install_python_tools
   symlink_configs
-  install_poetry
-  symlink_poetry
 }
 
 main
