@@ -6,7 +6,10 @@
   editor = nvim
 
 [merge]
-  tool = vimdiff
+  tool = nvimdiff
+
+[mergetool]
+	keepBackup = false
 
 [alias]
   git = !git
@@ -54,6 +57,6 @@
 
 [interactive]
   diffFilter = delta --color-only
-  
+
 [includeIf "gitdir:~/work/"]
     path = ~/.gitconfig-work
