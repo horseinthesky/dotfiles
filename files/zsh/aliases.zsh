@@ -53,9 +53,7 @@ alias grep='grep --color=auto --line-buffered'
 alias diff='diff --color -u'
 
 # tools
-alias bw="sudo $HOME/.cargo/bin/bandwhich -d 8.8.8.8"
-alias b="btm"
-alias p="procs"
+alias b="sudo $HOME/.cargo/bin/bandwhich"
 alias du="dust"
 
 export EZA_COLORS="da=33"

@@ -127,18 +127,15 @@ install_tools () {
   tools=(
     ripgrep,rg
     fd-find,fd
+    du-dust,dust
+    tealdeer,tldr
+    git-delta,delta
+    bandwhich
     zoxide
     eza
-    git-delta,delta
     just
     shellharden
     stylua
-    gping
-    xh
-    procs
-    du-dust,dust
-    bandwhich
-    tealdeer,tldr
   )
 
   for tool in "${tools[@]}"; do
