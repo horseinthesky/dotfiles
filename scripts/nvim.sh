@@ -57,7 +57,7 @@ install_neovim () {
     exit
   fi
 
-  local branch=release-0.11
+  local branch=release-0.12
 
   git clone --depth 1 --branch "$branch" https://github.com/neovim/neovim.git "$HOME"/neovim
   if [[ $? -ne 0 ]]; then

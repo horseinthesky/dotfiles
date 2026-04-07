@@ -28,12 +28,9 @@ return {
         ---- g
         { "gs", desc = "Split/join array" },
         { "gn", desc = "Show filename" },
-        { "gf", hidden = true, desc = "Go to file under cursor" },
-        { "gi", hidden = true, desc = "Go to last insert" },
         { "gN", hidden = true, desc = "Search backwards and select" },
         { "gt", hidden = true, desc = "Go to next tab page" },
         { "gT", hidden = true, desc = "Go to previous tab page" },
-        { "gv", hidden = true, desc = "Last visual selection" },
         { "gw", hidden = true, desc = "Format" },
         { "gx", hidden = true, desc = "Open file with system app" },
         { "g%", hidden = true, desc = "Cycle backwards through results" },
@@ -42,11 +39,14 @@ return {
         { "g~", hidden = true, desc = "Toggle cases" },
         { "g,", hidden = true, desc = "Go to [count] newer position in change list" },
         { "g;", hidden = true, desc = "Go to [count] older position in change list" },
+        -- Hide default lsp keymaps
         { "gO", hidden = true, desc = "Document diagnostic" },
         { "gra", hidden = true, desc = "Code actions" },
         { "grn", hidden = true, desc = "Code rename" },
         { "grr", hidden = true, desc = "Code references" },
         { "gri", hidden = true, desc = "Code implementation" },
+        { "grt", hidden = true, desc = "Type definition" },
+        { "grx", hidden = true, desc = "Codelens run" },
 
         ---- v
         -- Inside

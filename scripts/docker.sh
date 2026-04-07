@@ -63,7 +63,7 @@ install_docker_compose () {
 
   if [[ -f $plugin_dir/docker-compose ]]; then
     success "Already installed"
-    exit
+    return
   fi
 
   download https://github.com/docker/compose/releases/download/"$version/docker-compose-$(uname -s)-$(uname -m)"

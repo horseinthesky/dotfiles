@@ -25,7 +25,7 @@ install_asn () {
 
   if [[ -f $ASN ]]; then
     success "Already installed"
-    exit
+    return
   fi
 
   curl -s https://raw.githubusercontent.com/nitefood/asn/master/asn > \

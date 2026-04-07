@@ -2,28 +2,26 @@ local M = {}
 
 local utils = require "config.utils"
 
-local function lsp_restart()
-  vim.lsp.stop_client(vim.lsp.get_clients())
-  vim.cmd "sleep 500m"
-  vim.cmd "edit"
-end
-
 ---- NVIM 0.10 new default keymaps
--- <C-W>d (CTRL-W and d) - floating diagnostic
--- K - hover
--- ]d - goto next diagnostic
--- [d - goto prev diagnostic
+-- <C-W>d (CTRL-W and d) map to vim.diagnostic.open_float()
+-- K maps to vim.lsp.buf.hover(),
+-- ]d maps to vim.diagnostic.goto_next()
+-- [d maps to vim.diagnostic.goto_prev()
 
 ---- NVIM 0.11 new default keymaps
--- gra - code actions
--- grn - rename
--- grr - references
--- gri - implementation
--- gO - document symbol
--- CTRL-S Insert/Select mode - signature help
+-- gra maps to vim.lsp.buf.code_action()
+-- grn maps to vim.lsp.buf.rename()
+-- grr maps to vim.lsp.buf.references()
+-- gri maps to vim.lsp.buf.implementation()
+-- gO maps to vim.lsp.buf.document_symbol()
+-- CTRL-S Insert/Select mode maps to vim.lsp.buf.signature_help()
+
+---- NVIM 0.12 new default keymaps
+-- grt maps to vim.lsp.buf.type_definition()
+-- grx maps to vim.lsp.codelens.run()
 local keymaps = {
-  { "<leader>cR", lsp_restart, { desc = "Restart LSP clients" } },
-  { "<leader>ci", "<cmd>checkhealth lsp<CR>", { desc = "LSP healthcheck" } },
+  { "<leader>ci", "<CMD>checkhealth lsp<CR>", { desc = "LSP healthcheck" } },
+  { "<leader>cR", "<CMD>lsp restart<CR>", { desc = "LSP Restart" } },
   { "<leader>F", vim.lsp.buf.format, { desc = "Format" } },
   { "<leader>ca", vim.lsp.buf.code_action, { desc = "Actions" } },
   { "<leader>cr", vim.lsp.buf.rename, { desc = "Rename" } },

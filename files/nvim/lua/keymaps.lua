@@ -6,6 +6,7 @@ local mappings = {
   -- Miscellaneous
   { "n", "<leader>q", "<CMD>quit<CR>", { desc = "Quit" } },
   { "n", "<C-s>", "<CMD>write<CR>", { desc = "Save" } },
+  { "n", "<leader>R", "<CMD>:mksession! $HOME/.config/nvim/session.vim | restart source $HOME/.config/nvim/session.vim<CR>", { desc = "Restart" } },
   { "n", "J", "mzJ'z", { desc = "Keep cursor position when J" } },
   -- visual shifting (does not exit Visual mode)
   { "v", "<", "<gv" },
