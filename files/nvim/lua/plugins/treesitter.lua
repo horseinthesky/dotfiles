@@ -1,128 +1,141 @@
 local nmap = require("config.utils").nmap
 
-local swap_next, swap_prev = (function()
-  local swap_objects = {
-    b = "@block.outer",
-    c = "@class.outer",
-    f = "@function.outer",
-    m = "@call.outer",
-    p = "@parameter.inner",
-    s = "@statement.outer",
-  }
-
-  local n, p = {}, {}
-  for key, obj in pairs(swap_objects) do
-    n[string.format("<leader>s%s", key)] = obj
-    p[string.format("<leader>S%s", key)] = obj
-  end
-
-  return n, p
-end)()
-
-local parsers = {
-  "bash",
-  "dockerfile",
-  "go",
-  "gomod",
-  "gosum",
-  "hcl",
-  "json",
-  "just",
-  "lua",
-  "make",
-  "markdown",
-  "python",
-  "rust",
-  "toml",
-  "yaml",
-}
-
 return {
   {
     "nvim-treesitter/nvim-treesitter",
-    branch = "master",
+    branch = "main",
     dependencies = {
-      "nvim-treesitter/nvim-treesitter-textobjects",
+      {
+        "nvim-treesitter/nvim-treesitter-textobjects",
+        branch = "main",
+      },
       "nvim-treesitter/nvim-treesitter-context",
     },
     build = ":TSUpdate",
     lazy = false,
     config = function()
-      require("nvim-treesitter.configs").setup {
-        ensure_installed = parsers,
-        highlight = {
-          enable = true,
-          disable = function(lang, buf)
-            -- Do not use treesitter for files larger than 1 MB
-            local max_filesize = 1000 * 1024
-            local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-            if ok and stats and stats.size > max_filesize then
-              return true
-            end
-          end,
-          additional_vim_regex_highlighting = false,
-        },
-        indent = {
-          enable = true,
-        },
-        incremental_selection = {
-          enable = true,
-          keymaps = {
-            init_selection = "<enter>",
-            node_incremental = "<enter>",
-            node_decremental = "<bs>",
-          },
-        },
-        textobjects = {
-          select = {
-            enable = true,
-            lookahead = true,
-            keymaps = {
-              -- You can use the capture groups defined in textobjects.scm
-              ["oc"] = "@class.outer",
-              ["ic"] = "@class.inner",
-              ["of"] = "@function.outer",
-              ["if"] = "@function.inner",
-              ["ob"] = "@block.outer",
-              ["ib"] = "@block.inner",
-              ["ol"] = "@loop.outer",
-              ["il"] = "@loop.inner",
-              ["os"] = "@statement.outer",
-              ["is"] = "@statement.inner",
-              ["oC"] = "@comment.outer",
-              ["iC"] = "@comment.inner",
-              ["om"] = "@call.outer",
-              ["im"] = "@call.inner",
-            },
-          },
-          swap = {
-            enable = true,
-            swap_next = swap_next,
-            swap_previous = swap_prev,
-          },
-          move = {
-            enable = true,
-            set_jumps = true, -- whether to set jumps in the jumplist
-            goto_next_start = {
-              ["]f"] = "@function.outer",
-              ["]c"] = "@class.outer",
-            },
-            goto_next_end = {
-              ["]F"] = "@function.outer",
-              ["]C"] = "@class.outer",
-            },
-            goto_previous_start = {
-              ["[f"] = "@function.outer",
-              ["[c"] = "@class.outer",
-            },
-            goto_previous_end = {
-              ["[F"] = "@function.outer",
-              ["[C"] = "@class.outer",
-            },
-          },
+      -- Install parsers
+      local parsers = {
+        "bash",
+        "dockerfile",
+        "go",
+        "gomod",
+        "gosum",
+        "hcl",
+        "json",
+        "just",
+        "lua",
+        "make",
+        "markdown",
+        "python",
+        "rust",
+        "toml",
+        "yaml",
+      }
+
+      require("nvim-treesitter").install(parsers)
+
+      -- Textobjects plugin setup
+      require("nvim-treesitter-textobjects").setup {
+        select = {
+          include_surrounding_whitespace = true,
         },
       }
 
+      -- Swap
+      local swap_objects = {
+        b = "@block.outer",
+        c = "@class.outer",
+        f = "@function.outer",
+        p = "@parameter.inner",
+      }
+
+      local swap = require "nvim-treesitter-textobjects.swap"
+
+      -- Select
+      local select_objects = {
+        ["oc"] = "@class.outer",
+        ["ic"] = "@class.inner",
+        ["of"] = "@function.outer",
+        ["if"] = "@function.inner",
+        ["ob"] = "@block.outer",
+        ["ib"] = "@block.inner",
+        ["ol"] = "@loop.outer",
+        ["il"] = "@loop.inner",
+      }
+
+      local select = require "nvim-treesitter-textobjects.select"
+
+      -- Move
+      local move_objects = {
+        goto_next_start = {
+          ["]f"] = "@function.outer",
+          ["]c"] = "@class.outer",
+        },
+        goto_next_end = {
+          ["]F"] = "@function.outer",
+          ["]C"] = "@class.outer",
+        },
+        goto_previous_start = {
+          ["[f"] = "@function.outer",
+          ["[c"] = "@class.outer",
+        },
+        goto_previous_end = {
+          ["[F"] = "@function.outer",
+          ["[C"] = "@class.outer",
+        },
+      }
+
+      local move = require "nvim-treesitter-textobjects.move"
+
+      -- Buffer setup
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = parsers,
+        callback = function(args)
+          local buf = args.buf
+
+          -- Textobjects keymaps
+          -- swap
+          for letter, query in pairs(swap_objects) do
+            nmap("<leader>s" .. letter, function()
+              swap.swap_next(query)
+            end, { desc = query })
+
+            nmap("<leader>S" .. letter, function()
+              swap.swap_previous(query)
+            end, { buffer = buf, desc = query })
+          end
+
+          -- select
+          for key, query in pairs(select_objects) do
+            vim.keymap.set({ "o", "x" }, key, function()
+              select.select_textobject(query, "textobjects")
+            end, { buffer = buf, desc = query })
+          end
+
+          -- move
+          for method, keymaps in pairs(move_objects) do
+            for key, query in pairs(keymaps) do
+              nmap(key, function()
+                move[method](query)
+              end, { buffer = buf, desc = query })
+            end
+          end
+
+          -- Indent
+          vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+
+          -- Highlights if only < 1 Mb
+          local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+          if ok and stats and stats.size > 1024 * 1024 then
+            return
+          end
+
+          pcall(vim.treesitter.start, buf)
+        end,
+      })
+
+      -- Context plugin setup
       require("treesitter-context").setup()
       nmap("<leader>O", require("treesitter-context").toggle, { desc = "Treesitter context toggle" })
     end,

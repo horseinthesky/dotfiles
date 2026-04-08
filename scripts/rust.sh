@@ -130,6 +130,7 @@ install_tools () {
     du-dust,dust
     tealdeer,tldr
     git-delta,delta
+    tree-sitter-cli,tree-sitter
     bandwhich
     zoxide
     eza

@@ -83,10 +83,6 @@ return {
         { "]l", desc = "Loclist entry" },
         { "]q", desc = "Quickfixlist entry" },
         { "]w", desc = "Whitespace" },
-        { "]f", desc = "Goto next function start" },
-        { "]F", desc = "Goto next function end" },
-        { "]c", desc = "Goto next class start" },
-        { "]C", desc = "Goto next class end" },
         { "]m", hidden = true, desc = "Goto next method start" },
         { "]M", hidden = true, desc = "Goto next method end" },
         { "]s", hidden = true, desc = "Misspelled word" },
@@ -104,10 +100,6 @@ return {
         { "[l", desc = "Loclist entry" },
         { "[q", desc = "Quickfixlist entry" },
         { "[w", desc = "Whitespace" },
-        { "[f", desc = "Goto prev function start" },
-        { "[F", desc = "Goto prev function end" },
-        { "[c", desc = "Goto prev class start" },
-        { "[C", desc = "Goto prev class end" },
         { "[m", hidden = true, desc = "Goto prev method start" },
         { "[M", hidden = true, desc = "Goto prev method end" },
         { "[s", hidden = true, desc = "Misspelled word" },
@@ -148,20 +140,8 @@ return {
         ---- Treesitter swap
         -- Next
         { "<leader>s", group = "Swap next" },
-        { "<leader>sb", desc = "Outer block" },
-        { "<leader>sc", desc = "Outer class" },
-        { "<leader>sf", desc = "Outer function" },
-        { "<leader>sm", desc = "Outer call" },
-        { "<leader>sp", desc = "Inner parameter" },
-        { "<leader>ss", desc = "Outer statement" },
         -- Prev
         { "<leader>S", group = "Swap previous" },
-        { "<leader>Sb", desc = "Outer block" },
-        { "<leader>Sc", desc = "Outer class" },
-        { "<leader>Sf", desc = "Outer function" },
-        { "<leader>Sm", desc = "Outer call" },
-        { "<leader>Sp", desc = "Inner parameter" },
-        { "<leader>Ss", desc = "Outer statement" },
 
         ---- Plugins groups
         -- neogen

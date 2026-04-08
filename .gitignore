@@ -1,5 +1,8 @@
+# vim session
+*.vim
+
 # ZSH autocompletion dump
-.zcompdump
+.zcompdump*
 
 # NVIM Lazy packages
 lazy-lock.json
