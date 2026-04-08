@@ -6,17 +6,17 @@ local fmt = require("luasnip.extras.fmt").fmt
 
 return {
   s(
-    "req",
+    "reqm",
     fmt([[local {} = require "{}"]], {
       f(function(name)
-        local parts = vim.split(name[1][1], ".", true)
+        local parts = vim.split(name[1][1], ".", { plain = true })
         return parts[#parts] or ""
       end, { 1 }),
       i(1, "package"),
     })
   ),
   s(
-    "reqm",
+    "reqf",
     fmt([[local {} = require("{}").{}]], {
       f(function(args)
         return args[1][1] or ""

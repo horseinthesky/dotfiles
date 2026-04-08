@@ -70,18 +70,17 @@ install_cargo () {
   PATH=$HOME/.cargo/bin:$PATH
 
   local current_toolchain_version=$(
-    rustup show | \
-      grep -P -o "rustc \d+\.\d+\.\d+" | \
+    rustup --version 2> /dev/null | \
+      grep -P -o "rustup \d+\.\d+\.\d+" | \
       awk '{print $NF}'
   )
   local latest_toolchain_version=$(
     rustup check | \
-      grep -P -o "Update available.*\d+\.\d+\.\d+" | \
-      head -n 1 | \
+      grep -P -o "rustup.*\d+\.\d+\.\d+" | \
       awk '{print $NF}'
   )
 
-  if [[ -z $latest_toolchain_version ]]; then
+  if [[ $current_toolchain_version == $latest_toolchain_version ]]; then
     success "Latest ($current_toolchain_version) version is already installed"
     return
   fi
@@ -105,6 +104,7 @@ install_cli_tools_deps () {
       deps=(
         libssl-dev
         pkg-config
+        clang
       )
       ;;
     arch|manjaro)
