@@ -107,11 +107,7 @@ return {
         ["<C-u>"] = { "scroll_documentation_up", "fallback" },
         ["<C-d>"] = { "scroll_documentation_down", "fallback" },
       },
-
       completion = {
-        ghost_text = {
-          enabled = true,
-        },
         menu = {
           border = "none",
           winblend = 10,
@@ -122,13 +118,11 @@ return {
             },
           },
         },
-
         list = {
           selection = {
             preselect = false,
           },
         },
-
         documentation = {
           auto_show = true,
           window = {

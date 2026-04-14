@@ -8,7 +8,7 @@ return {
       "~/arcadia/contrib/tier1/gitsigns.arc.nvim",
       vim.fn.stdpath "data" .. "/lazy/gitsigns.nvim"
     ),
-    event = "VeryLazy",
+    lazy = false,
     opts = {
       signs = {
         add = { text = " " },
@@ -17,9 +17,6 @@ return {
         topdelete = { text = " " },
         changedelete = { text = " " },
         untracked = { text = " " },
-      },
-      preview_config = {
-        border = "rounded",
       },
       on_attach = function(_)
         local gs = require "gitsigns"
@@ -46,6 +43,9 @@ return {
         utils.nmap("<leader>gw", gs.blame_line, { desc = "Blame (who)" })
       end,
     },
+    cond = function()
+      return vim.fs.root(0, ".git") ~= nil
+    end,
   },
   {
     "akinsho/git-conflict.nvim",
