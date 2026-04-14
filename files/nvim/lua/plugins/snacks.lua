@@ -106,7 +106,7 @@ return {
       { "<leader>fk",  function() Snacks.picker.keymaps() end,               desc = "Keymaps" },
       { "<leader>fm",  function() Snacks.picker.man() end,                   desc = "Man pages" },
       { "<leader>fn",  function() Snacks.picker.notifications() end,         desc = "Notifications" },
-      { "<leader>e",   function() Snacks.explorer { hidden = true } end,     desc = "File Explorer" },
+      { "<leader>E",   function() Snacks.explorer { hidden = true } end,     desc = "File Explorer" },
 
       -- Search
       -- { ";", function() Snacks.picker.smart { hidden = true } end,  desc = "Smart find files" ,},

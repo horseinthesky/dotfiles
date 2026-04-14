@@ -83,6 +83,10 @@ function M.hl(group, opts)
   vim.api.nvim_set_hl(0, group, opts)
 end
 
+function M.get_hl(opts)
+  return vim.api.nvim_get_hl(0, opts)
+end
+
 local title_hl_map = {
   [vim.log.levels.ERROR] = "DiagnosticError",
   [vim.log.levels.WARN] = "DiagnosticWarn",

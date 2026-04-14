@@ -14,9 +14,6 @@ local ft_settings = {
     tabstop = 4,
     expandtab = false,
   },
-  jinja = {
-    shiftwidth = 2,
-  },
   go = {
     shiftwidth = 4,
     tabstop = 4,
@@ -52,7 +49,7 @@ local tw_config = {
 }
 
 local function highlight_trailing_whitespaces()
-  if tw_config.ignore_terminal and vim.bo.buftype == "terminal" then
+  if vim.bo.buftype == "terminal" and tw_config.ignore_terminal then
     return
   end
 
@@ -143,15 +140,6 @@ vim.api.nvim_create_autocmd("FileChangedShellPost", {
 -- https://www.youtube.com/watch?v=AcvxrF2MrrI
 -- https://www.youtube.com/watch?v=u1HgODpoijc
 vim.api.nvim_create_user_command("W", ":execute ':silent w !sudo tee % > /dev/null' | :edit!", {})
-
--- Set Salt formula YAML templates filetype to jinja
-vim.filetype.add {
-  desc = "Salt formula YAML has jinja filetype",
-  pattern = {
-    ["${HOME}/.*/salt%-formula/.*%.yaml"] = "jinja",
-    ["${HOME}/.*/salt%-formula/.*%.yml"] = "jinja",
-  },
-}
 
 -- Set Salt formula Python state files filetype to python
 vim.api.nvim_create_autocmd("BufReadPost", {

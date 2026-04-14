@@ -28,6 +28,7 @@ return {
         "make",
         "markdown",
         "python",
+        "regex",
         "rust",
         "toml",
         "yaml",

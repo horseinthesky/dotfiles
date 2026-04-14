@@ -1,5 +1,6 @@
-local icons = require "config.utils".icons
+local icons = require("config.utils").icons
 local hl = require("config.utils").hl
+local get_hl = require("config.utils").get_hl
 
 local M = {}
 
@@ -199,67 +200,67 @@ local function update_colorscheme_highlights()
     return
   end
 
-  vim.api.nvim_set_hl(0, "SignColumn", {})
-  vim.api.nvim_set_hl(0, "NormalFloat", {})
-  vim.api.nvim_set_hl(0, "FloatTitle", { link = "Normal" })
+  hl("SignColumn", {})
+  hl("NormalFloat", {})
+  hl("FloatTitle", { link = "Normal" })
 
-  vim.api.nvim_set_hl(0, "GitSignsAdd", {
+  hl("GitSignsAdd", {
     fg = nil,
-    bg = vim.api.nvim_get_hl(0, { name = "DiagnosticOk", link = false }).fg,
+    bg = get_hl({ name = "DiagnosticOk", link = false }).fg,
   })
-  vim.api.nvim_set_hl(0, "GitSignsChange", {
+  hl("GitSignsChange", {
     fg = nil,
-    bg = vim.api.nvim_get_hl(0, { name = "DiagnosticWarn", link = false }).fg,
+    bg = get_hl({ name = "DiagnosticWarn", link = false }).fg,
   })
-  vim.api.nvim_set_hl(0, "GitSignsDelete", {
+  hl("GitSignsDelete", {
     fg = nil,
-    bg = vim.api.nvim_get_hl(0, { name = "DiagnosticError", link = false }).fg,
+    bg = get_hl({ name = "DiagnosticError", link = false }).fg,
   })
 
-  local bottom_bg = vim.api.nvim_get_hl(0, { name = "ColorColumn", link = false }).bg
+  local bottom_bg = get_hl({ name = "ColorColumn", link = false }).bg
 
-  vim.api.nvim_set_hl(0, "StatusLineBottom", {
-    fg = vim.api.nvim_get_hl(0, { name = "WinBar", link = false }).fg,
+  hl("StatusLineBottom", {
+    fg = get_hl({ name = "WinBar", link = false }).fg,
     bg = bottom_bg,
   })
-  vim.api.nvim_set_hl(0, "StatusLineGitIcon", {
-    fg = vim.api.nvim_get_hl(0, { name = "Operator", link = false }).fg,
+  hl("StatusLineGitIcon", {
+    fg = get_hl({ name = "Operator", link = false }).fg,
     bg = bottom_bg,
   })
-  vim.api.nvim_set_hl(0, "StatusLineGitDiffAdd", {
-    fg = vim.api.nvim_get_hl(0, { name = "DiagnosticOk", link = false }).fg,
+  hl("StatusLineGitDiffAdd", {
+    fg = get_hl({ name = "DiagnosticOk", link = false }).fg,
     bg = bottom_bg,
   })
-  vim.api.nvim_set_hl(0, "StatusLineGitDiffChange", {
-    fg = vim.api.nvim_get_hl(0, { name = "DiagnosticWarn", link = false }).fg,
+  hl("StatusLineGitDiffChange", {
+    fg = get_hl({ name = "DiagnosticWarn", link = false }).fg,
     bg = bottom_bg,
   })
-  vim.api.nvim_set_hl(0, "StatusLineGitDiffDelete", {
-    fg = vim.api.nvim_get_hl(0, { name = "DiagnosticError", link = false }).fg,
+  hl("StatusLineGitDiffDelete", {
+    fg = get_hl({ name = "DiagnosticError", link = false }).fg,
     bg = bottom_bg,
   })
-  vim.api.nvim_set_hl(0, "StatusLineLspIcon", {
-    fg = vim.api.nvim_get_hl(0, { name = "Constant", link = false }).fg,
+  hl("StatusLineLspIcon", {
+    fg = get_hl({ name = "Constant", link = false }).fg,
     bg = bottom_bg,
   })
-  vim.api.nvim_set_hl(0, "StatusLineDiagnosticOk", {
-    fg = vim.api.nvim_get_hl(0, { name = "DiagnosticOk", link = false }).fg,
+  hl("StatusLineDiagnosticOk", {
+    fg = get_hl({ name = "DiagnosticOk", link = false }).fg,
     bg = bottom_bg,
   })
-  vim.api.nvim_set_hl(0, "StatusLineDiagnosticError", {
-    fg = vim.api.nvim_get_hl(0, { name = "DiagnosticError", link = false }).fg,
+  hl("StatusLineDiagnosticError", {
+    fg = get_hl({ name = "DiagnosticError", link = false }).fg,
     bg = bottom_bg,
   })
-  vim.api.nvim_set_hl(0, "StatusLineDiagnosticWarn", {
-    fg = vim.api.nvim_get_hl(0, { name = "DiagnosticWarn", link = false }).fg,
+  hl("StatusLineDiagnosticWarn", {
+    fg = get_hl({ name = "DiagnosticWarn", link = false }).fg,
     bg = bottom_bg,
   })
-  vim.api.nvim_set_hl(0, "StatusLineDiagnosticInfo", {
-    fg = vim.api.nvim_get_hl(0, { name = "DiagnosticInfo", link = false }).fg,
+  hl("StatusLineDiagnosticInfo", {
+    fg = get_hl({ name = "DiagnosticInfo", link = false }).fg,
     bg = bottom_bg,
   })
-  vim.api.nvim_set_hl(0, "StatusLineDiagnosticHint", {
-    fg = vim.api.nvim_get_hl(0, { name = "DiagnosticHint", link = false }).fg,
+  hl("StatusLineDiagnosticHint", {
+    fg = get_hl({ name = "DiagnosticHint", link = false }).fg,
     bg = bottom_bg,
   })
 
@@ -280,12 +281,12 @@ local function update_mode_highlights()
 
   local fg, bg = unpack(get_colors()[current_mode])
 
-  vim.api.nvim_set_hl(0, "StatusLineTop", { fg = bg, bg = fg })
-  vim.api.nvim_set_hl(0, "StatusLineTopSep", { fg = fg, bg = bg })
-  vim.api.nvim_set_hl(0, "StatusLineMiddle", { fg = fg, bg = bg })
-  vim.api.nvim_set_hl(0, "StatusLineMiddleSep", {
+  hl("StatusLineTop", { fg = bg, bg = fg })
+  hl("StatusLineTopSep", { fg = fg, bg = bg })
+  hl("StatusLineMiddle", { fg = fg, bg = bg })
+  hl("StatusLineMiddleSep", {
     fg = bg,
-    bg = vim.api.nvim_get_hl(0, { name = "ColorColumn", link = false }).bg,
+    bg = get_hl({ name = "ColorColumn", link = false }).bg,
   })
 
   last_mode = current_mode

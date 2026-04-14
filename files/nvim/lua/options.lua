@@ -74,7 +74,25 @@ for option, value in pairs(settings) do
   vim.opt[option] = value
 end
 
+-- Set additional filetypes
+vim.filetype.add {
+  pattern = {
+    -- Salt formula YAML as jinja
+    ["${HOME}/.*/salt%-formula/.*%.yaml"] = "jinja",
+    ["${HOME}/.*/salt%-formula/.*%.yml"] = "jinja",
+  },
+  extension = {
+    j2 = "jinja",
+  },
+}
+
 -- Diable default providers
+vim.g.loaded_python3_provider = 0
+vim.g.loaded_ruby_provider = 0
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_node_provider = 0
+
+-- Setup OSC 52
 vim.g.clipboard = {
   name = "OSC 52",
   copy = {
@@ -90,11 +108,6 @@ vim.g.clipboard = {
     end,
   },
 }
-
-vim.g.loaded_python3_provider = 0
-vim.g.loaded_ruby_provider = 0
-vim.g.loaded_perl_provider = 0
-vim.g.loaded_node_provider = 0
 
 -- Disable loading builtin plugins
 local builtin_plugins = {

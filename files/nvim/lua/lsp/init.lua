@@ -11,7 +11,7 @@ vim.lsp.config("*", {
 
 -- Auto discover LSP configs
 local lsp_configs = {}
-for _, filename in pairs(vim.api.nvim_get_runtime_file('lsp/*.lua', true)) do
+for _, filename in pairs(vim.api.nvim_get_runtime_file("lsp/*.lua", true)) do
   -- Cut off .lua
   local server_name = vim.fs.basename(filename):sub(1, -5)
   table.insert(lsp_configs, server_name)

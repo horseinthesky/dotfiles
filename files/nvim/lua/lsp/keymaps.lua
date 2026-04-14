@@ -1,6 +1,6 @@
-local M = {}
-
 local utils = require "config.utils"
+
+local M = {}
 
 ---- NVIM 0.10 new default keymaps
 -- <C-W>d (CTRL-W and d) map to vim.diagnostic.open_float()

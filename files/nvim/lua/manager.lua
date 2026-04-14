@@ -23,19 +23,21 @@ vim.opt.rtp:prepend(lazypath)
 
 -- Setup
 require("lazy").setup {
-  spec = {
-    -- Plugin specs path
-    { import = "plugins" },
-  },
-  change_detection = {
-    notify = false,
-  },
   defaults = {
     lazy = true,
+  },
+  spec = {
+    { import = "plugins" },
   },
   git = {
     -- Kill processes that take more than N seconds
     timeout = 30,
+  },
+  rocks = {
+    enabled = false,
+  },
+  change_detection = {
+    enabled = false,
   },
   ui = {
     backdrop = 100,
