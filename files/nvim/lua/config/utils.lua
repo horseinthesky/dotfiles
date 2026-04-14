@@ -79,14 +79,8 @@ function M.nmap(key, action, opts)
   M.map("n", key, action, opts)
 end
 
-function M.has_value(table, val)
-  for _, value in ipairs(table) do
-    if value == val then
-      return true
-    end
-  end
-
-  return false
+function M.hl(group, opts)
+  vim.api.nvim_set_hl(0, group, opts)
 end
 
 local title_hl_map = {

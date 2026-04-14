@@ -63,7 +63,7 @@ return {
       }
     end,
     cond = function()
-      return vim.fn.empty(vim.fn.glob "./.git") == 0
+      return vim.fs.root(0, ".git") ~= nil
     end,
   },
 }

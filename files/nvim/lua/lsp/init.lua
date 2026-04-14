@@ -1,6 +1,6 @@
--- require "lsp.servers"
 require "lsp.diagnostic"
 require "lsp.on_attach"
+
 local keymaps = require "lsp.keymaps"
 
 -- Shared LSP config
@@ -12,7 +12,8 @@ vim.lsp.config("*", {
 -- Auto discover LSP configs
 local lsp_configs = {}
 for _, filename in pairs(vim.api.nvim_get_runtime_file('lsp/*.lua', true)) do
-  local server_name = vim.fn.fnamemodify(filename, ':t:r')
+  -- Cut off .lua
+  local server_name = vim.fs.basename(filename):sub(1, -5)
   table.insert(lsp_configs, server_name)
 end
 

@@ -118,9 +118,9 @@ local checktime_group = vim.api.nvim_create_augroup("auto_checktime", { clear = 
 vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, {
   callback = function()
     vim.schedule(function()
-      local modes = { "n", "i", "ic" }
+      local mode = vim.api.nvim_get_mode().mode
 
-      if utils.has_value(modes, vim.api.nvim_get_mode().mode) and vim.fn.getcmdwintype() == "" then
+      if vim.tbl_contains({ "n", "i", "ic" }, mode) and vim.fn.getcmdwintype() == "" then
         vim.cmd [[checktime]]
       end
     end)
@@ -158,7 +158,7 @@ vim.api.nvim_create_autocmd("BufReadPost", {
   desc = "Salt formula pure Python states has python filetype",
   pattern = "*.sls",
   callback = function()
-    local first_line = vim.fn.getline(1)
+    local first_line = vim.api.nvim_buf_get_lines(0, 0, 1, false)[1]
 
     if first_line:match "^#!py" then
       vim.bo.filetype = "python"

@@ -1,4 +1,5 @@
 local icons = require "config.utils".icons
+local hl = require("config.utils").hl
 
 local M = {}
 
@@ -301,19 +302,11 @@ end
 
 -- Conditions
 local function buffer_not_empty()
-  if vim.fn.empty(vim.fn.expand "%:t") ~= 1 then
-    return true
-  end
-
-  return false
+  return vim.fs.basename(vim.api.nvim_buf_get_name(0)) ~= ""
 end
 
 local function wide_enough(width)
-  if vim.fn.winwidth(0) > width then
-    return true
-  end
-
-  return false
+  return vim.api.nvim_win_get_width(0) > width
 end
 
 local function git_info_exists()
@@ -438,11 +431,11 @@ local function get_diagnostic_all()
 
   local res = ""
   for _, group in ipairs(diag_params) do
-    local severity, icon, hl = unpack(group)
+    local severity, icon, hl_group = unpack(group)
     local severity_diag = count[severity] or 0
 
     if severity_diag > 0 then
-      res = res .. colorize(hl, string.format(" %s %d", icon, severity_diag))
+      res = res .. colorize(hl_group, string.format(" %s %d", icon, severity_diag))
     end
   end
 
@@ -489,9 +482,7 @@ local comps = {
   file = {
     icon = {
       function()
-        local fname = vim.fn.expand "%:t"
-        local icon, _, _ = require("mini.icons").get("file", fname)
-
+        local icon, _, _ = require("mini.icons").get("extension", vim.api.nvim_buf_get_name(0))
         return " " .. icon
       end,
       cond = buffer_not_empty,
@@ -503,15 +494,19 @@ local comps = {
           return ""
         end
 
-        local fname = vim.fn.expand "%:t"
-        if #fname == 0 then
+        local full_fname = vim.api.nvim_buf_get_name(0)
+        local fname = vim.fs.basename(full_fname)
+
+        if fname == "" then
           return ""
         end
 
         if wide_enough(140) then
-          local full_fname = vim.fn.fnamemodify(vim.fn.expand "%", ":~:.")
-          if #full_fname < 35 then
-            fname = full_fname
+          local cwd = vim.uv.cwd()
+          local relative_fname = full_fname:match("^" .. vim.pesc(cwd) .. "/(.*)") or full_fname
+
+          if #relative_fname < 35 then
+            fname = relative_fname
           end
         end
 

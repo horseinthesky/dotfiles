@@ -31,7 +31,7 @@ return {
         b.formatting.prettierd,
         b.formatting.buf,
         b.formatting.stylua.with {
-          extra_args = { "--config-path", vim.fn.expand "~/.config/stylua/stylua.toml" },
+          extra_args = { "--config-path", vim.fs.normalize "~/.config/stylua/stylua.toml" },
         },
       }
 
@@ -117,8 +117,8 @@ return {
           winblend = 10,
           draw = {
             columns = {
-              { "label",     "label_description", gap = 1 },
-              { "kind_icon", "kind",              gap = 1 },
+              { "label", "label_description", gap = 1 },
+              { "kind_icon", "kind", gap = 1 },
             },
           },
         },
