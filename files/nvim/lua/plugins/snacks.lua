@@ -96,6 +96,8 @@ return {
       },
     },
     keys = {
+      { "<leader>f",   "",                                                   desc = "+Find" },
+
       -- General
       { "<leader>fa",  function() Snacks.picker.autocmds() end,              desc = "Autocommands" },
       { "<leader>fc",  function() Snacks.picker.commands() end,              desc = "Commands" },
@@ -115,6 +117,7 @@ return {
       { "<leader>fw",  function() Snacks.picker.grep_word() end,             desc = "Grep word" },
 
       -- LSP
+      { "<leader>fl",  "",                                                   desc = "+LSP" },
       { "<leader>fld", function() Snacks.picker.diagnostics_buffer() end,    desc = "Diagnostics" },
       { "<leader>flD", function() Snacks.picker.diagnostics() end,           desc = "Workspace diagnostics" },
       { "<leader>fls", function() Snacks.picker.lsp_symbols() end,           desc = "Symbols" },

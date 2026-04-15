@@ -97,6 +97,9 @@ return {
 
           -- Textobjects keymaps
           -- swap
+          nmap("<leader>s", "", { desc = "+Swap next" })
+          nmap("<leader>S", "", { desc = "+Swap previous" })
+
           for letter, query in pairs(swap_objects) do
             nmap("<leader>s" .. letter, function()
               swap.swap_next(query)

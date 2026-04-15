@@ -3,7 +3,7 @@ local nmap = require("config.utils").nmap
 ---- Keymaps
 -- bufferline
 for buffer = 1, 9 do
-  nmap("<leader>" .. buffer, "<cmd>BufferLineGoToBuffer " .. buffer .. "<CR>")
+  nmap("<leader>" .. buffer, "<cmd>BufferLineGoToBuffer " .. buffer .. "<CR>", { desc = "Go to buffer " .. buffer } )
 end
 
 return {
@@ -169,6 +169,7 @@ return {
     },
     keys = {
       { "<leader>M", "<CMD>Markview<CR>", desc = "Markview toggle" },
+      { "<leader>m", "", desc = "+Markview" },
       { "<leader>ms", "<CMD>Markview splitToggle<CR>", desc = "Split" },
     },
   },
@@ -179,6 +180,11 @@ return {
     },
     opts = {},
     keys = {
+      {
+        "<leader>a",
+        "",
+        desc = "+Annotate",
+      },
       {
         "<leader>af",
         function()

@@ -67,6 +67,7 @@ local mappings = {
 
   -- Buffers
   { "n", "<leader>B", ":ls<CR>:b<Space>", { desc = "Go to buffer N" } },
+  { "n", "<leader>b", "", { desc = "+Buffers" } },
   { "n", "<leader>bd", "<cmd>bdelete<CR>", { desc = "Delete" } },
   { "n", "<leader>bo", "<cmd>%bdelete|edit#|bdelete#<CR>", { desc = "Keep only this one" } },
 
@@ -74,6 +75,7 @@ local mappings = {
   { "n", "]t", "<cmd>tabn<CR>", { desc = "Next tab" } },
   { "n", "[t", "<cmd>tabp<CR>", { desc = "Prev tab" } },
   -- { "n", "<leader>T", "<cmd>%s/\t/    /g<CR>", { desc = "Replace all <tab>s with 4 whitespaces" } },
+  { "n", "<leader>t", "", { desc = "+Tabs" } },
   { "n", "<leader>tt", "<cmd>tabnew<CR>", { desc = "New tab" } },
   { "n", "<leader>tc", "<cmd>tabclose<CR>", { desc = "Close tab" } },
   { "n", "<leader>to", "<cmd>tabonly<cr>", { desc = "Keep only this one" } },
@@ -86,6 +88,7 @@ local mappings = {
   { "n", "<S-Tab>", "<cmd>tabp<CR>" },
 
   -- Multiple replace
+  { "n", "<leader>r", "", { desc = "+Replace" } },
   -- Press * to search for the term under the cursor and then press a key below
   -- to replace all instances of it in the current file.
   -- Second binding is for comfirmation.
@@ -112,7 +115,7 @@ end
 -- Show filename
 utils.nmap("gn", function()
   utils.info(vim.api.nvim_buf_get_name(0), { title = "Filename" } )
-end)
+end, { desc = "Show filename" } )
 
 -- Additional text-objects
 -- https://thevaluable.dev/vim-create-text-objects/

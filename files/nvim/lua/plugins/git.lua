@@ -39,6 +39,7 @@ return {
         end)
 
         -- Actions
+        utils.nmap("<leader>g", "", { desc = "+Git" })
         utils.nmap("<leader>gh", gs.preview_hunk, { desc = "Preview hunk" })
         utils.nmap("<leader>gw", gs.blame_line, { desc = "Blame (who)" })
       end,

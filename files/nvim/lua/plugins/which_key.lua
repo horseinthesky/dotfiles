@@ -25,12 +25,9 @@ return {
       }
 
       wk.add {
-        ---- g
         { "gs", desc = "Split/join array" },
-        { "gn", desc = "Show filename" },
+        ---- Hide default g keymaps
         { "gN", hidden = true, desc = "Search backwards and select" },
-        { "gt", hidden = true, desc = "Go to next tab page" },
-        { "gT", hidden = true, desc = "Go to previous tab page" },
         { "gw", hidden = true, desc = "Format" },
         { "gx", hidden = true, desc = "Open file with system app" },
         { "g%", hidden = true, desc = "Cycle backwards through results" },
@@ -48,34 +45,6 @@ return {
         { "grt", hidden = true, desc = "Type definition" },
         { "grx", hidden = true, desc = "Codelens run" },
 
-        ---- v
-        -- Inside
-        { "vi", group = "Inside" },
-        { "vib", desc = "Block" },
-        { "vic", desc = "Class" },
-        { "vif", desc = "Function" },
-        { "vil", desc = "Loop" },
-        { "vim", desc = "Call" },
-        { "vis", desc = "Statement" },
-        { "viC", desc = "Comment" },
-        -- Outside
-        { "vo", group = "Outside" },
-        { "vob", desc = "Block" },
-        { "voc", desc = "Class" },
-        { "vof", desc = "Function" },
-        { "vol", desc = "Loop" },
-        { "vom", desc = "Call" },
-        { "vos", desc = "Statement" },
-        { "voC", desc = "Comment" },
-        -- Hidden
-        { "v0", hidden = true, desc = "Start of line" },
-        { "vb", hidden = true, desc = "Prev word" },
-        { "vc", hidden = true, desc = "Change" },
-        { "vd", hidden = true, desc = "Delete" },
-        { "ve", hidden = true, desc = "Next end of word" },
-        { "vf", hidden = true, desc = "Move to next char" },
-        { "vF", hidden = true, desc = "Move to prev char" },
-
         -- ] Next
         { "]b", desc = "Buffer" },
         { "]d", desc = "Definition" },
@@ -83,6 +52,14 @@ return {
         { "]l", desc = "Loclist entry" },
         { "]q", desc = "Quickfixlist entry" },
         { "]w", desc = "Whitespace" },
+        { "]a", hidden = true, desc = "next" },
+        { "]A", hidden = true, desc = "last" },
+        { "]B", hidden = true, desc = "blast" },
+        { "]L", hidden = true, desc = "llast" },
+        { "]Q", hidden = true, desc = "clast" },
+        { "]T", hidden = true, desc = "tlast" },
+        { "]w", hidden = true, desc = "whitespace" },
+        { "]D", hidden = true, desc = "Jump to the last diagnostic in the current buffer" },
         { "]m", hidden = true, desc = "Goto next method start" },
         { "]M", hidden = true, desc = "Goto next method end" },
         { "]s", hidden = true, desc = "Misspelled word" },
@@ -100,6 +77,14 @@ return {
         { "[l", desc = "Loclist entry" },
         { "[q", desc = "Quickfixlist entry" },
         { "[w", desc = "Whitespace" },
+        { "[a", hidden = true, desc = "previous" },
+        { "[A", hidden = true, desc = "rewind" },
+        { "[B", hidden = true, desc = "brewind" },
+        { "[L", hidden = true, desc = "lrewind" },
+        { "[Q", hidden = true, desc = "crewind" },
+        { "[T", hidden = true, desc = "trewind" },
+        { "[w", hidden = true, desc = "whitespace" },
+        { "[D", hidden = true, desc = "Jump to the first diagnostic in the current buffer" },
         { "[m", hidden = true, desc = "Goto prev method start" },
         { "[M", hidden = true, desc = "Goto prev method end" },
         { "[s", hidden = true, desc = "Misspelled word" },
@@ -109,45 +94,6 @@ return {
         { "[<", hidden = true, desc = "<" },
         { "[]", hidden = true, desc = "]" },
         { "[[", hidden = true, desc = "[" },
-        { "<leader>1", hidden = true, desc = "BufferLineGoToBuffer1" },
-        { "<leader>2", hidden = true, desc = "BufferLineGoToBuffer2" },
-        { "<leader>3", hidden = true, desc = "BufferLineGoToBuffer3" },
-        { "<leader>4", hidden = true, desc = "BufferLineGoToBuffer4" },
-        { "<leader>5", hidden = true, desc = "BufferLineGoToBuffer5" },
-        { "<leader>6", hidden = true, desc = "BufferLineGoToBuffer6" },
-        { "<leader>7", hidden = true, desc = "BufferLineGoToBuffer7" },
-        { "<leader>8", hidden = true, desc = "BufferLineGoToBuffer8" },
-        { "<leader>9", hidden = true, desc = "BufferLineGoToBuffer9" },
-
-        -- Buffers
-        { "<leader>b", group = "Buffers" },
-        -- Tabs
-        { "<leader>t", group = "Tabs" },
-        -- Code
-        { "<leader>c", group = "Code" },
-        -- Git
-        { "<leader>g", group = "Git" },
-        -- Replace
-        { "<leader>r", group = "Replace" },
-        -- Find
-        { "<leader>f", group = "Find" },
-        -- Find LSP
-        { "<leader>fl", group = "Lsp" },
-        { "<leader>flc", group = "Calls" },
-        -- { "<leader>flci", desc = "Incoming" },
-        -- { "<leader>flco", desc = "Outgoing" },
-
-        ---- Treesitter swap
-        -- Next
-        { "<leader>s", group = "Swap next" },
-        -- Prev
-        { "<leader>S", group = "Swap previous" },
-
-        ---- Plugins groups
-        -- neogen
-        { "<leader>a", desc = "Annotate" },
-        -- Markview
-        { "<leader>m", group = "Markview" },
       }
     end,
   },

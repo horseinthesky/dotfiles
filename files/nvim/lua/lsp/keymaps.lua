@@ -20,12 +20,13 @@ local M = {}
 -- grt maps to vim.lsp.buf.type_definition()
 -- grx maps to vim.lsp.codelens.run()
 local keymaps = {
-  { "<leader>ci", "<CMD>checkhealth lsp<CR>", { desc = "LSP healthcheck" } },
-  { "<leader>cR", "<CMD>lsp restart<CR>", { desc = "LSP Restart" } },
   { "<leader>F", vim.lsp.buf.format, { desc = "Format" } },
+  { "<leader>c", "", { desc = "+Code" } },
+  { "<leader>cR", "<CMD>lsp restart<CR>", { desc = "LSP Restart" } },
+  { "<leader>ci", "<CMD>checkhealth lsp<CR>", { desc = "LSP healthcheck" } },
   { "<leader>ca", vim.lsp.buf.code_action, { desc = "Actions" } },
-  { "<leader>cr", vim.lsp.buf.rename, { desc = "Rename" } },
   { "<leader>cd", vim.lsp.buf.definition, { desc = "Definition" } },
+  { "<leader>cr", vim.lsp.buf.rename, { desc = "Rename" } },
   {
     "<leader>ch",
     function()
