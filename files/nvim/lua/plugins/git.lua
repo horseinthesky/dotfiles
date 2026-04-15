@@ -48,22 +48,13 @@ return {
     end,
   },
   {
-    "akinsho/git-conflict.nvim",
+    "spacedentist/resolve.nvim",
     lazy = false,
-    config = function()
-      vim.api.nvim_set_hl(0, "GitConflictCurrent", { bg = "#427b58" })
-      vim.api.nvim_set_hl(0, "GitConflictIncoming", { bg = "#076678" })
-
-      require("git-conflict").setup {
-        disable_diagnostics = true,
-        highlights = {
-          current = "GitConflictCurrent",
-          incoming = "GitConflictIncoming",
-        },
-      }
-    end,
     cond = function()
       return vim.fs.root(0, ".git") ~= nil
+    end,
+    config = function()
+      require("resolve").setup {}
     end,
   },
 }
