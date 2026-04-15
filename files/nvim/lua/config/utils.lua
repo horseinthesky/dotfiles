@@ -70,9 +70,9 @@ function M.ternary(condition, trueValue, falseValue)
   return falseValue
 end
 
-function M.map(mode, key, action, opts)
+function M.map(modes, key, action, opts)
   opts = vim.tbl_extend("force", opts or {}, { noremap = true, silent = true })
-  vim.keymap.set(mode, key, action, opts)
+  vim.keymap.set(modes, key, action, opts)
 end
 
 function M.nmap(key, action, opts)

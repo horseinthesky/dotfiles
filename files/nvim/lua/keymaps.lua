@@ -30,6 +30,11 @@ local mappings = {
   -- strip all trailing whitespace in the current file while saving last search pattern
   { "n", "<leader>W", "<cmd>let _s=@/ <Bar> %s/\\s\\+$//e <Bar> let @/=_s <Bar> unlet _s<CR>", { desc = "Strip trailing whitespaces" } },
 
+  -- Treesitter incremental selection (nvim 0.12)
+  { "n", "<CR>", "van", { remap = true, desc = "Incremental selection" } },
+  { "x", "<CR>", "an", { remap = true, desc = "Increase" } },
+  { "x", "<BS>", "in", { remap = true, desc = "Decrease" } },
+
   -- Yank & paste
   { "n", "<leader>A", "<cmd>%y<CR>", { desc = "Yank the whole buffer" } },
   -- copy to system clipboard
@@ -100,8 +105,8 @@ local mappings = {
 }
 
 for _, keymap in ipairs(mappings) do
-  local mode, lhs, rhs, opts = unpack(keymap)
-  utils.map(mode, lhs, rhs, opts)
+  local modes, lhs, rhs, opts = unpack(keymap)
+  utils.map(modes, lhs, rhs, opts)
 end
 
 -- Show filename

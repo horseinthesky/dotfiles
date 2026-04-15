@@ -47,20 +47,13 @@ return {
       "rafamadriz/friendly-snippets",
       {
         "L3MON4D3/LuaSnip",
+        version = "v2.*",
+        build = "make install_jsregexp",
         config = function()
           local ls = require "luasnip"
 
-          ls.config.setup {
-            -- This tells LuaSnip to remember to keep around the last snippet.
-            -- You can jump back into it even if you move outside of the selection
-            history = true,
-
-            -- Updates as you type
-            updateevents = "TextChanged,TextChangedI",
-          }
-
           require("luasnip.loaders.from_vscode").lazy_load()
-          require("luasnip.loaders.from_lua").load { paths = vim.fn.stdpath "config" .. "/lua/snippets" }
+          require("luasnip.loaders.from_lua").load { paths = vim.fn.stdpath "config" .. "/snippets" }
 
           -- Expand or jump to next item
           map({ "i", "s" }, "<C-j>", function()
@@ -108,19 +101,21 @@ return {
         ["<C-d>"] = { "scroll_documentation_down", "fallback" },
       },
       completion = {
+        list = {
+          selection = {
+            preselect = false,
+            -- auto_insert = false,
+          },
+        },
         menu = {
           border = "none",
           winblend = 10,
           draw = {
+            treesitter = { "lsp" },
             columns = {
               { "label", "label_description", gap = 1 },
               { "kind_icon", "kind", gap = 1 },
             },
-          },
-        },
-        list = {
-          selection = {
-            preselect = false,
           },
         },
         documentation = {
@@ -130,18 +125,16 @@ return {
           },
         },
       },
-
+      signature = {
+        enabled = true,
+      },
       snippets = { preset = "luasnip" },
-
       cmdline = {
+        -- C-y: accept the current item
+        -- C-e: cancel completion
         completion = {
           menu = {
             auto_show = true,
-          },
-          list = {
-            selection = {
-              preselect = false,
-            },
           },
         },
       },
