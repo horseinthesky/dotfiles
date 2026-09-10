@@ -1,4 +1,10 @@
+-- LSP document highlights
+vim.api.nvim_set_hl(0, "LspReferenceRead", { link = "Search" })
+vim.api.nvim_set_hl(0, "LspReferenceWrite", { link = "IncSearch" })
+vim.api.nvim_set_hl(0, "LspReferenceText", { link = "IncSearch" })
+
 vim.api.nvim_create_autocmd("LspAttach", {
+  -- Safe to clear: Top-level group runs once on config load
   group = vim.api.nvim_create_augroup("LSP on attach", { clear = true }),
   callback = function(args)
     local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
@@ -15,22 +21,20 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
     -- Document highlight
     if client:supports_method "textDocument/documentHighlight" then
-      local group = vim.api.nvim_create_augroup("LSPDocumentHighlight", { clear = true })
+      -- Forbidden to clear: multiple buffers would override each other
+      local group = vim.api.nvim_create_augroup("LSPDocumentHighlight", { clear = false })
 
       vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
         buffer = args.buf,
-        callback = vim.lsp.buf.document_highlight,
         group = group,
+        callback = vim.lsp.buf.document_highlight,
       })
 
       vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
         buffer = args.buf,
-        callback = vim.lsp.buf.clear_references,
         group = group,
+        callback = vim.lsp.buf.clear_references,
       })
-
-      vim.api.nvim_set_hl(0, "LspReferenceRead", { link = "Search" })
-      vim.api.nvim_set_hl(0, "LspReferenceWrite", { link = "IncSearch" })
     end
 
     -- Inlay hints
