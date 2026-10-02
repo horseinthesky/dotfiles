@@ -230,7 +230,11 @@ function gco() {
 function gcb () {
   is_in_git_repo || return 1
 
-  [[ $# -ne 0 ]] && { git checkout -b $@; return $?; }
+  # Create local branch if args
+  if [[ $# -ne 0 ]]; then
+    git checkout -b $@
+    return $?
+  fi
 
   local cmd preview branch
   cmd="git branch --all --sort=-committerdate | grep -v HEAD"

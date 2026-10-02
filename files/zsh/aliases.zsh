@@ -86,16 +86,12 @@ alias grv='git remote -v'
 alias gst='git status'
 alias gbl='git blame -b -w'
 alias gcm='git checkout $(git_main_branch)'
+alias gb='git branch -vv'
 alias gcam='git commit -am'
-
 alias gf='git fetch'
-alias gfo='git fetch origin'
-
 alias gl='git pull'
-alias glo='git pull origin $(git branch --show-current)'
-
+alias glr='git pull --rebase'
 alias gp='git push'
-alias gpo='git push origin $(git branch --show-current)'
-
 alias grh='git reset --hard'
-alias groh='git reset origin/$(git branch --show-current) --hard'
+# Remove local changes and commits and sync from upstream
+alias gruh='git reset --hard @{u}'
