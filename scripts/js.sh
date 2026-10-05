@@ -74,6 +74,7 @@ install_js_packages () {
     dockerfile-language-server-nodejs
     pyright
     @fsouza/prettierd
+    @opencode/cli
   )
 
   XDG_DATA_HOME=$XDG_DATA_HOME yarn global add "${packages[@]}" | grep -E "Installed"
