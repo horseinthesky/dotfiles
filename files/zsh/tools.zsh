@@ -64,6 +64,10 @@ fi
 [[ -d $HOME/ycp && ! $PATH == *$HOME/ycp/bin* ]] && export PATH=$HOME/ycp/bin:$PATH
 [[ -f $HOME/yandex-cloud/completion.zsh.inc ]] && source $HOME/yandex-cloud/completion.zsh.inc
 
+# node to use system certs in addition to its root bundle
+# As alternative run `node --use-openssl-ca` or do `export NODE_OPTIONS="--use-openssl-ca"` to use system certs only
+export NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
+
 # ==== Yandex ====
 # if [[ $(cat /proc/sys/kernel/hostname) == 'carbon9' ]] ; then
 # fi

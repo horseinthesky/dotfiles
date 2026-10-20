@@ -55,6 +55,7 @@ alias diff='diff --color -u'
 # tools
 alias b="sudo $HOME/.cargo/bin/bandwhich"
 alias du="dust"
+alias o="opencode2"
 
 export EZA_COLORS="da=33"
 alias l='eza --group-directories-first -la --icons --header --color-scale age'
