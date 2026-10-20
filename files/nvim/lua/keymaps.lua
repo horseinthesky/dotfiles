@@ -7,7 +7,9 @@ local mappings = {
   { "n", "<leader>q", "<CMD>quit<CR>", { desc = "Quit" } },
   { "n", "<C-s>", "<CMD>write<CR>", { desc = "Save" } },
   { "n", "<leader>R", "<CMD>:mksession! $HOME/.config/nvim/session.vim | restart source $HOME/.config/nvim/session.vim<CR>", { desc = "Restart" } },
-  { "n", "J", "mzJ'z", { desc = "Keep cursor position when J" } },
+  { "n", "J", "mzJ`z", { desc = "Keep cursor position when joining lines with J" } },
+  -- as the inverse to C-o (older position)
+  { "n", "<C-n>", "<C-i>", { desc = "Jump to newer cursor position in jump list" } },
   -- visual shifting (does not exit Visual mode)
   { "v", "<", "<gv" },
   { "v", ">", ">gv" },
